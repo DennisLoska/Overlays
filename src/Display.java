@@ -20,11 +20,11 @@ class Display extends JPanel implements MouseListener, KeyListener {
 	
 	// Parameter
 	int imageSet = 4;  // 0 - 7  
-	int numPics = 5;          
+	int numPics = 3; //default: 5
 	int numOnes = 2;   // 0 < numOnes < numPics
-	boolean doGenerate = false;  // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen  
+	boolean doGenerate = true;  // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
 								 // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen	
-	double maxWeight = 0.71; // 0.51 .. 2.01 // wie stark darf ein Bild in der Linearkombination verwendet werden 
+	double maxWeight = 0.51; // 0.51 .. 2.01 // wie stark darf ein Bild in der Linearkombination verwendet werden
 
 	////////////////////////////////////////////////////////////////////////////////
 	String[] imageNames = {
@@ -42,18 +42,19 @@ class Display extends JPanel implements MouseListener, KeyListener {
 	int width, height;
 	double[][] m;    // richtige Kombination der Basisbilder (0/1) 
 	double[][] mInv; // Kombination der Eingangsbilder zur Erzeugung der Basisbilder
-	double [] wUser = new double[numPics];; // Kombination des Nutzers
+	double [] wUser = new double[numPics]; // Kombination des Nutzers
 	Random rand = new Random(1112); 
 	int targetPixels[][];
 	BufferedImage[] targetImages;
-	private double[][][] basisPixels3;    // Speicher für Basisbilder [Bildnummer][Position][Kanal]
+	private double[][][] basisPixels3;    // Speicher für Basisbilder [Bildnummer][Position][Kanal] --> daraus wird basisImages ausgerechnet - ausgangswerte für Basisbilder, da Werte > 255 und < 0
 	private BufferedImage[] basisImages;
+	int zeroLevel = 128;
 	
 	
 	public Display() {
 		super();
 
-		targetImages = new BufferedImage[numPics];
+		targetImages = new BufferedImage[numPics]; //erste obere Reihe Zielbilder
 
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -76,8 +77,8 @@ class Display extends JPanel implements MouseListener, KeyListener {
 			for (int i = 0; i < numPics; i++) 
 				targetImages[i].getRGB(0, 0, width, height, targetPixels[i], 0, width);
 		}
-		else {	// read basis images
-			basisImages = new BufferedImage[numPics];
+		else {	// read basis images - not needed if we decide to go with the other option!
+			basisImages = new BufferedImage[numPics]; //zweite obere Reihe - Basisbilder
 			try {
 				for (int i = 0; i < numPics; i++) 
 					basisImages[i] = ImageIO.read(new File("pics/"+imageNames[i+imageSet*5]));
@@ -91,6 +92,7 @@ class Display extends JPanel implements MouseListener, KeyListener {
 		calculateBasisAndTargetImages();
 	}
 
+	//true oder false, werden Basis- oder Zielbilder verrechnet
 	private void calculateBasisAndTargetImages() {
 		if (doGenerate == true) { 	// generate basis from input images
 			findCombinations();   // finde eine Konfiguration m mit Zeilensummen von minv > 0 
@@ -107,7 +109,7 @@ class Display extends JPanel implements MouseListener, KeyListener {
 			}
 		}
 		else {	
-			mInv = new double[numPics][numPics];
+			mInv = new double[numPics][numPics];//Matrix bei 5 Bildern 5x5 Matrix
 			int[][] pixelsBasis = new int[numPics][width*height];
 			for (int i = 0; i < numPics; i++) {
 				mInv[i][i] = 1; //1./numOnes;
@@ -115,13 +117,18 @@ class Display extends JPanel implements MouseListener, KeyListener {
 				basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width);
 			}
 			for (int i = 0; i < numPics; i++) 
-				basisPixels3[i] = blendPixelsTo3DDoubleImage(pixelsBasis, mInv[i]);
+				basisPixels3[i] = blendPixelsTo3DDoubleImage(pixelsBasis, mInv[i]);//PixelArray mit je 3 Kanälen pro Pixel (RGB)
 
+			//bisher: die Bilder je in 3 Kanäle getrennt
+
+			//generiert Spielematrix, wo alle Zeilen verschieden sind, fängt sonst von vorne an
 			generateRandomM();
 
+			//entstehen aus 3-Kanäligen Basisbildern
 			targetPixels = new int[numPics][width*height];
 
 			for (int i = 0; i < targetPixels.length; i++) {
+				//Bau Zielild aus 3-Kanäligem Basisbild und Spielmatrix aus Kombination der Basisbilder w= Zeile der Matrix
 				targetPixels[i] = blend3DDoubleToPixels(basisPixels3, m[i]);
 				targetImages[i] =  new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 				targetImages[i].setRGB(0, 0, width, height, targetPixels[i], 0, width);
@@ -191,67 +198,6 @@ class Display extends JPanel implements MouseListener, KeyListener {
 //				m[i][j] /= numOnes;
 	}
 
-	private void printResult() {
-		System.out.println("Lösung:");
-		for (int i = 0; i < m.length; i++) {
-			for (int j = 0; j < m[i].length; j++) {
-				System.out.printf("%6.2f", m[i][j]);
-			}
-			System.out.println();
-		}
-		System.out.println();
-		System.out.println("Zusammensetzung der Basisbilder aus den Eingangsbildern:");
-		for (int i = 0; i < mInv.length; i++) {
-			double sum = 0;
-			for (int j = 0; j < mInv[i].length; j++) {
-				double val = mInv[i][j];
-				System.out.printf("%6.2f ", val);
-				sum += val;
-			}
-			System.out.printf("  --> %6.2f\n", sum);
-		}
-		System.out.println();
-	}
-
-
-	private void doDrawing(Graphics g) {
-
-		if (targetImages[0] == null) 
-			return;
-
-		int[] pixelsBlended;
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.LIGHT_GRAY);
-		Dimension size = getSize();
-		g2d.fillRect(0, 0, size.width, size.height);
-
-		pixelsBlended = blend3DDoubleToPixels(basisPixels3, wUser);
-		
-		BufferedImage imgBlended =  new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		imgBlended.setRGB(0, 0, width, height, pixelsBlended, 0, width);
-
-		int bx = 10, by = 30;
-		g2d.setColor(Color.BLACK);
-
-		String str1 = "Erzeuge jedes dieser Bilder ...   (neue Kombination durch Tastendruck)";
-		g2d.drawString(str1, 30, 20);
-		String str2 = "durch die Überlagerung von " + numOnes + " dieser Bilder. Selektiere sie durch Klicks mit der Maus.";
-		g2d.drawString(str2, 30, 20 + height + by);
-		String str3 = "Resultierende Überlagerung:";
-		g2d.drawString(str3, 30, 20 + 2*height + 2*by);
-		
-		g2d.setColor(Color.RED);
-		g2d.setStroke(new BasicStroke(5)); 
-
-		for (int i = 0; i < numPics; i++) {
-			g2d.drawImage(targetImages[i],   null, bx+ i*(height+bx), by);
-			g2d.drawImage(basisImages[i], null, bx+i*(height+bx), height+2*by);
-			if (wUser[i] > 0) g2d.drawRect(bx+i*(height+bx), height+2*by, height, height);
-		}
-		
-		g2d.drawImage(imgBlended, null, bx, 2*height + 3*by);
-	}
-
 	/*
 	 * Kombiniert mehrere Bilder zu einem, Gewichtungen in w
 	 */
@@ -284,6 +230,7 @@ class Display extends JPanel implements MouseListener, KeyListener {
 		return pixels;
 	}
 
+	//zerlegt Bild in 3 Kanäle für je RGB - statt ARGB hat man ein Array mit RGB
 	private double[][] blendPixelsTo3DDoubleImage(int[][] pixelsIn, double[] w) {
 		double[][] pixels = new double[pixelsIn[0].length][3];
 
@@ -333,7 +280,7 @@ class Display extends JPanel implements MouseListener, KeyListener {
 	}
 	
 	
-	private int[] blend3DDoubleToPixels(double[][][] pixelsIn, double[] w) {
+	private int[] blend3DDoubleToPixels(double[][][] pixelsIn, double[] w) { //[] Bildnummer [] Pixel []Kanal
 		int[] pixels = new int[pixelsIn[0].length];
 
 		double rMin = 0, rMax = 255;
@@ -399,8 +346,7 @@ class Display extends JPanel implements MouseListener, KeyListener {
 		return pixels;
 	}
 
-	int zeroLevel = 128;
-	
+	//schiebt Bilder in den Sichtbaren Bereich, da der Zero-Level nicht 0, sondern 128 ist
 	double f(double val) {
 		return  val - zeroLevel;
 	}
@@ -408,8 +354,77 @@ class Display extends JPanel implements MouseListener, KeyListener {
 	double fi(double val) {
 		return  (val + zeroLevel);
 	}
-	
-	
+
+	/*
+		-----------------Code below is optional---------------------
+	 */
+
+	/*
+    shows results in the console
+ 	*/
+	private void printResult() {
+		System.out.println("Lösung:");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				System.out.printf("%6.2f", m[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println();
+		System.out.println("Zusammensetzung der Basisbilder aus den Eingangsbildern:");
+		for (int i = 0; i < mInv.length; i++) {
+			double sum = 0;
+			for (int j = 0; j < mInv[i].length; j++) {
+				double val = mInv[i][j];
+				System.out.printf("%6.2f ", val);
+				sum += val;
+			}
+			System.out.printf("  --> %6.2f\n", sum);
+		}
+		System.out.println();
+	}
+
+	/*
+		Java specific methods below this comment
+	 */
+	private void doDrawing(Graphics g) {
+
+		if (targetImages[0] == null)
+			return;
+
+		int[] pixelsBlended;
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setColor(Color.LIGHT_GRAY);
+		Dimension size = getSize();
+		g2d.fillRect(0, 0, size.width, size.height);
+
+		pixelsBlended = blend3DDoubleToPixels(basisPixels3, wUser);
+
+		BufferedImage imgBlended =  new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		imgBlended.setRGB(0, 0, width, height, pixelsBlended, 0, width);
+
+		int bx = 10, by = 30;
+		g2d.setColor(Color.BLACK);
+
+		String str1 = "Erzeuge jedes dieser Bilder ...   (neue Kombination durch Tastendruck)";
+		g2d.drawString(str1, 30, 20);
+		String str2 = "durch die Überlagerung von " + numOnes + " dieser Bilder. Selektiere sie durch Klicks mit der Maus.";
+		g2d.drawString(str2, 30, 20 + height + by);
+		String str3 = "Resultierende Überlagerung:";
+		g2d.drawString(str3, 30, 20 + 2*height + 2*by);
+
+		g2d.setColor(Color.RED);
+		g2d.setStroke(new BasicStroke(5));
+
+		for (int i = 0; i < numPics; i++) {
+			g2d.drawImage(targetImages[i],   null, bx+ i*(height+bx), by);
+			g2d.drawImage(basisImages[i], null, bx+i*(height+bx), height+2*by);
+			if (wUser[i] > 0) g2d.drawRect(bx+i*(height+bx), height+2*by, height, height);
+		}
+
+		g2d.drawImage(imgBlended, null, bx, 2*height + 3*by);
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
