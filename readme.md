@@ -7,7 +7,7 @@ _Mitglieder:_ Dennis Loska, Luisa Kurth
 - Showtime: 27.07.2018, Freitag
 - ab 18.04 jeden Mittwoch c647 14 Uhr
 - ganze Woche vor der Showtime für Showtime aufwenden
-- alle 2 Wochen 13:30 c647
+- alle 2 Wochen 13:30 c647 (ab dem 18.04)
 
 ## Ideen
 
@@ -34,6 +34,19 @@ _Mitglieder:_ Dennis Loska, Luisa Kurth
 ## Aktuelles
 
 - Lösungsmatrix im Feature-Branch implementieren
+
+## Festgelegte Tools, Technologien und Ziele
+
+
+## Projektmanagement - Mitschriften & Hausaufgaben
+
+- Produktvision:
+ 
+ >Unsere Produktvision ist ein kurzweiliges, browserbasiertes Puzzlespiel zum trainieren der Interpretaion von Farben und Strukturen/Objekten in Bildern.
+
+- Zielgruppe:
+
+>Puzzle-Freunde und Casual-Gamer.
 
 ## Bilder und Medien
 
