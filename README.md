@@ -18,26 +18,22 @@ Du solltest Node.js auf deinem Rechner installiert haben. Auf dem Server läuft 
 
 ```
 cd ./Overlays
-
 ```
 
 Anschließend müssen die Dependencies, also abhängige Node-Module die wir benötigen installiert bzw. runtergeladen werden. Hierfür nutzt du folgenden Befehl:
 
 ```
 npm install
-
 ```
 
 Jetzt sollte alles startklar sein und du solltest den lokalen Server starten können:
 
 ```
 node index.js
-
 ```
 
 Es sollte folgende Meldung im Terminal erscheinen:
 
 ```
 Node app is running at localhost:5000
-
 ```
