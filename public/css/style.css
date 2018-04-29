@@ -1,0 +1,52 @@
+header {
+    background-color: #76B900;
+}
+
+header #nav-ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-weight: 500;
+}
+
+#nav-ul-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.nav-li {
+    display: block;
+}
+
+.nav-li:hover {
+    background-color: forestgreen;
+    opacity: 0.8;
+}
+
+#nav-ul a {
+    color: black;
+}
+
+#instructions-article {
+    padding-top: 25px;
+}
+
+.article-text {
+    text-align: justify;
+}
+
+#game-container {
+    height: 600px;
+    padding: 25px;
+    background-color: forestgreen;
+    text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    header #nav-ul {
+        justify-content: center;
+    }
+}
