@@ -8,27 +8,45 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <title>Overlays</title>
 </head>
 
 <body>
     <header class="container-fluid">
-        <nav class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h1>Overlays</h1>
-                </div>
-                <div id="nav-ul-wrapper" class="col-md-9 col-sm-12">
-                    <ul id="nav-ul">
-                        <li class="nav-li"><a href="https://www.htw-berlin.de/" class="nav-link">HTW Berlin</a></li>
-                        <li class="nav-li"><a href="http://home.htw-berlin.de/~barthel/" class="nav-link">Prof. Barthel</a></li>
-                        <li class="nav-li"><a href="https://www.f4.htw-berlin.de/" class="nav-link">FB 4 - Visual Computing</a></li>
-                        <li class="nav-li"><a href="https://getbootstrap.com" class="nav-link">Bootstrap</a></li>
-                        <li class="nav-li"> <a href="https://p5js.org/" class="nav-link">p5.js</a></li>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="#">Overlays</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="https://www.htw-berlin.de/">HTW Berlin <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://home.htw-berlin.de/~barthel/">Prof. Barthel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.f4.htw-berlin.de/">FB4 - Visual Computing</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Tech-Stack
+                              </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="https://getbootstrap.com">Bootstrap</a>
+                                <a class="dropdown-item" href="https://www.nodejs.org/">Node.js</a>
+                                <a class="dropdown-item" href="https://p5js.org/">p5.js</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
     <main class="container">
         <article id="instructions-article">
@@ -45,13 +63,13 @@
                         quidem magni, odio cum ducimus laboriosam provident blanditiis, eveniet ea consequuntur eos labore mollitia iure nesciunt doloribus commodi omnis veniam quasi ullam, illo saepe quibusdam rem? Cum, ut.</p>
                 </section>
             </div>
-            <div class="row">
-                <section id="game-container" class="col-md-12">
-                    <h3>Das ist der Game-Container.</h3>
-                    <p>Hier wird in Zukunft das Spiel mit Hilfe von JS dynamisch geladen.</p>
-                </section>
-            </div>
         </article>
+        <div class="row">
+            <section id="game-container" class="col-md-12">
+                <h3>Das ist der Game-Container.</h3>
+                <p>Hier wird in Zukunft das Spiel mit Hilfe von JS dynamisch geladen.</p>
+            </section>
+        </div>
     </main>
     <footer></footer>
 </body>

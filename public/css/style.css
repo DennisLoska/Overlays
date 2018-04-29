@@ -1,37 +1,13 @@
-header {
+header,
+nav,
+li,
+.dropdown-menu {
     background-color: #76B900;
-}
-
-header #nav-ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: flex-end;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    font-weight: 500;
-}
-
-#nav-ul-wrapper {
-    display: flex;
-    align-items: center;
-}
-
-.nav-li {
-    display: block;
-}
-
-.nav-li:hover {
-    background-color: forestgreen;
-    opacity: 0.8;
-}
-
-#nav-ul a {
-    color: black;
 }
 
 #instructions-article {
     padding-top: 25px;
+    padding-bottom: 25px;
 }
 
 .article-text {
