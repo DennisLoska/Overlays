@@ -1,0 +1,7 @@
+{
+    "name": "Shareflair.io",
+    "description": "Shareflair is a platform for creative people to share their ideas. It's all about the flair of sharing creativity!",
+    "repository": "https://github.com/DennisLoska/Shareflair",
+    "logo": "https://github.com/DennisLoska/Shareflair/public/node.svg",
+    "keywords": ["node", "express", "static"]
+}

@@ -1,0 +1,29 @@
+{
+    "name": "shareflair",
+    "version": "0.1.0",
+    "description": "Yet another web-application with the goal to share the flair of creativity through it's users.",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "express": "^4.13.3"
+    },
+    "engines": {
+        "node": "4.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DennisLoska/Shareflair"
+    },
+    "keywords": [
+        "flair",
+        "shareflair",
+        "creativity"
+    ],
+    "author": "Dennis Loska",
+    "contributors": [
+        "Dennis Loska <d.loska@hotmail.de> (http://dennisloska.com)"
+    ],
+    "license": "MIT"
+}
