@@ -11,3 +11,33 @@ Im Branch _develop_ wird entwickelt, und sobald ein neues Feature bzw. eine Aufg
 ## Ziele und wie es sein sollte
 
 Ziel ist es, dass der production Branch **zu jeder Zeit** online ist und immer funktioniert. Was wir auf der IMI-Showtime präsentrieren, wird letztenendes der _production_ Branch sein. Dieser kann auf meinem Server laufen, aber wenn wir Node.js lokal installiert haben, können wir auch ohne Probleme eine lokale Version der Seite laufen lassen, damit es bei der Präsentation keine Probleme gibt!
+
+## Lokale Entwicklungsumgebung (mini Tutorial)
+
+Du solltest Node.js auf deinem Rechner installiert haben. Auf dem Server läuft Versionb _8.9.4_, aber auf der lokalen Umgebung sollte die neuste LTS Variante ab version **8.11.1** installiert werden. Nachdem Node installiert wurde solltest du am Besten das Repository klonen und dann im Terminal da reingehen
+
+```
+cd ./Overlays
+
+```
+
+Anschließend müssen die Dependencies, also abhängige Node-Module die wir benötigen installiert bzw. runtergeladen werden. Hierfür nutzt du folgenden Befehl:
+
+```
+npm install
+
+```
+
+Jetzt sollte alles startklar sein und du solltest den lokalen Server starten können:
+
+```
+node index.js
+
+```
+
+Es sollte folgende Meldung im Terminal erscheinen:
+
+```
+Node app is running at localhost:5000
+
+```
