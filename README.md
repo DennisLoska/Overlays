@@ -14,7 +14,7 @@ Ziel ist es, dass der production Branch **zu jeder Zeit** online ist und immer f
 
 ## Lokale Entwicklungsumgebung (mini Tutorial)
 
-Du solltest Node.js auf deinem Rechner installiert haben. Auf dem Server läuft Versionb _8.9.4_, aber auf der lokalen Umgebung sollte die neuste LTS Variante ab version **8.11.1** installiert werden. Nachdem Node installiert wurde solltest du am Besten das Repository klonen und dann im Terminal da reingehen
+Du solltest Node.js auf deinem Rechner installiert haben. Auf dem Server läuft Versionb _8.9.4_, aber auf der lokalen Umgebung sollte die neuste LTS Variante ab version **8.11.1** installiert werden (https://nodejs.org/en/). Nachdem Node installiert wurde solltest du am Besten das Repository klonen und dann im Terminal da reingehen
 
 ```
 cd ./Overlays
