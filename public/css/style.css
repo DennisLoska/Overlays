@@ -5,6 +5,29 @@ li,
     background-color: #76B900;
 }
 
+#nav-wrapper {
+    padding: 0;
+}
+
+nav.navbar.navbar-expand-lg.navbar-light {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+div#navbarNavDropdown {
+    justify-content: flex-end;
+}
+
+a.nav-link {
+    color: black !important;
+    /*bad practice don't do this in production*/
+}
+
+a.nav-link:hover {
+    background-color: forestgreen;
+    /*bad practice don't do this in production*/
+}
+
 #instructions-article {
     padding-top: 25px;
     padding-bottom: 25px;
