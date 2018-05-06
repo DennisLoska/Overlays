@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canvas Demo</title>
+</head>
+
+<body>
+    <img src="img/image_sets/G2.jpg" id="img" alt="">
+    <img src="img/image_sets/W3.jpg" id="img-1" alt="">
+    <canvas id="c" width="150" height="150"></canvas>
+    <canvas id="c1" width="150" height="150"></canvas>
+    <canvas id="c2" width="150" height="150"></canvas>
+    <p><button onclick="myCanvas()">Try it</button></p>
+</body>
+<script>
+    //https://developer.mozilla.org/de/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
+    //https://www.w3schools.com/tags/canvas_getimagedata.asp
+    function myCanvas() {
+        var c = document.getElementById("c");
+        var ctx = c.getContext("2d");
+        var img = document.getElementById("img");
+        ctx.drawImage(img, 0, 0);
+
+        var c1 = document.getElementById("c1");
+        var ctx1 = c1.getContext("2d");
+        var img1 = document.getElementById("img-1");
+        ctx1.drawImage(img1, 0, 0);
+
+        var c2 = document.getElementById("c2");
+        var ctx2 = c2.getContext("2d");
+
+        var imgData = ctx.getImageData(0, 0, c.width, c.height);
+        var imgData1 = ctx1.getImageData(0, 0, c1.width, c1.height);
+        var bufferData = ctx2.getImageData(0, 0, c2.width, c2.height);
+
+        var data = imgData.data;
+        var data1 = imgData1.data;
+        var buffer = bufferData.data;
+
+        // enumerate all pixels
+        // each pixel's r,g,b,a datum are stored in separate sequential array elements
+        for (var i = 0; i < data.length; i += 4) {
+            var red = data[i];
+            var green = data[i + 1];
+            var blue = data[i + 2];
+            //var alpha = data[i + 3];
+
+            var red1 = data1[i];
+            var green1 = data1[i + 1];
+            var blue1 = data1[i + 2];
+            //var alpha1 = data1[i + 3];
+
+            //stupid test
+            buffer[i] = red1 / 2 + red / 4;
+            buffer[i + 1] = green1 / 2 + green / 4;
+            buffer[i + 2] = blue1 / 2 + blue / 3;
+            buffer[i + 3] = 255 //alpha
+        }
+        ctx2.putImageData(bufferData, 0, 0);
+    }
+</script>
+
+</html>
