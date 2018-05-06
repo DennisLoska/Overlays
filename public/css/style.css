@@ -1,6 +1,11 @@
+body {
+    background-image: url("../img/grey_wash_wall.png");
+    background-repeat: repeat;
+}
+
 header,
 nav,
-li,
+header li,
 .dropdown-menu {
     background-color: #76B900;
 }
@@ -28,24 +33,248 @@ a.nav-link:hover {
     /*bad practice don't do this in production*/
 }
 
-#instructions-article {
-    padding-top: 25px;
+.tutorial-article-row {
+    background-color: #efefef;
+    padding: 50px 0 50px 0;
+}
+
+#tutorial-container {
+    padding: 0;
+}
+
+#tutorial-overlays-row {
+    background-color: #333;
+}
+
+#tutorial-container>.row {
+    margin: 0;
+}
+
+#tutorial-headline,
+#information-headline {
+    font-size: 60px;
     padding-bottom: 25px;
+    text-align: center;
+}
+
+#information-headline {
+    padding-top: 25px;
+}
+
+#tutorial-article,
+#information-article {
+    padding-bottom: 25px;
+    color: #222;
 }
 
 .article-text {
     text-align: justify;
 }
 
-#game-container {
-    height: 600px;
-    padding: 25px;
-    background-color: forestgreen;
+#lp-row {
+    height: 97.5vh;
     text-align: center;
+    color: #efefef;
+}
+
+#lp-row h1 {
+    font-size: 96px;
+    margin-top: 0;
+}
+
+#cta-btn {
+    display: inline-block;
+    min-width: 210px;
+    width: 305px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #76B900;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: all .25s ease-in;
+    -moz-transition: all .25s ease-in;
+    -webkit-transition: all .25s ease-in;
+    text-decoration: none;
+}
+
+#cta-btn:hover {
+    opacity: .5;
+}
+
+#game-wrapper {
+    padding: 100px 0 100px 0;
+}
+
+#game-container,
+#tut-game-container {
+    height: 100vh;
+    padding: 25px;
+    background-color: rgba(118, 185, 0, 0.4);
+    text-align: center;
+    color: #efefef;
+}
+
+#tut-game-container {
+    height: 850px;
+}
+
+#tut-game-container h3 {
+    font-size: 2.5rem;
+    padding-top: 25px;
+}
+
+#tut-game-container p {
+    font-size: 18px;
+    padding-bottom: 15px;
+}
+
+#tut-score,
+#tut-timer {
+    background-color: inherit;
+}
+
+.tile-square {
+    height: 4vw;
+    width: 4vw;
+    background-color: gold;
+    display: inline-block;
+}
+
+.tile-square>span {
+    display: inline-block;
+    font-size: 0.8vw;
+}
+
+.tut-tile-off {
+    background-color: #333;
+}
+
+.tut-tile-on {
+    background-color: #fffefed2;
+}
+
+.tut-correct {
+    background-color: rgb(25, 160, 25);
+}
+
+.tut-incorrect {
+    background-color: #da3131;
+}
+
+.tut-basic {
+    background-color: dodgerblue;
+}
+
+#tutorial-list {
+    list-style-type: none;
+    padding-top: 25px;
+    padding-left: 20px;
+}
+
+#tutorial-list li {
+    text-align: left;
+    padding-bottom: 5px;
+}
+
+span.li-color {
+    color: #efefef;
+    display: inline-block;
+    width: 95%;
+    padding-left: 15px;
+}
+
+#tutorial-list li:nth-of-type(1) {
+    color: dodgerblue;
+}
+
+#tutorial-list li:nth-of-type(2) {
+    color: gold;
+}
+
+#tutorial-list li:nth-of-type(3) {
+    color: #fffefed2;
+}
+
+#tutorial-list li:nth-of-type(4) {
+    color: #333;
+}
+
+#tutorial-list li:nth-of-type(5) {
+    color: rgb(25, 160, 25);
+}
+
+#tutorial-list li:nth-of-type(6) {
+    color: #da3131;
+}
+
+footer {
+    height: 400px;
+    background-color: #76B900;
+}
+
+@media only screen and (max-width: 1920px) {
+    .tile-square {
+        height: 6vw;
+        width: 6vw;
+    }
+    .tile-square>span {
+        font-size: 1vw;
+    }
+    #tut-game-container {
+        height: 900px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .tile-square {
+        height: 9vw;
+        width: 9vw;
+    }
+    .tile-square>span {
+        font-size: 1.8vw;
+    }
+    #tut-game-container {
+        height: 950px;
+    }
+    span.li-color {
+        display: inline;
+    }
 }
 
 @media only screen and (max-width: 768px) {
     header #nav-ul {
         justify-content: center;
+    }
+    #lp-row h1 {
+        font-size: 20vw;
+    }
+    .sub-headline {
+        text-align: left;
+    }
+    #tutorial-headline {
+        font-size: 4rem;
+    }
+    #information-headline {
+        font-size: 2.5rem;
+    }
+    #cta-btn {
+        max-width: 210px;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    #tut-game-container {
+        height: 1000px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .tile-square-wrapper {
+        margin-left: -1vw;
+        margin-right: -1vw;
     }
 }
