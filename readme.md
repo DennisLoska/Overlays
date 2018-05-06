@@ -20,6 +20,12 @@ Du solltest Node.js auf deinem Rechner installiert haben. Auf dem Server läuft 
 cd ./Overlays
 ```
 
+Als nächstes muss in den _develop_ Branch gewechselt werden:
+
+```
+git checkout develop
+```
+
 Anschließend müssen die Dependencies, also abhängige Node-Module die wir benötigen installiert bzw. runtergeladen werden. Hierfür nutzt du folgenden Befehl:
 
 ```
@@ -36,4 +42,10 @@ Es sollte folgende Meldung im Terminal erscheinen:
 
 ```
 Node app is running at localhost:5000
+```
+
+Wenn du deine Sachen pushen möchtest, dann machst du wie gewohnt Commits und am Ende:
+
+```
+git push origin develop
 ```
