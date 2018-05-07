@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="js/game_engine.js"></script>
     <title>Overlays</title>
 </head>
 
@@ -212,13 +213,13 @@
                                 <div class="tile-square" id="js-game-score"></div>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square" id="js-basis-image-1"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square" id="js-basis-image-2"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square" id="js-basis-image-3"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
                                 <div class="tile-square" id="js-game-timer"></div>
@@ -226,7 +227,7 @@
                         </div>
                         <div class="row justify-content-center align-items-center tile-row">
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square" id="js-starting-image-1"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
                                 <canvas class="tile-square"></canvas>
@@ -243,7 +244,7 @@
                         </div>
                         <div class="row justify-content-center align-items-center tile-row">
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square" id="js-starting-image-2"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
                                 <canvas class="tile-square"></canvas>
@@ -260,7 +261,7 @@
                         </div>
                         <div class="row justify-content-center align-items-center tile-row">
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square" id="js-starting-image-3"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
                                 <canvas class="tile-square"></canvas>
@@ -275,6 +276,7 @@
                                 <canvas class="tile-square"></canvas>
                             </div>
                         </div>
+                        <p><button onclick="canvasDemo()">Canvas Demo</button></p>
                     </section>
                 </div>
             </div>
@@ -286,9 +288,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(function() {
-
             $('a[href*="#"]:not([href="#"])').click(function() {
-                console.log("test");
                 if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
                     var target = $(this.hash);
                     target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
