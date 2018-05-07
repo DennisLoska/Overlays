@@ -49,7 +49,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" target="_blank" href="https://getbootstrap.com">Bootstrap</a>
                                 <a class="dropdown-item" target="_blank" href="https://www.nodejs.org/">Node.js</a>
-                                <a class="dropdown-item" target="_blank" href="https://p5js.org/">p5.js</a>
+                                <a class="dropdown-item" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">Canvas-API</a>
                             </div>
                         </li>
                     </ul>
@@ -67,19 +67,19 @@
             </div>
         </section>
         <!--Tutorial begin-->
-        <div class="container-flud" id="tutorial-container">
+        <section class="container-flud" id="tutorial-container">
             <div class="row tutorial-article-row">
                 <div class="container">
                     <article class="row" id="tutorial-article">
                         <h2 id="tutorial-headline" class="col-md-12">Tutorial</h2>
                         <section class="offset-md-3 col-md-6 article-text">
-                            <h2 class="sub-headline">Was ist Overlays ?</h2>
+                            <h2 class="sub-headline">Was ist Overlays?</h2>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, quam similique iure eum ipsum expedita repudiandae labore sint adipisci consequatur rerum ab, ut recusandae velit consequuntur iste. At, quos! Eaque. Repellat
                                 alias dolore numquam dolor rerum doloremque obcaecati consequatur quod voluptatem, nulla magnam distinctio deserunt beatae. Porro eos sequi nobis accusamus. Distinctio fugiat sit reprehenderit ea, enim voluptas fugit cumque.
                                 Velit, sunt veniam quo ut in adipisci</p>
                         </section>
                         <section class="offset-md-3 col-md-6 article-text">
-                            <h2 class="sub-headline">Wie funktioniert's ?</h2>
+                            <h2 class="sub-headline">Wie funktioniert's?</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus porro iusto at, harum nulla, non voluptates, quae illum ratione sed sapiente exercitationem deleniti. Odit beatae porro similique autem, rerum molestiae?Dolor
                                 harum quidem magni, odio cum ducimus laboriosam provident blanditiis, eveniet ea consequuntur eos labore mollitia iure nesciunt doloribus commodi omnis veniam quasi ullam, illo saepe quibusdam rem? Cum, ut.</p>
                         </section>
@@ -167,17 +167,16 @@
                                 <div class="row justify-content-center">
                                     <div class="col-md-9">
                                         <ul id=tutorial-list>
-                                            <li>&#9632;<span class="li-color">Dies sind die Basisbilder, welche kombiniert ein Zielbild ergeben</span></li>
+                                            <li>&#9632;<span class="li-color">Das sind die Basisbilder, welche kombiniert ein Zielbild ergeben</span></li>
                                             <li>&#9632;<span class="li-color">Die Startbilder - auf der rechten Seite soll wieder das selbe Startbild entstehen</span></li>
                                             <li>&#9632;<span class="li-color">Pro Reihe lassen sich z.B. 2 Basisbilder auswählen, um ein Zielbild zu erstellen - <b>weiß: ON</b></span></li>
-                                            <li>&#9632;<span class="li-color">Man kann z.B. pro Reihe 2 Basisbilder z wählen, der rest ist - <b>schwarz: OFF</b></span></li>
-                                            <li>&#9632;<span class="li-color">Rechts steht das Ergebnisbild - ist dieses das gleiche wie das Anfaangsbild (gold), gibt es Punkte</span></li>
-                                            <li>&#9632;<span class="li-color">Wenn man einen Fehler gemacht hat, wird dies rechts deutlich und es gibt Punktabzüge</span></li>
+                                            <li>&#9632;<span class="li-color">Man kann z.B. pro Reihe 2 Basisbilder wählen, der rest ist - <b>schwarz: OFF</b></span></li>
+                                            <li>&#9632;<span class="li-color">Rechts steht das Ergebnisbild - entspricht es dem Anfaangsbild, gibt es Punkte</span></li>
+                                            <li>&#9632;<span class="li-color">Fehler werden beim Zielbild deutlich und es gibt Punktabzüge</span></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-
                         </section>
                     </div>
                 </div>
@@ -193,97 +192,97 @@
                                 Velit, sunt veniam quo ut in adipisci</p>
                         </section>
                         <section class="offset-md-3 col-md-6 col-sm-12 article-text">
-                            <h2 class="sub-headline">Verwendete Techno&shy;logien</h2>
+                            <h2 class="sub-headline">Verwendete Tech&shy;nologien</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus porro iusto at, harum nulla, non voluptates, quae illum ratione sed sapiente exercitationem deleniti. Odit beatae porro similique autem, rerum molestiae?Dolor
                                 harum quidem magni, odio cum ducimus laboriosam provident blanditiis, eveniet ea consequuntur eos labore mollitia iure nesciunt doloribus commodi omnis veniam quasi ullam, illo saepe quibusdam rem? Cum, ut.</p>
                         </section>
                     </article>
                 </div>
             </div>
-        </div>
+        </section>
         <!--Tutorial end-->
-        <section class="container-fluid">
+        <!--Game begin-->
+        <section class="container-fluid" id="game-wrapper">
             <div class="row justify-content-center">
-                <div class="col-12" id="game-wrapper">
-                    <section id="game-container">
-                        <div class="container-fluid" id="inner-game-container">
-                            <h3 id="level-headline">Level <span id="js-current-lvl">1</span></h3>
-                            <div class="row justify-content-center align-items-center tile-row">
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <div class="tile-square" id="js-game-score"></div>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <div class="tile-square" id="js-game-timer"></div>
-                                </div>
+                <section class="col-12" id="game-container">
+                    <div class="container-fluid" id="inner-game-container">
+                        <h3 id="level-headline">Level <span id="js-current-lvl">1</span></h3>
+                        <div class="row justify-content-center align-items-center tile-row">
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <div class="tile-square" id="js-game-score"></div>
                             </div>
-                            <div class="row justify-content-center align-items-center tile-row">
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
                             </div>
-                            <div class="row justify-content-center align-items-center tile-row">
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
                             </div>
-                            <div class="row justify-content-center align-items-center tile-row">
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
-                                <div class="tile-square-wrapper col-2 text-center">
-                                    <canvas class="tile-square"></canvas>
-                                </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <div class="tile-square" id="js-game-timer"></div>
                             </div>
                         </div>
-                    </section>
-                </div>
+                        <div class="row justify-content-center align-items-center tile-row">
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center align-items-center tile-row">
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center align-items-center tile-row">
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
+        <!--Game end-->
     </main>
     <footer></footer>
-    <!-- SMOOTH SCROLL -->
+    <!--SMOOTH SCROLL begin-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(function() {
@@ -303,7 +302,7 @@
             });
         });
     </script>
-    <!-- End of SMOOTH SCROLL -->
+    <!--SMOOTH SCROLL end-->
 </body>
 
 </html>
