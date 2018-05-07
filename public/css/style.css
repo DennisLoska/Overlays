@@ -109,6 +109,11 @@ a.nav-link:hover {
     padding: 100px 0 100px 0;
 }
 
+#game-container {
+    display: flex;
+    align-items: center;
+}
+
 #game-container,
 #tut-game-container {
     height: 100vh;
@@ -133,8 +138,14 @@ a.nav-link:hover {
 }
 
 #tut-score,
-#tut-timer {
+#tut-timer,
+#game-container #js-game-score,
+#game-container #js-game-timer {
     background-color: inherit;
+}
+
+.tile-square-wrapper {
+    padding: 0;
 }
 
 .tile-square {
@@ -142,6 +153,12 @@ a.nav-link:hover {
     width: 4vw;
     background-color: gold;
     display: inline-block;
+}
+
+#game-container .tile-square {
+    height: 7.5vw;
+    width: 7.5vw;
+    background-color: #333;
 }
 
 .tile-square>span {
@@ -211,6 +228,15 @@ span.li-color {
     color: #da3131;
 }
 
+#inner-game-container {
+    height: 100%;
+}
+
+#level-headline {
+    font-size: 5vw;
+    padding-bottom: 25px;
+}
+
 footer {
     height: 400px;
     background-color: #76B900;
@@ -243,6 +269,14 @@ footer {
     span.li-color {
         display: inline;
     }
+    #game-container .tile-square-wrapper {
+        margin-left: 1vw;
+        margin-right: 1vw;
+    }
+    #game-container .tile-square {
+        height: 17vw;
+        width: 17vw;
+    }
 }
 
 @media only screen and (max-width: 768px) {
@@ -266,6 +300,28 @@ footer {
     }
 }
 
+@media only screen and (max-width: 650px) {
+    #game-container .tile-square-wrapper {
+        margin-left: 1.5vw;
+        margin-right: 1.5vw;
+    }
+    #game-container .tile-square {
+        height: 17vw;
+        width: 17vw;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    #game-container .tile-square-wrapper {
+        margin-left: 1.25vw;
+        margin-right: 1.25vw;
+    }
+    #game-container .tile-square {
+        height: 16vw;
+        width: 16vw;
+    }
+}
+
 @media only screen and (max-width: 375px) {
     #tut-game-container {
         height: 1000px;
@@ -276,5 +332,52 @@ footer {
     .tile-square-wrapper {
         margin-left: -1vw;
         margin-right: -1vw;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    #game-container .tile-square-wrapper {
+        margin-left: -1vw;
+        margin-right: -1vw;
+    }
+    #game-container .tile-square {
+        height: 12.5vw;
+        width: 12.5vw;
+    }
+}
+
+@media only screen and (min-width: 1700px) {
+    #game-container .tile-square-wrapper {
+        margin-left: -3vw;
+        margin-right: -3vw;
+    }
+    #game-container .tile-square {
+        height: 8.5vw;
+        width: 8.5vw;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    #game-container .tile-square-wrapper {
+        margin-left: -4.1vw;
+        margin-right: -4.1vw;
+    }
+    #game-container .tile-square {
+        height: 7.5vw;
+        width: 7.5vw;
+    }
+    #tut-game-container .tile-square {
+        max-width: 110px;
+        max-height: 110px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    #tut-game-container .tile-square-wrapper {
+        margin-left: -30px;
+        margin-right: -30px;
+    }
+    #tut-game-container .tile-square>span {
+        font-size: 24px;
     }
 }

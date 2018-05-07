@@ -11,8 +11,8 @@
 <body>
     <img src="img/image_sets/G2.jpg" id="img" alt="">
     <img src="img/image_sets/W3.jpg" id="img-1" alt="">
-    <canvas id="c" width="150" height="150"></canvas>
-    <canvas id="c1" width="150" height="150"></canvas>
+    <canvas id="c" width="150" height="150" style="display:none;"></canvas>
+    <canvas id="c1" width="150" height="150" style="display:none;"></canvas>
     <canvas id="c2" width="150" height="150"></canvas>
     <p><button onclick="myCanvas()">Try it</button></p>
 </body>
@@ -20,6 +20,7 @@
     //https://developer.mozilla.org/de/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
     //https://www.w3schools.com/tags/canvas_getimagedata.asp
     function myCanvas() {
+
         var c = document.getElementById("c");
         var ctx = c.getContext("2d");
         var img = document.getElementById("img");
@@ -32,6 +33,11 @@
 
         var c2 = document.getElementById("c2");
         var ctx2 = c2.getContext("2d");
+
+        ctx2.drawImage(img, 0, 0);
+        ctx2.globalAlpha = 0.5;
+        ctx2.drawImage(img1, 0, 0);
+
 
         var imgData = ctx.getImageData(0, 0, c.width, c.height);
         var imgData1 = ctx1.getImageData(0, 0, c1.width, c1.height);
