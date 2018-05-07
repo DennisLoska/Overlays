@@ -77,7 +77,7 @@ a.nav-link:hover {
     color: #efefef;
 }
 
-#lp-row h1 {
+#lp-row h2 {
     font-size: 96px;
     margin-top: 0;
 }
@@ -167,7 +167,7 @@ a.nav-link:hover {
 }
 
 .tut-tile-on {
-    background-color: #fffefed2;
+    background-color: #efefef;
 }
 
 .tut-correct {
@@ -209,7 +209,7 @@ span.li-color {
 }
 
 #tutorial-list li:nth-of-type(3) {
-    color: #fffefed2;
+    color: #efefef;
 }
 
 #tutorial-list li:nth-of-type(4) {
@@ -280,7 +280,7 @@ footer {
     header #nav-ul {
         justify-content: center;
     }
-    #lp-row h1 {
+    #lp-row h2 {
         font-size: 20vw;
     }
     .sub-headline {
