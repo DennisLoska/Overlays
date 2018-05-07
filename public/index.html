@@ -210,7 +210,7 @@
                         <h3 id="level-headline">Level <span id="js-current-lvl">1</span></h3>
                         <div class="row justify-content-center align-items-center tile-row">
                             <div class="tile-square-wrapper col-2 text-center">
-                                <div class="tile-square" id="js-game-score"></div>
+                                <div class="tile-square hide-shadow" id="js-game-score"></div>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
                                 <canvas class="tile-square" id="js-basis-image-1"></canvas>
@@ -222,15 +222,18 @@
                                 <canvas class="tile-square" id="js-basis-image-3"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <div class="tile-square" id="js-game-timer"></div>
+                                <div class="tile-square hide-shadow" id="js-game-timer"></div>
                             </div>
                         </div>
                         <div class="row justify-content-center align-items-center tile-row">
                             <div class="tile-square-wrapper col-2 text-center">
                                 <canvas class="tile-square" id="js-starting-image-1"></canvas>
                             </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                            <div class="tile-square-wrapper scene col-2 text-center">
+                                <div class="tile-square card">
+                                    <div class="card__face card__face--front"></div>
+                                    <div class="card__face card__face--back"></div>
+                                </div>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
                                 <canvas class="tile-square"></canvas>
@@ -303,6 +306,13 @@
         });
     </script>
     <!--SMOOTH SCROLL end-->
+    <script>
+        //this little piece of code flips the tiles in the game when clicking on them.
+        var card = document.querySelector('.card');
+        card.addEventListener('click', function() {
+            card.classList.toggle('is-flipped');
+        });
+    </script>
 </body>
 
 </html>
