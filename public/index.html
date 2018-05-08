@@ -229,17 +229,14 @@
                             <div class="tile-square-wrapper col-2 text-center">
                                 <canvas class="tile-square" id="js-starting-image-1"></canvas>
                             </div>
-                            <div class="tile-square-wrapper scene col-2 text-center">
-                                <div class="tile-square card">
-                                    <div class="card__face card__face--front"></div>
-                                    <div class="card__face card__face--back"></div>
-                                </div>
+                            <div class="tile-square-wrapper col-2 text-center">
+                                <canvas class="tile-square js-card"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square js-card"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square js-card"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
                                 <canvas class="tile-square"></canvas>
@@ -250,13 +247,13 @@
                                 <canvas class="tile-square" id="js-starting-image-2"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square js-card"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square js-card"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square js-card"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
                                 <canvas class="tile-square"></canvas>
@@ -267,13 +264,13 @@
                                 <canvas class="tile-square" id="js-starting-image-3"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square js-card"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square js-card"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square"></canvas>
+                                <canvas class="tile-square js-card"></canvas>
                             </div>
                             <div class="tile-square-wrapper col-2 text-center">
                                 <canvas class="tile-square"></canvas>
@@ -306,13 +303,13 @@
         });
     </script>
     <!--SMOOTH SCROLL end-->
+    <!--FLIP begin-->
     <script>
-        //this little piece of code flips the tiles in the game when clicking on them.
-        var card = document.querySelector('.card');
-        card.addEventListener('click', function() {
-            card.classList.toggle('is-flipped');
+        $('.js-card').click(function() {
+            $(this).toggleClass('js-is-flipped');
         });
     </script>
+    <!--FLIP end-->
 </body>
 
 </html>
