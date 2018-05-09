@@ -26,7 +26,7 @@ div#navbarNavDropdown {
 
 a.nav-link {
     color: black !important;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     /*bad practice don't do this in production*/
 }
 
