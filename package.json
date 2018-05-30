@@ -1,5 +1,5 @@
 {
-    "name": "shareflair",
+    "name": "Overlays",
     "version": "0.1.0",
     "description": "Yet another web-application with the goal to share the flair of creativity through it's users.",
     "main": "index.js",
@@ -7,19 +7,32 @@
         "start": "node index.js"
     },
     "dependencies": {
-        "express": "^4.13.3"
+        "babel-preset-env": "^1.5.2",
+        "express": "^4.13.3",
+        "grunt": "^0.4.5",
+        "grunt-babel": "^6.0.0",
+        "grunt-contrib-copy": "^1.0.0",
+        "grunt-contrib-cssmin": "^2.2.1",
+        "grunt-contrib-htmlmin": "^2.4.0",
+        "grunt-contrib-jshint": "~0.10.0",
+        "grunt-contrib-nodeunit": "~0.4.1",
+        "grunt-contrib-uglify": "~0.5.0",
+        "grunt-contrib-watch": "^1.0.0",
+        "grunt-sass": "^2.0.0",
+        "load-grunt-tasks": "^3.5.2"
     },
     "engines": {
         "node": "4.0.0"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/DennisLoska/Shareflair"
+        "url": "https://git.visual-computing.com/Overlays/Overlays"
     },
     "keywords": [
-        "flair",
-        "shareflair",
-        "creativity"
+        "Overlays",
+        "Image game",
+        "Visual Computing",
+        "Puzzle Game"
     ],
     "author": "Dennis Loska",
     "contributors": [

@@ -49,3 +49,36 @@ Wenn du deine Sachen pushen möchtest, dann machst du wie gewohnt Commits und am
 ```
 git push origin develop
 ```
+
+## Building Tool Grunt
+
+When you are done cloning the repository you can install all dependencies using
+
+```
+npm install
+```
+
+and after that you can install grunt (skip this step first because it may not be needed):
+
+```
+npm install -g grunt-cli
+npm install grunt 
+```
+
+Now test, whether you installed everything correctly by executing
+
+```
+sudo grunt
+```
+
+on Unix systems or just buy typing in
+
+```
+grunt
+```
+
+To build the complete project in order to deploy it do
+
+```
+grunt build
+```

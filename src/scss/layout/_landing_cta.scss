@@ -1,0 +1,43 @@
+#lp-row {
+    height: 97.5vh;
+    text-align: center;
+    color: #efefef;
+}
+
+#lp-row h2 {
+    font-size: 96px;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
+#cta-btn {
+    display: inline-block;
+    min-width: 210px;
+    width: 305px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #76B900;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: all .25s ease-in;
+    -moz-transition: all .25s ease-in;
+    -webkit-transition: all .25s ease-in;
+    text-decoration: none;
+}
+
+#cta-btn:hover {
+    opacity: .5;
+}
+
+@media only screen and (max-width: 768px) {
+    #lp-row h2 {
+        font-size: 20vw;
+    }
+    #cta-btn {
+        max-width: 210px;
+    }
+}

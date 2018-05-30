@@ -1,0 +1,36 @@
+header,
+nav,
+header li,
+.dropdown-menu {
+    background-color: #76B900;
+}
+
+#nav-wrapper {
+    padding: 0;
+}
+
+nav.navbar.navbar-expand-lg.navbar-light {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+div#navbarNavDropdown {
+    justify-content: flex-end;
+}
+
+a.nav-link {
+    color: black !important;
+    margin-left: 0.5rem;
+    /*bad practice don't do this in production*/
+}
+
+a.nav-link:hover {
+    background-color: forestgreen;
+    /*bad practice don't do this in production*/
+}
+
+@media only screen and (max-width: 768px) {
+    header #nav-ul {
+        justify-content: center;
+    }
+}
