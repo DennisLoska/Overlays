@@ -14,11 +14,11 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'public/js/game_engine.js': 'src/js/game_engine.js',
-                    'public/js/image_generator.js': 'src/js/image_generator.js',
-                    'public/js/images.js': 'src/js/images.js',
-                    'public/js/inverse_matrix.js': 'src/js/inverse_matrix.js',
-                    'public/js/level.js': 'src/js/level.js',
+                    'public/js/GameEngine.js': 'src/js/GameEngine.js',
+                    'public/js/ImageGenerator.js': 'src/js/ImageGenerator.js',
+                    'public/js/Image.js': 'src/js/Image.js',
+                    'public/js/InverseMatrix.js': 'src/js/InverseMatrix.js',
+                    'public/js/Level.js': 'src/js/Level.js',
                     'public/js/main.js': 'src/js/main.js',
                 },
             },
@@ -59,11 +59,11 @@ module.exports = function(grunt) {
         uglify: {
             target: {
                 files: {
-                    'public/js/game_engine.js': 'src/js/game_engine.js',
-                    'public/js/image_generator.js': 'src/js/image_generator.js',
-                    'public/js/images.js': 'src/js/images.js',
-                    'public/js/inverse_matrix.js': 'src/js/inverse_matrix.js',
-                    'public/js/level.js': 'src/js/level.js',
+                    'public/js/GameEngine.js': 'src/js/GameEngine.js',
+                    'public/js/ImageGenerator.js': 'src/js/ImageGenerator.js',
+                    'public/js/Image.js': 'src/js/Image.js',
+                    'public/js/InverseMatrix.js': 'src/js/InverseMatrix.js',
+                    'public/js/Level.js': 'src/js/Level.js',
                     'public/js/main.js': 'src/js/main.js',
                 },
             },
@@ -96,6 +96,6 @@ module.exports = function(grunt) {
             },
         },
     });
-    grunt.registerTask('default', ['babel', 'sass', 'htmlmin', 'cssmin', 'uglify', 'copy', 'watch']);
-    grunt.registerTask('build', ['babel', 'sass', 'htmlmin', 'cssmin', 'uglify', 'copy']);
+    grunt.registerTask('default', ['babel', 'sass', 'htmlmin', 'cssmin', 'copy', 'watch']);
+    grunt.registerTask('build', ['babel', 'sass', 'htmlmin', 'cssmin', 'copy']);
 };
