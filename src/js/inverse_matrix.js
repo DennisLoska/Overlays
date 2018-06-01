@@ -1,0 +1,1 @@
+/* this class can be maybe replaced with the framework mathjs from mathjs.org */

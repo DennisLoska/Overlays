@@ -19,7 +19,8 @@
         "grunt-contrib-uglify": "~0.5.0",
         "grunt-contrib-watch": "^1.0.0",
         "grunt-sass": "^2.0.0",
-        "load-grunt-tasks": "^3.5.2"
+        "load-grunt-tasks": "^3.5.2",
+        "mathjs": "^4.4.1"
     },
     "engines": {
         "node": "4.0.0"
