@@ -16,6 +16,9 @@ class Game {
     }
 }
 
+function start() {
+    new Game();
+}
 
 
 
