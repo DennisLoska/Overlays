@@ -1,4 +1,4 @@
-class Image {
+class Images {
 
     constructor() {
         this.imageNames = [

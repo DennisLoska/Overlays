@@ -16,10 +16,10 @@ module.exports = function(grunt) {
                 files: {
                     'public/js/GameEngine.js': 'src/js/GameEngine.js',
                     'public/js/ImageGenerator.js': 'src/js/ImageGenerator.js',
-                    'public/js/Image.js': 'src/js/Image.js',
+                    'public/js/Images.js': 'src/js/Images.js',
                     'public/js/InverseMatrix.js': 'src/js/InverseMatrix.js',
                     'public/js/Level.js': 'src/js/Level.js',
-                    'public/js/main.js': 'src/js/main.js',
+                    'public/js/Game.js': 'src/js/Game.js',
                 },
             },
         },
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'src/css/style.css': 'src/scss/main.scss',
+                    'src/css/style.css': 'src/scss/Game.scss',
                 },
             },
         },
@@ -61,15 +61,15 @@ module.exports = function(grunt) {
                 files: {
                     'public/js/GameEngine.js': 'src/js/GameEngine.js',
                     'public/js/ImageGenerator.js': 'src/js/ImageGenerator.js',
-                    'public/js/Image.js': 'src/js/Image.js',
+                    'public/js/Images.js': 'src/js/Images.js',
                     'public/js/InverseMatrix.js': 'src/js/InverseMatrix.js',
                     'public/js/Level.js': 'src/js/Level.js',
-                    'public/js/main.js': 'src/js/main.js',
+                    'public/js/Game.js': 'src/js/Game.js',
                 },
             },
         },
         copy: {
-            main: {
+            Game: {
                 expand: true,
                 cwd: 'src/',
                 src: 'img/**',

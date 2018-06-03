@@ -13,8 +13,8 @@ class Level {
         for (let i = 0; i < this.amountOfLevels; i++) {
             this.levelSettings[i] = new Array(3)
         }
-        setSettings()
-        printSettings()
+        this.setSettings()
+        this.printSettings()
     }
 
     set level(level) {
@@ -86,7 +86,7 @@ class Level {
         this.numOnes = this.levelSettings[this.level][1];
         this.time = this.levelSettings[this.level][2];
 
-        calculateClicksForScore()
+        this.calculateClicksForScore()
     }
 
     printSettings() {
