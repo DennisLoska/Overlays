@@ -25,7 +25,7 @@ class Images {
         this.numImages = num
     }
 
-    get images() {
+    get folderImages() {
         this.images = new Array[this.numImages]
         try {
             for (let i = 0; i < this.numImages; i++) {

@@ -7,8 +7,17 @@ class GameEngine {
         this.userImagesPixels = new Array(this.numPics, this.width * this.height) // kombinierte pixel der userauswahl
         this.correctUserCombinations = new Array(this.numPics) // 1 wenn richtige kombination, 0 wenn falsch
 
-        var targetImages = new Array(this.numPics)
-        var basisImages = new Array(this.numPics)
+        let targetImages = new Array(this.numPics)
+        let basisImages = new Array(this.numPics)
+
+        for (let i = 0; i < targetImages.length; i++)
+            targetImages[i] = new Image()
+        for (let i = 0; i < basisImages.length; i++)
+            basisImages[i] = new Image()
+
+        this.targetImages = targetImages
+        this.basisImages = basisImages
+        this.mInv = new Array(undefined, undefined)
 
         this.getTargetAndBasisImages();
     }
@@ -37,172 +46,89 @@ class GameEngine {
         return this.width;
     }
 
+    set level(newLevel) {
+        this.levelNumber = newLevel
+    }
+
+    returnScore(clicks) {
+        let score = 0
+        let maximum = this.level.clickMaximum()
+        let optimum = this.level.clickOptimum()
+
+        if (score == optimum)
+            score = 100
+        else if (score >= maximum)
+            score = 0
+        return score
+    }
+
     getTargetAndBasisImages() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
-        let images = new Images();
-        images.setNumImages(numPics); // generiere bilder mit returnGeneratedImages()
+        let images = new Images()
+        images.numImages(numPics) // generiere bilder mit returnGeneratedImages()
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
-
-        if (doGenerate == true) {
+        if (this.doGenerate == true) {
             // generate basis from input images
+            if (this.levelNumber < 3)
+                this.targetImages = images.generatedImages() // ImageGenerator Bilder
+            else this.targetImages = images.folderImages() // Bilder aus pics Ordner
 
-            if (levelNumber < 3) {
-                targetImages = images.returnGeneratedImages(); // ImageGenerator Bilder
-            } else {
-                targetImages = images.returnImages(); // Bilder aus pics Ordner
-            }
-            targetPixels = images.returnTargetPixels();
-
-            this.width = targetImages[0].getWidth();
-            this.height = targetImages[0].getHeight();
+            this.targetPixels = images.generatedImages()
+            this.width = this.targetImages[0].width
+            this.height = this.targetImages[0].height
         } else {
             // read basis images
+            if (levelNumber < 3)
+                this.basisImages = images.generatedImages() // ImageGenerator Bilder
+            else this.basisImages = images.folderImages() // Bilder aus pics Ordner
 
-            if (levelNumber < 3) {
-                basisImages = images.returnGeneratedImages(); // ImageGenerator Bilder
-            } else {
-                basisImages = images.returnImages(); // Bilder aus pics Ordner
+            this.width = this.basisImages[0].width
+            this.height = this.basisImages[0].height
+        }
+        calculateBasisAndTargetImages()
+    }
+
+    calculateBasisAndTargetImages() {
+        if (this.doGenerate == true) { // generate basis from input images
+            this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0 
+
+            let pixelsBasis = new Array(this.numPics)
+            this.basisPixels3 = new Array(this.numPics, undefined, undefined)
+            this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen
+
+            for (let i = 0; i < this.numPics; i++) {
+                basisPixels3[i] = blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
+                pixelsBasis[i] = blendPixelsToPixels(this.targetPixels, this.mInv[i])
+
+                //basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+                //basisImages[i].setRGB(0, 0, width, height, pixelsBasis[i], 0, width);
+                basisImages[i] = new Image()
+            }
+        } else {
+            this.mInv = new Array(this.numPics, this.numPics)
+            let pixelsBasis = Array(this.numPics, this.width * this.height)
+            for (let i = 0; i < this.numPics; i++) {
+                this.mInv[i][i] = 1; //1./numOnes;
+                this.basisPixels3 = new Array(this.numPics, undefined, undefined)
+                this.basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width)
+            }
+            for (let i = 0; i < this.numPics; i++) {
+                this.basisPixels3[i] = blendPixelsTo3DDoubleImage(pixelsBasis, this.mInv[i])
             }
 
-            this.width = basisImages[0].getWidth();
-            this.height = basisImages[0].getHeight();
+            generateRandomM();
+
+            targetPixels = new int[numPics][width * height]
+
+            for (int i = 0; i < targetPixels.length; i++) {
+                targetPixels[i] = blend3DDoubleToPixels(basisPixels3, m[i]);
+                targetImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
+                targetImages[i].setRGB(0, 0, width, height, targetPixels[i], 0, width)
+            }
         }
-
-        calculateBasisAndTargetImages();
+        printResult();
     }
 
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//https://developer.mozilla.org/de/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
-//https://www.w3schools.com/tags/canvas_getimagedata.asp
-function canvasDemo() {
-
-    var img_1 = new Image;
-    var img_2 = new Image;
-
-    var c_1 = document.getElementById("js-starting-image-1");
-    var ctx_1 = c_1.getContext("2d");
-    img_1.onload = function() {
-        ctx_1.drawImage(img_1, 0, 0, c_1.width, c_1.height); // Or at whatever offset you like
-    };
-    img_1.src = "/img/image_sets/D2.png";
-
-    var c_2 = document.getElementById("js-starting-image-2");
-    var ctx_2 = c_2.getContext("2d");
-    img_2.onload = function() {
-        ctx_2.drawImage(img_2, 0, 0, c_2.width, c_2.height); // Or at whatever offset you like
-    };
-    img_2.src = "/img/image_sets/F5.jpg";
-
-    var c_3 = document.getElementById("js-basis-image-1");
-    var ctx_3 = c_3.getContext("2d");
-
-    var imgData_1 = ctx_1.getImageData(0, 0, c_1.width, c_1.height);
-    var imgData_2 = ctx_2.getImageData(0, 0, c_2.width, c_2.height);
-    var bufferData = ctx_3.getImageData(0, 0, c_3.width, c_3.height);
-
-    var data = imgData_1.data;
-    var data1 = imgData_2.data;
-    var buffer = bufferData.data;
-
-    // enumerate all pixels
-    // each pixel's r,g,b,a datum are stored in separate sequential array elements
-    for (var i = 0; i < data.length; i += 4) {
-        var red_1 = data[i];
-        var green_1 = data[i + 1];
-        var blue_1 = data[i + 2];
-
-        var red_2 = data1[i];
-        var green_2 = data1[i + 1];
-        var blue_2 = data1[i + 2];
-
-        //stupid test
-        buffer[i] = red_2 / 2 + red_1 / 4;
-        buffer[i + 1] = green_2 / 2 + green_1 / 4;
-        buffer[i + 2] = blue_2 / 2 + blue_1 / 3;
-        buffer[i + 3] = 255 //alpha
-    }
-    ctx_3.putImageData(bufferData, 0, 0);
 }
