@@ -201,4 +201,31 @@ class GameEngine {
         } while (!success)
     }
 
+    //TODO make function applyable on pixels from imagedata of Canvas-API
+    blendPixelsTo3DDoubleImage(pixelsIn, w) {
+        let pixels = new Array(pixelsIn[0].length, 3)
+
+        for (let i = 0; i < pixels.length; i++) {
+            let r = 0,
+                g = 0,
+                b = 0;
+
+            for (let j = 0; j < pixelsIn.length; j++) {
+                let cj = pixelsIn[j][i];
+                let rj = f((cj >> 16) & 255);
+                let gj = f((cj >> 8) & 255);
+                let bj = f((cj) & 255);
+
+                r += w[j] * rj;
+                g += w[j] * gj;
+                b += w[j] * bj;
+            }
+
+            pixels[i][0] = fi(r);
+            pixels[i][1] = fi(g);
+            pixels[i][2] = fi(b);
+        }
+        return pixels;
+    }
+
 }
