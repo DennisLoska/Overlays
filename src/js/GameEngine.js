@@ -23,15 +23,15 @@ class GameEngine {
         this.targetPixels = new Array(undefined, undefined)
         this.basisPixels3 = new Array(undefined, undefined, undefined)
 
-        this.getTargetAndBasisImages();
+        this.getTargetAndBasisImages()
     }
 
     loadLevel() {
         // load the settings for a specific level
-        this.level = new Level(this.levelNumber);
-        this.numPics = level.numPics;
-        this.numOnes = level.numOnes;
-        this.doGenerate = level.doGenerate();
+        this.level = new Level(this.levelNumber)
+        this.numPics = level.numPics
+        this.numOnes = level.numOnes
+        this.doGenerate = level.doGenerate()
     }
 
     get numPics() {
@@ -43,15 +43,23 @@ class GameEngine {
     }
 
     get height() {
-        return this.height;
+        return this.height
     }
 
     get width() {
-        return this.width;
+        return this.width
     }
 
     set level(newLevel) {
         this.levelNumber = newLevel
+    }
+
+    get level() {
+        return this.levelNumber
+    }
+
+    get doGenerate() {
+        return this.doGenerate
     }
 
     returnScore(clicks) {
@@ -153,8 +161,8 @@ class GameEngine {
         do {
             this.generateRandomM()
 
-            success = true;
-            this.mInv = InverseMatrix.invert(m);
+            success = true
+            this.mInv = InverseMatrix.invert(m)
             for (let i = 0; i < mInv.length; i++) {
                 for (let j = 0; j < mInv[i].length; j++) {
                     let val = mInv[i][j]
@@ -171,7 +179,7 @@ class GameEngine {
     }
 
     generateRandomM() {
-        let success;
+        let success
         do {
             // numOnes mal eine 1 in jede Zeile von m setzen	
             this.m = new Array(this.numPics, this.numPics)
@@ -185,7 +193,7 @@ class GameEngine {
                     this.m[i][index] = 1
                 }
             }
-            success = true;
+            success = true
             for (let i = 0; i < this.numPics; i++) {
                 for (let j = i + 1; j < this.numPics; j++) {
                     let same = true; // identische Kombinationen/Zeilen vermeiden
@@ -211,21 +219,30 @@ class GameEngine {
                 b = 0;
 
             for (let j = 0; j < pixelsIn.length; j++) {
-                let cj = pixelsIn[j][i];
-                let rj = f((cj >> 16) & 255);
-                let gj = f((cj >> 8) & 255);
-                let bj = f((cj) & 255);
+                let cj = pixelsIn[j][i]
+                let rj = f((cj >> 16) & 255)
+                let gj = f((cj >> 8) & 255)
+                let bj = f((cj) & 255)
 
-                r += w[j] * rj;
-                g += w[j] * gj;
-                b += w[j] * bj;
+                r += w[j] * rj
+                g += w[j] * gj
+                b += w[j] * bj
             }
 
-            pixels[i][0] = fi(r);
-            pixels[i][1] = fi(g);
-            pixels[i][2] = fi(b);
+            pixels[i][0] = fi(r)
+            pixels[i][1] = fi(g)
+            pixels[i][2] = fi(b)
         }
-        return pixels;
+        return pixels
     }
 
+    f(val) {
+        let zeroLevel = 128
+        return val - zeroLevel
+    }
+
+    fi(val) {
+        let zeroLevel = 128
+        return (val + zeroLevel)
+    }
 }
