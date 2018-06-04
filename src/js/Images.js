@@ -48,8 +48,8 @@ class Images {
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
                     //console.log("Image number " + i + ":" + "\n")
                     //console.log(this.images[i])
-                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                targetImgData.push(imgData.data);
+                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+                targetImgData.push(imgData.data)
             }
             this.targetImgData = targetImgData
         } catch (err) {
@@ -69,8 +69,8 @@ class Images {
 
     get targetPixels() {
         let targetPixels = this.targetImgData
-        console.log("Targetpixels:");
-        console.log(targetPixels);
+        console.log("Debug Targetpixels:")
+        console.log(targetPixels)
         return targetPixels
     }
 }

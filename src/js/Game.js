@@ -1,6 +1,6 @@
 class Game {
     constructor() {
-        this.levelNumber = 0;
+        this.levelNumber = 0
         this.loadSettings()
     }
 
@@ -8,24 +8,43 @@ class Game {
         // calculate the target / basis images to display them
         this.calculator = new GameEngine(this.levelNumber)
             /*
-            this.width = calculator.width;
-            this.height = calculator.height;
-            this.numPics = calculator.numPics;
-            this.numOnes = calculator.numOnes;
+            this.width = calculator.width
+            this.height = calculator.height
+            this.numPics = calculator.numPics
+            this.numOnes = calculator.numOnes
             */
     }
 }
 
+//not used yet
 function start() {
     new Game();
 }
 
+//with some debugging paramters to see the output in the console
 function canvasDemo() {
-    var img1 = new Images();
-    img1.numImage = 3;
-    img1.folderImages;
-    img1.targetPixels;
+    var img1 = new Images()
+    img1.numImage = 3
+    img1.folderImages
+    img1.targetPixels
+    console.log("Debug InverseMatrix:")
+    console.log(InverseMatrix.invert([
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]))
+    console.log("Debug Level:")
+    var level = new Level(0)
 }
+
+
+
+
+
+
+
+
+
 
 
 

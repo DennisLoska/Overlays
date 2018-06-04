@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         babel: {
             options: {
-                sourceMap: true,
+                sourceMap: false,
             },
             dist: {
                 files: {
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
         },
         sass: {
             options: {
-                sourceMap: true,
+                sourceMap: false,
             },
             dist: {
                 files: {
@@ -56,23 +56,17 @@ module.exports = function(grunt) {
                 }, ],
             },
         },
-        uglify: {
-            target: {
-                files: {
-                    'public/js/GameEngine.js': 'src/js/GameEngine.js',
-                    'public/js/ImageGenerator.js': 'src/js/ImageGenerator.js',
-                    'public/js/Images.js': 'src/js/Images.js',
-                    'public/js/InverseMatrix.js': 'src/js/InverseMatrix.js',
-                    'public/js/Level.js': 'src/js/Level.js',
-                    'public/js/Game.js': 'src/js/Game.js',
-                },
-            },
-        },
         copy: {
             Game: {
                 expand: true,
                 cwd: 'src/',
                 src: 'img/**',
+                dest: 'public/',
+            },
+            MathJS: {
+                expand: true,
+                cwd: 'src/',
+                src: 'js/math.js',
                 dest: 'public/',
             },
         },
