@@ -236,6 +236,45 @@ class GameEngine {
         return pixels
     }
 
+    //TODO make function applyable on pixels from imagedata of Canvas-API
+    blendPixelsToPixels(pixelsIn, w) {
+        // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
+        // fi damit verschiebt man die Werte zum Zerolevel (-128)
+        let pixels = new Array(pixelsIn[0].length)
+
+        for (let i = 0; i < pixels.length; i += 4) { // i+=4 WICHTIG!
+            let r = 0,
+                g = 0,
+                b = 0;
+
+            for (let j = 0; j < pixelsIn.length; j += 4) { // j+=4 WICHTIG!
+                let cj = pixelsIn[j][i]
+                let rj = f((cj >> 16) & 255)
+                let gj = f((cj >> 8) & 255)
+                let bj = f((cj) & 255)
+
+                r += w[j] * rj
+                b += w[j + 2] * bj
+                g += w[j + 1] * gj
+            }
+
+            //r = (r - 128) / numOnes + 128;
+            //g = (g - 128) / numOnes + 128;
+            //b = (b - 128) / numOnes + 128;
+
+            // begrenzung zwischen 0 und 255
+            r = Math.min(Math.max(0, fi(r)), 255)
+            g = Math.min(Math.max(0, fi(g)), 255)
+            b = Math.min(Math.max(0, fi(b)), 255)
+                //pixels[i] = 0xFF000000 | ((int)r <<16) | ((int)g << 8) | (int)b
+            pixels[i] = r
+            pixels[i + 1] = g
+            pixels[i + 2] = b
+            pixels[i + 3] = 255 //alpha
+        }
+        return pixels
+    }
+
     f(val) {
         let zeroLevel = 128
         return val - zeroLevel

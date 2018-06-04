@@ -21,20 +21,42 @@ class Images {
         this.height = undefined
     }
 
-    set numImages(num) {
+    set numImage(num) {
         this.numImages = num
     }
 
     get folderImages() {
-        this.images = new Array[this.numImages]
+        this.images = new Array(this.numImages)
         try {
             for (let i = 0; i < this.numImages; i++) {
-                this.images[i] = new Image()
+                this.images[i] = new Image
+                let j = i
+                j++
+                let canvas = document.getElementById("js-starting-image-" + j.toString())
+                console.log("Canvas number " + j + ":" + "\n");
+                console.log(canvas)
+
+                let ctx = canvas.getContext("2d")
+                let img = this.images[i]
+                img.onload = function() {
+                    console.log("Image before CTX")
+                    console.log(img)
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+                }
+                this.images[0].width = canvas.width
+                this.images[0].height = canvas.height
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
+                console.log("Image number " + i + ":" + "\n")
+                console.log(this.images[i])
+
             }
         } catch (err) {
-            this.images[i].src = err.message
+            console.log("Could not load image from folder.")
+            err.message = "Could not load image from folder."
         }
+        console.log("All images: ")
+        console.log(this.images)
+
         this.width = this.images[0].width
         this.height = this.images[0].height
         return this.images
@@ -59,4 +81,11 @@ class Images {
         }
         return targetPixels
     }
+}
+
+function canvasDemo() {
+    var img1 = new Images();
+    img1.numImage = 3;
+    img1.folderImages;
+    //img1.targetPixels;
 }

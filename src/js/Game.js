@@ -23,44 +23,9 @@ function start() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //https://developer.mozilla.org/de/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
 //https://www.w3schools.com/tags/canvas_getimagedata.asp
-function canvasDemo() {
+function canvasDem() {
 
     var img_1 = new Image;
     var img_2 = new Image;
