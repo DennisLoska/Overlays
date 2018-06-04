@@ -1,14 +1,14 @@
 class Level {
 
     constructor(level) {
-        this.level = level
-        this.numPics = undefined
-        this.numOnes = undefined
-        this.time = undefined
-        this.clickOptimum = undefined
-        this.clickMaximum = undefined
-        this.amountOfLevels = 10
-        this.levelSettings = new Array(this.amountOfLevels)
+        this.lvl = level
+        this.numPictures = undefined
+        this.numOne = undefined
+        this.lvlTime = undefined
+        this.clickOpt = undefined
+        this.clickMax = undefined
+        this.amountOfLvls = 10
+        this.levelSettings = new Array(this.amountOfLvls)
 
         for (let i = 0; i < this.amountOfLevels; i++) {
             this.levelSettings[i] = new Array(3)
@@ -18,27 +18,51 @@ class Level {
     }
 
     set level(level) {
-        this.level = level
+        this.lvl = level
+    }
+
+    set numPics(numPics) {
+        this.numPictures = numPics
     }
 
     get numPics() {
-        return this.numPics
+        return this.numPictures
+    }
+
+    set numOnes(num) {
+        this.numOne = num
     }
 
     get numOnes() {
-        return this.numOnes
+        return this.numOne
+    }
+
+    set time(time) {
+        this.lvlTime = time
     }
 
     get time() {
-        return this.time
+        return this.lvlTime
+    }
+
+    set amountOfLevels(amount) {
+        this.amountOfLvls = amount
     }
 
     get amountOfLevels() {
-        return this.amountOfLevels
+        return this.amountOfLvls
+    }
+
+    set clickMaximum(max) {
+        this.clickMax = max
     }
 
     get clickMaximum() {
         return this.clickMaximum
+    }
+
+    set clickOptimum(opt) {
+        this.clickOpt = opt
     }
 
     get clickOptimum() {
@@ -53,11 +77,11 @@ class Level {
         let maximum
         let optimum
 
-        maximum = (parseInt(Math.pow(2, numPics)) - numOnes) * numPics
-        optimum = numPics * numOnes;
+        maximum = (parseInt(Math.pow(2, this.numPictures)) - this.numOne) * this.numPictures
+        optimum = this.numPictures * this.numOne;
 
-        this.clickMaximum = maximum
-        this.clickOptimum = optimum
+        this.clickMax = maximum
+        this.clickOpt = optimum
     }
 
     setSettings() {
@@ -82,16 +106,16 @@ class Level {
             // LEVEL TEN
         this.levelSettings[9] = [5, 4, 100]
 
-        this.num = this.levelSettings[this.level][0];
-        this.numOnes = this.levelSettings[this.level][1];
-        this.time = this.levelSettings[this.level][2];
+        this.num = this.levelSettings[this.lvl][0];
+        this.numOne = this.levelSettings[this.lvl][1];
+        this.lvlTime = this.levelSettings[this.lvl][2];
 
         this.calculateClicksForScore()
     }
 
     printSettings() {
-        console.log("######################\nLevel Index: " + this.level + "\nNum Pics: " + this.levelSettings[this.level][0] +
-            "\nNum Ones: " + this.levelSettings[this.level][1] + "\nTime: " + this.levelSettings[this.level][2] +
-            "\nTotal amount of Levels: " + this.amountOfLevels + "\n######################")
+        console.log("######################\nLevel Index: " + this.lvl + "\nNum Pics: " + this.levelSettings[this.lvl][0] +
+            "\nNum Ones: " + this.levelSettings[this.lvl][1] + "\nTime: " + this.levelSettings[this.lvl][2] +
+            "\nTotal amount of Levels: " + this.amountOfLvls + "\n######################")
     }
 }
