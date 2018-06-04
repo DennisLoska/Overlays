@@ -35,6 +35,7 @@ function canvasDemo() {
     ]))
     console.log("Debug Level:")
     var level = new Level(0)
+    console.log("\n");
 }
 
 
