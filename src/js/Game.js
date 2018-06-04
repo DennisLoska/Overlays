@@ -20,12 +20,19 @@ function start() {
     new Game();
 }
 
+function canvasDemo() {
+    var img1 = new Images();
+    img1.numImage = 3;
+    img1.folderImages;
+    img1.targetPixels;
+}
+
 
 
 
 //https://developer.mozilla.org/de/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
 //https://www.w3schools.com/tags/canvas_getimagedata.asp
-function canvasDem() {
+function demo() {
 
     var img_1 = new Image;
     var img_2 = new Image;
