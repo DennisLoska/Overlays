@@ -71,8 +71,8 @@ class Images {
         this.images = new Array(this.numImages)
         try {
             let targetImgData = new Array()
+            let generator = new ImageGenerator()
             for (let i = 0; i < this.numImages; i++) {
-                let generator = new ImageGenerator()
                 this.images[i] = new Image()
                 let j = i
                 j++
@@ -101,8 +101,8 @@ class Images {
             }
             this.targetImgData = targetImgData
         } catch (err) {
-            console.log("Could not load image from folder.")
-            err.message = "Could not load image from folder."
+            console.log("Could not load image from generator.")
+            err.message = "Could not load image from generator."
         }
         this.width = this.images[0].width
         this.height = this.images[0].height
