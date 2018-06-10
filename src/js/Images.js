@@ -30,7 +30,7 @@ class Images {
     get folderImages() {
         this.images = new Array(this.numImages)
         try {
-            let targetImgData = new Array()
+            let targetImgData = new Array();
             for (let i = 0; i < this.numImages; i++) {
                 this.images[i] = new Image()
                 let j = i
@@ -48,8 +48,10 @@ class Images {
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
                     //console.log("Image number " + i + ":" + "\n")
                     //console.log(this.images[i])
+
                 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                 targetImgData.push(imgData.data)
+
             }
             this.targetImgData = targetImgData
         } catch (err) {
@@ -65,7 +67,36 @@ class Images {
 
     get generatedImages() {
         //TODO ImageGenerator
+        this.images = new Array(this.numImages)
+        try {
+            let targetImgData = new Array();
+            for (let i = 0; i < this.numImages; i++) {
+                this.images[i] = new Image()
+                let j = i
+                j++
+                let canvas = document.getElementById("js-starting-image-" + j.toString())
+                let ctx = canvas.getContext("2d")
+                let img = this.images[i]
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+                }
+                this.images[0].width = canvas.width
+                this.images[0].height = canvas.height
+                this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
+
+                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+                targetImgData.push(imgData.data)
+            }
+            this.targetImgData = targetImgData
+        } catch (err) {
+            console.log("Could not load image from folder.")
+            err.message = "Could not load image from folder."
+        }
+        this.width = this.images[0].width
+        this.height = this.images[0].height
+        return this.images
     }
+
 
     get targetPixels() {
         let targetPixels = this.targetImgData

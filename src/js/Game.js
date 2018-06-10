@@ -29,9 +29,9 @@ function canvasDemo() {
     img1.targetPixels
     console.log("Debug InverseMatrix:")
     console.log(InverseMatrix.invert([
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9]
+        [1, 1, 0],
+        [1, 0, 1],
+        [0, 1, 1]
     ]))
     console.log("Debug Level:")
     var level = new Level(0)

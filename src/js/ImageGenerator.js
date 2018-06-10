@@ -16,13 +16,15 @@ class ImageGenerator {
         var randomG = Math.floor((Math.random() * 255) + 1);
         var randomB = Math.floor((Math.random() * 255) + 1);
 
-        for (var i = 0; i < imgData.data.length; i+=4){
-             imgData.data[i+0] = randomR; // R
-             imgData.data[i+1] = randomG; // G
-             imgData.data[i+2] = randomB; // B
-             imgData.data[i+3] = 255; // A
+        for (var i = 0; i < randomImage.data.length; i+=4){
+            randomImage.data[i+0] = randomR; // R
+            randomImage.data[i+1] = randomG; // G
+            randomImage.data[i+2] = randomB; // B
+            randomImage.data[i+3] = 255; // A
          }
-         context.putImageData(imgData,0,0);
+         
+       context.putImageData(imgData,0,0);
+
 	}
 
 	get randomImage() {
