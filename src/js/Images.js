@@ -95,8 +95,11 @@ class Images {
                 console.log(generatedPixels)
                 console.log("imgData.data:")
                 console.log(imgData.data)
-
                 ctx.putImageData(imgData, 0, 0)
+
+                // put random shape of random color on picture
+                generator.addShapes(ctx)
+
                 targetImgData.push(imgData.data)
             }
             this.targetImgData = targetImgData

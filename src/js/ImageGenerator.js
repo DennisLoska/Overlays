@@ -31,6 +31,36 @@ class ImageGenerator {
         return this.rndImagePixels;
     }
 
+    addShapes(ctx){
+        // Rectangle
+        ctx.fillStyle = "yellow";
+        ctx.fillRect(20, 80, 100, 50);
+
+        // Circle
+        ctx.beginPath();
+        ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        // Filled triangle
+        ctx.fillStyle = "blue";
+        ctx.beginPath();
+        ctx.moveTo(25, 25);
+        ctx.lineTo(105, 25);
+        ctx.lineTo(25, 105);
+        ctx.fill();
+        // Stroked triangle
+        ctx.beginPath();
+        ctx.moveTo(125, 125);
+        ctx.lineTo(125, 45);
+        ctx.lineTo(45, 125);
+        ctx.closePath();
+        ctx.stroke();
+
+        // Font
+        //ctx.font = "30px Arial";
+        //ctx.fillText("Hello World", 10, 50);
+    }
+
 }
 
 //left for debugging purposes
