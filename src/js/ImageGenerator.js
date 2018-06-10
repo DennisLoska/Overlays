@@ -41,28 +41,41 @@ class ImageGenerator {
 
         if(option == 1){
             // Rectangle
+            var xStart = this.width/4;
+            var yStart = this.height/4;
+            var xEnd = xStart + Math.floor(Math.random() * this.width/2) + 1;
+            var yEnd = yStart + Math.floor(Math.random() * this.height/2) + 1;
+
+            var offset = Math.floor(Math.random() * 10) + 1; // this will get a number between 1 and 10;
+            offset *= Math.floor(Math.random()*2) == 1 ? 1 : -1; // this will add minus sign in 50% of cases
+
             ctx.fillStyle = color;
-            ctx.fillRect(20, 80, 100, 50);
+            ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset);
         }
         if(option == 2){
             // Circle
+            var offset = Math.floor(Math.random() * 20) + 1;
+            offset *= Math.floor(Math.random()*2) == 1 ? 1 : -1; 
+            var radius = Math.floor(Math.random() * 40) + 20; 
+
             ctx.fillStyle = color;
             ctx.beginPath();
-            ctx.arc(75, 75, 40, 0, 2 * Math.PI);
+            ctx.arc(this.width/2 + offset, this.height/2 + offset, radius, 0, 2 * Math.PI);
             ctx.fill();
             ctx.closePath();
-            //ctx.stroke();
         }
         if(option == 3){
             // Filled triangle
+            var offset = Math.floor(Math.random() * 20) + 1;
+            offset *= Math.floor(Math.random()*2) == 1 ? 1 : -1; 
+
             ctx.fillStyle = color;
             ctx.beginPath();
-            ctx.moveTo(125, 125);
-            ctx.lineTo(125, 20);
-            ctx.lineTo(20, 125);
+            ctx.moveTo(110 + offset, 110 + offset); // von 110, 110
+            ctx.lineTo(110 + offset, 20 + offset); // zu 110, 20
+            ctx.lineTo(20 + offset, 110 + offset); // zu 20, 110
             ctx.fill();
             ctx.closePath();
-            //ctx.stroke();
         }
 
         // Font
@@ -72,29 +85,11 @@ class ImageGenerator {
 
     get randomColor(){
         var c = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+        // no black or white:
+        while(c == "#FFFFFF" || c== "#000000"){
+            c = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+        }
         return c;
-
-        /* alternative option:
-        var num = Math.floor(Math.random() * 6) + 1  
-        if(num == 1){
-            return "red";
-        }
-        if(num == 2){
-            return "blue";
-        }
-        if(num == 3){
-            return "yellow";
-        }
-        if(num == 4){
-            return "green";
-        }
-        if(num == 5){
-            return "orange";
-        }
-        if(num == 6){
-            return "purple";
-        }
-        */
     }
 
 }
