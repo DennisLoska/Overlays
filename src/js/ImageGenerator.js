@@ -11,12 +11,14 @@ class ImageGenerator {
         var randomG = Math.floor((Math.random() * 255) + 1);
         var randomB = Math.floor((Math.random() * 255) + 1);
 
+        var white = 255;
+
         for (var y = 0; y < this.height; y++) {
             for (var x = 0; x < this.width; x++) {
                 var pos = (y * this.width + x) * 4; // position in buffer based on x and y
-                this.rndImagePixels[pos + 0] = randomR; // R
-                this.rndImagePixels[pos + 1] = randomG; // G
-                this.rndImagePixels[pos + 2] = randomB; // B
+                this.rndImagePixels[pos + 0] = white; //randomR; // R
+                this.rndImagePixels[pos + 1] = white; //randomG; // G
+                this.rndImagePixels[pos + 2] = white; //randomB; // B
                 this.rndImagePixels[pos + 3] = 255; // A
             }
         }
@@ -32,33 +34,67 @@ class ImageGenerator {
     }
 
     addShapes(ctx){
-        // Rectangle
-        ctx.fillStyle = "yellow";
-        ctx.fillRect(20, 80, 100, 50);
+        // add random shapes in random colors to the image
 
-        // Circle
-        ctx.beginPath();
-        ctx.arc(95, 50, 40, 0, 2 * Math.PI);
-        ctx.stroke();
+        var color = this.randomColor;
+        var option = Math.floor(Math.random() * 3) + 1  
 
-        // Filled triangle
-        ctx.fillStyle = "blue";
-        ctx.beginPath();
-        ctx.moveTo(25, 25);
-        ctx.lineTo(105, 25);
-        ctx.lineTo(25, 105);
-        ctx.fill();
-        // Stroked triangle
-        ctx.beginPath();
-        ctx.moveTo(125, 125);
-        ctx.lineTo(125, 45);
-        ctx.lineTo(45, 125);
-        ctx.closePath();
-        ctx.stroke();
+        if(option == 1){
+            // Rectangle
+            ctx.fillStyle = color;
+            ctx.fillRect(20, 80, 100, 50);
+        }
+        if(option == 2){
+            // Circle
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(75, 75, 40, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.closePath();
+            //ctx.stroke();
+        }
+        if(option == 3){
+            // Filled triangle
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(125, 125);
+            ctx.lineTo(125, 20);
+            ctx.lineTo(20, 125);
+            ctx.fill();
+            ctx.closePath();
+            //ctx.stroke();
+        }
 
         // Font
         //ctx.font = "30px Arial";
         //ctx.fillText("Hello World", 10, 50);
+    }
+
+    get randomColor(){
+        var c = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+        return c;
+
+        /* alternative option:
+        var num = Math.floor(Math.random() * 6) + 1  
+        if(num == 1){
+            return "red";
+        }
+        if(num == 2){
+            return "blue";
+        }
+        if(num == 3){
+            return "yellow";
+        }
+        if(num == 4){
+            return "green";
+        }
+        if(num == 5){
+            return "orange";
+        }
+        if(num == 6){
+            return "purple";
+        }
+        */
     }
 
 }
