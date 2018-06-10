@@ -72,9 +72,8 @@ class Images {
         this.images = new Array(this.numImages)
         try {
             let targetImgData = new Array()
-            let generator = new ImageGenerator() // not in use yet
-
             for (let i = 0; i < this.numImages; i++) {
+                let generator = new ImageGenerator()
                 this.images[i] = new Image()
                 let j = i
                 j++
