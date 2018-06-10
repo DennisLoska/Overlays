@@ -51,7 +51,6 @@ class Images {
 
                 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                 targetImgData.push(imgData.data)
-
             }
             this.targetImgData = targetImgData
         } catch (err) {
@@ -80,6 +79,8 @@ class Images {
                 let canvas = document.getElementById("js-starting-image-" + j.toString())
                 let ctx = canvas.getContext("2d")
                 let img = this.images[i]
+                canvas.width = generator.width
+                canvas.height = generator.height
                 img.onload = function() {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
                 }
@@ -89,16 +90,13 @@ class Images {
 
                 // get random pixel array from ImageGenerator
                 let generatedPixels = generator.randomImagePixels
+                imgData.data.set(generatedPixels)
                 console.log("Generated pixels:")
                 console.log(generatedPixels)
-                for (let i = 0; i < imgData.data.length; i += 4) {
-                    imgData.data[i] = generatedPixels[i]
-                    imgData.data[i + 1] = generatedPixels[i + 1]
-                    imgData.data[i + 2] = generatedPixels[i + 2]
-                    imgData.data[i + 3] = generatedPixels[i + 3]
-                }
-                ctx.putImageData(imgData, 0, 0)
+                console.log("imgData.data:")
+                console.log(imgData.data)
 
+                ctx.putImageData(imgData, 0, 0)
                 targetImgData.push(imgData.data)
             }
             this.targetImgData = targetImgData
