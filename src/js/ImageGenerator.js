@@ -4,31 +4,25 @@ class ImageGenerator {
         this.width = 150;
         this.height = 150;
 
-        this.randomImage = new Image();
-        randomImage.setAttribute("height", height); // "150"
-        randomImage.setAttribute("width", width);
-        
-        var canvas = document.getElementById("js-starting-image-" + j.toString());
-        var context = canvas.getContext("2d");
-        var imgData = context.createImageData(width,height);
+        this.randomImagePixels = new Array(this.width * this.height);
 
+        // generate color between 1 and 255
         var randomR = Math.floor((Math.random() * 255) + 1);
         var randomG = Math.floor((Math.random() * 255) + 1);
         var randomB = Math.floor((Math.random() * 255) + 1);
 
-        for (var i = 0; i < randomImage.data.length; i+=4){
-            randomImage.data[i+0] = randomR; // R
-            randomImage.data[i+1] = randomG; // G
-            randomImage.data[i+2] = randomB; // B
-            randomImage.data[i+3] = 255; // A
+        for (var i = 0; i < this.randomImagePixels.length; i+=4){
+            this.randomImagePixels[i+0] = randomR; // R
+            this.randomImagePixels[i+1] = randomG; // G
+            this.randomImagePixels[i+2] = randomB; // B
+            this.randomImagePixels[i+3] = 255; // A
          }
-         
-       context.putImageData(imgData,0,0);
 
 	}
 
-	get randomImage() {
-		return this.randomImage; // Change: retrun the context image data 
+	get randomImagePixels() {
+        // retrun the pixel array for a random image, use this array in Images() class
+		return this.randomImagePixels;
 	}
 
 }

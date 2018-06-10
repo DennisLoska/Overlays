@@ -65,26 +65,36 @@ class Images {
         return this.images
     }
 
-    get generatedImages() {
+    get  generatedImages() {
         //TODO ImageGenerator
-        this.images = new Array(this.numImages)
+        // instanziiere ImageGenerator und rufe randomImage() auf 
+        console.log("Generated images used.")
+        this.images = new Array(this.numImages);
         try {
             let targetImgData = new Array();
+            let generator = new ImageGenerator(); // not in use yet
+           
             for (let i = 0; i < this.numImages; i++) {
                 this.images[i] = new Image()
                 let j = i
                 j++
                 let canvas = document.getElementById("js-starting-image-" + j.toString())
                 let ctx = canvas.getContext("2d")
-                let img = this.images[i]
-                img.onload = function() {
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-                }
+
+                var bufferData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                // get random pixel array from ImageGenerator
+                var generatedPixels = generator.randomImagePixels;
+                var buffer = generatedPixels;
+                bufferData.data = buffer;
+
+                ctx.putImageData(bufferData, 0, 0);
+                
                 this.images[0].width = canvas.width
                 this.images[0].height = canvas.height
-                this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
+                //this.images[i] = bufferData.data
+                this.image[i] = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 targetImgData.push(imgData.data)
             }
             this.targetImgData = targetImgData
