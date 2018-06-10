@@ -30,7 +30,7 @@ class Images {
     get folderImages() {
         this.images = new Array(this.numImages)
         try {
-            let targetImgData = new Array();
+            let targetImgData = new Array()
             for (let i = 0; i < this.numImages; i++) {
                 this.images[i] = new Image()
                 let j = i
@@ -65,36 +65,41 @@ class Images {
         return this.images
     }
 
-    get  generatedImages() {
+    get generatedImages() {
         //TODO ImageGenerator
         // instanziiere ImageGenerator und rufe randomImage() auf 
         console.log("Generated images used.")
-        this.images = new Array(this.numImages);
+        this.images = new Array(this.numImages)
         try {
-            let targetImgData = new Array();
-            let generator = new ImageGenerator(); // not in use yet
-           
+            let targetImgData = new Array()
+            let generator = new ImageGenerator() // not in use yet
+
             for (let i = 0; i < this.numImages; i++) {
                 this.images[i] = new Image()
                 let j = i
                 j++
                 let canvas = document.getElementById("js-starting-image-" + j.toString())
                 let ctx = canvas.getContext("2d")
-
-                var bufferData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                // get random pixel array from ImageGenerator
-                var generatedPixels = generator.randomImagePixels;
-                var buffer = generatedPixels;
-                bufferData.data = buffer;
-
-                ctx.putImageData(bufferData, 0, 0);
-                
+                let img = this.images[i]
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+                }
                 this.images[0].width = canvas.width
                 this.images[0].height = canvas.height
-                //this.images[i] = bufferData.data
-                this.image[i] = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
 
-                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                // get random pixel array from ImageGenerator
+                let generatedPixels = generator.randomImagePixels
+                console.log("Generated pixels:")
+                console.log(generatedPixels)
+                for (let i = 0; i < imgData.data.length; i += 4) {
+                    imgData.data[i] = generatedPixels[i]
+                    imgData.data[i + 1] = generatedPixels[i + 1]
+                    imgData.data[i + 2] = generatedPixels[i + 2]
+                    imgData.data[i + 3] = generatedPixels[i + 3]
+                }
+                ctx.putImageData(imgData, 0, 0)
+
                 targetImgData.push(imgData.data)
             }
             this.targetImgData = targetImgData
@@ -106,7 +111,6 @@ class Images {
         this.height = this.images[0].height
         return this.images
     }
-
 
     get targetPixels() {
         let targetPixels = this.targetImgData
