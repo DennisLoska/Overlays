@@ -18,14 +18,15 @@ class Game {
 
 //not used yet
 function start() {
-    new Game();
+    new Game()
 }
 
 //with some debugging paramters to see the output in the console
 function canvasDemo() {
     var img1 = new Images()
     img1.numImage = 3
-    img1.folderImages
+        //img1.folderImages
+    img1.generatedImages
     img1.targetPixels
     console.log("Debug InverseMatrix:")
     console.log(InverseMatrix.invert([
@@ -35,7 +36,7 @@ function canvasDemo() {
     ]))
     console.log("Debug Level:")
     var level = new Level(0)
-    console.log("\n");
+    console.log("\n")
 }
 
 
