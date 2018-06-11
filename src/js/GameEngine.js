@@ -534,17 +534,17 @@ class GameEngine {
 
     printResult() {
         console.log("Lösung:")
-        for (let i = 0; i < m.length; i++) {
-            for (let j = 0; j < m[i].length; j++) {
-                console.log("%6.2f", m[i][j])
+        for (let i = 0; i < this.m.length; i++) {
+            for (let j = 0; j < this.m[i].length; j++) {
+                console.log("%6.2f", this.m[i][j])
             }
             console.log()
         }
         console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern:")
-        for (let i = 0; i < mInv.length; i++) {
+        for (let i = 0; i < this.mInv.length; i++) {
             let sum = 0
-            for (let j = 0; j < mInv[i].length; j++) {
-                let val = mInv[i][j]
+            for (let j = 0; j < this.mInv[i].length; j++) {
+                let val = this.mInv[i][j]
                 console.log("%6.2f ", val)
                 sum += val
             }
