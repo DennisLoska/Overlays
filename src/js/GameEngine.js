@@ -93,7 +93,7 @@ class GameEngine {
             console.log("Score: " + this.totalScore.toString());
             // TODO: show score in GUI
             this.levelNumber += 1;
-            loadSettings();
+            this.loadLevel();
         }
     }
 
