@@ -3,7 +3,14 @@ class GameEngine {
         this.levelNumber = levelNumber
         this.loadLevel()
 
-        this.wUser = new Array(this.numPics, this.numPics) // matrix der userwauswahl 
+        this.wUser = new Array(this.numPics, this.numPics) // matrix der userwauswahl
+            //inserting dummy-values into wUser
+        for (let i = 0; i < this.numPics; i++) {
+            this.wUser[i] = []
+            for (let j = 0; j < this.numPics; j++) {
+                this.wUser[i][j] = 0
+            }
+        }
         this.userImagesPixels = new Array(this.numPics, this.width * this.height) // kombinierte pixel der userauswahl
         this.correctUserCombinations = new Array(this.numPics) // 1 wenn richtige kombination, 0 wenn falsch
 
@@ -43,7 +50,7 @@ class GameEngine {
 
         // 1. update the value in the user matrix wUser[][]
         //this.setUserMatrixValue();
-         this.wUser[row] = {} //NOT CORRECT, but solves TypeError for debugging purposes ONLY!!!
+        //this.wUser[row] = {} //NOT CORRECT, but solves TypeError for debugging purposes ONLY!!!
         if (this.wUser[row][col] == 1) {
             this.wUser[row][col] = 0;
         } else {
@@ -66,7 +73,7 @@ class GameEngine {
 
         // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
         let currentUserImg = new Array()
-        currentUserImg = calculateUserImage(wUserRow, row); // returned pixel array
+        currentUserImg = this.calculateUserImage(wUserRow, row); // returned pixel array
         this.drawUserImage(row, currentUserImg);
         // TODO: calculateUserImage returns an image, use this
         // returned Image is still a BufferedImage so far - change!
@@ -133,9 +140,9 @@ class GameEngine {
         this.resetUserMatrix()
     }
 
-    resetUserMatrix(){
-        for(let i = 0; i < this.numPics; i++){
-            for(let j = 0; j < this.numPics; j++){
+    resetUserMatrix() {
+        for (let i = 0; i < this.numPics; i++) {
+            for (let j = 0; j < this.numPics; j++) {
                 //this.wUser[j][i] = 0;
                 //alle werte der auswahl wieder auf 0 setzen (und karten umdrehen)
             }
@@ -257,11 +264,10 @@ class GameEngine {
             this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen
 
             for (let i = 0; i < this.numPics; i++) {
-                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
-                pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
-
-                basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-                basisImages[i].setRGB(0, 0, width, height, pixelsBasis[i], 0, width); //Sets an array of integer pixels in the default RGB color model 
+                //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
+                //pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
+                //old java basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+                //old java basisImages[i].setRGB(0, 0, width, height, pixelsBasis[i], 0, width); //Sets an array of integer pixels in the default RGB color model 
                 this.basisImages[i] = new Image()
                 this.basisImages[i] = this.calculateSetRGB(pixelsBasis[i])
             }
@@ -307,31 +313,31 @@ class GameEngine {
         } else {
             imagesToDraw = this.tragetImages
         }
-    
-       /*try {
-            let targetImgData = new Array()
-            for (let i = 0; i < this.numImages; i++) {
-                this.imagesToDraw[i] = new Image()
-                let j = i
-                j++
-                let canvas = document.getElementById("js-basis-image-" + j.toString())
-                let ctx = canvas.getContext("2d")
-                let img = imagesToDraw[i]
-                img.onload = function() {
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-                }
-                this.imagesToDraw[0].width = canvas.width
-                this.imagesToDraw[0].height = canvas.height
-                this.imagesToDraw[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
 
-                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-                targetImgData.push(imgData.data)
-            }
-            this.imagesToDraw = targetImgData
-        } catch (err) {
-            console.log("Could not load image from folder.")
-            err.message = "Could not load image from folder."
-        }*/
+        /*try {
+             let targetImgData = new Array()
+             for (let i = 0; i < this.numImages; i++) {
+                 this.imagesToDraw[i] = new Image()
+                 let j = i
+                 j++
+                 let canvas = document.getElementById("js-basis-image-" + j.toString())
+                 let ctx = canvas.getContext("2d")
+                 let img = imagesToDraw[i]
+                 img.onload = function() {
+                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+                 }
+                 this.imagesToDraw[0].width = canvas.width
+                 this.imagesToDraw[0].height = canvas.height
+                 this.imagesToDraw[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
+
+                 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+                 targetImgData.push(imgData.data)
+             }
+             this.imagesToDraw = targetImgData
+         } catch (err) {
+             console.log("Could not load image from folder.")
+             err.message = "Could not load image from folder."
+         }*/
     }
 
     calculateSetRGB(pixels) {
@@ -381,62 +387,70 @@ class GameEngine {
 
     generateRandomM() {
 
-        let success;		
-		while (!success) {
-			// numOnes mal eine 1 in jede Zeile von m setzen	
-			this.m = new Array(this.numPics, this.numPics);
-			for (let i = 0; i < this.m.length; i++) {
-				for (let j = 0; j < this.numOnes; j++) {
-					let index;
-					while (this.m[i][index] == 1) {
-						index = Math.floor(Math.random()*this.numPics + 0.1);
-					}
-					this.m[i][index] = 1;
-				}
-			}		
-			success = true;
-			for (let i = 0; i < this.numPics; i++) {
-				for (let j = i+1; j < this.numPics; j++)  {
-					let same = true; // identische Kombinationen/Zeilen vermeiden
-					for (let k = 0; k < this.numPics; k++) 
-						if (this.m[i][k] != this.m[j][k])
-							same = false;
-					if (same) {
-						success = false;
-						break;
-					}
-				}
-			}
-		} 
-
-/*
-        let success
-        do {
+        let success;
+        while (!success) {
             // numOnes mal eine 1 in jede Zeile von m setzen	
-            this.m = new Array(this.numPics)
-            for (let i = 0; i < this.m.length; i++) {
-                let index
-                this.m[i] = new Array(this.numPics)
-                for (let j = 0; j < this.m[i].length; j++)
-                    this.m[i][j] = 0
-                do index = Math.floor(Math.random() * this.numPics) + 0
-                while (this.m[i][index] == 1)
-                this.m[i][index] = 1
+            this.m = new Array(this.numPics, this.numPics);
+            //insert dummy-values into m
+            for (let i = 0; i < this.numPics; i++) {
+                this.m[i] = [];
+                for (let j = 0; j < this.numPics; j++) {
+                    this.m[i][j] = 0;
+                }
             }
-            success = true
+            for (let i = 0; i < this.numPics; i++) {
+                console.log(this.numOnes);
+
+                for (let j = 0; j < this.numOnes; j++) {
+                    let index;
+                    do index = Math.floor(Math.random() * this.numPics)
+                    while (this.m[i][index] == 1)
+                    this.m[i][index] = 1;
+                }
+            }
+            success = true;
             for (let i = 0; i < this.numPics; i++) {
                 for (let j = i + 1; j < this.numPics; j++) {
-                    let same = true // identische Kombinationen/Zeilen vermeiden
+                    let same = true; // identische Kombinationen/Zeilen vermeiden
                     for (let k = 0; k < this.numPics; k++)
                         if (this.m[i][k] != this.m[j][k])
-                            same = false
+                            same = false;
                     if (same) {
-                        success = false
-                        break
+                        success = false;
+                        break;
                     }
                 }
             }
-        } while (!success)*/
+        }
+
+        /*
+                let success
+                do {
+                    // numOnes mal eine 1 in jede Zeile von m setzen	
+                    this.m = new Array(this.numPics)
+                    for (let i = 0; i < this.m.length; i++) {
+                        let index
+                        this.m[i] = new Array(this.numPics)
+                        for (let j = 0; j < this.m[i].length; j++)
+                            this.m[i][j] = 0
+                        do index = Math.floor(Math.random() * this.numPics) + 0
+                        while (this.m[i][index] == 1)
+                        this.m[i][index] = 1
+                    }
+                    success = true
+                    for (let i = 0; i < this.numPics; i++) {
+                        for (let j = i + 1; j < this.numPics; j++) {
+                            let same = true // identische Kombinationen/Zeilen vermeiden
+                            for (let k = 0; k < this.numPics; k++)
+                                if (this.m[i][k] != this.m[j][k])
+                                    same = false
+                            if (same) {
+                                success = false
+                                break
+                            }
+                        }
+                    }
+                } while (!success)*/
         console.log("Random Matrix:")
         console.log(this.m)
     }
