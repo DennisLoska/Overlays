@@ -78,14 +78,8 @@ class GameEngine {
         }
 
         // 5. check if all rows are finished / have the correct combinations => next level
-<<<<<<< HEAD
-        return "hi"
-    }
-
-    drawUserImage(row, img) { // welche Reihe und wie sieht das Bild aktuell aus
-=======
         let correctCombs = this.getAmountOfCorrectCombinations();
-        if(correctCombs == this.numPics){
+        if (correctCombs == this.numPics) {
             // alle Zeilen sind richtig; Level fertig
             console.log("LEVEL COMPLETED!");
             let levelScore = this.returnScore(this.clickCounter);
@@ -97,18 +91,17 @@ class GameEngine {
         }
     }
 
-    drawUserImage(row, imgPixels){ // welche Reihe und wie sieht das Bild aktuell aus
->>>>>>> fad50f58b307f36d0589b99ca0c4238057af7452
+    drawUserImage(row, imgPixels) { // welche Reihe und wie sieht das Bild aktuell aus
         // TODO: male das vom User bisher zusammengerechnete Zielbild ins Canvas
         // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
         let pixelsToDraw = new Uint8ClampedArray(this.width * this.height * 4)
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 let pos = (y * this.width + x) * 4 // position in buffer based on x and y
-                pixelsToDraw[pos + 0] = imgPixels[pos + 0]  // R
-                pixelsToDraw[pos + 1] = imgPixels[pos + 1]  // G
-                pixelsToDraw[pos + 2] = imgPixels[pos + 2]  // B
-                pixelsToDraw[pos + 3] = imgPixels[pos + 3]  // A
+                pixelsToDraw[pos + 0] = imgPixels[pos + 0] // R
+                pixelsToDraw[pos + 1] = imgPixels[pos + 1] // G
+                pixelsToDraw[pos + 2] = imgPixels[pos + 2] // B
+                pixelsToDraw[pos + 3] = imgPixels[pos + 3] // A
             }
         }
 
@@ -140,18 +133,18 @@ class GameEngine {
         let optimum = this.level.clickOptimum
         let fullScoreLimit = 2 * optimum;
 
-		if(clicks == optimum || clicks <= fullScoreLimit){
-			// volle Punktzahl
-			score = 100;
-		} else if(clicks < maximum && clicks > fullScoreLimit){
-			// abgestuft weniger Punktzahlen
-			let count = clicks - optimum;
-			let schritte = (100.0 - fullScoreLimit) / maximum;		
-			score = 100 - (schritte * count);
-		} else if(clicks > maximum){
-			// keine Punkte
-			score = 0;
-		}
+        if (clicks == optimum || clicks <= fullScoreLimit) {
+            // volle Punktzahl
+            score = 100;
+        } else if (clicks < maximum && clicks > fullScoreLimit) {
+            // abgestuft weniger Punktzahlen
+            let count = clicks - optimum;
+            let schritte = (100.0 - fullScoreLimit) / maximum;
+            score = 100 - (schritte * count);
+        } else if (clicks > maximum) {
+            // keine Punkte
+            score = 0;
+        }
 
         return score
     }
@@ -161,12 +154,12 @@ class GameEngine {
         // muss für jede Reihe einzelnd aufgerufen werden
         let pixelsBlended = new Array()
         pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
-        //let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
-        //userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
+            //let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
+            //userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
         this.userImagesPixels[index] = pixelsBlended
-        //return userImage
+            //return userImage
         return pixelsBlended
-        // gibt die pixel des jeweiligen user images zurück
+            // gibt die pixel des jeweiligen user images zurück
     }
 
     comparePictures(index, wUserRow) { // TODO: not finished
@@ -411,29 +404,29 @@ class GameEngine {
 
         let pixels = new Array[pixelsIn[0].length][3] // new Uint8ClampedArray(this.width * this.height * 4) / [pixelsIn[0].length][3]
 
-        for (let i = 0; i < this.height; i+=4) {
+        for (let i = 0; i < this.height; i += 4) {
 
             let r = 0;
             let g = 0;
             let b = 0;
             let a = 0;
 
-            for (let j = 0; j < this.width; j+=4) {
+            for (let j = 0; j < this.width; j += 4) {
 
                 let cj = pixelsIn[j][i];
-				let rj = f(cj + 0); // f((cj >> 16) & 255)
-				let gj = f(cj + 1); // f((cj >>  8) & 255); 
+                let rj = f(cj + 0); // f((cj >> 16) & 255)
+                let gj = f(cj + 1); // f((cj >>  8) & 255); 
                 let bj = f(cj + 2); // f((cj      ) & 255);
                 //let aj = f(cj + 3); // f((cj >> 24) & 255);
 
-				r += w[j]*rj;
-				g += w[j]*gj;
-                b += w[j]*bj;
+                r += w[j] * rj;
+                g += w[j] * gj;
+                b += w[j] * bj;
                 //a += aj; // Transparenz bleibt gleich
             }
 
             pixels[i][0] = fi(r);
-			pixels[i][1] = fi(g);
+            pixels[i][1] = fi(g);
             pixels[i][2] = fi(b);
             // TODO: Pixel werden in rgb Kanäle aufgeteilt, muss hier anders berechnet werden?
         }
