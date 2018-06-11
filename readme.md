@@ -1,57 +1,84 @@
 # Overlays
 
-_Mitglieder:_ Dennis Loska, Luisa Kurth
+www.overlays.dennisloska.com
 
-## Allgemein
+## Wichtig für den Develop und Production Branch:
 
-- Showtime: 27.07.2018, Freitag
-- ab 18.04 jeden Mittwoch c647 14 Uhr
-- ganze Woche vor der Showtime für Showtime aufwenden
-- alle 2 Wochen 13:30 c647 (ab dem 18.04)
+In den beiden Branches _develop_ und _production_ wird **nur** das finale Projekt bearbeitet - es entfällt also komplett der Java Teil! In diesen beiden Branches geht es ausschließlich um die Webseite Obverlays und die dazu in Javascript programmierte Version vdes Spiels.
 
-## Ideen
+Im Branch _develop_ wird entwickelt, und sobald ein neues Feature bzw. eine Aufgabe abgeschlossen ist, wird der _develop_ Branch in den _production_ branch gemerged (Dieses kann ich @Dennis machen - Ich werde mich Anhand der **Trello-Karten** orientieren, ob ein Task erledigt ist und somit der Branch mergebar).
 
-- Webseite
-- Beispiele finden - gute Designs kopieren!
-- Spielkonzepte
-- Überlagerungstechniken (von additiver zu subtraktiver Farbmischung wechseln!?)  **könnte schwierig werden**
-- konstanter vs progressiver Schwierigkeitsgrad
-- Landingpage mit CtA-Button und anschließend Wechsel zum Menü/Spiel
-- Hintergrundanimation/Bewegung vor Spielbeginn
-- Anbindung an die Instagram/Flickr-API mit Begriffs-Suchfeld für Spieler
-- Highscore bzw. Ranking
-- Leben/Fehlertoleranz
-- Zeitlimit, Bonuszeit bei gutem Spiel
-- Node.js, Github, Bootstrap
+## Ziele und wie es sein sollte
 
-- **18.04.18**:
-  - 2-3 verschiedene Konzepte 3x3 bzw. 4x4 Matrix
-  - 1,2,3 Sterne je nach gebrauchter Zeit und erfolgreichem Erraten --> Freischaltung neuer Level durch 3/3 Sternen
-  - Tutorial-ImageSets bei additiver Farbmischung
+Ziel ist es, dass der production Branch **zu jeder Zeit** online ist und immer funktioniert. Was wir auf der IMI-Showtime präsentrieren, wird letztenendes der _production_ Branch sein. Dieser kann auf meinem Server laufen, aber wenn wir Node.js lokal installiert haben, können wir auch ohne Probleme eine lokale Version der Seite laufen lassen, damit es bei der Präsentation keine Probleme gibt!
 
-- **02.04.18**:
+## Lokale Entwicklungsumgebung (mini Tutorial)
 
-## Aktuelles
+Du solltest Node.js auf deinem Rechner installiert haben. Auf dem Server läuft Versionb _8.9.4_, aber auf der lokalen Umgebung sollte die neuste LTS Variante ab version **8.11.1** installiert werden (https://nodejs.org/en/). Nachdem Node installiert wurde solltest du am Besten das Repository klonen und dann im Terminal da reingehen
 
-- Lösungsmatrix im Feature-Branch implementieren
+```
+cd ./Overlays
+```
 
-## Festgelegte Tools, Technologien und Ziele
+Als nächstes muss in den _develop_ Branch gewechselt werden:
 
+```
+git checkout develop
+```
 
-## Projektmanagement - Mitschriften & Hausaufgaben
+Anschließend müssen die Dependencies, also abhängige Node-Module die wir benötigen installiert bzw. runtergeladen werden. Hierfür nutzt du folgenden Befehl:
 
-- Produktvision:
- 
- >Unsere Produktvision ist ein kurzweiliges, browserbasiertes Puzzlespiel zum trainieren der Interpretaion von Farben und Strukturen/Objekten in Bildern.
+```
+npm install
+```
 
-- Zielgruppe:
+Jetzt sollte alles startklar sein und du solltest den lokalen Server starten können:
 
->Puzzle-Freunde und Casual-Gamer.
+```
+node index.js
+```
 
-## Bilder und Medien
+Es sollte folgende Meldung im Terminal erscheinen:
 
-![notizen](/readme_media/notizen_barthel00.jpg)
-![notizen](/readme_media/notizen_barthel01.JPG)
-![notizen](/readme_media/notizen_barthel02.jpg)
-![notizen](/readme_media/notizen_barthel03.jpg)
-![notizen](/readme_media/notizen_barthel04.jpg)
+```
+Node app is running at localhost:5000
+```
+
+Wenn du deine Sachen pushen möchtest, dann machst du wie gewohnt Commits und am Ende:
+
+```
+git push origin develop
+```
+
+## Building Tool Grunt
+
+When you are done cloning the repository you can install all dependencies using
+
+```
+npm install
+```
+
+and after that you can install grunt (skip this step first because it may not be needed):
+
+```
+npm install -g grunt-cli
+npm install grunt 
+```
+
+Now test, whether you installed everything correctly by executing
+
+```
+sudo grunt
+```
+
+on Unix systems or just buy typing in
+
+```
+grunt
+```
+
+To build the complete project in order to deploy it do
+
+```
+grunt build
+```
