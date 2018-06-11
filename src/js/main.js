@@ -1,6 +1,11 @@
 //used for debugging right now
 function start() {
-    new Game()
+    let game = new Game()
+    $(".js-card").click(function() {
+        let row = $(this).attr('data-row')
+        let co0l = $(this).attr('data-col')
+        game.updateOnClick(row, col)
+    })
 }
 
 //with some debugging paramters to see the output in the console

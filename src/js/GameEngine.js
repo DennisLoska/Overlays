@@ -30,14 +30,14 @@ class GameEngine {
         this.getTargetAndBasisImages()
     }
 
-    updateOnClick(row, col){ // row and colomn of the clicked square in index.html file
+    updateOnClick(row, col) { // row and colomn of the clicked square in index.html file
         // function should be called whenever a square is clicked by user (call in index.html onclick)
 
         // 1. update the value in the user matrix wUser[][]
         //this.setUserMatrixValue();
-        if(this.wUser[row][col] == 1){
+        if (this.wUser[row][col] == 1) {
             this.wUser[row][col] = 0;
-        } else{
+        } else {
             this.wUser[row][col] = 1;
         }
         console.log("Auswahl des Users (wUser):");
@@ -46,8 +46,8 @@ class GameEngine {
         // 2. berechne die Reihenmatrix der Userauswahl
         let wUserRow = new Array[this.numPics]; // bspw.: wUserRow[1, 0, 1]
         for (let r = 0; r < this.numPics; r++) {
-            for (let c = 0; c < this.numPics; c++){
-                wUserRow[c] =  this.wUser[r][c]; // Auswahl des Users für jede Reihe (vektor anstatt matrix) // TODO
+            for (let c = 0; c < this.numPics; c++) {
+                wUserRow[c] = this.wUser[r][c]; // Auswahl des Users für jede Reihe (vektor anstatt matrix) // TODO
             }
         }
         console.log("Reihenauswahl des Users (wUserRow):");
@@ -59,10 +59,10 @@ class GameEngine {
         // TODO: calculateUserImage returns an image, use this
         // returned Image is still a BufferedImage so far - change!
 
-        
+
         // 4. check if the row is now completed; the right result in this row
         let state = this.comparePictures(row, wUserRow); // vergleiche die matrizen (user auswahl und lösungsmatrix)
-        if(state == true){
+        if (state == true) {
             // bei richtiger combination wird der wert auf true / 1 gesetzt
             // wenn überall true / 1 steht => level completed
             this.setCorrectCombination(row, true);
@@ -73,7 +73,7 @@ class GameEngine {
 
     }
 
-    drawUserImage(row, img){ // welche Reihe und wie sieht das Bild aktuell aus
+    drawUserImage(row, img) { // welche Reihe und wie sieht das Bild aktuell aus
         // TODO: male das vom User bisher zusammengerechnete Zielbild ins Canvas
         // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
 
@@ -116,9 +116,9 @@ class GameEngine {
         // int index is one specific row in the matrix
         let equals = false
         for (let i = 0; i < this.numPics; i++) {
-            if (wUserRow[i] == this.m[index][i]){ // vergleiche reihe der usermatrix mit reihe der lösungsmatrix
+            if (wUserRow[i] == this.m[index][i]) { // vergleiche reihe der usermatrix mit reihe der lösungsmatrix
                 equals = true
-            } else{
+            } else {
                 return false
             }
         }
@@ -190,13 +190,13 @@ class GameEngine {
             this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen
 
             for (let i = 0; i < this.numPics; i++) {
-                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
-                pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
+                //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
+                //pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
 
                 //basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
                 //basisImages[i].setRGB(0, 0, width, height, pixelsBasis[i], 0, width); //Sets an array of integer pixels in the default RGB color model 
                 //this.basisImages[i] = new Image()
-                this.basisImages[i] = this.calculateSetRGB(pixelsBasis[i])
+                //this.basisImages[i] = this.calculateSetRGB(pixelsBasis[i])
             }
         } else {
             this.mInv = new Array(this.numPics, this.numPics)
@@ -225,8 +225,8 @@ class GameEngine {
                 this.targetImages[i] = this.calculateSetRGB(pixelsBasis[i])
             }
         }
-        printResult()
-        drawImagesInCanvas()
+        this.printResult()
+        this.drawImagesInCanvas()
     }
 
     drawImagesInCanvas() { // // TODO: not finished
