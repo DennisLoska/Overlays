@@ -294,20 +294,21 @@ class GameEngine {
     }
 
     blend3DDoubleToPixels(pixelsIn, w) { // TODO: not finished
-        // double[][][] pixelsIn, double[] w
-		int[] pixels = new int[pixelsIn[0].length];
+        // Ursprüngliche Parameter der Methode: (double[][][] pixelsIn, double[] w)
+        //int[] pixels = new int[pixelsIn[0].length];
+        var pixels = new Array(pixelsIn[0].length);
 
-		double rMin = 0, rMax = 255;
-		double gMin = 0, gMax = 255;
-		double bMin = 0, bMax = 255;
+		var rMin = 0, rMax = 255;
+		var gMin = 0, gMax = 255;
+		var bMin = 0, bMax = 255;
 		
-		for (int i = 0; i < pixels.length; i++) {
-			double r = 0, g = 0, b = 0;
+		for (var i = 0; i < pixels.length; i++) {
+			var r = 0, g = 0, b = 0;
 
-			for (int j = 0; j < pixelsIn.length; j++) {
-				double rj = f( pixelsIn[j][i][0]);
-				double gj = f( pixelsIn[j][i][1]);
-				double bj = f( pixelsIn[j][i][2]);	
+			for (var j = 0; j < pixelsIn.length; j++) {
+				var rj = f( pixelsIn[j][i][0]);
+				var gj = f( pixelsIn[j][i][1]);
+				var bj = f( pixelsIn[j][i][2]);	
 
 				r += w[j]*rj; 
 				g += w[j]*gj;
@@ -325,18 +326,18 @@ class GameEngine {
 			if (b < bMin) bMin = b;
 		}
 		
-		double max = Math.max(rMax, Math.max(gMax,  bMax));
-		double min = Math.min(rMin, Math.min(gMin,  bMin));
+		var max = Math.max(rMax, Math.max(gMax,  bMax));
+		var min = Math.min(rMin, Math.min(gMin,  bMin));
 				
 		System.out.println(rMin + "," + rMax + ", " + gMin + "," + gMax + ", " + bMin + "," + bMax );
 		
-		for (int i = 0; i < pixels.length; i++) {
-			double r = 0, g = 0, b = 0;
+		for (var i = 0; i < pixels.length; i++) {
+			var r = 0, g = 0, b = 0;
 
-			for (int j = 0; j < pixelsIn.length; j++) {
-				double rj = f( pixelsIn[j][i][0]);
-				double gj = f( pixelsIn[j][i][1]);
-				double bj = f( pixelsIn[j][i][2]);	
+			for (var j = 0; j < pixelsIn.length; j++) {
+				var rj = f( pixelsIn[j][i][0]);
+				var gj = f( pixelsIn[j][i][1]);
+				var bj = f( pixelsIn[j][i][2]);	
 
 				r += w[j]*rj; 
 				g += w[j]*gj;
@@ -352,7 +353,11 @@ class GameEngine {
 			
 			//g = Math.min(Math.max(0, fi(g) ), 255);
 			//b = Math.min(Math.max(0, fi(b) ), 255);
-			pixels[i] = 0xFF000000 | ((int)r <<16) | ((int)g << 8) | (int)b;
+            //pixels[i] = 0xFF000000 | ((int)r <<16) | ((int)g << 8) | (int)b;
+            pixels[i] = r
+            pixels[i + 1] = g
+            pixels[i + 2] = b
+            pixels[i + 3] = 255 //alpha
 		}
 		
 		return pixels;
