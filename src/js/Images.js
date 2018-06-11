@@ -48,7 +48,6 @@ class Images {
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
                     //console.log("Image number " + i + ":" + "\n")
                     //console.log(this.images[i])
-
                 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                 targetImgData.push(imgData.data)
             }

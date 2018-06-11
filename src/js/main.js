@@ -7,8 +7,8 @@ function start() {
 function canvasDemo() {
     var img1 = new Images()
     img1.numImage = 3
-        //img1.folderImages
-    img1.generatedImages
+    img1.folderImages
+        //img1.generatedImages
     img1.targetPixels
     console.log("Debug InverseMatrix:")
     console.log(InverseMatrix.invert([
@@ -28,7 +28,7 @@ function canvasDemo() {
 
 //https://developer.mozilla.org/de/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
 //https://www.w3schools.com/tags/canvas_getimagedata.asp
-function demo() {
+function notUsed() {
 
     var img_1 = new Image;
     var img_2 = new Image;
