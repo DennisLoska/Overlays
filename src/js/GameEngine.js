@@ -380,6 +380,36 @@ class GameEngine {
     }
 
     generateRandomM() {
+
+        let success;		
+		while (!success) {
+			// numOnes mal eine 1 in jede Zeile von m setzen	
+			this.m = new Array(this.numPics, this.numPics);
+			for (let i = 0; i < this.m.length; i++) {
+				for (let j = 0; j < this.numOnes; j++) {
+					let index;
+					while (this.m[i][index] == 1) {
+						index = Math.floor(Math.random()*this.numPics + 0.1);
+					}
+					this.m[i][index] = 1;
+				}
+			}		
+			success = true;
+			for (let i = 0; i < this.numPics; i++) {
+				for (let j = i+1; j < this.numPics; j++)  {
+					let same = true; // identische Kombinationen/Zeilen vermeiden
+					for (let k = 0; k < this.numPics; k++) 
+						if (this.m[i][k] != this.m[j][k])
+							same = false;
+					if (same) {
+						success = false;
+						break;
+					}
+				}
+			}
+		} 
+
+/*
         let success
         do {
             // numOnes mal eine 1 in jede Zeile von m setzen	
@@ -406,7 +436,7 @@ class GameEngine {
                     }
                 }
             }
-        } while (!success)
+        } while (!success)*/
         console.log("Random Matrix:")
         console.log(this.m)
     }
