@@ -234,7 +234,7 @@ class GameEngine {
         let imagesToDraw = new Array(this.numPics)
 
         // which images should be drawn
-        if (doGenerate == true) {
+        if (this.doGenerate == true) {
             imagesToDraw = this.basisImages
         } else {
             imagesToDraw = this.tragetImages

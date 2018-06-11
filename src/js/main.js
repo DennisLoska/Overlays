@@ -3,7 +3,7 @@ function start() {
     let game = new Game()
     $(".js-card").click(function() {
         let row = $(this).attr('data-row')
-        let co0l = $(this).attr('data-col')
+        let col = $(this).attr('data-col')
         game.updateOnClick(row, col)
     })
 }
