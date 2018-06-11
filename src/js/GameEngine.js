@@ -120,7 +120,7 @@ class GameEngine {
             if (this.levelNumber < 3)
                 this.targetImages = images.generatedImages // ImageGenerator Bilder
             else this.targetImages = images.folderImages // Bilder aus pics Ordner
-
+            this.targetPixels = images.targetPixels
             this.width = this.targetImages[0].width
             this.height = this.targetImages[0].height
         } else {
@@ -300,28 +300,60 @@ class GameEngine {
 
     //TODO make function applyable on pixels from imagedata of Canvas-API
     blendPixelsTo3DDoubleImage(pixelsIn, w) {
-        let pixels = new Array(pixelsIn[0].length, 3)
+        console.log(pixelsIn);
+        let pixels = new Uint8ClampedArray(this.width * this.height * 4)
 
-        for (let i = 0; i < pixels.length; i++) {
-            let r = 0,
-                g = 0,
-                b = 0;
+        for (var y = 0; y < this.height; y++) {
+            for (var x = 0; x < this.width; x++) {
+                var pos = (y * this.width + x) * 4; // position in buffer based on x and y
+                this.rndImagePixels[pos + 0] = white; //randomR; // R
+                this.rndImagePixels[pos + 1] = white; //randomG; // G
+                this.rndImagePixels[pos + 2] = white; //randomB; // B
+                this.rndImagePixels[pos + 3] = 255; // A
 
-            for (let j = 0; j < pixelsIn.length; j++) {
+                let r = 0,
+                    g = 0,
+                    b = 0;
+
+
                 let cj = pixelsIn[j][i]
-                let rj = f((cj >> 16) & 255)
-                let gj = f((cj >> 8) & 255)
-                let bj = f((cj) & 255)
+                let rj = this.f((cj >> 16) & 255)
+                let gj = this.f((cj >> 8) & 255)
+                let bj = this.f((cj) & 255)
 
                 r += w[j] * rj
                 g += w[j] * gj
                 b += w[j] * bj
-            }
 
-            pixels[i][0] = fi(r)
-            pixels[i][1] = fi(g)
-            pixels[i][2] = fi(b)
+                pixels[i][0] = this.fi(r)
+                pixels[i][1] = this.fi(g)
+                pixels[i][2] = this.fi(b)
+            }
         }
+        /*
+                let pixels = new Array(pixelsIn[0].length, 3)
+
+                for (let i = 0; i < pixels.length; i++) {
+                    let r = 0,
+                        g = 0,
+                        b = 0;
+
+                    for (let j = 0; j < pixelsIn.length; j++) {
+                        let cj = pixelsIn[j][i]
+                        let rj = this.f((cj >> 16) & 255)
+                        let gj = this.f((cj >> 8) & 255)
+                        let bj = this.f((cj) & 255)
+
+                        r += w[j] * rj
+                        g += w[j] * gj
+                        b += w[j] * bj
+                    }
+
+                    pixels[i][0] = this.fi(r)
+                    pixels[i][1] = this.fi(g)
+                    pixels[i][2] = this.fi(b)
+                }
+                */
         return pixels
     }
 
@@ -408,9 +440,9 @@ class GameEngine {
 
             for (let j = 0; j < pixelsIn.length; j += 4) { // j+=4 WICHTIG!
                 let cj = pixelsIn[j][i]
-                let rj = f((cj >> 16) & 255)
-                let gj = f((cj >> 8) & 255)
-                let bj = f((cj) & 255)
+                let rj = this.f((cj >> 16) & 255)
+                let gj = this.f((cj >> 8) & 255)
+                let bj = this.f((cj) & 255)
 
                 r += w[j] * rj
                 b += w[j + 2] * bj
@@ -422,9 +454,9 @@ class GameEngine {
             //b = (b - 128) / numOnes + 128;
 
             // begrenzung zwischen 0 und 255
-            r = Math.min(Math.max(0, fi(r)), 255)
-            g = Math.min(Math.max(0, fi(g)), 255)
-            b = Math.min(Math.max(0, fi(b)), 255)
+            r = Math.min(Math.max(0, this.fi(r)), 255)
+            g = Math.min(Math.max(0, this.fi(g)), 255)
+            b = Math.min(Math.max(0, this.fi(b)), 255)
                 //pixels[i] = 0xFF000000 | ((int)r <<16) | ((int)g << 8) | (int)b
             pixels[i] = r
             pixels[i + 1] = g
