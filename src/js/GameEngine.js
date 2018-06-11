@@ -4,7 +4,7 @@ class GameEngine {
         this.loadLevel()
 
         this.wUser = new Array(this.numPics, this.numPics) // matrix der userwauswahl
-            //inserting dummy-values into wUser
+        //inserting dummy-values into wUser
         for (let i = 0; i < this.numPics; i++) {
             this.wUser[i] = []
             for (let j = 0; j < this.numPics; j++) {
@@ -132,14 +132,16 @@ class GameEngine {
         this.numOnes = this.level.numOnes
         this.doGenerate = this.level.doGenerate()
 
-        this.resetUserMatrix()
+        // load new target images 
+        // calculate new basis images
+        //this.resetUserMatrix()
     }
 
     resetUserMatrix() {
         for (let i = 0; i < this.numPics; i++) {
+            this.wUser[i] = []
             for (let j = 0; j < this.numPics; j++) {
-                //this.wUser[j][i] = 0;
-                //alle werte der auswahl wieder auf 0 setzen (und karten umdrehen)
+                this.wUser[i][j] = 0
             }
         }
     }
@@ -417,35 +419,6 @@ class GameEngine {
                 }
             }
         }
-
-        /*
-                let success
-                do {
-                    // numOnes mal eine 1 in jede Zeile von m setzen	
-                    this.m = new Array(this.numPics)
-                    for (let i = 0; i < this.m.length; i++) {
-                        let index
-                        this.m[i] = new Array(this.numPics)
-                        for (let j = 0; j < this.m[i].length; j++)
-                            this.m[i][j] = 0
-                        do index = Math.floor(Math.random() * this.numPics) + 0
-                        while (this.m[i][index] == 1)
-                        this.m[i][index] = 1
-                    }
-                    success = true
-                    for (let i = 0; i < this.numPics; i++) {
-                        for (let j = i + 1; j < this.numPics; j++) {
-                            let same = true // identische Kombinationen/Zeilen vermeiden
-                            for (let k = 0; k < this.numPics; k++)
-                                if (this.m[i][k] != this.m[j][k])
-                                    same = false
-                            if (same) {
-                                success = false
-                                break
-                            }
-                        }
-                    }
-                } while (!success)*/
         console.log("Random Matrix:")
         console.log(this.m)
     }
