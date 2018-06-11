@@ -16,7 +16,7 @@ class Game {
     }
 }
 
-//not used yet
+//used for debugging right now
 function start() {
     new Game()
 }

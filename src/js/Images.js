@@ -91,10 +91,10 @@ class Images {
                 // get random pixel array from ImageGenerator
                 let generatedPixels = generator.randomImagePixels
                 imgData.data.set(generatedPixels)
-                console.log("Generated pixels:")
-                console.log(generatedPixels)
-                console.log("imgData.data:")
-                console.log(imgData.data)
+                    //console.log("Generated pixels:")
+                    //console.log(generatedPixels)
+                    //console.log("imgData.data:")
+                    //console.log(imgData.data)
                 ctx.putImageData(imgData, 0, 0)
 
                 // put random shape of random color on picture

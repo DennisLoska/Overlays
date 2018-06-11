@@ -23,43 +23,19 @@ class GameEngine {
         this.targetPixels = new Array(undefined, undefined)
         this.basisPixels3 = new Array(undefined, undefined, undefined)
 
+        this.maxWeight = 1; // 0.51, 0.71.. 2.01
+        this.width = undefined
+        this.height = undefined
+
         this.getTargetAndBasisImages()
     }
 
     loadLevel() {
         // load the settings for a specific level
         this.level = new Level(this.levelNumber)
-        this.numPics = level.numPics
-        this.numOnes = level.numOnes
-        this.doGenerate = level.doGenerate()
-    }
-
-    get numPics() {
-        return this.numPics
-    }
-
-    get numOnes() {
-        return this.numOnes
-    }
-
-    get height() {
-        return this.height
-    }
-
-    get width() {
-        return this.width
-    }
-
-    set level(newLevel) {
-        this.levelNumber = newLevel
-    }
-
-    get level() {
-        return this.levelNumber
-    }
-
-    get doGenerate() {
-        return this.doGenerate
+        this.numPics = this.level.numPics
+        this.numOnes = this.level.numOnes
+        this.doGenerate = this.level.doGenerate()
     }
 
     returnScore(clicks) {
@@ -134,33 +110,35 @@ class GameEngine {
     getTargetAndBasisImages() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
         let images = new Images()
-        images.numImages(numPics) // generiere bilder mit returnGeneratedImages()
+        images.numImage = this.numPics // generiere bilder mit returnGeneratedImages()
+
+        console.log(images);
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
             // generate basis from input images
             if (this.levelNumber < 3)
-                this.targetImages = images.generatedImages() // ImageGenerator Bilder
-            else this.targetImages = images.folderImages() // Bilder aus pics Ordner
+                this.targetImages = images.generatedImages // ImageGenerator Bilder
+            else this.targetImages = images.folderImages // Bilder aus pics Ordner
 
-            this.targetPixels = images.generatedImages()
             this.width = this.targetImages[0].width
             this.height = this.targetImages[0].height
         } else {
             // read basis images
-            if (levelNumber < 3)
-                this.basisImages = images.generatedImages() // ImageGenerator Bilder
-            else this.basisImages = images.folderImages() // Bilder aus pics Ordner
+            if (this.levelNumber < 3)
+                this.basisImages = images.generatedImages // ImageGenerator Bilder
+            else this.basisImages = images.folderImages // Bilder aus pics Ordner
 
             this.width = this.basisImages[0].width
             this.height = this.basisImages[0].height
         }
-        calculateBasisAndTargetImages()
+        this.calculateBasisAndTargetImages()
     }
 
     calculateBasisAndTargetImages() {
         if (this.doGenerate == true) { // generate basis from input images
             this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0 
+            console.log("test");
 
             let pixelsBasis = new Array(this.numPics)
             this.basisPixels3 = new Array(this.numPics, undefined, undefined)
@@ -270,15 +248,14 @@ class GameEngine {
         let tries = 0
         do {
             this.generateRandomM()
-
             success = true
-            this.mInv = InverseMatrix.invert(m)
+            this.mInv = InverseMatrix.invert(this.m)
             for (let i = 0; i < mInv.length; i++) {
-                for (let j = 0; j < mInv[i].length; j++) {
-                    let val = mInv[i][j]
+                for (let j = 0; j < this.mInv[i].length; j++) {
+                    let val = this.mInv[i][j]
                     if (!isFinite(val) || isNaN(val))
                         success = false // wenn Rang zu klein ist
-                    else if (Math.abs(val) > maxWeight) // kein Bild stärker als mit maxContribution gewichten
+                    else if (Math.abs(val) > this.maxWeight) // kein Bild stärker als mit maxContribution gewichten
                         success = false
                 }
             }
@@ -292,23 +269,20 @@ class GameEngine {
         let success
         do {
             // numOnes mal eine 1 in jede Zeile von m setzen	
-            this.m = new Array(this.numPics, this.numPics)
-            for (let i = 0; i < m.length; i++) {
-                for (let j = 0; j < this.numOnes; j++) {
-                    let index
-                    do {
-                        index = Math.floor(Math.random() * this.numPics) + 0
-                    }
-                    while (this.m[i][index] == 1)
-                    this.m[i][index] = 1
-                }
+            this.m = new Array(this.numPics)
+            for (let i = 0; i < this.m.length; i++) {
+                let index
+                this.m[i] = new Array(this.numPics)
+                do index = Math.floor(Math.random() * this.numPics) + 0
+                while (this.m[i][index] == 1)
+                this.m[i][index] = 1
             }
             success = true
             for (let i = 0; i < this.numPics; i++) {
                 for (let j = i + 1; j < this.numPics; j++) {
                     let same = true; // identische Kombinationen/Zeilen vermeiden
                     for (let k = 0; k < this.numPics; k++)
-                        if (m[i][k] != this.m[j][k])
+                        if (this.m[i][k] != this.m[j][k])
                             same = false
                     if (same) {
                         success = false
@@ -317,6 +291,8 @@ class GameEngine {
                 }
             }
         } while (!success)
+        console.log(this.m);
+        console.log("random done");
     }
 
     //TODO make function applyable on pixels from imagedata of Canvas-API

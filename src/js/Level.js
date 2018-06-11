@@ -14,7 +14,7 @@ class Level {
             this.levelSettings[i] = new Array(3)
         }
         this.setSettings()
-        this.printSettings()
+            //this.printSettings()
     }
 
     set level(level) {
@@ -106,7 +106,7 @@ class Level {
             // LEVEL TEN
         this.levelSettings[9] = [5, 4, 100]
 
-        this.num = this.levelSettings[this.lvl][0];
+        this.numPics = this.levelSettings[this.lvl][0];
         this.numOne = this.levelSettings[this.lvl][1];
         this.lvlTime = this.levelSettings[this.lvl][2];
 
