@@ -30,6 +30,55 @@ class GameEngine {
         this.getTargetAndBasisImages()
     }
 
+    updateOnClick(row, col){ // row and colomn of the clicked square in index.html file
+        // function should be called whenever a square is clicked by user (call in index.html onclick)
+
+        // 1. update the value in the user matrix wUser[][]
+        //this.setUserMatrixValue();
+        if(this.wUser[row][col] == 1){
+            this.wUser[row][col] = 0;
+        } else{
+            this.wUser[row][col] = 1;
+        }
+        console.log("Auswahl des Users (wUser):");
+        console.log(this.wUser);
+
+        // 2. berechne die Reihenmatrix der Userauswahl
+        let wUserRow = new Array[this.numPics]; // bspw.: wUserRow[1, 0, 1]
+        for (let r = 0; r < this.numPics; r++) {
+            for (let c = 0; c < this.numPics; c++){
+                wUserRow[c] =  this.wUser[r][c]; // Auswahl des Users für jede Reihe (vektor anstatt matrix) // TODO
+            }
+        }
+        console.log("Reihenauswahl des Users (wUserRow):");
+        console.log(wUserRow);
+
+        // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
+        let currentUserImg = calculateUserImage(wUserRow, row);
+        this.drawUserImage(row, currentUserImg);
+        // TODO: calculateUserImage returns an image, use this
+        // returned Image is still a BufferedImage so far - change!
+
+        
+        // 4. check if the row is now completed; the right result in this row
+        let state = this.comparePictures(row, wUserRow); // vergleiche die matrizen (user auswahl und lösungsmatrix)
+        if(state == true){
+            // bei richtiger combination wird der wert auf true / 1 gesetzt
+            // wenn überall true / 1 steht => level completed
+            this.setCorrectCombination(row, true);
+            console.log("Correct combination for row: " + row);
+        }
+
+        // 5. check if all rows are finished / have the correct combinations => next level
+
+    }
+
+    drawUserImage(row, img){ // welche Reihe und wie sieht das Bild aktuell aus
+        // TODO: male das vom User bisher zusammengerechnete Zielbild ins Canvas
+        // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
+
+    }
+
     loadLevel() {
         // load the settings for a specific level
         this.level = new Level(this.levelNumber)
@@ -67,8 +116,11 @@ class GameEngine {
         // int index is one specific row in the matrix
         let equals = false
         for (let i = 0; i < this.numPics; i++) {
-            if (wUserRow[i] == this.m[index][i]) // vergleiche reihe der usermatrix mit reihe der lösungsmatrix
+            if (wUserRow[i] == this.m[index][i]){ // vergleiche reihe der usermatrix mit reihe der lösungsmatrix
                 equals = true
+            } else{
+                return false
+            }
         }
         return equals
     }
@@ -178,7 +230,7 @@ class GameEngine {
     }
 
     drawImagesInCanvas() { // // TODO: not finished
-        // draw the calcuated images into the canvas gui
+        // draw the calcuated basis / target images into the canvas gui
         let imagesToDraw = new Array(this.numPics)
 
         // which images should be drawn
@@ -298,6 +350,7 @@ class GameEngine {
 
         console.log(pixelsIn)
         let pixels = new Uint8ClampedArray(this.width * this.height * 4)
+        let white = 255;
 
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
