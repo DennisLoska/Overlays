@@ -543,29 +543,33 @@ class GameEngine {
 
     //TODO make function applyable on pixels from imagedata of Canvas-API
     blendPixelsToPixels(pixelsIn, w) {
+        // Java: private int[] blendPixelsToPixels(int[][] pixelsIn, double[] w) 
         // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
         let pixels = new Array(pixelsIn[0].length)
 
         for (let i = 0; i < pixels.length; i += 4) { // i+=4 WICHTIG!
-            let r = 0,
-                g = 0,
-                b = 0;
+            let r = 0;
+            let g = 0;
+            let b = 0;
+            let a = 0;
 
             for (let j = 0; j < pixelsIn.length; j += 4) { // j+=4 WICHTIG!
-                let cj = pixelsIn[j][i]
-                let rj = this.f((cj >> 16) & 255)
-                let gj = this.f((cj >> 8) & 255)
-                let bj = this.f((cj) & 255)
+                let cj = pixelsIn[j][i];
+                let rj = this.f(cj + 0); // f((cj >> 16) & 255)
+                let gj = this.f(cj + 1); // f((cj >>  8) & 255); 
+                let bj = this.f(cj + 2); // f((cj      ) & 255);
+                let aj = this.f(cj + 3); // f((cj >> 24) & 255);
 
                 r += w[j] * rj
                 b += w[j + 2] * bj
                 g += w[j + 1] * gj
+                a += aj // keine Gewichtung der Transparenz
             }
 
-            //r = (r - 128) / numOnes + 128;
-            //g = (g - 128) / numOnes + 128;
-            //b = (b - 128) / numOnes + 128;
+            //r = (r - 128) / this.numOnes + 128;
+            //g = (g - 128) / this.numOnes + 128;
+            //b = (b - 128) / this.numOnes + 128;
 
             // begrenzung zwischen 0 und 255
             r = Math.min(Math.max(0, this.fi(r)), 255)
@@ -575,7 +579,7 @@ class GameEngine {
             pixels[i] = r
             pixels[i + 1] = g
             pixels[i + 2] = b
-            pixels[i + 3] = 255 //alpha
+            pixels[i + 3] = 255 //a
         }
         return pixels
     }
