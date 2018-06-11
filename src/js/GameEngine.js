@@ -27,11 +27,17 @@ class GameEngine {
         this.width = undefined
         this.height = undefined
 
+        this.clickCounter = 0
+        this.totalScore = 0
+
         this.getTargetAndBasisImages()
     }
 
     updateOnClick(row, col){ // row and colomn of the clicked square in index.html file
         // function should be called whenever a square is clicked by user (call in index.html onclick)
+
+        this.clickCounter += 1;
+        console.log("Amount of clicks: " + this.clickCounter);
 
         // 1. update the value in the user matrix wUser[][]
         //this.setUserMatrixValue();
@@ -74,6 +80,10 @@ class GameEngine {
         if(correctCombs == this.numPics){
             // alle Zeilen sind richtig; Level fertig
             console.log("LEVEL COMPLETED!");
+            let levelScore = this.returnScore(this.clickCounter);
+            this.totalScore += levelScore;
+            console.log("Score: " + this.totalScore);
+            // TODO: show score in GUI
             this.levelNumber += 1;
             loadSettings();
         }
@@ -97,11 +107,21 @@ class GameEngine {
         let score = 0
         let maximum = this.level.clickMaximum
         let optimum = this.level.clickOptimum
+        let fullScoreLimit = 2 * optimum;
 
-        if (score == optimum)
-            score = 100
-        else if (score >= maximum)
-            score = 0
+		if(clicks == optimum || clicks <= fullScoreLimit){
+			// volle Punktzahl
+			score = 100;
+		} else if(clicks < maximum && clicks > fullScoreLimit){
+			// abgestuft weniger Punktzahlen
+			let count = clicks - optimum;
+			let schritte = (100.0 - fullScoreLimit) / maximum;		
+			score = 100 - (schritte * count);
+		} else if(clicks > maximum){
+			// keine Punkte
+			score = 0;
+		}
+
         return score
     }
 
