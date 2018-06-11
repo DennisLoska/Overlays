@@ -61,7 +61,7 @@ class GameEngine {
 
         // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
         let currentUserImg = new Array()
-        currentUserImg = calculateUserImage(wUserRow, row);
+        currentUserImg = calculateUserImage(wUserRow, row); // returned pixel array
         this.drawUserImage(row, currentUserImg);
         // TODO: calculateUserImage returns an image, use this
         // returned Image is still a BufferedImage so far - change!
@@ -282,6 +282,7 @@ class GameEngine {
 
     drawImagesInCanvas() { // // TODO: not finished
         // draw the calcuated basis / target images into the canvas gui
+        // only have to be done once for each level
         let imagesToDraw = new Array(this.numPics)
 
         // which images should be drawn
