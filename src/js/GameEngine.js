@@ -35,6 +35,7 @@ class GameEngine {
 
         // 1. update the value in the user matrix wUser[][]
         //this.setUserMatrixValue();
+        this.wUser[row] = {} //NOT CORRECT, but solves TypeError for debugging purposes ONLY!!!
         if (this.wUser[row][col] == 1) {
             this.wUser[row][col] = 0;
         } else {
@@ -44,7 +45,7 @@ class GameEngine {
         console.log(this.wUser);
 
         // 2. berechne die Reihenmatrix der Userauswahl
-        let wUserRow = new Array[this.numPics]; // bspw.: wUserRow[1, 0, 1]
+        let wUserRow = new Array(this.numPics); // bspw.: wUserRow[1, 0, 1]
         for (let r = 0; r < this.numPics; r++) {
             for (let c = 0; c < this.numPics; c++) {
                 wUserRow[c] = this.wUser[r][c]; // Auswahl des Users für jede Reihe (vektor anstatt matrix) // TODO
@@ -70,7 +71,7 @@ class GameEngine {
         }
 
         // 5. check if all rows are finished / have the correct combinations => next level
-
+        return "hi"
     }
 
     drawUserImage(row, img) { // welche Reihe und wie sieht das Bild aktuell aus

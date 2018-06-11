@@ -1,11 +1,14 @@
-//used for debugging right now
-function start() {
-    let game = new Game()
+function clickedTile(game) {
     $(".js-card").click(function() {
-        let row = $(this).attr('data-row')
-        let col = $(this).attr('data-col')
-        game.updateOnClick(row, col)
+        var row = $(this).attr('data-row')
+        var col = $(this).attr('data-col')
+        game.engine.updateOnClick(row, col)
     })
+}
+
+function start() {
+    var game = new Game()
+    clickedTile(game)
 }
 
 //with some debugging paramters to see the output in the console
