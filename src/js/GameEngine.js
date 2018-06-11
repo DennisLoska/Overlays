@@ -27,11 +27,17 @@ class GameEngine {
         this.width = undefined
         this.height = undefined
 
+        this.clickCounter = 0
+        this.totalScore = 0
+
         this.getTargetAndBasisImages()
     }
 
     updateOnClick(row, col) { // row and colomn of the clicked square in index.html file
         // function should be called whenever a square is clicked by user (call in index.html onclick)
+
+        this.clickCounter += 1;
+        console.log("Amount of clicks: " + this.clickCounter);
 
         // 1. update the value in the user matrix wUser[][]
         //this.setUserMatrixValue();
@@ -55,7 +61,8 @@ class GameEngine {
         console.log(wUserRow);
 
         // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
-        let currentUserImg = calculateUserImage(wUserRow, row);
+        let currentUserImg = new Array()
+        currentUserImg = calculateUserImage(wUserRow, row); // returned pixel array
         this.drawUserImage(row, currentUserImg);
         // TODO: calculateUserImage returns an image, use this
         // returned Image is still a BufferedImage so far - change!
@@ -71,13 +78,52 @@ class GameEngine {
         }
 
         // 5. check if all rows are finished / have the correct combinations => next level
+<<<<<<< HEAD
         return "hi"
     }
 
     drawUserImage(row, img) { // welche Reihe und wie sieht das Bild aktuell aus
+=======
+        let correctCombs = this.getAmountOfCorrectCombinations();
+        if(correctCombs == this.numPics){
+            // alle Zeilen sind richtig; Level fertig
+            console.log("LEVEL COMPLETED!");
+            let levelScore = this.returnScore(this.clickCounter);
+            this.totalScore += levelScore;
+            console.log("Score: " + this.totalScore);
+            // TODO: show score in GUI
+            this.levelNumber += 1;
+            loadSettings();
+        }
+    }
+
+    drawUserImage(row, imgPixels){ // welche Reihe und wie sieht das Bild aktuell aus
+>>>>>>> fad50f58b307f36d0589b99ca0c4238057af7452
         // TODO: male das vom User bisher zusammengerechnete Zielbild ins Canvas
         // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
+        let pixelsToDraw = new Uint8ClampedArray(this.width * this.height * 4)
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                let pos = (y * this.width + x) * 4 // position in buffer based on x and y
+                pixelsToDraw[pos + 0] = imgPixels[pos + 0]  // R
+                pixelsToDraw[pos + 1] = imgPixels[pos + 1]  // G
+                pixelsToDraw[pos + 2] = imgPixels[pos + 2]  // B
+                pixelsToDraw[pos + 3] = imgPixels[pos + 3]  // A
+            }
+        }
 
+        // draw user image into canvas
+        let userImage = new Image()
+        let canvas = document.getElementById("js-user-image-" + row.toString())
+        let ctx = canvas.getContext("2d")
+        canvas.width = generator.width
+        canvas.height = generator.height
+        userImage.onload = function() {
+            ctx.drawImage(userImage, 0, 0, canvas.width, canvas.height)
+        }
+        let userImageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+        userImageData.data.set(pixelsToDraw)
+        ctx.putImageData(userImageData, 0, 0)
     }
 
     loadLevel() {
@@ -92,11 +138,21 @@ class GameEngine {
         let score = 0
         let maximum = this.level.clickMaximum
         let optimum = this.level.clickOptimum
+        let fullScoreLimit = 2 * optimum;
 
-        if (score == optimum)
-            score = 100
-        else if (score >= maximum)
-            score = 0
+		if(clicks == optimum || clicks <= fullScoreLimit){
+			// volle Punktzahl
+			score = 100;
+		} else if(clicks < maximum && clicks > fullScoreLimit){
+			// abgestuft weniger Punktzahlen
+			let count = clicks - optimum;
+			let schritte = (100.0 - fullScoreLimit) / maximum;		
+			score = 100 - (schritte * count);
+		} else if(clicks > maximum){
+			// keine Punkte
+			score = 0;
+		}
+
         return score
     }
 
@@ -105,10 +161,12 @@ class GameEngine {
         // muss für jede Reihe einzelnd aufgerufen werden
         let pixelsBlended = new Array()
         pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
-        let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
-        userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
+        //let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
+        //userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
         this.userImagesPixels[index] = pixelsBlended
-        return userImage
+        //return userImage
+        return pixelsBlended
+        // gibt die pixel des jeweiligen user images zurück
     }
 
     comparePictures(index, wUserRow) { // TODO: not finished
@@ -232,6 +290,7 @@ class GameEngine {
 
     drawImagesInCanvas() { // // TODO: not finished
         // draw the calcuated basis / target images into the canvas gui
+        // only have to be done once for each level
         let imagesToDraw = new Array(this.numPics)
 
         // which images should be drawn
@@ -346,39 +405,37 @@ class GameEngine {
     }
 
     //TODO make function applyable on pixels from imagedata of Canvas-API
-    blendPixelsTo3DDoubleImage(pixelsIn, w) {
+    blendPixelsTo3DDoubleImage(pixelsIn, w) { //pixelsIn[numPics][width*height], w[]
         console.log("PixelIn blendPixelsTo3DDoubleImage:")
-
         console.log(pixelsIn)
-        let pixels = new Uint8ClampedArray(this.width * this.height * 4)
-        let white = 255;
 
-        for (let y = 0; y < this.height; y++) {
-            for (let x = 0; x < this.width; x++) {
-                let pos = (y * this.width + x) * 4 // position in buffer based on x and y
-                this.rndImagePixels[pos + 0] = white //randomR; // R
-                this.rndImagePixels[pos + 1] = white //randomG; // G
-                this.rndImagePixels[pos + 2] = white //randomB; // B
-                this.rndImagePixels[pos + 3] = 255 // A
+        let pixels = new Array[pixelsIn[0].length][3] // new Uint8ClampedArray(this.width * this.height * 4) / [pixelsIn[0].length][3]
 
-                let r = 0,
-                    g = 0,
-                    b = 0;
+        for (let i = 0; i < this.height; i+=4) {
 
+            let r = 0;
+            let g = 0;
+            let b = 0;
+            let a = 0;
 
-                let cj = pixelsIn[j][i]
-                let rj = this.f((cj >> 16) & 255)
-                let gj = this.f((cj >> 8) & 255)
-                let bj = this.f((cj) & 255)
+            for (let j = 0; j < this.width; j+=4) {
 
-                r += w[j] * rj
-                g += w[j] * gj
-                b += w[j] * bj
+                let cj = pixelsIn[j][i];
+				let rj = f(cj + 0); // f((cj >> 16) & 255)
+				let gj = f(cj + 1); // f((cj >>  8) & 255); 
+                let bj = f(cj + 2); // f((cj      ) & 255);
+                //let aj = f(cj + 3); // f((cj >> 24) & 255);
 
-                pixels[i][0] = this.fi(r)
-                pixels[i][1] = this.fi(g)
-                pixels[i][2] = this.fi(b)
+				r += w[j]*rj;
+				g += w[j]*gj;
+                b += w[j]*bj;
+                //a += aj; // Transparenz bleibt gleich
             }
+
+            pixels[i][0] = fi(r);
+			pixels[i][1] = fi(g);
+            pixels[i][2] = fi(b);
+            // TODO: Pixel werden in rgb Kanäle aufgeteilt, muss hier anders berechnet werden?
         }
         /*
                 let pixels = new Array(pixelsIn[0].length, 3)
