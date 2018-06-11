@@ -23,7 +23,7 @@ class GameEngine {
         this.targetPixels = new Array(undefined, undefined)
         this.basisPixels3 = new Array(undefined, undefined, undefined)
 
-        this.maxWeight = 1; // 0.51, 0.71.. 2.01
+        this.maxWeight = 1 // 0.51, 0.71.. 2.01
         this.width = undefined
         this.height = undefined
 
@@ -40,8 +40,8 @@ class GameEngine {
 
     returnScore(clicks) {
         let score = 0
-        let maximum = this.level.clickMaximum()
-        let optimum = this.level.clickOptimum()
+        let maximum = this.level.clickMaximum
+        let optimum = this.level.clickOptimum
 
         if (score == optimum)
             score = 100
@@ -50,69 +50,63 @@ class GameEngine {
         return score
     }
 
-    calculateUserImage(wUserRow, index){   // TODO: not finished
+    calculateUserImage(wUserRow, index) { // TODO: not finished
         // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users 
         // muss für jede Reihe einzelnd aufgerufen werden
-        var pixelsBlended = new Array();
-		pixelsBlended = blend3DDoubleToPixels(this.basisPixels3, wUserRow); // calculates pixels for resulting image
-		var userImage =  new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		userImage.setRGB(0, 0, width, height, pixelsBlended, 0, width);
-		userImagesPixels[index] = pixelsBlended;
-		return userImage;
+        let pixelsBlended = new Array()
+        pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
+        let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
+        userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
+        this.userImagesPixels[index] = pixelsBlended
+        return userImage
     }
-    
-    comparePictures(index, wUserRow){   // TODO: not finished
-		// compare the combination by the user with the target image
-		// compare the solution matrix m with what the user clicked wUserRow
-		// int index is one specific row in the matrix
-		var equals = false;
-		for(let i = 0; i < numPics; i++){
-			if(wUserRow[i] == m[index][i]){ // vergleiche reihe der usermatrix mit reihe der lösungsmatrix
-				equals = true;
-			} else{
-				return false;
-			}
-		}
-		return equals;
+
+    comparePictures(index, wUserRow) { // TODO: not finished
+        // compare the combination by the user with the target image
+        // compare the solution matrix m with what the user clicked wUserRow
+        // int index is one specific row in the matrix
+        let equals = false
+        for (let i = 0; i < this.numPics; i++) {
+            if (wUserRow[i] == this.m[index][i]) // vergleiche reihe der usermatrix mit reihe der lösungsmatrix
+                equals = true
+        }
+        return equals
     }
-    
+
     getAmountOfCorrectCombinations() {
-		// count how many combinations the user has right at the same time
-		// if correctCombinations == numPics -> finished, switch to next level
-		var correctCombinations = 0;
-		for(let i = 0; i < correctUserCombinations.length; i++){
-			if(correctUserCombinations[i] > 0){
-				correctCombinations++;
-			}
-		}
-		return correctCombinations;
+        // count how many combinations the user has right at the same time
+        // if correctCombinations == numPics -> finished, switch to next level
+        let correctCombinations = 0
+        for (let i = 0; i < this.correctUserCombinations.length; i++) {
+            if (correctUserCombinations[i] > 0)
+                correctCombinations++
+        }
+        return correctCombinations
     }
-    
+
     setCorrectCombination(index, value) {
         // set the combinations by the user (per row)
         // wenn eine Reihe die richtige Lösung ergibt, dann ist correctCombinations = 1, wenn falsch dann = 0
-		if(value == true){
-			correctUserCombinations[index] = 1;
-		} else{
-			correctUserCombinations[index] = 0;
-		}
+        if (value == true)
+            this.correctUserCombinations[index] = 1
+        else this.correctUserCombinations[index] = 0
     }
-    
-    getUserMatrixValue(row, col){
+
+    getUserMatrixValue(row, col) {
         // return den value (0 oder 1) an einer bestimmten stelle in der auswahl des users
-		return this.wUser[row][col];
-	}
-	
-	setUserMatrixValue(row, col, value){
-		this.wUser[row][col] = value;
-	}
+        return this.wUser[row][col]
+    }
+
+    setUserMatrixValue(row, col, value) {
+        this.wUser[row][col] = value
+    }
 
     getTargetAndBasisImages() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
         let images = new Images()
         images.numImage = this.numPics // generiere bilder mit returnGeneratedImages()
 
-        console.log(images);
+        console.log(images)
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
@@ -183,14 +177,14 @@ class GameEngine {
         drawImagesInCanvas()
     }
 
-    drawImagesInCanvas(){ // // TODO: not finished
+    drawImagesInCanvas() { // // TODO: not finished
         // draw the calcuated images into the canvas gui
-        var imagesToDraw = new Array(this.numPics)
+        let imagesToDraw = new Array(this.numPics)
 
         // which images should be drawn
-        if(doGenerate == true){
+        if (doGenerate == true) {
             imagesToDraw = this.basisImages
-        } else{
+        } else {
             imagesToDraw = this.tragetImages
         }
 
@@ -227,16 +221,16 @@ class GameEngine {
     }
     calculateGetRGB(pixels) {
         //TODO - should return an image - generated by using a given array of pixels
-        
+
         /*let imgPixels = new Uint8ClampedArray(pixels.length)
-        for (var i = 0; i < imgPixels.length; i++) {
+        for (let i = 0; i < imgPixels.length; i++) {
             imgPixels[i + 0] = pixels[i + 0]; //randomR; // R
             imgPixels[i + 1] = pixels[i + 1]; //randomG; // G
             imgPixels[i + 2] = pixels[i + 2]; //randomB; // B
             imgPixels[i + 3] = pixels[i + 3]; // A
         }
 
-        var img = new Image();
+        let img = new Image();
         img.onload = function () {
             ctx.drawImage(img, 0, 0, img.width, img.height); // draw the image on the canvas
         }*/
@@ -249,8 +243,8 @@ class GameEngine {
             this.generateRandomM()
             success = true
             this.mInv = InverseMatrix.invert(this.m)
-            console.log("Inverted Matrix:");
-            console.log(this.mInv);
+            console.log("Inverted Matrix:")
+            console.log(this.mInv)
             for (let i = 0; i < this.mInv.length; i++) {
                 for (let j = 0; j < this.mInv[i].length; j++) {
                     let val = this.mInv[i][j]
@@ -283,7 +277,7 @@ class GameEngine {
             success = true
             for (let i = 0; i < this.numPics; i++) {
                 for (let j = i + 1; j < this.numPics; j++) {
-                    let same = true; // identische Kombinationen/Zeilen vermeiden
+                    let same = true // identische Kombinationen/Zeilen vermeiden
                     for (let k = 0; k < this.numPics; k++)
                         if (this.m[i][k] != this.m[j][k])
                             same = false
@@ -294,22 +288,24 @@ class GameEngine {
                 }
             }
         } while (!success)
-        console.log("Random Matrix:");
-        console.log(this.m);
+        console.log("Random Matrix:")
+        console.log(this.m)
     }
 
     //TODO make function applyable on pixels from imagedata of Canvas-API
     blendPixelsTo3DDoubleImage(pixelsIn, w) {
-        console.log(pixelsIn);
+        console.log("PixelIn blendPixelsTo3DDoubleImage:")
+
+        console.log(pixelsIn)
         let pixels = new Uint8ClampedArray(this.width * this.height * 4)
 
-        for (var y = 0; y < this.height; y++) {
-            for (var x = 0; x < this.width; x++) {
-                var pos = (y * this.width + x) * 4; // position in buffer based on x and y
-                this.rndImagePixels[pos + 0] = white; //randomR; // R
-                this.rndImagePixels[pos + 1] = white; //randomG; // G
-                this.rndImagePixels[pos + 2] = white; //randomB; // B
-                this.rndImagePixels[pos + 3] = 255; // A
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                let pos = (y * this.width + x) * 4 // position in buffer based on x and y
+                this.rndImagePixels[pos + 0] = white //randomR; // R
+                this.rndImagePixels[pos + 1] = white //randomG; // G
+                this.rndImagePixels[pos + 2] = white //randomB; // B
+                this.rndImagePixels[pos + 3] = 255 // A
 
                 let r = 0,
                     g = 0,
@@ -360,72 +356,79 @@ class GameEngine {
     blend3DDoubleToPixels(pixelsIn, w) { // TODO: not finished
         // Ursprüngliche Parameter der Methode: (double[][][] pixelsIn, double[] w)
         //int[] pixels = new int[pixelsIn[0].length];
-        var pixels = new Array(pixelsIn[0].length);
+        let pixels = new Array(pixelsIn[0].length)
 
-		var rMin = 0, rMax = 255;
-		var gMin = 0, gMax = 255;
-		var bMin = 0, bMax = 255;
-		
-		for (var i = 0; i < pixels.length; i++) {
-			var r = 0, g = 0, b = 0;
+        let rMin = 0,
+            rMax = 255;
+        let gMin = 0,
+            gMax = 255;
+        let bMin = 0,
+            bMax = 255;
 
-			for (var j = 0; j < pixelsIn.length; j++) {
-				var rj = f( pixelsIn[j][i][0]);
-				var gj = f( pixelsIn[j][i][1]);
-				var bj = f( pixelsIn[j][i][2]);	
+        for (let i = 0; i < pixels.length; i++) {
+            let r = 0,
+                g = 0,
+                b = 0;
 
-				r += w[j]*rj; 
-				g += w[j]*gj;
-				b += w[j]*bj;
-			}
-			r = fi(r);
-			g = fi(g);
-			b = fi(b);
+            for (let j = 0; j < pixelsIn.length; j++) {
+                let rj = f(pixelsIn[j][i][0])
+                let gj = f(pixelsIn[j][i][1])
+                let bj = f(pixelsIn[j][i][2])
 
-			if (r > rMax) rMax = r;
-			if (r < rMin) rMin = r;
-			if (g > gMax) gMax = g;
-			if (g < gMin) gMin = g;
-			if (b > bMax) bMax = b;
-			if (b < bMin) bMin = b;
-		}
-		
-		var max = Math.max(rMax, Math.max(gMax,  bMax));
-		var min = Math.min(rMin, Math.min(gMin,  bMin));
-				
-		//console.log(rMin + "," + rMax + ", " + gMin + "," + gMax + ", " + bMin + "," + bMax );
-		
-		for (var i = 0; i < pixels.length; i++) {
-			var r = 0, g = 0, b = 0;
+                r += w[j] * rj
+                g += w[j] * gj
+                b += w[j] * bj
+            }
+            r = fi(r)
+            g = fi(g)
+            b = fi(b)
 
-			for (var j = 0; j < pixelsIn.length; j++) {
-				var rj = f( pixelsIn[j][i][0]);
-				var gj = f( pixelsIn[j][i][1]);
-				var bj = f( pixelsIn[j][i][2]);	
+            if (r > rMax) rMax = r
+            if (r < rMin) rMin = r
+            if (g > gMax) gMax = g
+            if (g < gMin) gMin = g
+            if (b > bMax) bMax = b
+            if (b < bMin) bMin = b
+        }
 
-				r += w[j]*rj; 
-				g += w[j]*gj;
-				b += w[j]*bj;
-			}
-			r = fi(r);
-			g = fi(g);
-			b = fi(b);		
-			
-			r = (r-min)*255/(max-min);
-			g = (g-min)*255/(max-min);
-			b = (b-min)*255/(max-min);
-			
-			//g = Math.min(Math.max(0, fi(g) ), 255);
-			//b = Math.min(Math.max(0, fi(b) ), 255);
+        let max = Math.max(rMax, Math.max(gMax, bMax))
+        let min = Math.min(rMin, Math.min(gMin, bMin))
+
+        //console.log(rMin + "," + rMax + ", " + gMin + "," + gMax + ", " + bMin + "," + bMax );
+
+        for (let i = 0; i < pixels.length; i++) {
+            let r = 0,
+                g = 0,
+                b = 0;
+
+            for (let j = 0; j < pixelsIn.length; j++) {
+                let rj = f(pixelsIn[j][i][0])
+                let gj = f(pixelsIn[j][i][1])
+                let bj = f(pixelsIn[j][i][2])
+
+                r += w[j] * rj
+                g += w[j] * gj
+                b += w[j] * bj
+            }
+            r = fi(r)
+            g = fi(g)
+            b = fi(b)
+
+            r = (r - min) * 255 / (max - min)
+            g = (g - min) * 255 / (max - min)
+            b = (b - min) * 255 / (max - min)
+
+            //g = Math.min(Math.max(0, fi(g) ), 255);
+            //b = Math.min(Math.max(0, fi(b) ), 255);
             //pixels[i] = 0xFF000000 | ((int)r <<16) | ((int)g << 8) | (int)b;
-                        pixels[i] = r
+            pixels[i] = r
             pixels[i + 1] = g
             pixels[i + 2] = b
             pixels[i + 3] = 255 //alpha
-		}
-		
-		return pixels;
-	}
+        }
+
+        return pixels
+    }
 
     //TODO make function applyable on pixels from imagedata of Canvas-API
     blendPixelsToPixels(pixelsIn, w) {
@@ -477,23 +480,23 @@ class GameEngine {
     }
 
     printResult() {
-		console.log("Lösung:");
-		for (let i = 0; i < m.length; i++) {
-			for (let j = 0; j < m[i].length; j++) {
-				console.log("%6.2f", m[i][j]);
-			}
-			console.log();
-		}
-		console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern:");
-		for (let i = 0; i < mInv.length; i++) {
-			var sum = 0;
-			for (let j = 0; j < mInv[i].length; j++) {
-				let val = mInv[i][j];
-				console.log("%6.2f ", val);
-				sum += val;
-			}
-			console.log("  --> %6.2f\n", sum);
-		}
-		console.log();
-	}
+        console.log("Lösung:")
+        for (let i = 0; i < m.length; i++) {
+            for (let j = 0; j < m[i].length; j++) {
+                console.log("%6.2f", m[i][j])
+            }
+            console.log()
+        }
+        console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern:")
+        for (let i = 0; i < mInv.length; i++) {
+            let sum = 0
+            for (let j = 0; j < mInv[i].length; j++) {
+                let val = mInv[i][j]
+                console.log("%6.2f ", val)
+                sum += val
+            }
+            console.log("  --> %6.2f\n", sum)
+        }
+        console.log()
+    }
 }
