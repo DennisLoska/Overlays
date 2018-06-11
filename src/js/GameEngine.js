@@ -262,7 +262,7 @@ class GameEngine {
 
             for (let i = 0; i < this.numPics; i++) {
                 this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
-                this.pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
+                pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
                 this.drawImagesInCanvas(this.pixelsBasis[i], i)
                 // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest
 
@@ -290,7 +290,7 @@ class GameEngine {
 
             for (let i = 0; i < targetPixels.length; i++) {
                 this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
-                this.drawImagesInCanvas(this.targetPixels[i], i)
+                this.drawImagesInCanvas(this.targetPixels[i], i) // does this need to be in a numPics loop ?
                 // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest
 
                 //this.targetImages[i] = new Image()
@@ -301,42 +301,40 @@ class GameEngine {
         //this.drawImagesInCanvas()
     }
 
-    drawImagesInCanvas(imgData, index) { // // TODO: not finished
+    drawImagesInCanvas(calculatedImgData, index) { // // TODO: imgData = pixel array, index = welche zeile / row
         // draw the calcuated basis / target images into the canvas gui
         // only have to be done once for each level
         let imagesToDraw = new Array(this.numPics)
+        console.log("Drawing images into canvas...")
 
-        // which images should be drawn
-        if (this.doGenerate == true) {
-            imagesToDraw = this.basisImages
-        } else {
-            imagesToDraw = this.tragetImages
+        // loop needed or not? 
+        // Parameter index needed or not for "js-basis-image-" + index.toString()?
+        try {
+            for (let i = 0; i < this.numImages; i++) {
+                imagesToDraw[i] = new Image()
+                let j = i
+                j++
+                let canvas = document.getElementById("js-basis-image-" + index.toString())
+                let ctx = canvas.getContext("2d")
+                let img = imagesToDraw[i]
+                canvas.width = this.width // not sure
+                canvas.height = this.height // not sure
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+                }
+                imagesToDraw[0].width = canvas.width
+                imagesToDraw[0].height = canvas.height
+                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+
+                imgData.data.set(calculatedImgData)
+                ctx.putImageData(imgData, 0, 0)
+
+                targetImgData.push(imgData.data)
+            }
+        } catch (err) {
+            console.log("Could not draw images into canvas.")
+            err.message = "Could not draw images into canvas."
         }
-
-        /*try {
-             let targetImgData = new Array()
-             for (let i = 0; i < this.numImages; i++) {
-                 this.imagesToDraw[i] = new Image()
-                 let j = i
-                 j++
-                 let canvas = document.getElementById("js-basis-image-" + j.toString())
-                 let ctx = canvas.getContext("2d")
-                 let img = imagesToDraw[i]
-                 img.onload = function() {
-                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-                 }
-                 this.imagesToDraw[0].width = canvas.width
-                 this.imagesToDraw[0].height = canvas.height
-                 this.imagesToDraw[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
-
-                 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-                 targetImgData.push(imgData.data)
-             }
-             this.imagesToDraw = targetImgData
-         } catch (err) {
-             console.log("Could not load image from folder.")
-             err.message = "Could not load image from folder."
-         }*/
     }
 
     calculateSetRGB(pixels) {
