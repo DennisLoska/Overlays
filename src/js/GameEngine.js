@@ -252,50 +252,6 @@ class GameEngine {
         this.calculateBasisAndTargetImages()
     }
 
-
-    public void calculateBasisAndTargetImages() {
-		if (doGenerate == true) { 	// generate basis from input images
-			findCombinations();   // finde eine Konfiguration m mit Zeilensummen von mInv > 0 
-			
-			int[][] pixelsBasis = new int[numPics][];
-			basisPixels3 = new double[numPics][][];
-			basisImages = new BufferedImage[numPics];    // Basisbilder zum Anzeigen
-
-			for (int i = 0; i < numPics; i++) {
-				basisPixels3[i] = blendPixelsTo3DDoubleImage(targetPixels, mInv[i]);
-				pixelsBasis[i]  = blendPixelsToPixels(targetPixels, mInv[i]);
-				basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-				basisImages[i].setRGB(0, 0, width, height, pixelsBasis[i], 0, width);
-			}
-		}
-		else {	
-			mInv = new double[numPics][numPics];
-			int[][] pixelsBasis = new int[numPics][width*height];
-			for (int i = 0; i < numPics; i++) {
-				mInv[i][i] = 1; //1./numOnes;
-				basisPixels3 = new double[numPics][][];
-				basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width);
-			}
-			for (int i = 0; i < numPics; i++){
-				basisPixels3[i] = blendPixelsTo3DDoubleImage(pixelsBasis, mInv[i]);
-			}
-			
-
-			generateRandomM();
-			
-
-			targetPixels = new int[numPics][width*height];
-			
-
-			for (int i = 0; i < targetPixels.length; i++) {
-				targetPixels[i] = blend3DDoubleToPixels(basisPixels3, m[i]);
-				targetImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-				targetImages[i].setRGB(0, 0, width, height, targetPixels[i], 0, width);
-			}
-		}
-		printResult();
-	}
-
     calculateBasisAndTargetImages() {
         if (this.doGenerate == true) { // generate basis from input images
             this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
@@ -342,7 +298,7 @@ class GameEngine {
             }
         }
         this.printResult()
-        ((this.drawImagesInCanvas()
+        this.drawImagesInCanvas()
     }
 
     drawImagesInCanvas(imgData, index) { // // TODO: not finished
