@@ -74,6 +74,63 @@ class GameEngine {
         return score
     }
 
+    calculateUserImage(wUserRow, index){   // TODO: not finished
+        // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users 
+        // muss für jede Reihe einzelnd aufgerufen werden
+        var pixelsBlended = new Array();
+		pixelsBlended = blend3DDoubleToPixels(this.basisPixels3, wUserRow); // calculates pixels for resulting image
+		var userImage =  new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		userImage.setRGB(0, 0, width, height, pixelsBlended, 0, width);
+		userImagesPixels[index] = pixelsBlended;
+		return userImage;
+    }
+    
+    comparePictures(index, wUserRow){   // TODO: not finished
+		// compare the combination by the user with the target image
+		// compare the solution matrix m with what the user clicked wUserRow
+		// int index is one specific row in the matrix
+		var equals = false;
+		for(let i = 0; i < numPics; i++){
+			if(wUserRow[i] == m[index][i]){ // vergleiche reihe der usermatrix mit reihe der lösungsmatrix
+				equals = true;
+			} else{
+				return false;
+			}
+		}
+		return equals;
+    }
+    
+    getAmountOfCorrectCombinations() {
+		// count how many combinations the user has right at the same time
+		// if correctCombinations == numPics -> finished, switch to next level
+		var correctCombinations = 0;
+		for(let i = 0; i < correctUserCombinations.length; i++){
+			if(correctUserCombinations[i] > 0){
+				correctCombinations++;
+			}
+		}
+		return correctCombinations;
+    }
+    
+    setCorrectCombination(index, value) {
+        // set the combinations by the user (per row)
+        // wenn eine Reihe die richtige Lösung ergibt, dann ist correctCombinations = 1, wenn falsch dann = 0
+		if(value == true){
+			correctUserCombinations[index] = 1;
+		} else{
+			correctUserCombinations[index] = 0;
+		}
+    }
+    
+    getUserMatrixValue(row, col){
+        // return den value (0 oder 1) an einer bestimmten stelle in der auswahl des users
+		return this.wUser[row][col];
+	}
+	
+	setUserMatrixValue(row, col, value){
+		this.wUser[row][col] = value;
+	}
+
     getTargetAndBasisImages() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
         let images = new Images()
@@ -235,6 +292,71 @@ class GameEngine {
         }
         return pixels
     }
+
+    blend3DDoubleToPixels(pixelsIn, w) { // TODO: not finished
+        // double[][][] pixelsIn, double[] w
+		int[] pixels = new int[pixelsIn[0].length];
+
+		double rMin = 0, rMax = 255;
+		double gMin = 0, gMax = 255;
+		double bMin = 0, bMax = 255;
+		
+		for (int i = 0; i < pixels.length; i++) {
+			double r = 0, g = 0, b = 0;
+
+			for (int j = 0; j < pixelsIn.length; j++) {
+				double rj = f( pixelsIn[j][i][0]);
+				double gj = f( pixelsIn[j][i][1]);
+				double bj = f( pixelsIn[j][i][2]);	
+
+				r += w[j]*rj; 
+				g += w[j]*gj;
+				b += w[j]*bj;
+			}
+			r = fi(r);
+			g = fi(g);
+			b = fi(b);
+
+			if (r > rMax) rMax = r;
+			if (r < rMin) rMin = r;
+			if (g > gMax) gMax = g;
+			if (g < gMin) gMin = g;
+			if (b > bMax) bMax = b;
+			if (b < bMin) bMin = b;
+		}
+		
+		double max = Math.max(rMax, Math.max(gMax,  bMax));
+		double min = Math.min(rMin, Math.min(gMin,  bMin));
+				
+		System.out.println(rMin + "," + rMax + ", " + gMin + "," + gMax + ", " + bMin + "," + bMax );
+		
+		for (int i = 0; i < pixels.length; i++) {
+			double r = 0, g = 0, b = 0;
+
+			for (int j = 0; j < pixelsIn.length; j++) {
+				double rj = f( pixelsIn[j][i][0]);
+				double gj = f( pixelsIn[j][i][1]);
+				double bj = f( pixelsIn[j][i][2]);	
+
+				r += w[j]*rj; 
+				g += w[j]*gj;
+				b += w[j]*bj;
+			}
+			r = fi(r);
+			g = fi(g);
+			b = fi(b);		
+			
+			r = (r-min)*255/(max-min);
+			g = (g-min)*255/(max-min);
+			b = (b-min)*255/(max-min);
+			
+			//g = Math.min(Math.max(0, fi(g) ), 255);
+			//b = Math.min(Math.max(0, fi(b) ), 255);
+			pixels[i] = 0xFF000000 | ((int)r <<16) | ((int)g << 8) | (int)b;
+		}
+		
+		return pixels;
+	}
 
     //TODO make function applyable on pixels from imagedata of Canvas-API
     blendPixelsToPixels(pixelsIn, w) {
