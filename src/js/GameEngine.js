@@ -252,21 +252,67 @@ class GameEngine {
         this.calculateBasisAndTargetImages()
     }
 
+
+    public void calculateBasisAndTargetImages() {
+		if (doGenerate == true) { 	// generate basis from input images
+			findCombinations();   // finde eine Konfiguration m mit Zeilensummen von mInv > 0 
+			
+			int[][] pixelsBasis = new int[numPics][];
+			basisPixels3 = new double[numPics][][];
+			basisImages = new BufferedImage[numPics];    // Basisbilder zum Anzeigen
+
+			for (int i = 0; i < numPics; i++) {
+				basisPixels3[i] = blendPixelsTo3DDoubleImage(targetPixels, mInv[i]);
+				pixelsBasis[i]  = blendPixelsToPixels(targetPixels, mInv[i]);
+				basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+				basisImages[i].setRGB(0, 0, width, height, pixelsBasis[i], 0, width);
+			}
+		}
+		else {	
+			mInv = new double[numPics][numPics];
+			int[][] pixelsBasis = new int[numPics][width*height];
+			for (int i = 0; i < numPics; i++) {
+				mInv[i][i] = 1; //1./numOnes;
+				basisPixels3 = new double[numPics][][];
+				basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width);
+			}
+			for (int i = 0; i < numPics; i++){
+				basisPixels3[i] = blendPixelsTo3DDoubleImage(pixelsBasis, mInv[i]);
+			}
+			
+
+			generateRandomM();
+			
+
+			targetPixels = new int[numPics][width*height];
+			
+
+			for (int i = 0; i < targetPixels.length; i++) {
+				targetPixels[i] = blend3DDoubleToPixels(basisPixels3, m[i]);
+				targetImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+				targetImages[i].setRGB(0, 0, width, height, targetPixels[i], 0, width);
+			}
+		}
+		printResult();
+	}
+
     calculateBasisAndTargetImages() {
         if (this.doGenerate == true) { // generate basis from input images
             this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
 
-            let pixelsBasis = new Array(this.numPics)
-            this.basisPixels3 = new Array(this.numPics, undefined, undefined)
-            this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen
+            let pixelsBasis = new Array(this.numPics, undefined) //int[][] pixelsBasis = new int[numPics][];
+            this.basisPixels3 = new Array(this.numPics, undefined, undefined) //basisPixels3 = new double[numPics][][];
+            this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen //basisImages = new BufferedImage[numPics]; 
 
             for (let i = 0; i < this.numPics; i++) {
-                //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
-                //pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
-                //old java basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-                //old java basisImages[i].setRGB(0, 0, width, height, pixelsBasis[i], 0, width); //Sets an array of integer pixels in the default RGB color model 
-                this.basisImages[i] = new Image()
-                this.basisImages[i] = this.calculateSetRGB(pixelsBasis[i])
+                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
+                this.pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
+                this.drawImagesInCanvas(this.pixelsBasis[i], i)
+                // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest
+
+                //this.basisImages[i] = new Image() // basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+                //this.basisImages[i] = pixelsBasis[i]; // set RGB(A)
+                //this.basisImages[i] = this.calculateSetRGB(pixelsBasis[i])
             }
         } else {
             this.mInv = new Array(this.numPics, this.numPics)
@@ -275,8 +321,8 @@ class GameEngine {
                 this.mInv[i][i] = 1 //1./numOnes;
                 this.basisPixels3 = new Array(this.numPics, undefined, undefined)
 
-                //this.basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width) //returns an array of integer pixels in the default RGB color model
                 this.basisImages[i] = this.calculateGetRGB(pixelsBasis[i])
+                //this.basisImages[i] = pixelBasis[i] // TODO: not sure?
             }
             for (let i = 0; i < this.numPics; i++) {
                 this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(pixelsBasis, this.mInv[i])
@@ -284,22 +330,22 @@ class GameEngine {
 
             this.generateRandomM()
 
-            this.targetPixels = new Array(this.numPics, this.width * this.height)
+            this.targetPixels = new Array(this.numPics, this.width * this.height) // TODO * 4?
 
             for (let i = 0; i < targetPixels.length; i++) {
                 this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
+                this.drawImagesInCanvas(this.targetPixels[i], i)
+                // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest
 
-                //this.targetImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
-                //this.targetImages[i].setRGB(0, 0, width, height, targetPixels[i], 0, width) //Sets an array of integer pixels in the default RGB color model 
                 //this.targetImages[i] = new Image()
-                this.targetImages[i] = this.calculateSetRGB(pixelsBasis[i])
+                //this.targetImages[i] = this.calculateSetRGB(pixelsBasis[i])
             }
         }
         this.printResult()
-        this.drawImagesInCanvas()
+        ((this.drawImagesInCanvas()
     }
 
-    drawImagesInCanvas() { // // TODO: not finished
+    drawImagesInCanvas(imgData, index) { // // TODO: not finished
         // draw the calcuated basis / target images into the canvas gui
         // only have to be done once for each level
         let imagesToDraw = new Array(this.numPics)
@@ -338,11 +384,12 @@ class GameEngine {
     }
 
     calculateSetRGB(pixels) {
-        //TODO - should set the pixels of an existing image
+        //TODO - should set the pixels of an existing image; show the image in GUI
+        // this is already the drawImagesInCanvas() method for the basis / target images 
 
     }
     calculateGetRGB(pixels) {
-        //TODO - should return an image - generated by using a given array of pixels
+        //TODO - should return rgb values of an image - generated by using a given array of pixels
 
         /*let imgPixels = new Uint8ClampedArray(pixels.length)
         for (let i = 0; i < imgPixels.length; i++) {
