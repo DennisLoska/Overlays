@@ -397,39 +397,37 @@ class GameEngine {
     }
 
     //TODO make function applyable on pixels from imagedata of Canvas-API
-    blendPixelsTo3DDoubleImage(pixelsIn, w) {
+    blendPixelsTo3DDoubleImage(pixelsIn, w) { //pixelsIn[numPics][width*height], w[]
         console.log("PixelIn blendPixelsTo3DDoubleImage:")
-
         console.log(pixelsIn)
-        let pixels = new Uint8ClampedArray(this.width * this.height * 4)
-        let white = 255;
 
-        for (let y = 0; y < this.height; y++) {
-            for (let x = 0; x < this.width; x++) {
-                let pos = (y * this.width + x) * 4 // position in buffer based on x and y
-                this.rndImagePixels[pos + 0] = white //randomR; // R
-                this.rndImagePixels[pos + 1] = white //randomG; // G
-                this.rndImagePixels[pos + 2] = white //randomB; // B
-                this.rndImagePixels[pos + 3] = 255 // A
+        let pixels = new Array[pixelsIn[0].length][3] // new Uint8ClampedArray(this.width * this.height * 4) / [pixelsIn[0].length][3]
 
-                let r = 0,
-                    g = 0,
-                    b = 0;
+        for (let i = 0; i < this.height; i+=4) {
 
+            let r = 0;
+            let g = 0;
+            let b = 0;
+            let a = 0;
 
-                let cj = pixelsIn[j][i]
-                let rj = this.f((cj >> 16) & 255)
-                let gj = this.f((cj >> 8) & 255)
-                let bj = this.f((cj) & 255)
+            for (let j = 0; j < this.width; j+=4) {
 
-                r += w[j] * rj
-                g += w[j] * gj
-                b += w[j] * bj
+                let cj = pixelsIn[j][i];
+				let rj = f(cj + 0); // f((cj >> 16) & 255)
+				let gj = f(cj + 1); // f((cj >>  8) & 255); 
+                let bj = f(cj + 2); // f((cj      ) & 255);
+                //let aj = f(cj + 3); // f((cj >> 24) & 255);
 
-                pixels[i][0] = this.fi(r)
-                pixels[i][1] = this.fi(g)
-                pixels[i][2] = this.fi(b)
+				r += w[j]*rj;
+				g += w[j]*gj;
+                b += w[j]*bj;
+                //a += aj; // Transparenz bleibt gleich
             }
+
+            pixels[i][0] = fi(r);
+			pixels[i][1] = fi(g);
+            pixels[i][2] = fi(b);
+            // TODO: Pixel werden in rgb Kanäle aufgeteilt, muss hier anders berechnet werden?
         }
         /*
                 let pixels = new Array(pixelsIn[0].length, 3)
