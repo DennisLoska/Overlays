@@ -272,7 +272,7 @@ class GameEngine {
             }
         } else {
             this.mInv = new Array(this.numPics, this.numPics)
-            let pixelsBasis = Array(this.numPics, this.width * this.height)
+            let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ?
             for (let i = 0; i < this.numPics; i++) {
                 this.mInv[i][i] = 1 //1./numOnes;
                 this.basisPixels3 = new Array(this.numPics, undefined, undefined)
@@ -286,7 +286,7 @@ class GameEngine {
 
             this.generateRandomM()
 
-            this.targetPixels = new Array(this.numPics, this.width * this.height) // TODO * 4?
+            this.targetPixels = new Array(this.numPics, this.width * this.height * 4) // TODO * 4?
 
             for (let i = 0; i < targetPixels.length; i++) {
                 this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
@@ -298,7 +298,7 @@ class GameEngine {
             }
         }
         this.printResult()
-        this.drawImagesInCanvas()
+        //this.drawImagesInCanvas()
     }
 
     drawImagesInCanvas(imgData, index) { // // TODO: not finished
@@ -428,35 +428,37 @@ class GameEngine {
 
     //TODO make function applyable on pixels from imagedata of Canvas-API
     blendPixelsTo3DDoubleImage(pixelsIn, w) { //pixelsIn[numPics][width*height], w[]
+        //Java: private double[][] blendPixelsTo3DDoubleImage(int[][] pixelsIn, double[] w)
         console.log("PixelIn blendPixelsTo3DDoubleImage:")
         console.log(pixelsIn)
 
         let pixels = new Array(pixelsIn[0].length, 3) // new Uint8ClampedArray(this.width * this.height * 4) / [pixelsIn[0].length][3]
 
-        for (let i = 0; i < this.height; i += 4) {
+        for (let i = 0; i < pixels.length; i += 4) {
 
             let r = 0;
             let g = 0;
             let b = 0;
             let a = 0;
 
-            for (let j = 0; j < this.width; j += 4) {
+            for (let j = 0; j < pixelsIn.length; j += 4) {
 
                 let cj = pixelsIn[j][i];
                 let rj = this.f(cj + 0); // f((cj >> 16) & 255)
                 let gj = this.f(cj + 1); // f((cj >>  8) & 255); 
                 let bj = this.f(cj + 2); // f((cj      ) & 255);
-                //let aj = f(cj + 3); // f((cj >> 24) & 255);
+                let aj = this.f(cj + 3); // f((cj >> 24) & 255);
 
                 r += w[j] * rj;
                 g += w[j] * gj;
                 b += w[j] * bj;
-                //a += aj; // Transparenz bleibt gleich
+                a += aj; // Transparenz wird nicht extra multipliziert 
             }
 
             pixels[i][0] = this.fi(r);
             pixels[i][1] = this.fi(g);
             pixels[i][2] = this.fi(b);
+            // alphakanal auch speichern oder nur die RGB Werte in dem 3D Array lassen und später verwenden?
             // TODO: Pixel werden in rgb Kanäle aufgeteilt, muss hier anders berechnet werden?
         }
         return pixels
