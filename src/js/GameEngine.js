@@ -37,7 +37,9 @@ class GameEngine {
         // function should be called whenever a square is clicked by user (call in index.html onclick)
 
         this.clickCounter += 1;
-        console.log("Amount of clicks: " + this.clickCounter);
+        console.log("Amount of clicks: " + this.clickCounter.toString());
+
+        console.log("Clicked tile is in row: " + row.toString() + " and column: " + col.toString());
 
         // 1. update the value in the user matrix wUser[][]
         //this.setUserMatrixValue();
@@ -47,6 +49,7 @@ class GameEngine {
         } else {
             this.wUser[row][col] = 1;
         }
+        console.log("Value of wUser in row: " + row.toString() + " and column: " + col.toString() + " is: " + this.wUser[row][col].toString());
         console.log("Auswahl des Users (wUser):");
         console.log(this.wUser);
 
@@ -54,11 +57,12 @@ class GameEngine {
         let wUserRow = new Array(this.numPics); // bspw.: wUserRow[1, 0, 1]
         for (let r = 0; r < this.numPics; r++) {
             for (let c = 0; c < this.numPics; c++) {
-                wUserRow[c] = this.wUser[r][c]; // Auswahl des Users für jede Reihe (vektor anstatt matrix) // TODO
+                wUserRow[c] = this.wUser[r][c]; // Auswahl des Users für jede Reihe (vektor anstatt matrix)
+                // TODO: Berechnung ist noch fehlerhaft 
             }
         }
         console.log("Reihenauswahl des Users (wUserRow):");
-        console.log(wUserRow);
+        console.log(wUserRow.toString());
 
         // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
         let currentUserImg = new Array()
@@ -74,7 +78,7 @@ class GameEngine {
             // bei richtiger combination wird der wert auf true / 1 gesetzt
             // wenn überall true / 1 steht => level completed
             this.setCorrectCombination(row, true);
-            console.log("Correct combination for row: " + row);
+            console.log("Correct combination for row: " + row.toString());
         }
 
         // 5. check if all rows are finished / have the correct combinations => next level
@@ -84,7 +88,7 @@ class GameEngine {
             console.log("LEVEL COMPLETED!");
             let levelScore = this.returnScore(this.clickCounter);
             this.totalScore += levelScore;
-            console.log("Score: " + this.totalScore);
+            console.log("Score: " + this.totalScore.toString());
             // TODO: show score in GUI
             this.levelNumber += 1;
             loadSettings();
@@ -125,6 +129,17 @@ class GameEngine {
         this.numPics = this.level.numPics
         this.numOnes = this.level.numOnes
         this.doGenerate = this.level.doGenerate()
+
+        this.resetUserMatrix()
+    }
+
+    resetUserMatrix(){
+        for(let i = 0; i < this.numPics; i++){
+            for(let j = 0; j < this.numPics; j++){
+                //this.wUser[j][i] = 0;
+                //alle werte der auswahl wieder auf 0 setzen (und karten umdrehen)
+            }
+        }
     }
 
     returnScore(clicks) {
@@ -402,7 +417,7 @@ class GameEngine {
         console.log("PixelIn blendPixelsTo3DDoubleImage:")
         console.log(pixelsIn)
 
-        let pixels = new Array[pixelsIn[0].length][3] // new Uint8ClampedArray(this.width * this.height * 4) / [pixelsIn[0].length][3]
+        let pixels = new Array(pixelsIn[0].length, 3) // new Uint8ClampedArray(this.width * this.height * 4) / [pixelsIn[0].length][3]
 
         for (let i = 0; i < this.height; i += 4) {
 
