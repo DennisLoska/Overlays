@@ -43,7 +43,7 @@ class GameEngine {
 
         // 1. update the value in the user matrix wUser[][]
         //this.setUserMatrixValue();
-        this.wUser[row] = {} //NOT CORRECT, but solves TypeError for debugging purposes ONLY!!!
+         this.wUser[row] = {} //NOT CORRECT, but solves TypeError for debugging purposes ONLY!!!
         if (this.wUser[row][col] == 1) {
             this.wUser[row][col] = 0;
         } else {
@@ -257,13 +257,13 @@ class GameEngine {
             this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen
 
             for (let i = 0; i < this.numPics; i++) {
-                //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
-                //pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
+                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
+                pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
 
-                //basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-                //basisImages[i].setRGB(0, 0, width, height, pixelsBasis[i], 0, width); //Sets an array of integer pixels in the default RGB color model 
-                //this.basisImages[i] = new Image()
-                //this.basisImages[i] = this.calculateSetRGB(pixelsBasis[i])
+                basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+                basisImages[i].setRGB(0, 0, width, height, pixelsBasis[i], 0, width); //Sets an array of integer pixels in the default RGB color model 
+                this.basisImages[i] = new Image()
+                this.basisImages[i] = this.calculateSetRGB(pixelsBasis[i])
             }
         } else {
             this.mInv = new Array(this.numPics, this.numPics)
@@ -307,9 +307,8 @@ class GameEngine {
         } else {
             imagesToDraw = this.tragetImages
         }
-
-        /*
-        try {
+    
+       /*try {
             let targetImgData = new Array()
             for (let i = 0; i < this.numImages; i++) {
                 this.imagesToDraw[i] = new Image()
@@ -429,9 +428,9 @@ class GameEngine {
             for (let j = 0; j < this.width; j += 4) {
 
                 let cj = pixelsIn[j][i];
-                let rj = f(cj + 0); // f((cj >> 16) & 255)
-                let gj = f(cj + 1); // f((cj >>  8) & 255); 
-                let bj = f(cj + 2); // f((cj      ) & 255);
+                let rj = this.f(cj + 0); // f((cj >> 16) & 255)
+                let gj = this.f(cj + 1); // f((cj >>  8) & 255); 
+                let bj = this.f(cj + 2); // f((cj      ) & 255);
                 //let aj = f(cj + 3); // f((cj >> 24) & 255);
 
                 r += w[j] * rj;
@@ -440,35 +439,11 @@ class GameEngine {
                 //a += aj; // Transparenz bleibt gleich
             }
 
-            pixels[i][0] = fi(r);
-            pixels[i][1] = fi(g);
-            pixels[i][2] = fi(b);
+            pixels[i][0] = this.fi(r);
+            pixels[i][1] = this.fi(g);
+            pixels[i][2] = this.fi(b);
             // TODO: Pixel werden in rgb Kanäle aufgeteilt, muss hier anders berechnet werden?
         }
-        /*
-                let pixels = new Array(pixelsIn[0].length, 3)
-
-                for (let i = 0; i < pixels.length; i++) {
-                    let r = 0,
-                        g = 0,
-                        b = 0;
-
-                    for (let j = 0; j < pixelsIn.length; j++) {
-                        let cj = pixelsIn[j][i]
-                        let rj = this.f((cj >> 16) & 255)
-                        let gj = this.f((cj >> 8) & 255)
-                        let bj = this.f((cj) & 255)
-
-                        r += w[j] * rj
-                        g += w[j] * gj
-                        b += w[j] * bj
-                    }
-
-                    pixels[i][0] = this.fi(r)
-                    pixels[i][1] = this.fi(g)
-                    pixels[i][2] = this.fi(b)
-                }
-                */
         return pixels
     }
 
