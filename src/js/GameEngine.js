@@ -60,7 +60,8 @@ class GameEngine {
         console.log(wUserRow);
 
         // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
-        let currentUserImg = calculateUserImage(wUserRow, row);
+        let currentUserImg = new Array()
+        currentUserImg = calculateUserImage(wUserRow, row);
         this.drawUserImage(row, currentUserImg);
         // TODO: calculateUserImage returns an image, use this
         // returned Image is still a BufferedImage so far - change!
@@ -89,10 +90,32 @@ class GameEngine {
         }
     }
 
-    drawUserImage(row, img){ // welche Reihe und wie sieht das Bild aktuell aus
+    drawUserImage(row, imgPixels){ // welche Reihe und wie sieht das Bild aktuell aus
         // TODO: male das vom User bisher zusammengerechnete Zielbild ins Canvas
         // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
+        let pixelsToDraw = new Uint8ClampedArray(this.width * this.height * 4)
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                let pos = (y * this.width + x) * 4 // position in buffer based on x and y
+                pixelsToDraw[pos + 0] = imgPixels[pos + 0]  // R
+                pixelsToDraw[pos + 1] = imgPixels[pos + 1]  // G
+                pixelsToDraw[pos + 2] = imgPixels[pos + 2]  // B
+                pixelsToDraw[pos + 3] = imgPixels[pos + 3]  // A
+            }
+        }
 
+        // draw user image into canvas
+        let userImage = new Image()
+        let canvas = document.getElementById("js-user-image-" + row.toString())
+        let ctx = canvas.getContext("2d")
+        canvas.width = generator.width
+        canvas.height = generator.height
+        userImage.onload = function() {
+            ctx.drawImage(userImage, 0, 0, canvas.width, canvas.height)
+        }
+        let userImageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+        userImageData.data.set(pixelsToDraw)
+        ctx.putImageData(userImageData, 0, 0)
     }
 
     loadLevel() {
@@ -130,10 +153,12 @@ class GameEngine {
         // muss für jede Reihe einzelnd aufgerufen werden
         let pixelsBlended = new Array()
         pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
-        let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
-        userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
+        //let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
+        //userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
         this.userImagesPixels[index] = pixelsBlended
-        return userImage
+        //return userImage
+        return pixelsBlended
+        // gibt die pixel des jeweiligen user images zurück
     }
 
     comparePictures(index, wUserRow) { // TODO: not finished
