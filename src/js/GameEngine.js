@@ -203,6 +203,13 @@ class GameEngine {
             }
         }
         printResult()
+        drawImagesInCanvas()
+    }
+
+    drawImagesInCanvas(){ // // TODO: not finished
+        // draw the calcuated images into the canvas gui
+        //var imagesToDraw = new Array(this.numPics)
+               
     }
 
     calculateSetRGB(pixels) {
@@ -329,7 +336,7 @@ class GameEngine {
 		var max = Math.max(rMax, Math.max(gMax,  bMax));
 		var min = Math.min(rMin, Math.min(gMin,  bMin));
 				
-		System.out.println(rMin + "," + rMax + ", " + gMin + "," + gMax + ", " + bMin + "," + bMax );
+		//console.log(rMin + "," + rMax + ", " + gMin + "," + gMax + ", " + bMin + "," + bMax );
 		
 		for (var i = 0; i < pixels.length; i++) {
 			var r = 0, g = 0, b = 0;
@@ -354,7 +361,7 @@ class GameEngine {
 			//g = Math.min(Math.max(0, fi(g) ), 255);
 			//b = Math.min(Math.max(0, fi(b) ), 255);
             //pixels[i] = 0xFF000000 | ((int)r <<16) | ((int)g << 8) | (int)b;
-            pixels[i] = r
+                        pixels[i] = r
             pixels[i + 1] = g
             pixels[i + 2] = b
             pixels[i + 3] = 255 //alpha
