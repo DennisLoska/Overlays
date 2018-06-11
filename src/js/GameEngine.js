@@ -60,16 +60,11 @@ class GameEngine {
         console.log("Auswahl des Users (wUser):");
         console.log(this.wUser);
 
-        // 2. berechne die Reihenmatrix der Userauswahl
+        // 2. hole die Reihenmatrix der Userauswahl für die veränderte / angeklickte Zeile
         let wUserRow = new Array(this.numPics); // bspw.: wUserRow[1, 0, 1]
-        for (let r = 0; r < this.numPics; r++) {
-            for (let c = 0; c < this.numPics; c++) {
-                wUserRow[c] = this.wUser[r][c]; // Auswahl des Users für jede Reihe (vektor anstatt matrix)
-                // TODO: Berechnung ist noch fehlerhaft 
-            }
-        }
+        wUserRow = this.wUser[row];
         console.log("Reihenauswahl des Users (wUserRow):");
-        console.log(wUserRow.toString());
+        console.log(wUserRow);
 
         // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
         let currentUserImg = new Array()
@@ -496,22 +491,22 @@ class GameEngine {
         //int[] pixels = new int[pixelsIn[0].length];
         let pixels = new Array(pixelsIn[0].length)
 
-        let rMin = 0,
-            rMax = 255;
-        let gMin = 0,
-            gMax = 255;
-        let bMin = 0,
-            bMax = 255;
+        let rMin = 0;
+        let rMax = 255;
+        let gMin = 0;
+        let gMax = 255;
+        let bMin = 0;
+        let bMax = 255;
 
-        for (let i = 0; i < pixels.length; i++) {
-            let r = 0,
-                g = 0,
-                b = 0;
+        for (let i = 0; i < pixels.length; i++) { // i+=4
+            let r = 0;
+            let g = 0;
+            let b = 0;
 
-            for (let j = 0; j < pixelsIn.length; j++) {
-                let rj = f(pixelsIn[j][i][0])
-                let gj = f(pixelsIn[j][i][1])
-                let bj = f(pixelsIn[j][i][2])
+            for (let j = 0; j < pixelsIn.length; j++) { // j+=4
+                let rj = this.f(pixelsIn[j][i][0])
+                let gj = this.f(pixelsIn[j][i][1])
+                let bj = this.f(pixelsIn[j][i][2])
 
                 r += w[j] * rj
                 g += w[j] * gj
