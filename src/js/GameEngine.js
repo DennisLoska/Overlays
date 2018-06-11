@@ -70,7 +70,13 @@ class GameEngine {
         }
 
         // 5. check if all rows are finished / have the correct combinations => next level
-
+        let correctCombs = this.getAmountOfCorrectCombinations();
+        if(correctCombs == this.numPics){
+            // alle Zeilen sind richtig; Level fertig
+            console.log("LEVEL COMPLETED!");
+            this.levelNumber += 1;
+            loadSettings();
+        }
     }
 
     drawUserImage(row, img){ // welche Reihe und wie sieht das Bild aktuell aus
