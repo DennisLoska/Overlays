@@ -19,7 +19,7 @@ class GameEngine {
         this.basisImages = basisImages
 
         this.m = new Array(undefined, undefined)
-        this.mInv = new Array(undefined, undefined)
+        this.mInv = []
         this.targetPixels = new Array(undefined, undefined)
         this.basisPixels3 = new Array(undefined, undefined, undefined)
 
@@ -137,8 +137,7 @@ class GameEngine {
 
     calculateBasisAndTargetImages() {
         if (this.doGenerate == true) { // generate basis from input images
-            this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0 
-            console.log("test");
+            this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
 
             let pixelsBasis = new Array(this.numPics)
             this.basisPixels3 = new Array(this.numPics, undefined, undefined)
@@ -250,7 +249,9 @@ class GameEngine {
             this.generateRandomM()
             success = true
             this.mInv = InverseMatrix.invert(this.m)
-            for (let i = 0; i < mInv.length; i++) {
+            console.log("Inverted Matrix:");
+            console.log(this.mInv);
+            for (let i = 0; i < this.mInv.length; i++) {
                 for (let j = 0; j < this.mInv[i].length; j++) {
                     let val = this.mInv[i][j]
                     if (!isFinite(val) || isNaN(val))
@@ -273,6 +274,8 @@ class GameEngine {
             for (let i = 0; i < this.m.length; i++) {
                 let index
                 this.m[i] = new Array(this.numPics)
+                for (let j = 0; j < this.m[i].length; j++)
+                    this.m[i][j] = 0
                 do index = Math.floor(Math.random() * this.numPics) + 0
                 while (this.m[i][index] == 1)
                 this.m[i][index] = 1
@@ -291,8 +294,8 @@ class GameEngine {
                 }
             }
         } while (!success)
+        console.log("Random Matrix:");
         console.log(this.m);
-        console.log("random done");
     }
 
     //TODO make function applyable on pixels from imagedata of Canvas-API
