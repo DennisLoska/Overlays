@@ -85,6 +85,8 @@ class GameEngine {
             // wenn überall true / 1 steht => level completed
             this.setCorrectCombination(row, true);
             console.log("Correct combination for row: " + row.toString());
+        } else {
+            this.setCorrectCombination(row, false);
         }
 
         // 5. check if all rows are finished / have the correct combinations => next level
@@ -116,6 +118,7 @@ class GameEngine {
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
             // generate basis from input images
+            // targetImages[numPics]
             if (this.levelNumber < 3) {
                 this.targetImages = images.generatedImages // ImageGenerator Bilder
             } else {
@@ -128,6 +131,7 @@ class GameEngine {
         } else {
             // read basis images
             if (this.levelNumber < 3) {
+                // basisImages[numPics]
                 this.basisImages = images.generatedImages // ImageGenerator Bilder
             } else {
                 this.basisImages = images.folderImages // Bilder aus pics Ordner
@@ -205,7 +209,6 @@ class GameEngine {
         console.log("Drawing images into canvas...")
 
         try {
-            // es wird keine loop benötigt, weil die Methode drawImagesInCanvas() innerhalb einer loop aufgerufen wird (dafür der index Parameter)
             if (this.doGenerate == true) { // wohin sollen bilder gemalt werden?
                 var canvas = document.getElementById("js-basis-image-" + index.toString())
             } else {
