@@ -73,13 +73,12 @@ class GameEngine {
         // 5. check if all rows are finished / have the correct combinations => next level
         let correctCombs = this.getAmountOfCorrectCombinations();
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics);
-        if (correctCombs == this.numPics) { // alle Zeilen sind richtig; Level fertig
+        if (correctCombs == this.numPics) {
             console.log("Level completed with " + this.clickCounter + " clicks!");
             let levelScore = this.returnScore(this.clickCounter);
             this.totalScore += levelScore;
             console.log("Score: " + this.totalScore.toString());
             $('#js-game-score').html("Score: " + this.totalScore.toString())
-            // TODO: show score in GUI
             this.levelNumber += 1;
             this.loadLevel();
             this.clearArrays();
@@ -91,8 +90,6 @@ class GameEngine {
         let images = new Images()
         images.numImage = this.numPics
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
-                // if doGenerate = true -> target images vertical (left)
-                // if doGenerate = false -> target images horizontal (top)
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
