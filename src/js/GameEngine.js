@@ -109,18 +109,21 @@ class GameEngine {
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
             // generate basis from input images
-            if (this.levelNumber < 3)
+            if (this.levelNumber < 3){
                 this.targetImages = images.generatedImages // ImageGenerator Bilder
-            else this.targetImages = images.folderImages // Bilder aus pics Ordner
+            } else { 
+                this.targetImages = images.folderImages // Bilder aus pics Ordner
+            } 
             this.targetPixels = images.targetPixels
             this.width = this.targetImages[0].width
             this.height = this.targetImages[0].height
         } else {
             // read basis images
-            if (this.levelNumber < 3)
+            if (this.levelNumber < 3){
                 this.basisImages = images.generatedImages // ImageGenerator Bilder
-            else this.basisImages = images.folderImages // Bilder aus pics Ordner
-
+             } else {
+                 this.basisImages = images.folderImages // Bilder aus pics Ordner
+             }
             this.width = this.basisImages[0].width
             this.height = this.basisImages[0].height
         }
