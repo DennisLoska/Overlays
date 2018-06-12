@@ -247,6 +247,13 @@ class GameEngine {
 
     clearArrays(){
         // TODO: build or clear arrays for new level (wUser muss wieder auf 0 gesetzt werden)
+        this.wUser = new Array(this.numPics, this.numPics)
+        for (let i = 0; i < this.numPics; i++) {
+            this.wUser[i] = []
+            for (let j = 0; j < this.numPics; j++) {
+                this.wUser[i][j] = 0
+            }
+        }
     }
 
     resetUserMatrix() {
