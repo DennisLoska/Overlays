@@ -85,6 +85,7 @@ class GameEngine {
 
         // 5. check if all rows are finished / have the correct combinations => next level
         let correctCombs = this.getAmountOfCorrectCombinations();
+        console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics);
         if (correctCombs == this.numPics) {
             // alle Zeilen sind richtig; Level fertig
             console.log("LEVEL COMPLETED!");
@@ -141,8 +142,8 @@ class GameEngine {
 
             for (let i = 0; i < this.numPics; i++) {
                 //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
-                //pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
-                //this.drawImagesInCanvas(this.pixelsBasis[i], i)
+                pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
+                this.drawImagesInCanvas(this.pixelsBasis[i], i)
                 // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
 
                 //this.basisImages[i] = new Image() // basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -348,7 +349,7 @@ class GameEngine {
         // if correctCombinations == numPics -> finished, switch to next level
         let correctCombinations = 0
         for (let i = 0; i < this.correctUserCombinations.length; i++) {
-            if (correctUserCombinations[i] > 0)
+            if (this.correctUserCombinations[i] > 0)
                 correctCombinations++
         }
         return correctCombinations
