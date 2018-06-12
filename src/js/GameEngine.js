@@ -206,7 +206,6 @@ class GameEngine {
         console.log("Drawing images into canvas...")
 
         try {
-            // es wird keine loop benötigt, weil die Methode drawImagesInCanvas() innerhalb einer loop aufgerufen wird (dafür der index Parameter)
             if(this.doGenerate == true){ // wohin sollen bilder gemalt werden?
                 var canvas = document.getElementById("js-basis-image-" + index.toString())
             } else{
