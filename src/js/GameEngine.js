@@ -1,10 +1,12 @@
 class GameEngine {
     constructor(levelNumber) {
+        //this.doGenerate = false
+
         this.levelNumber = levelNumber
         this.loadLevel()
 
         this.wUser = new Array(this.numPics, this.numPics) // matrix der userwauswahl
-        //inserting dummy-values into wUser
+        //inserting dummy-values into wUser - zeros
         for (let i = 0; i < this.numPics; i++) {
             this.wUser[i] = []
             for (let j = 0; j < this.numPics; j++) {
@@ -95,133 +97,6 @@ class GameEngine {
             this.levelNumber += 1;
             this.loadLevel();
         }
-    }
-
-    drawUserImage(row, imgPixels) { // welche Reihe und wie sieht das Bild aktuell aus
-        // TODO: male das vom User bisher zusammengerechnete Zielbild ins Canvas
-        // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
-        let pixelsToDraw = new Uint8ClampedArray(this.width * this.height * 4)
-        for (let y = 0; y < this.height; y++) {
-            for (let x = 0; x < this.width; x++) {
-                let pos = (y * this.width + x) * 4 // position in buffer based on x and y
-                pixelsToDraw[pos + 0] = imgPixels[pos + 0] // R
-                pixelsToDraw[pos + 1] = imgPixels[pos + 1] // G
-                pixelsToDraw[pos + 2] = imgPixels[pos + 2] // B
-                pixelsToDraw[pos + 3] = imgPixels[pos + 3] // A
-            }
-        }
-
-        // draw user image into canvas
-        let userImage = new Image()
-        let canvas = document.getElementById("js-user-image-" + row.toString())
-        let ctx = canvas.getContext("2d")
-        canvas.width = generator.width
-        canvas.height = generator.height
-        userImage.onload = function() {
-            ctx.drawImage(userImage, 0, 0, canvas.width, canvas.height)
-        }
-        let userImageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-        userImageData.data.set(pixelsToDraw)
-        ctx.putImageData(userImageData, 0, 0)
-    }
-
-    loadLevel() {
-        // load the settings for a specific level
-        this.level = new Level(this.levelNumber)
-        this.numPics = this.level.numPics
-        this.numOnes = this.level.numOnes
-        this.doGenerate = this.level.doGenerate()
-
-        // load new target images 
-        // calculate new basis images
-        //this.resetUserMatrix()
-    }
-
-    resetUserMatrix() {
-        for (let i = 0; i < this.numPics; i++) {
-            this.wUser[i] = []
-            for (let j = 0; j < this.numPics; j++) {
-                this.wUser[i][j] = 0
-            }
-        }
-    }
-
-    returnScore(clicks) {
-        let score = 0
-        let maximum = this.level.clickMaximum
-        let optimum = this.level.clickOptimum
-        let fullScoreLimit = 2 * optimum;
-
-        if (clicks == optimum || clicks <= fullScoreLimit) {
-            // volle Punktzahl
-            score = 100;
-        } else if (clicks < maximum && clicks > fullScoreLimit) {
-            // abgestuft weniger Punktzahlen
-            let count = clicks - optimum;
-            let schritte = (100.0 - fullScoreLimit) / maximum;
-            score = 100 - (schritte * count);
-        } else if (clicks > maximum) {
-            // keine Punkte
-            score = 0;
-        }
-
-        return score
-    }
-
-    calculateUserImage(wUserRow, index) { // TODO: not finished
-        // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users 
-        // muss für jede Reihe einzelnd aufgerufen werden
-        let pixelsBlended = new Array()
-        pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
-            //let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
-            //userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
-        this.userImagesPixels[index] = pixelsBlended
-            //return userImage
-        return pixelsBlended
-            // gibt die pixel des jeweiligen user images zurück
-    }
-
-    comparePictures(index, wUserRow) { // TODO: not finished
-        // compare the combination by the user with the target image
-        // compare the solution matrix m with what the user clicked wUserRow
-        // int index is one specific row in the matrix
-        let equals = false
-        for (let i = 0; i < this.numPics; i++) {
-            if (wUserRow[i] == this.m[index][i]) { // vergleiche reihe der usermatrix mit reihe der lösungsmatrix
-                equals = true
-            } else {
-                return false
-            }
-        }
-        return equals
-    }
-
-    getAmountOfCorrectCombinations() {
-        // count how many combinations the user has right at the same time
-        // if correctCombinations == numPics -> finished, switch to next level
-        let correctCombinations = 0
-        for (let i = 0; i < this.correctUserCombinations.length; i++) {
-            if (correctUserCombinations[i] > 0)
-                correctCombinations++
-        }
-        return correctCombinations
-    }
-
-    setCorrectCombination(index, value) {
-        // set the combinations by the user (per row)
-        // wenn eine Reihe die richtige Lösung ergibt, dann ist correctCombinations = 1, wenn falsch dann = 0
-        if (value == true)
-            this.correctUserCombinations[index] = 1
-        else this.correctUserCombinations[index] = 0
-    }
-
-    getUserMatrixValue(row, col) {
-        // return den value (0 oder 1) an einer bestimmten stelle in der auswahl des users
-        return this.wUser[row][col]
-    }
-
-    setUserMatrixValue(row, col, value) {
-        this.wUser[row][col] = value
     }
 
     getTargetAndBasisImages() {
@@ -357,6 +232,142 @@ class GameEngine {
         img.onload = function () {
             ctx.drawImage(img, 0, 0, img.width, img.height); // draw the image on the canvas
         }*/
+    }
+
+    calculateUserImage(wUserRow, index) { // TODO: not finished
+        // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users 
+        // muss für jede Reihe einzelnd aufgerufen werden
+        let pixelsBlended = new Array()
+        pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
+            //let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
+            //userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
+        this.userImagesPixels[index] = pixelsBlended
+            //return userImage
+        return pixelsBlended
+            // gibt die pixel des jeweiligen user images zurück
+    }
+
+    drawUserImage(row, imgPixels) { // welche Reihe und wie sieht das Bild aktuell aus
+        // TODO: male das vom User bisher zusammengerechnete Zielbild ins Canvas
+        // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
+        let pixelsToDraw = new Uint8ClampedArray(this.width * this.height * 4)
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                let pos = (y * this.width + x) * 4 // position in buffer based on x and y
+                pixelsToDraw[pos + 0] = imgPixels[pos + 0] // R
+                pixelsToDraw[pos + 1] = imgPixels[pos + 1] // G
+                pixelsToDraw[pos + 2] = imgPixels[pos + 2] // B
+                pixelsToDraw[pos + 3] = imgPixels[pos + 3] // A
+            }
+        }
+
+        // draw user image into canvas
+        let userImage = new Image()
+        let canvas = document.getElementById("js-user-image-" + row.toString())
+        let ctx = canvas.getContext("2d")
+        canvas.width = generator.width
+        canvas.height = generator.height
+        userImage.onload = function() {
+            ctx.drawImage(userImage, 0, 0, canvas.width, canvas.height)
+        }
+        let userImageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+        userImageData.data.set(pixelsToDraw)
+        ctx.putImageData(userImageData, 0, 0)
+    }
+
+    loadLevel() {
+        // load the settings for a specific level
+        this.level = new Level(this.levelNumber)
+        this.numPics = this.level.numPics
+        this.numOnes = this.level.numOnes
+        this.doGenerate = this.level.doGenerate()
+            // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
+		    // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
+
+        // load new target images 
+        // calculate new basis images
+        //this.clearArrays()
+        //this.resetUserMatrix()
+    }
+
+    clearArrays(){
+        // TODO: build or clear arrays, use this in constructor
+        // set all arrays in this method
+        // reset all arrays back to the start when new level is loaded
+    }
+
+    resetUserMatrix() {
+        for (let i = 0; i < this.numPics; i++) {
+            this.wUser[i] = []
+            for (let j = 0; j < this.numPics; j++) {
+                this.wUser[i][j] = 0
+            }
+        }
+    }
+
+    returnScore(clicks) {
+        let score = 0
+        let maximum = this.level.clickMaximum
+        let optimum = this.level.clickOptimum
+        let fullScoreLimit = 2 * optimum;
+
+        if (clicks == optimum || clicks <= fullScoreLimit) {
+            // volle Punktzahl
+            score = 100;
+        } else if (clicks < maximum && clicks > fullScoreLimit) {
+            // abgestuft weniger Punktzahlen
+            let count = clicks - optimum;
+            let schritte = (100.0 - fullScoreLimit) / maximum;
+            score = 100 - (schritte * count);
+        } else if (clicks > maximum) {
+            // keine Punkte
+            score = 0;
+        }
+
+        return score
+    }
+
+    comparePictures(index, wUserRow) { // TODO: not finished
+        // compare the combination by the user with the target image
+        // compare the solution matrix m with what the user clicked wUserRow
+        // int index is one specific row in the matrix
+        let equals = false
+        for (let i = 0; i < this.numPics; i++) {
+            if (wUserRow[i] == this.m[index][i]) { // vergleiche reihe der usermatrix mit reihe der lösungsmatrix
+                equals = true
+            } else {
+                return false
+            }
+        }
+        return equals
+    }
+
+    getAmountOfCorrectCombinations() {
+        // count how many combinations the user has right at the same time
+        // if correctCombinations == numPics -> finished, switch to next level
+        let correctCombinations = 0
+        for (let i = 0; i < this.correctUserCombinations.length; i++) {
+            if (correctUserCombinations[i] > 0)
+                correctCombinations++
+        }
+        return correctCombinations
+    }
+
+    setCorrectCombination(index, value) {
+        // set the combinations by the user (per row)
+        // wenn eine Reihe die richtige Lösung ergibt, dann ist correctCombinations = 1, wenn falsch dann = 0
+        if (value == true)
+            this.correctUserCombinations[index] = 1
+        else this.correctUserCombinations[index] = 0
+    }
+
+    getUserMatrixValue(row, col) {
+        // return den value (0 oder 1) an einer bestimmten stelle in der auswahl des users
+        return this.wUser[row][col]
+    }
+
+    setUserMatrixValue(row, col, value) {
+        this.wUser[row][col] = value
     }
 
     findCombinations() {
