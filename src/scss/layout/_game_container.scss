@@ -27,6 +27,12 @@
     display: inline-block;
 }
 
+#js-game-score {
+    line-height: 4vw;
+    vertical-align: middle;
+    font-size: 26px;
+}
+
 #game-container .tile-square {
     height: 7.5vw;
     width: 7.5vw;
@@ -72,6 +78,9 @@
         height: 6vw;
         width: 6vw;
     }
+    #js-game-score {
+        line-height: 6vw;
+    }
     .tile-square>span {
         font-size: 1vw;
     }
@@ -86,6 +95,9 @@
         height: 17vw;
         width: 17vw;
     }
+    #js-game-score {
+        line-height: 17vw;
+    }
 }
 
 @media only screen and (max-width: 650px) {
@@ -97,6 +109,9 @@
         height: 17vw;
         width: 17vw;
     }
+    #js-game-score {
+        line-height: 17vw;
+    }
 }
 
 @media only screen and (max-width: 500px) {
@@ -107,6 +122,9 @@
     #game-container .tile-square {
         height: 16vw;
         width: 16vw;
+    }
+    #js-game-score {
+        line-height: 16vw;
     }
 }
 
@@ -126,6 +144,9 @@
         height: 12.5vw;
         width: 12.5vw;
     }
+    #js-game-score {
+        line-height: 12.5vw;
+    }
 }
 
 @media only screen and (min-width: 1700px) {
@@ -137,6 +158,9 @@
         height: 8.5vw;
         width: 8.5vw;
     }
+    #js-game-score {
+        line-height: 8.5vw;
+    }
 }
 
 @media only screen and (min-width: 1600px) {
@@ -147,5 +171,8 @@
     #game-container .tile-square {
         height: 7.5vw;
         width: 7.5vw;
+    }
+    #js-game-score {
+        line-height: 7.5vw;
     }
 }

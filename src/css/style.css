@@ -357,6 +357,11 @@ a.nav-link:hover {
   background-color: gold;
   display: inline-block; }
 
+#js-game-score {
+  line-height: 4vw;
+  vertical-align: middle;
+  font-size: 26px; }
+
 #game-container .tile-square {
   height: 7.5vw;
   width: 7.5vw;
@@ -394,6 +399,8 @@ a.nav-link:hover {
   .tile-square {
     height: 6vw;
     width: 6vw; }
+  #js-game-score {
+    line-height: 6vw; }
   .tile-square > span {
     font-size: 1vw; } }
 
@@ -403,7 +410,9 @@ a.nav-link:hover {
     margin-right: 1vw; }
   #game-container .tile-square {
     height: 17vw;
-    width: 17vw; } }
+    width: 17vw; }
+  #js-game-score {
+    line-height: 17vw; } }
 
 @media only screen and (max-width: 650px) {
   #game-container .tile-square-wrapper {
@@ -411,7 +420,9 @@ a.nav-link:hover {
     margin-right: 1.5vw; }
   #game-container .tile-square {
     height: 17vw;
-    width: 17vw; } }
+    width: 17vw; }
+  #js-game-score {
+    line-height: 17vw; } }
 
 @media only screen and (max-width: 500px) {
   #game-container .tile-square-wrapper {
@@ -419,7 +430,9 @@ a.nav-link:hover {
     margin-right: 1.25vw; }
   #game-container .tile-square {
     height: 16vw;
-    width: 16vw; } }
+    width: 16vw; }
+  #js-game-score {
+    line-height: 16vw; } }
 
 @media only screen and (min-width: 768px) {
   .tile-square-wrapper {
@@ -432,7 +445,9 @@ a.nav-link:hover {
     margin-right: -1vw; }
   #game-container .tile-square {
     height: 12.5vw;
-    width: 12.5vw; } }
+    width: 12.5vw; }
+  #js-game-score {
+    line-height: 12.5vw; } }
 
 @media only screen and (min-width: 1700px) {
   #game-container .tile-square-wrapper {
@@ -440,7 +455,9 @@ a.nav-link:hover {
     margin-right: -3vw; }
   #game-container .tile-square {
     height: 8.5vw;
-    width: 8.5vw; } }
+    width: 8.5vw; }
+  #js-game-score {
+    line-height: 8.5vw; } }
 
 @media only screen and (min-width: 1600px) {
   #game-container .tile-square-wrapper {
@@ -448,7 +465,9 @@ a.nav-link:hover {
     margin-right: -4.1vw; }
   #game-container .tile-square {
     height: 7.5vw;
-    width: 7.5vw; } }
+    width: 7.5vw; }
+  #js-game-score {
+    line-height: 7.5vw; } }
 
 #lp-row {
   height: 97.5vh;
@@ -650,5 +669,3 @@ span.li-color {
 @media only screen and (max-width: 1024px) {
   span.li-color {
     display: inline; } }
-
-/*# sourceMappingURL=style.css.map */
