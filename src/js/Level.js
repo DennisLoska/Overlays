@@ -58,7 +58,7 @@ class Level {
     }
 
     get clickMaximum() {
-        return this.clickMaximum
+        return this.clickMax
     }
 
     set clickOptimum(opt) {
