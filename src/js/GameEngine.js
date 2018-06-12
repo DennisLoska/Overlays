@@ -84,7 +84,9 @@ class GameEngine {
             console.log("Level completed with " + this.clickCounter + " clicks!");
             let levelScore = this.returnScore(this.clickCounter);
             this.totalScore += levelScore;
-            console.log("Score: " + this.totalScore);
+            console.log("Score: " + this.totalScore.toString());
+            $('#js-game-score').html("Score: " + this.totalScore.toString())
+            // TODO: show score in GUI
             this.levelNumber += 1;
             this.loadLevel();
             this.clearArrays();
@@ -103,15 +105,15 @@ class GameEngine {
         if (this.doGenerate == true) {
             if (this.levelNumber < 3){
                 this.targetImages = images.generatedImages // ImageGenerator Bilder
-            } else { 
+            } else {
                 this.targetImages = images.folderImages // Bilder aus pics Ordner
-            } 
+            }
             this.targetPixels = images.targetPixels
             this.width = this.targetImages[0].width
             this.height = this.targetImages[0].height
         } else {
             // read basis images
-            if (this.levelNumber < 3){
+            if (this.levelNumber < 3) {
                 // basisImages[numPics]
                 this.basisImages = images.generatedImages // ImageGenerator Bilder
              } else {
@@ -138,14 +140,14 @@ class GameEngine {
             this.mInv = new Array(this.numPics, this.numPics)
             //let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ? // int[][] pixelsBasis = new int[numPics][width*height];
             this.basisPixels = new Array(this.numPics, this.width * this.height * 4) // [numPics][pixels]
-            
+
             for (let i = 0; i < this.numPics; i++) {
                 this.mInv[i][i] = 1 //1./numOnes;
                 this.basisPixels3 = new Array(this.numPics, undefined, undefined) // basisPixels3 = new double[numPics][][]; 
 
                 this.basisImages[i] = this.calculateGetRGB(this.basisPixels[i]) // maybe don't need the images[] arrays at all
                 this.basisPixels[i] = this.basisImages[i] // get the pixels from basis image
-                
+
                 // get the pixel array of the basisImages
                 //basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width);
                 //this.basisImages[i] = pixelBasis[i] // TODO: not sure?
@@ -159,7 +161,7 @@ class GameEngine {
             for (let i = 0; i < targetPixels.length; i++) {
 
                 this.targetPixels[i] = this.blendPixelsToPixels(this.basisPixels, this.mInv[i])
-                this.drawImagesInCanvas(this.targetPixels[i], i+1)
+                this.drawImagesInCanvas(this.targetPixels[i], i + 1)
 
                 //this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
             }
@@ -170,10 +172,10 @@ class GameEngine {
     drawImagesInCanvas(calculatedImgData, index) {
         // draw the calcuated basis / target images into the canvas gui, only have to be done once for each level
         try {
-            if(this.doGenerate == true){ // wohin sollen bilder gemalt werden?
+            if (this.doGenerate == true) { // wohin sollen bilder gemalt werden?
                 var canvas = document.getElementById("js-basis-image-" + index.toString())
-            } else{
-                var canvas = document.getElementById("js-starting-image-" + index.toString()) 
+            } else {
+                var canvas = document.getElementById("js-starting-image-" + index.toString())
             }
             let ctx = canvas.getContext("2d")
             let img = new Image()
@@ -237,8 +239,8 @@ class GameEngine {
         this.numPics = this.level.numPics
         this.numOnes = this.level.numOnes
         this.doGenerate = this.level.doGenerate()
-            // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
-		    // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
+        // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
+        // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
 
         // TODO: load new target images, calculate new basis images
         //this.clearArrays()
@@ -446,7 +448,7 @@ class GameEngine {
         let bMin = 0;
         let bMax = 255;
 
-        for (let i = 0; i < pixels.length; i+=4) { // i+=4, läuft durch alle Pixel
+        for (let i = 0; i < pixels.length; i += 4) { // i+=4, läuft durch alle Pixel
             let r = 0;
             let g = 0;
             let b = 0;
@@ -469,12 +471,24 @@ class GameEngine {
             b = fi(b)
             //a = fi(a)
 
-            if (r > rMax){ rMax = r }
-            if (r < rMin){ rMin = r }
-            if (g > gMax){ gMax = g }
-            if (g < gMin){ gMin = g }
-            if (b > bMax){ bMax = b }
-            if (b < bMin){ bMin = b }
+            if (r > rMax) {
+                rMax = r
+            }
+            if (r < rMin) {
+                rMin = r
+            }
+            if (g > gMax) {
+                gMax = g
+            }
+            if (g < gMin) {
+                gMin = g
+            }
+            if (b > bMax) {
+                bMax = b
+            }
+            if (b < bMin) {
+                bMin = b
+            }
         }
 
         let max = Math.max(rMax, gMax, bMax)
@@ -482,7 +496,7 @@ class GameEngine {
 
         //console.log(rMin + "," + rMax + ", " + gMin + "," + gMax + ", " + bMin + "," + bMax );
 
-        for (let i = 0; i < pixels.length; i+=4) { // i+=4, läuft durch alle Pixel
+        for (let i = 0; i < pixels.length; i += 4) { // i+=4, läuft durch alle Pixel
             let r = 0;
             let g = 0;
             let b = 0;
@@ -535,7 +549,7 @@ class GameEngine {
             let b = 0;
             let a = 0;
 
-            for (let j = 0; j < pixelsIn.length; j ++) { // nicht j+=4, j läuft gegen numPics
+            for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
                 //let cj = pixelsIn[j][i];
                 let rj = this.f(pixelsIn[j][i + 0]); // f((cj >> 16) & 255)
                 let gj = this.f(pixelsIn[j][i + 1]); // f((cj >>  8) & 255); 
