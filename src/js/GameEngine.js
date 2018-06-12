@@ -28,7 +28,9 @@ class GameEngine {
         this.m = new Array(undefined, undefined)
         this.mInv = []
         this.targetPixels = new Array(undefined, undefined)
-        this.basisPixels3 = new Array(undefined, undefined, undefined)
+        // TODO: deltete basisPixels3
+        this.basisPixels3 = new Array(undefined, undefined, undefined) // Speicher für Basisbilder [Bildnummer][Position][Kanal] - kein Kanal gebraucht!
+        this.basisPixels = new Array(undefined, undefined) // [Bildnummer][Position]
 
         this.maxWeight = 1 // 0.51, 0.71.. 2.01
         this.width = undefined
@@ -138,14 +140,15 @@ class GameEngine {
         if (this.doGenerate == true) { // generate basis from input images
             this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
 
-            let pixelsBasis = new Array(this.numPics, undefined) //int[][] pixelsBasis = new int[numPics][];
-            this.basisPixels3 = new Array(this.numPics, undefined, undefined) //basisPixels3 = new double[numPics][][];
+            //let pixelsBasis = new Array(this.numPics, undefined) //int[][] pixelsBasis = new int[numPics][];
+            this.basisPixels = new Array(this.numPics, undefined)
+            //this.basisPixels3 = new Array(this.numPics, undefined, undefined) //basisPixels3 = new double[numPics][][];
             this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen //basisImages = new BufferedImage[numPics]; 
 
             for (let i = 0; i < this.numPics; i++) {
                 //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
-                pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
-                this.drawImagesInCanvas(this.pixelsBasis[i], i)
+                this.basisPixels[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
+                this.drawImagesInCanvas(this.basisPixels[i], i)
                 // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
 
                 //this.basisImages[i] = new Image() // basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -166,7 +169,7 @@ class GameEngine {
                 //this.basisImages[i] = pixelBasis[i] // TODO: not sure?
             }
             for (let i = 0; i < this.numPics; i++) {
-                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(pixelsBasis, this.mInv[i])
+                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(pixelsBasis, this.mInv[i]) // liefert nur 3 Kanäle RGB zurück
             }
 
             this.generateRandomM()
@@ -253,6 +256,7 @@ class GameEngine {
         // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users 
         // muss für jede Reihe einzelnd aufgerufen werden
         let pixelsBlended = new Array()
+        // verwende blendPixelsToPixels hier
         pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
             //let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
             //userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
@@ -458,20 +462,20 @@ class GameEngine {
 
         let pixels = new Array(pixelsIn[0].length, 3) // new Uint8ClampedArray(this.width * this.height * 4) / [pixelsIn[0].length][3]
 
-        for (let i = 0; i < pixels.length; i += 4) {
+        for (let i = 0; i < pixels.length; i += 4) { // += 4, läuft durch alle Pixel
 
             let r = 0;
             let g = 0;
             let b = 0;
             let a = 0;
 
-            for (let j = 0; j < pixelsIn.length; j += 4) {
+            for (let j = 0; j < pixelsIn.length; j++) { // nicht +=4, läuft gegen numPics
 
-                let cj = pixelsIn[j][i];
-                let rj = this.f(cj + 0); // f((cj >> 16) & 255)
-                let gj = this.f(cj + 1); // f((cj >>  8) & 255); 
-                let bj = this.f(cj + 2); // f((cj      ) & 255);
-                let aj = this.f(cj + 3); // f((cj >> 24) & 255);
+                //let cj = pixelsIn[j][i];
+                let rj = this.f(pixelsIn[j][i + 0]); // f((cj >> 16) & 255)
+                let gj = this.f(pixelsIn[j][i + 1]); // f((cj >>  8) & 255); 
+                let bj = this.f(pixelsIn[j][i + 2]); // f((cj      ) & 255);
+                let aj = this.f(pixelsIn[j][i + 3]); // f((cj >> 24) & 255);
 
                 r += w[j] * rj;
                 g += w[j] * gj;
@@ -482,6 +486,7 @@ class GameEngine {
             pixels[i][0] = this.fi(r);
             pixels[i][1] = this.fi(g);
             pixels[i][2] = this.fi(b);
+            //pixels[i][3] = 255; //volle Transparenz //this.fi(a); 
             // alphakanal auch speichern oder nur die RGB Werte in dem 3D Array lassen und später verwenden?
             // TODO: Pixel werden in rgb Kanäle aufgeteilt, muss hier anders berechnet werden?
         }
@@ -504,13 +509,14 @@ class GameEngine {
             let r = 0;
             let g = 0;
             let b = 0;
-            //let a = 0;
+            let a = 0;
 
             for (let j = 0; j < pixelsIn.length; j++) { // läuft gegen numPics -> nicht +=4 !!!!
+                // wie sind rot grün und blau verteilt? ist i+0 i+1 i+2 notwendig hier?
                 let rj = this.f(pixelsIn[j][i][0])
                 let gj = this.f(pixelsIn[j][i][1])
                 let bj = this.f(pixelsIn[j][i][2])
-                //let aj = this.f(255)
+                let aj = this.f(255)
 
                 r += w[j] * rj
                 g += w[j] * gj
