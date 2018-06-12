@@ -78,11 +78,14 @@ class ImageGenerator {
             let offset = Math.floor(Math.random() * 20) + 1
             offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
 
+            let offset2 = Math.floor(Math.random() * 20) + 1
+            offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+
             ctx.fillStyle = color
             ctx.beginPath()
-            ctx.moveTo(110 + offset, 110 + offset) // von 110, 110
+            ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
             ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
-            ctx.lineTo(20 + offset, 110 + offset) // zu 20, 110
+            ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
             ctx.fill()
             ctx.closePath()
         }
