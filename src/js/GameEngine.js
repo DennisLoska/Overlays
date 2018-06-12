@@ -253,6 +253,7 @@ class GameEngine {
         $('.js-card').each(function () {
             $(this).removeClass('js-is-flipped');
         });
+        $('#level-headline').html('Level ' + (this.levelNumber+1).toString())
     }
 
     resetUserMatrix() {
