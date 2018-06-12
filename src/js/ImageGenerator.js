@@ -5,19 +5,30 @@ class ImageGenerator {
         this.height = 150
             //The * 4 at the end represent RGBA which we need to be compatible with canvas.
         this.rndImagePixels = new Uint8ClampedArray(this.width * this.height * 4)
+
+        let whiteBackground = true
+
             // generate color between 1 and 255
         let randomR = Math.floor((Math.random() * 255) + 1)
         let randomG = Math.floor((Math.random() * 255) + 1)
         let randomB = Math.floor((Math.random() * 255) + 1)
         let white = 255
 
+
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 let pos = (y * this.width + x) * 4 // position in buffer based on x and y
-                this.rndImagePixels[pos + 0] = white //randomR; // R
-                this.rndImagePixels[pos + 1] = white //randomG; // G
-                this.rndImagePixels[pos + 2] = white //randomB; // B
-                this.rndImagePixels[pos + 3] = 255 // A
+                if(whiteBackground == true){
+                    this.rndImagePixels[pos + 0] = white // R
+                    this.rndImagePixels[pos + 1] = white // G
+                    this.rndImagePixels[pos + 2] = white // B
+                    this.rndImagePixels[pos + 3] = 255 // A
+                } else{
+                    this.rndImagePixels[pos + 0] = randomR; // R
+                    this.rndImagePixels[pos + 1] = randomG; // G
+                    this.rndImagePixels[pos + 2] = randomB; // B
+                    this.rndImagePixels[pos + 3] = 255 // A 
+                }
             }
         }
     }
