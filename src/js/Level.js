@@ -58,7 +58,7 @@ class Level {
     }
 
     get clickMaximum() {
-        return this.clickMaximum
+        return this.clickMax
     }
 
     set clickOptimum(opt) {
@@ -66,7 +66,7 @@ class Level {
     }
 
     get clickOptimum() {
-        return this.clickOptimum
+        return this.clickOpt
     }
 
     doGenerate() {
