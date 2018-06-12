@@ -143,12 +143,12 @@ class GameEngine {
             //let pixelsBasis = new Array(this.numPics, undefined) //int[][] pixelsBasis = new int[numPics][];
             this.basisPixels = new Array(this.numPics, undefined)
             //this.basisPixels3 = new Array(this.numPics, undefined, undefined) //basisPixels3 = new double[numPics][][];
-            this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen //basisImages = new BufferedImage[numPics]; 
+            //this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen //basisImages = new BufferedImage[numPics]; 
 
             for (let i = 0; i < this.numPics; i++) {
                 //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
                 this.basisPixels[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
-                this.drawImagesInCanvas(this.basisPixels[i], i)
+                this.drawImagesInCanvas(this.basisPixels[i], i+1)
                 // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
 
                 //this.basisImages[i] = new Image() // basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
