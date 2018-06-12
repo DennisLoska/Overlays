@@ -4,7 +4,7 @@ class GameEngine {
         this.loadLevel()
 
         this.wUser = new Array(this.numPics, this.numPics) // matrix der userwauswahl
-            //inserting dummy-values into wUser - zeros
+        //inserting dummy-values into wUser - zeros
         for (let i = 0; i < this.numPics; i++) {
             this.wUser[i] = []
             for (let j = 0; j < this.numPics; j++) {
@@ -28,7 +28,7 @@ class GameEngine {
         this.m = new Array(undefined, undefined)
         this.mInv = []
         this.targetPixels = new Array(undefined, undefined)
-            // TODO: deltete basisPixels3
+        // TODO: deltete basisPixels3
         this.basisPixels3 = new Array(undefined, undefined, undefined) // Speicher für Basisbilder [Bildnummer][Position][Kanal] - kein Kanal gebraucht!
         this.basisPixels = new Array(undefined, undefined) // [Bildnummer][Position]
 
@@ -99,7 +99,7 @@ class GameEngine {
             this.totalScore += levelScore;
             console.log("Score: " + this.totalScore.toString());
             $('#js-game-score').html("Score: " + this.totalScore.toString())
-                // TODO: show score in GUI
+            // TODO: show score in GUI
             this.levelNumber += 1;
             this.loadLevel();
         }
@@ -112,8 +112,8 @@ class GameEngine {
 
         console.log(images)
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
-            // if doGenerate = true -> target images vertical (left)
-            // if doGenerate = false -> target images horizontal (top)
+        // if doGenerate = true -> target images vertical (left)
+        // if doGenerate = false -> target images horizontal (top)
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
@@ -125,7 +125,7 @@ class GameEngine {
                 this.targetImages = images.folderImages // Bilder aus pics Ordner
             }
             this.targetPixels = images.targetPixels
-                //console.log("TARGET PIXELS: " + this.targetPixels)
+            //console.log("TARGET PIXELS: " + this.targetPixels)
             this.width = this.targetImages[0].width
             this.height = this.targetImages[0].height
         } else {
@@ -149,14 +149,14 @@ class GameEngine {
 
             //let pixelsBasis = new Array(this.numPics, undefined) //int[][] pixelsBasis = new int[numPics][];
             this.basisPixels = new Array(this.numPics, undefined) // [numPics][pixel]
-                //this.basisPixels3 = new Array(this.numPics, undefined, undefined) //basisPixels3 = new double[numPics][][];
-                //this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen //basisImages = new BufferedImage[numPics]; 
+            //this.basisPixels3 = new Array(this.numPics, undefined, undefined) //basisPixels3 = new double[numPics][][];
+            //this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen //basisImages = new BufferedImage[numPics]; 
 
             for (let i = 0; i < this.numPics; i++) {
                 //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
                 this.basisPixels[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
                 this.drawImagesInCanvas(this.basisPixels[i], i + 1)
-                    // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
+                // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
 
                 //this.basisImages[i] = new Image() // basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
                 //this.basisImages[i] = pixelsBasis[i]; // set RGB(A)
@@ -164,7 +164,7 @@ class GameEngine {
             }
         } else {
             this.mInv = new Array(this.numPics, this.numPics)
-                //let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ? // int[][] pixelsBasis = new int[numPics][width*height];
+            //let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ? // int[][] pixelsBasis = new int[numPics][width*height];
             this.basisPixels = new Array(this.numPics, this.width * this.height * 4) // [numPics][pixels]
 
             for (let i = 0; i < this.numPics; i++) {
@@ -218,7 +218,7 @@ class GameEngine {
             let img = new Image()
             canvas.width = this.width // not sure
             canvas.height = this.height // not sure
-            img.onload = function() {
+            img.onload = function () {
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
             }
             let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
@@ -269,7 +269,7 @@ class GameEngine {
         // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users 
         // muss für jede Reihe einzelnd aufgerufen werden
         let pixelsBlended = new Array()
-            // verwende blendPixelsToPixels hier
+        // verwende blendPixelsToPixels hier
 
         //pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
 
@@ -279,9 +279,9 @@ class GameEngine {
         //let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
         //userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
         this.userImagesPixels[index] = pixelsBlended
-            //return userImage
+        //return userImage
         return pixelsBlended
-            // gibt die pixel des jeweiligen user images zurück
+        // gibt die pixel des jeweiligen user images zurück
     }
 
     drawUserImage(row, imgPixels) { // welche Reihe und wie sieht das Bild aktuell aus
@@ -301,7 +301,7 @@ class GameEngine {
             let img = new Image()
             canvas.width = this.width // not sure
             canvas.height = this.height // not sure
-            img.onload = function() {
+            img.onload = function () {
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
             }
             let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
@@ -321,8 +321,8 @@ class GameEngine {
         this.numPics = this.level.numPics
         this.numOnes = this.level.numOnes
         this.doGenerate = this.level.doGenerate()
-            // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
-            // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
+        // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
+        // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
 
         // load new target images 
         // calculate new basis images
@@ -542,19 +542,31 @@ class GameEngine {
                 r += w[j] * rj
                 g += w[j] * gj
                 b += w[j] * bj
-                    //a += aj // keine Gewichtung mit UserMatrix
+                //a += aj // keine Gewichtung mit UserMatrix
             }
             r = fi(r)
             g = fi(g)
             b = fi(b)
-                //a = fi(a)
+            //a = fi(a)
 
-            if (r > rMax) { rMax = r }
-            if (r < rMin) { rMin = r }
-            if (g > gMax) { gMax = g }
-            if (g < gMin) { gMin = g }
-            if (b > bMax) { bMax = b }
-            if (b < bMin) { bMin = b }
+            if (r > rMax) {
+                rMax = r
+            }
+            if (r < rMin) {
+                rMin = r
+            }
+            if (g > gMax) {
+                gMax = g
+            }
+            if (g < gMin) {
+                gMin = g
+            }
+            if (b > bMax) {
+                bMax = b
+            }
+            if (b < bMin) {
+                bMin = b
+            }
         }
 
         let max = Math.max(rMax, gMax, bMax)
@@ -572,17 +584,17 @@ class GameEngine {
                 let rj = f(pixelsIn[j][i + 0][0])
                 let gj = f(pixelsIn[j][i + 1][1])
                 let bj = f(pixelsIn[j][i + 2][2])
-                    //let aj = this.f(255), das +4 wird einfach übersprungen
+                //let aj = this.f(255), das +4 wird einfach übersprungen
 
                 r += w[j] * rj
                 g += w[j] * gj
                 b += w[j] * bj
-                    //a += aj // keine Gewichtung mit UserMatrix
+                //a += aj // keine Gewichtung mit UserMatrix
             }
             r = fi(r)
             g = fi(g)
             b = fi(b)
-                //a = fi(a)
+            //a = fi(a)
 
             r = (r - min) * 255 / (max - min)
             g = (g - min) * 255 / (max - min)
