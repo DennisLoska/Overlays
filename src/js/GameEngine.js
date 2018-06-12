@@ -121,6 +121,7 @@ class GameEngine {
                 this.targetImages = images.folderImages // Bilder aus pics Ordner
             } 
             this.targetPixels = images.targetPixels
+            console.log("TARGET PIXELS: " + this.targetPixels)
             this.width = this.targetImages[0].width
             this.height = this.targetImages[0].height
         } else {

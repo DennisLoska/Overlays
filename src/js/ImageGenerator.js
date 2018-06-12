@@ -60,6 +60,10 @@ class ImageGenerator {
 
             ctx.fillStyle = color
             ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset)
+
+            let imgData = ctx.getImageData(0, 0, this.width, this.width);
+            this.rndImagePixels = imgData;
+
         }
         if (option == 2) {
             // Circle
@@ -72,6 +76,9 @@ class ImageGenerator {
             ctx.arc(this.width / 2 + offset, this.height / 2 + offset, radius, 0, 2 * Math.PI)
             ctx.fill()
             ctx.closePath()
+
+            let imgData = ctx.getImageData(0, 0, this.width, this.width);
+            this.rndImagePixels = imgData;
         }
         if (option == 3) {
             // Filled triangle
@@ -88,6 +95,9 @@ class ImageGenerator {
             ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
             ctx.fill()
             ctx.closePath()
+
+            let imgData = ctx.getImageData(0, 0, this.width, this.width);
+            this.rndImagePixels = imgData;
         }
         // Font
         //ctx.font = "30px Arial";
