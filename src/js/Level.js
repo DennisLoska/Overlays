@@ -66,7 +66,7 @@ class Level {
     }
 
     get clickOptimum() {
-        return this.clickOptimum
+        return this.clickOpt
     }
 
     doGenerate() {
