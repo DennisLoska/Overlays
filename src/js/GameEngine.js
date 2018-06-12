@@ -85,6 +85,8 @@ class GameEngine {
             // wenn überall true / 1 steht => level completed
             this.setCorrectCombination(row, true);
             console.log("Correct combination for row: " + row.toString());
+        } else{
+            this.setCorrectCombination(row, false);
         }
 
         // 5. check if all rows are finished / have the correct combinations => next level
