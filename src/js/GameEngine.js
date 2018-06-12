@@ -69,6 +69,8 @@ class GameEngine {
         // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
         let currentUserImg = new Array()
         currentUserImg = this.calculateUserImage(wUserRow, row); // returned pixel array
+        //console.log("Auswahl in Zeile " + row.toString())
+        //console.log(wUserRow)
         this.drawUserImage(row, currentUserImg);
         // TODO: calculateUserImage returns an image, use this
         // returned Image is still a BufferedImage so far - change!
@@ -237,6 +239,17 @@ class GameEngine {
     }
 
     calculateUserImage(wUserRow, index) { // TODO: not finished
+        /* JAVA:
+        public BufferedImage calculateUserImage(double[] wUserRow, int index){	
+            // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users (jede Reihe einzelnd)
+            int[] pixelsBlended = blend3DDoubleToPixels(basisPixels3, wUserRow);
+            BufferedImage userImage =  new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            userImage.setRGB(0, 0, width, height, pixelsBlended, 0, width);
+            userImagesPixels[index] = pixelsBlended;
+            return userImage;
+        }*/
+
+
         // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users 
         // muss für jede Reihe einzelnd aufgerufen werden
         let pixelsBlended = new Array()
@@ -487,66 +500,75 @@ class GameEngine {
         let bMin = 0;
         let bMax = 255;
 
-        for (let i = 0; i < pixels.length; i++) { // i+=4
+        for (let i = 0; i < pixels.length; i+=4) { // i+=4
             let r = 0;
             let g = 0;
             let b = 0;
+            //let a = 0;
 
-            for (let j = 0; j < pixelsIn.length; j++) { // j+=4
+            for (let j = 0; j < pixelsIn.length; j++) { // läuft gegen numPics -> nicht +=4 !!!!
                 let rj = this.f(pixelsIn[j][i][0])
                 let gj = this.f(pixelsIn[j][i][1])
                 let bj = this.f(pixelsIn[j][i][2])
+                //let aj = this.f(255)
 
                 r += w[j] * rj
                 g += w[j] * gj
                 b += w[j] * bj
+                //a += aj // keine Gewichtung mit UserMatrix
             }
             r = fi(r)
             g = fi(g)
             b = fi(b)
+            //a = fi(a)
 
-            if (r > rMax) rMax = r
-            if (r < rMin) rMin = r
-            if (g > gMax) gMax = g
-            if (g < gMin) gMin = g
-            if (b > bMax) bMax = b
-            if (b < bMin) bMin = b
+            if (r > rMax){ rMax = r }
+            if (r < rMin){ rMin = r }
+            if (g > gMax){ gMax = g }
+            if (g < gMin){ gMin = g }
+            if (b > bMax){ bMax = b }
+            if (b < bMin){ bMin = b }
         }
 
-        let max = Math.max(rMax, Math.max(gMax, bMax))
-        let min = Math.min(rMin, Math.min(gMin, bMin))
+        let max = Math.max(rMax, gMax, bMax)
+        let min = Math.min(rMin, gMin, bMin)
 
         //console.log(rMin + "," + rMax + ", " + gMin + "," + gMax + ", " + bMin + "," + bMax );
 
-        for (let i = 0; i < pixels.length; i++) {
-            let r = 0,
-                g = 0,
-                b = 0;
+        for (let i = 0; i < pixels.length; i+=4) { // i+=4, läuft durch alle Pixel
+            let r = 0;
+            let g = 0;
+            let b = 0;
+            let a = 0;
 
-            for (let j = 0; j < pixelsIn.length; j++) {
-                let rj = f(pixelsIn[j][i][0])
-                let gj = f(pixelsIn[j][i][1])
-                let bj = f(pixelsIn[j][i][2])
+            for (let j = 0; j < pixelsIn.length; j++) { // läuft gegen numPics -> nicht +=4 !!!!
+                let rj = f(pixelsIn[j][i + 0][0])
+                let gj = f(pixelsIn[j][i + 1][1])
+                let bj = f(pixelsIn[j][i + 2][2])
+                //let aj = this.f(255), das +4 wird einfach übersprungen
 
                 r += w[j] * rj
                 g += w[j] * gj
                 b += w[j] * bj
+                //a += aj // keine Gewichtung mit UserMatrix
             }
             r = fi(r)
             g = fi(g)
             b = fi(b)
+            //a = fi(a)
 
             r = (r - min) * 255 / (max - min)
             g = (g - min) * 255 / (max - min)
             b = (b - min) * 255 / (max - min)
+            a = 255
 
             //g = Math.min(Math.max(0, fi(g) ), 255);
             //b = Math.min(Math.max(0, fi(b) ), 255);
             //pixels[i] = 0xFF000000 | ((int)r <<16) | ((int)g << 8) | (int)b;
-            pixels[i] = r
+            pixels[i + 0] = r
             pixels[i + 1] = g
             pixels[i + 2] = b
-            pixels[i + 3] = 255 //alpha
+            pixels[i + 3] = a //alpha
         }
 
         return pixels
@@ -566,7 +588,7 @@ class GameEngine {
             let b = 0;
             let a = 0;
 
-            for (let j = 0; j < pixelsIn.length; j += 4) { // j+=4 WICHTIG! // j läuft gegen numPics
+            for (let j = 0; j < pixelsIn.length; j ++) { // nicht j+=4, j läuft gegen numPics
                 let cj = pixelsIn[j][i];
                 let rj = this.f(cj + 0); // f((cj >> 16) & 255)
                 let gj = this.f(cj + 1); // f((cj >>  8) & 255); 
@@ -574,8 +596,8 @@ class GameEngine {
                 let aj = this.f(cj + 3); // f((cj >> 24) & 255);
 
                 r += w[j] * rj
-                b += w[j + 2] * bj
-                g += w[j + 1] * gj
+                b += w[j] * bj
+                g += w[j] * gj
                 a += aj // keine Gewichtung (Multiplikation) der Transparenz
             }
 
