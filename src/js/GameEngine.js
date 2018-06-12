@@ -239,31 +239,6 @@ class GameEngine {
 
     clearArrays(){
         // TODO: build or clear arrays for new level (wUser muss wieder auf 0 gesetzt werden)
-        this.wUser = new Array(this.numPics, this.numPics)
-        for (let i = 0; i < this.numPics; i++) {
-            this.wUser[i] = []
-            for (let j = 0; j < this.numPics; j++) {
-                this.wUser[i][j] = 0
-            }
-        }
-        // reset images by user (right side) and the amount of correct combinations
-        this.correctUserCombinations = new Array(this.numPics)
-        this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
-        let length = this.width * this.height * 4
-        for (let i = 0; i < this.numPics; i++) {
-            this.userImagesPixels[i] = []
-            for (let j = 0; j < length; j++) {
-                this.wUser[i][j] = 0
-            }
-        }
-        for (let i = 0; i < this.numPics; i++) {
-            this.drawUserImage(i, this.userImagesPixels[i]);
-            this.correctUserCombinations[i] = 0;
-        }  
-    }
-
-    clearArrays(){
-        // TODO: build or clear arrays for new level (wUser muss wieder auf 0 gesetzt werden)
         this.correctUserCombinations = new Array(this.numPics)
         this.wUser = new Array(this.numPics, this.numPics)
         for (let i = 0; i < this.numPics; i++) {
@@ -286,6 +261,7 @@ class GameEngine {
             this.drawUserImage(i, this.userImagesPixels[i]);
             this.correctUserCombinations[i] = 0;
         }  
+        this.clickCounter = 0 // reset clickCounter
     }
 
     clearGUI(){
