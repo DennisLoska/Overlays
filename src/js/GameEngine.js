@@ -189,10 +189,12 @@ class GameEngine {
         let imagesToDraw = new Array(this.numPics)
         console.log("Drawing images into canvas...")
 
-        // loop needed or not? 
-        // Parameter index needed or not for "js-basis-image-" + index.toString()?
         try {
-            let canvas = document.getElementById("js-basis-image-" + index.toString()) // wo soll bild gemalt werden?
+            if(this.doGenerate == true){ // wohin sollen bilder gemalt werden? // TODO: andersrum?
+                var canvas = document.getElementById("js-basis-image-" + index.toString())
+            } else{
+                var canvas = document.getElementById("js-starting-image-" + index.toString()) 
+            }
             let ctx = canvas.getContext("2d")
             let img = new Image()
             canvas.width = this.width // not sure
