@@ -121,7 +121,7 @@ class GameEngine {
                 this.targetImages = images.folderImages // Bilder aus pics Ordner
             } 
             this.targetPixels = images.targetPixels
-            console.log("TARGET PIXELS: " + this.targetPixels)
+            //console.log("TARGET PIXELS: " + this.targetPixels)
             this.width = this.targetImages[0].width
             this.height = this.targetImages[0].height
         } else {
@@ -131,6 +131,7 @@ class GameEngine {
              } else {
                  this.basisImages = images.folderImages // Bilder aus pics Ordner
              }
+             ////// TODO, line before
             this.width = this.basisImages[0].width
             this.height = this.basisImages[0].height
         }
@@ -142,7 +143,7 @@ class GameEngine {
             this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
 
             //let pixelsBasis = new Array(this.numPics, undefined) //int[][] pixelsBasis = new int[numPics][];
-            this.basisPixels = new Array(this.numPics, undefined)
+            this.basisPixels = new Array(this.numPics, undefined) // [numPics][pixel]
             //this.basisPixels3 = new Array(this.numPics, undefined, undefined) //basisPixels3 = new double[numPics][][];
             //this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen //basisImages = new BufferedImage[numPics]; 
 
@@ -158,19 +159,23 @@ class GameEngine {
             }
         } else {
             this.mInv = new Array(this.numPics, this.numPics)
-            let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ? // int[][] pixelsBasis = new int[numPics][width*height];
+            //let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ? // int[][] pixelsBasis = new int[numPics][width*height];
+            this.basisPixels = new Array(this.numPics, this.width * this.height * 4) // [numPics][pixels]
             
             for (let i = 0; i < this.numPics; i++) {
                 this.mInv[i][i] = 1 //1./numOnes;
                 this.basisPixels3 = new Array(this.numPics, undefined, undefined) // basisPixels3 = new double[numPics][][]; 
 
-                this.basisImages[i] = this.calculateGetRGB(pixelsBasis[i]) // maybe don't need the images[] arrays at all
+                this.basisImages[i] = this.calculateGetRGB(this.basisPixels[i]) // maybe don't need the images[] arrays at all
+                
+                this.basisPixels[i] = this.basisImages[i] // get the pixels from basis image
+                
                 // get the pixel array of the basisImages
                 //basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width);
                 //this.basisImages[i] = pixelBasis[i] // TODO: not sure?
             }
             for (let i = 0; i < this.numPics; i++) {
-                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(pixelsBasis, this.mInv[i]) // liefert nur 3 Kanäle RGB zurück
+                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.basisPixels, this.mInv[i]) // liefert nur 3 Kanäle RGB zurück
             }
 
             this.generateRandomM()
@@ -178,8 +183,12 @@ class GameEngine {
             this.targetPixels = new Array(this.numPics, this.width * this.height * 4) // TODO * 4? // targetPixels = new int[numPics][width*height];
 
             for (let i = 0; i < targetPixels.length; i++) {
-                this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
-                this.drawImagesInCanvas(this.targetPixels[i], i) // does this need to be in a numPics loop ?
+
+                this.targetPixels[i] = this.blendPixelsToPixels(this.basisPixels, this.mInv[i])
+                this.drawImagesInCanvas(this.targetPixels[i], i+1)
+
+                //this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
+                //this.drawImagesInCanvas(this.targetPixels[i], i+1) // does this need to be in a numPics loop ?
                 // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
 
                 //this.targetImages[i] = new Image()
@@ -187,7 +196,6 @@ class GameEngine {
             }
         }
         this.printResult()
-        //this.drawImagesInCanvas()
     }
 
     drawImagesInCanvas(calculatedImgData, index) { // TODO: calculatedImgData = pixel array, index = welche zeile / row
@@ -258,7 +266,12 @@ class GameEngine {
         // muss für jede Reihe einzelnd aufgerufen werden
         let pixelsBlended = new Array()
         // verwende blendPixelsToPixels hier
-        pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
+        
+        //pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
+        
+        pixelsBlended = this.blendPixelsToPixels(this.basisPixels, wUserRow);
+        //console.log("Pixels blended: " + pixelsBlended);
+
             //let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
             //userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
         this.userImagesPixels[index] = pixelsBlended
@@ -275,8 +288,11 @@ class GameEngine {
 
         console.log("Drawing user image into canvas...")
 
+        let pos = parseInt(row) + 1
+
         try {
-            let canvas = document.getElementById("js-user-image-" + row.toString())
+            let canvas = document.getElementById("js-user-image-" + pos.toString())
+            console.log("Draw user image into: js-user-image-" + pos.toString())
             let ctx = canvas.getContext("2d")
             let img = new Image()
             canvas.width = this.width // not sure
