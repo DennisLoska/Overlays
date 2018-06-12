@@ -21,13 +21,22 @@ class Images {
         this.width = undefined
         this.height = undefined
         this.targetImgData = undefined
+
+        this.vertical = undefined // position of target images
     }
 
     set numImage(num) {
         this.numImages = num
     }
 
-    get folderImages(doGenerate) {
+    set position(state){
+        this.vertical = state
+        // position of target images 
+        // doGenerate = true, vertical = true -> target images in vertical column left
+        // doGenrate = false, vertical = false -> target images in horizontal row on top
+    }
+
+    get folderImages() {
         this.images = new Array(this.numImages)
         try {
             let targetImgData = new Array()
@@ -35,7 +44,7 @@ class Images {
                 this.images[i] = new Image()
                 let j = i
                 j++
-                if(doGenerate == true){ // wohin sollen bilder gemalt werden?
+                if(this.vertical == true){ // wohin sollen bilder gemalt werden?
                     var canvas = document.getElementById("js-starting-image-" + j.toString())
                 } else{
                     var canvas = document.getElementById("js-basis-image-" + j.toString())
@@ -67,7 +76,7 @@ class Images {
         return this.images
     }
 
-    get generatedImages(doGenerate) {
+    get generatedImages() {
         //TODO ImageGenerator
         // instanziiere ImageGenerator und rufe randomImage() auf 
         console.log("Generated images used.")
@@ -79,7 +88,7 @@ class Images {
                 this.images[i] = new Image()
                 let j = i
                 j++
-                if(doGenerate == true){ // wohin sollen bilder gemalt werden?
+                if(this.vertical == true){ // wohin sollen bilder gemalt werden?
                     var canvas = document.getElementById("js-starting-image-" + j.toString())
                 } else{
                     var canvas = document.getElementById("js-basis-image-" + j.toString())

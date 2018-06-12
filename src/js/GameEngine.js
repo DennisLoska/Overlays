@@ -103,14 +103,15 @@ class GameEngine {
         images.numImage = this.numPics // generiere bilder mit returnGeneratedImages()
 
         console.log(images)
+        images.position = this.doGenerate // set position of target images
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
             // generate basis from input images
             if (this.levelNumber < 3){
-                this.targetImages = images.generatedImages(this.doGenerate) // ImageGenerator Bilder
+                this.targetImages = images.generatedImages // ImageGenerator Bilder
             } else { 
-                this.targetImages = images.folderImages(this.doGenerate) // Bilder aus pics Ordner
+                this.targetImages = images.folderImages // Bilder aus pics Ordner
             } 
             this.targetPixels = images.targetPixels
             this.width = this.targetImages[0].width
@@ -118,9 +119,9 @@ class GameEngine {
         } else {
             // read basis images
             if (this.levelNumber < 3){
-                this.basisImages = images.generatedImages(this.doGenerate) // ImageGenerator Bilder
+                this.basisImages = images.generatedImages // ImageGenerator Bilder
              } else {
-                 this.basisImages = images.folderImages(this.doGenerate) // Bilder aus pics Ordner
+                 this.basisImages = images.folderImages // Bilder aus pics Ordner
              }
             this.width = this.basisImages[0].width
             this.height = this.basisImages[0].height
