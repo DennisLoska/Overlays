@@ -90,6 +90,8 @@ class GameEngine {
             this.levelNumber += 1;
             this.loadLevel();
             this.clearArrays();
+            this.clearGUI()
+            this.getTargetAndBasisImages()
         }
     }
 
@@ -255,7 +257,18 @@ class GameEngine {
             for (let j = 0; j < this.numPics; j++) {
                 this.wUser[i][j] = 0
             }
+            this.setCorrectCombination(i, false)
         }
+    }
+
+    clearGUI(){
+        $('.js-card').each(function () {
+            $(this).removeClass('js-is-flipped');
+        });
+    }
+
+    goToNextLevel(){
+
     }
 
     resetUserMatrix() {
