@@ -11,7 +11,7 @@ class GameEngine {
                 this.wUser[i][j] = 0
             }
         }
-        this.userImagesPixels = new Array(this.numPics, this.width * this.height) // kombinierte pixel der userauswahl = Zielbild
+        this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
         this.correctUserCombinations = new Array(this.numPics) // 1 wenn richtige kombination, 0 wenn falsch
 
         let targetImages = new Array(this.numPics)
@@ -45,8 +45,6 @@ class GameEngine {
 
     updateOnClick(row, col) {
         this.clickCounter += 1;
-        //console.log("Amount of clicks: " + this.clickCounter.toString());
-        //console.log("Clicked tile is in row: " + row.toString() + " and column: " + col.toString());
 
         // 1. update the value in the user matrix wUser[][]
         if (this.wUser[row][col] == 1) {
@@ -54,15 +52,10 @@ class GameEngine {
         } else {
             this.wUser[row][col] = 1;
         }
-        //console.log("Value of wUser in row: " + row.toString() + " and column: " + col.toString() + " is: " + this.wUser[row][col].toString());
-        //console.log("Auswahl des Users (wUser):");
-        //console.log(this.wUser);
 
         // 2. hole die Reihenmatrix der Userauswahl für die veränderte / angeklickte Zeile
         let wUserRow = new Array(this.numPics);
         wUserRow = this.wUser[row]; // bspw.: wUserRow[1, 0, 1]
-        console.log("Reihenauswahl des Users (wUserRow):");
-        console.log(wUserRow);
 
         // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
         let currentUserImg = new Array()
@@ -216,7 +209,7 @@ class GameEngine {
 
         try {
             let canvas = document.getElementById("js-user-image-" + pos.toString())
-            console.log("Draw user image into: js-user-image-" + pos.toString())
+            //console.log("Draw user image into: js-user-image-" + pos.toString())
             let ctx = canvas.getContext("2d")
             let img = new Image()
             canvas.width = this.width
@@ -243,8 +236,6 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
 
         // TODO: load new target images, calculate new basis images
-        //this.clearArrays()
-        //this.resetUserMatrix()
     }
 
     clearArrays(){
@@ -256,15 +247,20 @@ class GameEngine {
                 this.wUser[i][j] = 0
             }
         }
-    }
-
-    resetUserMatrix() {
+        // reset images by user (right side) and the amount of correct combinations
+        this.correctUserCombinations = new Array(this.numPics)
+        this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
+        let length = this.width * this.height * 4
         for (let i = 0; i < this.numPics; i++) {
-            this.wUser[i] = []
-            for (let j = 0; j < this.numPics; j++) {
+            this.userImagesPixels[i] = []
+            for (let j = 0; j < length; j++) {
                 this.wUser[i][j] = 0
             }
         }
+        for (let i = 0; i < this.numPics; i++) {
+            this.drawUserImage(i, this.userImagesPixels[i]);
+            this.correctUserCombinations[i] = 0;
+        }  
     }
 
     returnScore(clicks) {
@@ -274,7 +270,6 @@ class GameEngine {
         let fullScoreLimit = 2 * optimum;
 
         if (clicks == optimum || clicks <= fullScoreLimit) {
-            // volle Punktzahl
             score = 100;
         } else if (clicks < maximum && clicks > fullScoreLimit) {
             // abgestuft weniger Punktzahlen
@@ -282,20 +277,16 @@ class GameEngine {
             let schritte = (100.0 - fullScoreLimit) / maximum;
             score = 100 - (schritte * count);
         } else if (clicks > maximum) {
-            // keine Punkte
             score = 0;
         }
-
         return Math.floor(score)
     }
 
-    comparePictures(index, wUserRow) { // TODO: not finished
-        // compare the combination by the user with the target image
-        // compare the solution matrix m with what the user clicked wUserRow
-        // int index is one specific row in the matrix
+    comparePictures(index, wUserRow) {
+        // compare the combination by the user (wUser) with the solution matrix m
         let equals = false
         for (let i = 0; i < this.numPics; i++) {
-            if (wUserRow[i] == this.m[index][i]) { // vergleiche reihe der usermatrix mit reihe der lösungsmatrix
+            if (wUserRow[i] == this.m[index][i]) {
                 equals = true
             } else {
                 return false
@@ -305,8 +296,6 @@ class GameEngine {
     }
 
     getAmountOfCorrectCombinations() {
-        // count how many combinations the user has right at the same time
-        // if correctCombinations == numPics -> finished, switch to next level
         let correctCombinations = 0
         for (let i = 0; i < this.correctUserCombinations.length; i++) {
             if (this.correctUserCombinations[i] > 0)
@@ -316,15 +305,12 @@ class GameEngine {
     }
 
     setCorrectCombination(index, value) {
-        // set the combinations by the user (per row)
-        // wenn eine Reihe die richtige Lösung ergibt, dann ist correctCombinations = 1, wenn falsch dann = 0
         if (value == true)
             this.correctUserCombinations[index] = 1
         else this.correctUserCombinations[index] = 0
     }
 
     getUserMatrixValue(row, col) {
-        // return den value (0 oder 1) an einer bestimmten stelle in der auswahl des users
         return this.wUser[row][col]
     }
 
@@ -351,18 +337,16 @@ class GameEngine {
                 }
             }
         } while (!success && tries++ < 10000)
-
+        
         if (!success)
             throw new Error("Impossible Settings, aborting")
     }
 
     generateRandomM() {
-
         let success;
         while (!success) {
-            // numOnes mal eine 1 in jede Zeile von m setzen	
             this.m = new Array(this.numPics, this.numPics);
-            //insert dummy-values into m
+            //insert dummy-values into m; insert 0
             for (let i = 0; i < this.numPics; i++) {
                 this.m[i] = [];
                 for (let j = 0; j < this.numPics; j++) {
@@ -370,8 +354,6 @@ class GameEngine {
                 }
             }
             for (let i = 0; i < this.numPics; i++) {
-                console.log(this.numOnes);
-
                 for (let j = 0; j < this.numOnes; j++) {
                     let index;
                     do index = Math.floor(Math.random() * this.numPics)
@@ -397,50 +379,37 @@ class GameEngine {
         console.log(this.m)
     }
 
-    //TODO make function applyable on pixels from imagedata of Canvas-API
-    blendPixelsTo3DDoubleImage(pixelsIn, w) { //pixelsIn[numPics][width*height], w[]
+    blendPixelsTo3DDoubleImage(pixelsIn, w) { // TODO: need this?
         //Java: private double[][] blendPixelsTo3DDoubleImage(int[][] pixelsIn, double[] w)
-        console.log("PixelIn blendPixelsTo3DDoubleImage:")
-        console.log(pixelsIn)
-
-        let pixels = new Array(pixelsIn[0].length, 3) // new Uint8ClampedArray(this.width * this.height * 4) / [pixelsIn[0].length][3]
-
+        let pixels = new Array(pixelsIn[0].length, 3)
         for (let i = 0; i < pixels.length; i += 4) { // += 4, läuft durch alle Pixel
-
             let r = 0;
             let g = 0;
             let b = 0;
-            let a = 0;
+            //let a = 0;
 
             for (let j = 0; j < pixelsIn.length; j++) { // nicht +=4, läuft gegen numPics
-
-                //let cj = pixelsIn[j][i];
                 let rj = this.f(pixelsIn[j][i + 0]); // f((cj >> 16) & 255)
                 let gj = this.f(pixelsIn[j][i + 1]); // f((cj >>  8) & 255); 
                 let bj = this.f(pixelsIn[j][i + 2]); // f((cj      ) & 255);
-                let aj = this.f(pixelsIn[j][i + 3]); // f((cj >> 24) & 255);
+                //let aj = this.f(pixelsIn[j][i + 3]); // f((cj >> 24) & 255);
 
                 r += w[j] * rj;
                 g += w[j] * gj;
                 b += w[j] * bj;
-                a += aj; // Transparenz wird nicht extra multipliziert 
+                //a += aj; // Transparenz wird nicht extra multipliziert 
             }
 
             pixels[i][0] = this.fi(r);
             pixels[i][1] = this.fi(g);
             pixels[i][2] = this.fi(b);
             //pixels[i][3] = 255; //volle Transparenz //this.fi(a); 
-            // alphakanal auch speichern oder nur die RGB Werte in dem 3D Array lassen und später verwenden?
-            // TODO: Pixel werden in rgb Kanäle aufgeteilt, muss hier anders berechnet werden?
         }
         return pixels
     }
 
-    blend3DDoubleToPixels(pixelsIn, w) { // TODO: not finished
-        // Ursprüngliche Parameter der Methode: (double[][][] pixelsIn, double[] w)
-        //int[] pixels = new int[pixelsIn[0].length];
+    blend3DDoubleToPixels(pixelsIn, w) { // TODO: need this?
         let pixels = new Array(pixelsIn[0].length)
-
         let rMin = 0;
         let rMax = 255;
         let gMin = 0;
@@ -453,13 +422,11 @@ class GameEngine {
             let g = 0;
             let b = 0;
             let a = 0;
-
             for (let j = 0; j < pixelsIn.length; j++) { // läuft gegen numPics -> nicht +=4 !!!!
-                // wie sind rot grün und blau verteilt? ist i+0 i+1 i+2 notwendig hier?
                 let rj = this.f(pixelsIn[j][i][0])
                 let gj = this.f(pixelsIn[j][i][1])
                 let bj = this.f(pixelsIn[j][i][2])
-                let aj = this.f(255)
+                //let aj = this.f(255)
 
                 r += w[j] * rj
                 g += w[j] * gj
@@ -490,18 +457,14 @@ class GameEngine {
                 bMin = b
             }
         }
-
         let max = Math.max(rMax, gMax, bMax)
         let min = Math.min(rMin, gMin, bMin)
-
-        //console.log(rMin + "," + rMax + ", " + gMin + "," + gMax + ", " + bMin + "," + bMax );
 
         for (let i = 0; i < pixels.length; i += 4) { // i+=4, läuft durch alle Pixel
             let r = 0;
             let g = 0;
             let b = 0;
-            let a = 0;
-
+            //let a = 0;
             for (let j = 0; j < pixelsIn.length; j++) { // läuft gegen numPics -> nicht +=4 !!!!
                 let rj = f(pixelsIn[j][i + 0][0])
                 let gj = f(pixelsIn[j][i + 1][1])
@@ -517,49 +480,40 @@ class GameEngine {
             g = fi(g)
             b = fi(b)
             //a = fi(a)
-
             r = (r - min) * 255 / (max - min)
             g = (g - min) * 255 / (max - min)
             b = (b - min) * 255 / (max - min)
-            a = 255
+            //a = 255
 
-            //g = Math.min(Math.max(0, fi(g) ), 255);
-            //b = Math.min(Math.max(0, fi(b) ), 255);
-            //pixels[i] = 0xFF000000 | ((int)r <<16) | ((int)g << 8) | (int)b;
             pixels[i + 0] = r
             pixels[i + 1] = g
             pixels[i + 2] = b
-            pixels[i + 3] = a //alpha
+            pixels[i + 3] = 255 //alpha
         }
-
         return pixels
     }
 
-    //TODO make function applyable on pixels from imagedata of Canvas-API
     blendPixelsToPixels(pixelsIn, w) {
-        // Java: private int[] blendPixelsToPixels(int[][] pixelsIn, double[] w) 
-        // pixelsIn: targetPixels = new int[numPics][width*height];
         // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
         let pixels = new Array(pixelsIn[0].length)
 
-        for (let i = 0; i < pixels.length; i += 4) { // i+=4 WICHTIG! // i läuft gegen width*height*4
+        for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
             let r = 0;
             let g = 0;
             let b = 0;
             let a = 0;
-
+            
             for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
-                //let cj = pixelsIn[j][i];
                 let rj = this.f(pixelsIn[j][i + 0]); // f((cj >> 16) & 255)
                 let gj = this.f(pixelsIn[j][i + 1]); // f((cj >>  8) & 255); 
                 let bj = this.f(pixelsIn[j][i + 2]); // f((cj      ) & 255);
-                let aj = this.f(pixelsIn[j][i + 3]); // f((cj >> 24) & 255);
+                //let aj = this.f(pixelsIn[j][i + 3]);
 
                 r += w[j] * rj
                 b += w[j] * bj
                 g += w[j] * gj
-                a += aj // keine Gewichtung (Multiplikation) der Transparenz
+                //a += aj // keine Gewichtung (Multiplikation) der Transparenz
             }
 
             //r = (r - 128) / this.numOnes + 128;
