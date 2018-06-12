@@ -103,7 +103,9 @@ class GameEngine {
         images.numImage = this.numPics // generiere bilder mit returnGeneratedImages()
 
         console.log(images)
-        images.position = this.doGenerate // set position of target images
+        images.position = this.doGenerate // set position of target images (tell Images class where to draw)
+        // if doGenerate = true -> target images vertical (left)
+        // if doGenerate = false -> target images horizontal (top)
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {

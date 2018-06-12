@@ -22,7 +22,7 @@ class Images {
         this.height = undefined
         this.targetImgData = undefined
 
-        this.vertical = undefined // position of target images
+        this.vertical = undefined // position of target images, where to draw
     }
 
     set numImage(num) {
