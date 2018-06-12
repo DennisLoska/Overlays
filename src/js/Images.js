@@ -27,7 +27,7 @@ class Images {
         this.numImages = num
     }
 
-    get folderImages() {
+    get folderImages(doGenerate) {
         this.images = new Array(this.numImages)
         try {
             let targetImgData = new Array()
@@ -35,7 +35,11 @@ class Images {
                 this.images[i] = new Image()
                 let j = i
                 j++
-                let canvas = document.getElementById("js-starting-image-" + j.toString())
+                if(doGenerate == true){ // wohin sollen bilder gemalt werden?
+                    var canvas = document.getElementById("js-starting-image-" + j.toString())
+                } else{
+                    var canvas = document.getElementById("js-basis-image-" + j.toString())
+                }
                     //console.log("Canvas number " + j + ":" + "\n");
                     //console.log(canvas)
                 let ctx = canvas.getContext("2d")
@@ -63,7 +67,7 @@ class Images {
         return this.images
     }
 
-    get generatedImages() {
+    get generatedImages(doGenerate) {
         //TODO ImageGenerator
         // instanziiere ImageGenerator und rufe randomImage() auf 
         console.log("Generated images used.")
@@ -75,7 +79,11 @@ class Images {
                 this.images[i] = new Image()
                 let j = i
                 j++
-                let canvas = document.getElementById("js-starting-image-" + j.toString())
+                if(doGenerate == true){ // wohin sollen bilder gemalt werden?
+                    var canvas = document.getElementById("js-starting-image-" + j.toString())
+                } else{
+                    var canvas = document.getElementById("js-basis-image-" + j.toString())
+                }
                 let ctx = canvas.getContext("2d")
                 let img = this.images[i]
                 canvas.width = generator.width

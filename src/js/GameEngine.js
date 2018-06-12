@@ -1,7 +1,5 @@
 class GameEngine {
     constructor(levelNumber) {
-        //this.doGenerate = false
-
         this.levelNumber = levelNumber
         this.loadLevel()
 
@@ -110,9 +108,9 @@ class GameEngine {
         if (this.doGenerate == true) {
             // generate basis from input images
             if (this.levelNumber < 3){
-                this.targetImages = images.generatedImages // ImageGenerator Bilder
+                this.targetImages = images.generatedImages(this.doGenerate) // ImageGenerator Bilder
             } else { 
-                this.targetImages = images.folderImages // Bilder aus pics Ordner
+                this.targetImages = images.folderImages(this.doGenerate) // Bilder aus pics Ordner
             } 
             this.targetPixels = images.targetPixels
             this.width = this.targetImages[0].width
@@ -120,9 +118,9 @@ class GameEngine {
         } else {
             // read basis images
             if (this.levelNumber < 3){
-                this.basisImages = images.generatedImages // ImageGenerator Bilder
+                this.basisImages = images.generatedImages(this.doGenerate) // ImageGenerator Bilder
              } else {
-                 this.basisImages = images.folderImages // Bilder aus pics Ordner
+                 this.basisImages = images.folderImages(this.doGenerate) // Bilder aus pics Ordner
              }
             this.width = this.basisImages[0].width
             this.height = this.basisImages[0].height
@@ -150,12 +148,15 @@ class GameEngine {
             }
         } else {
             this.mInv = new Array(this.numPics, this.numPics)
-            let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ?
+            let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ? // int[][] pixelsBasis = new int[numPics][width*height];
+            
             for (let i = 0; i < this.numPics; i++) {
                 this.mInv[i][i] = 1 //1./numOnes;
-                this.basisPixels3 = new Array(this.numPics, undefined, undefined)
+                this.basisPixels3 = new Array(this.numPics, undefined, undefined) // basisPixels3 = new double[numPics][][]; 
 
-                this.basisImages[i] = this.calculateGetRGB(pixelsBasis[i])
+                this.basisImages[i] = this.calculateGetRGB(pixelsBasis[i]) // maybe don't need the images[] arrays at all
+                // get the pixel array of the basisImages
+                //basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width);
                 //this.basisImages[i] = pixelBasis[i] // TODO: not sure?
             }
             for (let i = 0; i < this.numPics; i++) {
@@ -164,7 +165,7 @@ class GameEngine {
 
             this.generateRandomM()
 
-            this.targetPixels = new Array(this.numPics, this.width * this.height * 4) // TODO * 4?
+            this.targetPixels = new Array(this.numPics, this.width * this.height * 4) // TODO * 4? // targetPixels = new int[numPics][width*height];
 
             for (let i = 0; i < targetPixels.length; i++) {
                 this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
@@ -200,7 +201,7 @@ class GameEngine {
 
             imgData.data.set(calculatedImgData)
             ctx.putImageData(imgData, 0, 0)
-            
+
         } catch (err) {
             console.log("Could not draw images into canvas.")
             err.message = "Could not draw images into canvas."

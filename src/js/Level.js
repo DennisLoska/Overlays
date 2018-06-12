@@ -70,7 +70,9 @@ class Level {
     }
 
     doGenerate() {
-        return true
+        let state = true
+        console.log("doGenerate: " + state)
+        return state
     }
 
     calculateClicksForScore() {
