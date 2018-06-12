@@ -1,5 +1,5 @@
 function clickedTile(game) {
-    $(".js-card").click(function() {
+    $(".js-card").click(function () {
         var row = $(this).attr('data-row')
         var col = $(this).attr('data-col')
         game.engine.updateOnClick(row, col)
@@ -16,7 +16,7 @@ function canvasDemo() {
     var img1 = new Images()
     img1.numImage = 3
     img1.folderImages
-        //img1.generatedImages
+    //img1.generatedImages
     img1.targetPixels
     console.log("Debug InverseMatrix:")
     console.log(InverseMatrix.invert([
@@ -43,14 +43,14 @@ function notUsed() {
 
     var c_1 = document.getElementById("js-starting-image-1");
     var ctx_1 = c_1.getContext("2d");
-    img_1.onload = function() {
+    img_1.onload = function () {
         ctx_1.drawImage(img_1, 0, 0, c_1.width, c_1.height); // Or at whatever offset you like
     };
     img_1.src = "/img/image_sets/D2.png";
 
     var c_2 = document.getElementById("js-starting-image-2");
     var ctx_2 = c_2.getContext("2d");
-    img_2.onload = function() {
+    img_2.onload = function () {
         ctx_2.drawImage(img_2, 0, 0, c_2.width, c_2.height); // Or at whatever offset you like
     };
     img_2.src = "/img/image_sets/F5.jpg";

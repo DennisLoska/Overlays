@@ -3,7 +3,7 @@ class ImageGenerator {
     constructor() {
         this.width = 150
         this.height = 150
-            //The * 4 at the end represent RGBA which we need to be compatible with canvas.
+        //The * 4 at the end represent RGBA which we need to be compatible with canvas.
         this.rndImagePixels = new Uint8ClampedArray(this.width * this.height * 4)
 
         let whiteBackground = true
@@ -93,7 +93,7 @@ class ImageGenerator {
 
     get randomColor() {
         let c = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
-            // no black or white:
+        // no black or white:
         while (c == "#FFFFFF" || c == "#000000")
             c = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
         return c

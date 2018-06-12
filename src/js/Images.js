@@ -31,9 +31,9 @@ class Images {
 
     set position(state) {
         this.vertical = state
-            // position of target images 
-            // doGenerate = true, vertical = true -> target images in vertical column left
-            // doGenrate = false, vertical = false -> target images in horizontal row on top
+        // position of target images 
+        // doGenerate = true, vertical = true -> target images in vertical column left
+        // doGenrate = false, vertical = false -> target images in horizontal row on top
     }
 
     get folderImages() {
@@ -53,14 +53,14 @@ class Images {
                 //console.log(canvas)
                 let ctx = canvas.getContext("2d")
                 let img = this.images[i]
-                img.onload = function() {
+                img.onload = function () {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
                 }
                 this.images[0].width = canvas.width
                 this.images[0].height = canvas.height
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
-                    //console.log("Image number " + i + ":" + "\n")
-                    //console.log(this.images[i])
+                //console.log("Image number " + i + ":" + "\n")
+                //console.log(this.images[i])
                 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                 targetImgData.push(imgData.data)
             }
@@ -97,7 +97,7 @@ class Images {
                 let img = this.images[i]
                 canvas.width = generator.width
                 canvas.height = generator.height
-                img.onload = function() {
+                img.onload = function () {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
                 }
                 this.images[0].width = canvas.width
