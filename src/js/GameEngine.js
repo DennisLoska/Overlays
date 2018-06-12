@@ -187,11 +187,11 @@ class GameEngine {
     drawImagesInCanvas(calculatedImgData, index) { // TODO: calculatedImgData = pixel array, index = welche zeile / row
         // draw the calcuated basis / target images into the canvas gui
         // only have to be done once for each level
-        let imagesToDraw = new Array(this.numPics)
         console.log("Drawing images into canvas...")
 
         try {
-            if(this.doGenerate == true){ // wohin sollen bilder gemalt werden? // TODO: andersrum?
+            // es wird keine loop benötigt, weil die Methode drawImagesInCanvas() innerhalb einer loop aufgerufen wird (dafür der index Parameter)
+            if(this.doGenerate == true){ // wohin sollen bilder gemalt werden?
                 var canvas = document.getElementById("js-basis-image-" + index.toString())
             } else{
                 var canvas = document.getElementById("js-starting-image-" + index.toString()) 
@@ -252,29 +252,29 @@ class GameEngine {
     drawUserImage(row, imgPixels) { // welche Reihe und wie sieht das Bild aktuell aus
         // TODO: male das vom User bisher zusammengerechnete Zielbild ins Canvas
         // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
-        let pixelsToDraw = new Uint8ClampedArray(this.width * this.height * 4)
-        for (let y = 0; y < this.height; y++) {
-            for (let x = 0; x < this.width; x++) {
-                let pos = (y * this.width + x) * 4 // position in buffer based on x and y
-                pixelsToDraw[pos + 0] = imgPixels[pos + 0] // R
-                pixelsToDraw[pos + 1] = imgPixels[pos + 1] // G
-                pixelsToDraw[pos + 2] = imgPixels[pos + 2] // B
-                pixelsToDraw[pos + 3] = imgPixels[pos + 3] // A
-            }
-        }
+        
+        //let pixelsToDraw = new Uint8ClampedArray(this.width * this.height * 4)
 
-        // draw user image into canvas
-        let userImage = new Image()
-        let canvas = document.getElementById("js-user-image-" + row.toString())
-        let ctx = canvas.getContext("2d")
-        canvas.width = generator.width
-        canvas.height = generator.height
-        userImage.onload = function() {
-            ctx.drawImage(userImage, 0, 0, canvas.width, canvas.height)
+        console.log("Drawing user image into canvas...")
+
+        try {
+            let canvas = document.getElementById("js-user-image-" + row.toString())
+            let ctx = canvas.getContext("2d")
+            let img = new Image()
+            canvas.width = this.width // not sure
+            canvas.height = this.height // not sure
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+            }
+            let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+
+            imgData.data.set(imgPixels)
+            ctx.putImageData(imgData, 0, 0)
+
+        } catch (err) {
+            console.log("Could not draw user image into canvas.")
+            err.message = "Could not draw user image into canvas."
         }
-        let userImageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-        userImageData.data.set(pixelsToDraw)
-        ctx.putImageData(userImageData, 0, 0)
     }
 
     loadLevel() {
