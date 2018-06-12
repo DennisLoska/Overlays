@@ -29,11 +29,11 @@ class Images {
         this.numImages = num
     }
 
-    set position(state){
+    set position(state) {
         this.vertical = state
-        // position of target images 
-        // doGenerate = true, vertical = true -> target images in vertical column left
-        // doGenrate = false, vertical = false -> target images in horizontal row on top
+            // position of target images 
+            // doGenerate = true, vertical = true -> target images in vertical column left
+            // doGenrate = false, vertical = false -> target images in horizontal row on top
     }
 
     get folderImages() {
@@ -44,13 +44,13 @@ class Images {
                 this.images[i] = new Image()
                 let j = i
                 j++
-                if(this.vertical == true){ // wohin sollen bilder gemalt werden?
-                    var canvas = document.getElementById("js-starting-image-" + j.toString())
-                } else{
-                    var canvas = document.getElementById("js-basis-image-" + j.toString())
-                }
-                    //console.log("Canvas number " + j + ":" + "\n");
-                    //console.log(canvas)
+                let canvas
+                if (this.vertical == true) // wohin sollen bilder gemalt werden?
+                    canvas = document.getElementById("js-starting-image-" + j.toString())
+                else canvas = document.getElementById("js-basis-image-" + j.toString())
+
+                //console.log("Canvas number " + j + ":" + "\n");
+                //console.log(canvas)
                 let ctx = canvas.getContext("2d")
                 let img = this.images[i]
                 img.onload = function() {
@@ -88,11 +88,11 @@ class Images {
                 this.images[i] = new Image()
                 let j = i
                 j++
-                if(this.vertical == true){ // wohin sollen bilder gemalt werden?
-                    var canvas = document.getElementById("js-starting-image-" + j.toString())
-                } else{
-                    var canvas = document.getElementById("js-basis-image-" + j.toString())
-                }
+                let canvas
+                if (this.vertical == true) // wohin sollen bilder gemalt werden?
+                    canvas = document.getElementById("js-starting-image-" + j.toString())
+                else canvas = document.getElementById("js-basis-image-" + j.toString())
+
                 let ctx = canvas.getContext("2d")
                 let img = this.images[i]
                 canvas.width = generator.width
@@ -111,8 +111,8 @@ class Images {
 
                 // put random shape of random color on picture
                 generator.addShapes(ctx)
-
-                targetImgData.push(imgData.data)
+                let imgDataWithShapes = ctx.getImageData(0, 0, canvas.width, canvas.height)
+                targetImgData.push(imgDataWithShapes.data)
             }
             this.targetImgData = targetImgData
         } catch (err) {
