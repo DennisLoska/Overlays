@@ -248,7 +248,6 @@ class GameEngine {
             }
             this.setCorrectCombination(i, false)
         }
-<<<<<<< HEAD
     }
 
     clearGUI(){
@@ -257,17 +256,11 @@ class GameEngine {
         });
     }
 
-    goToNextLevel(){
-
-    }
-
     resetUserMatrix() {
-=======
         // reset images by user (right side) and the amount of correct combinations
         this.correctUserCombinations = new Array(this.numPics)
         this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
         let length = this.width * this.height * 4
->>>>>>> 3c34404f8575151b9e692ea577ec4d9adaede7f5
         for (let i = 0; i < this.numPics; i++) {
             this.userImagesPixels[i] = []
             for (let j = 0; j < length; j++) {
