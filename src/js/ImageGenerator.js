@@ -61,8 +61,8 @@ class ImageGenerator {
             ctx.fillStyle = color
             ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset)
 
-            let imgData = ctx.getImageData(0, 0, this.width, this.width);
-            this.rndImagePixels = imgData;
+            //let imgData = ctx.getImageData(0, 0, this.width, this.width);
+            //this.rndImagePixels = imgData.data;
 
         }
         if (option == 2) {
@@ -77,8 +77,8 @@ class ImageGenerator {
             ctx.fill()
             ctx.closePath()
 
-            let imgData = ctx.getImageData(0, 0, this.width, this.width);
-            this.rndImagePixels = imgData;
+            //let imgData = ctx.getImageData(0, 0, this.width, this.width);
+            //this.rndImagePixels = imgData.data;
         }
         if (option == 3) {
             // Filled triangle
@@ -96,12 +96,15 @@ class ImageGenerator {
             ctx.fill()
             ctx.closePath()
 
-            let imgData = ctx.getImageData(0, 0, this.width, this.width);
-            this.rndImagePixels = imgData;
+            //let imgData = ctx.getImageData(0, 0, this.width, this.width);
+            //this.rndImagePixels = imgData.data;
         }
         // Font
         //ctx.font = "30px Arial";
         //ctx.fillText("Hello World", 10, 50);
+
+        let imgData = ctx.getImageData(0, 0, this.width, this.width);
+        this.rndImagePixels = imgData.data;
     }
 
     get randomColor() {
