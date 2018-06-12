@@ -11,7 +11,7 @@ class GameEngine {
                 this.wUser[i][j] = 0
             }
         }
-        this.userImagesPixels = new Array(this.numPics, this.width * this.height) // kombinierte pixel der userauswahl
+        this.userImagesPixels = new Array(this.numPics, this.width * this.height) // kombinierte pixel der userauswahl = Zielbild
         this.correctUserCombinations = new Array(this.numPics) // 1 wenn richtige kombination, 0 wenn falsch
 
         let targetImages = new Array(this.numPics)
@@ -28,8 +28,9 @@ class GameEngine {
         this.m = new Array(undefined, undefined)
         this.mInv = []
         this.targetPixels = new Array(undefined, undefined)
-        // TODO: deltete basisPixels3
-        this.basisPixels3 = new Array(undefined, undefined, undefined) // Speicher für Basisbilder [Bildnummer][Position][Kanal] - kein Kanal gebraucht!
+        
+        // TODO: deltete basisPixels3 (?), don't need RGB channel
+        this.basisPixels3 = new Array(undefined, undefined, undefined) // [Bildnummer][Position][Kanal]
         this.basisPixels = new Array(undefined, undefined) // [Bildnummer][Position]
 
         this.maxWeight = 1 // 0.51, 0.71.. 2.01
@@ -42,89 +43,70 @@ class GameEngine {
         this.getTargetAndBasisImages()
     }
 
-    updateOnClick(row, col) { // row and colomn of the clicked square in index.html file
-        // function should be called whenever a square is clicked by user (call in index.html onclick)
-
+    updateOnClick(row, col) {
         this.clickCounter += 1;
-        console.log("Amount of clicks: " + this.clickCounter.toString());
-
-        console.log("Clicked tile is in row: " + row.toString() + " and column: " + col.toString());
+        //console.log("Amount of clicks: " + this.clickCounter.toString());
+        //console.log("Clicked tile is in row: " + row.toString() + " and column: " + col.toString());
 
         // 1. update the value in the user matrix wUser[][]
-        //this.setUserMatrixValue();
-        //this.wUser[row] = {} //NOT CORRECT, but solves TypeError for debugging purposes ONLY!!!
         if (this.wUser[row][col] == 1) {
             this.wUser[row][col] = 0;
         } else {
             this.wUser[row][col] = 1;
         }
-        console.log("Value of wUser in row: " + row.toString() + " and column: " + col.toString() + " is: " + this.wUser[row][col].toString());
-        console.log("Auswahl des Users (wUser):");
-        console.log(this.wUser);
+        //console.log("Value of wUser in row: " + row.toString() + " and column: " + col.toString() + " is: " + this.wUser[row][col].toString());
+        //console.log("Auswahl des Users (wUser):");
+        //console.log(this.wUser);
 
         // 2. hole die Reihenmatrix der Userauswahl für die veränderte / angeklickte Zeile
-        let wUserRow = new Array(this.numPics); // bspw.: wUserRow[1, 0, 1]
-        wUserRow = this.wUser[row];
+        let wUserRow = new Array(this.numPics);
+        wUserRow = this.wUser[row]; // bspw.: wUserRow[1, 0, 1]
         console.log("Reihenauswahl des Users (wUserRow):");
         console.log(wUserRow);
 
         // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
         let currentUserImg = new Array()
         currentUserImg = this.calculateUserImage(wUserRow, row); // returned pixel array
-        //console.log("Auswahl in Zeile " + row.toString())
-        //console.log(wUserRow)
         this.drawUserImage(row, currentUserImg);
-        // TODO: calculateUserImage returns an image, use this
-        // returned Image is still a BufferedImage so far - change!
-
 
         // 4. check if the row is now completed; the right result in this row
         let state = this.comparePictures(row, wUserRow); // vergleiche die matrizen (user auswahl und lösungsmatrix)
         if (state == true) {
-            // bei richtiger combination wird der wert auf true / 1 gesetzt
-            // wenn überall true / 1 steht => level completed
-            this.setCorrectCombination(row, true);
-            console.log("Correct combination for row: " + row.toString());
+            this.setCorrectCombination(row, true); //richtige Kombination
         } else{
-            this.setCorrectCombination(row, false);
+            this.setCorrectCombination(row, false); //falsche Kombination
         }
 
         // 5. check if all rows are finished / have the correct combinations => next level
         let correctCombs = this.getAmountOfCorrectCombinations();
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics);
-        if (correctCombs == this.numPics) {
-            // alle Zeilen sind richtig; Level fertig
-            console.log("LEVEL COMPLETED!");
+        if (correctCombs == this.numPics) { // alle Zeilen sind richtig; Level fertig
+            console.log("Level completed with " + this.clickCounter + " clicks!");
             let levelScore = this.returnScore(this.clickCounter);
             this.totalScore += levelScore;
-            console.log("Score: " + this.totalScore.toString());
-            // TODO: show score in GUI
+            console.log("Score: " + this.totalScore);
             this.levelNumber += 1;
             this.loadLevel();
+            this.clearArrays();
         }
     }
 
     getTargetAndBasisImages() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
         let images = new Images()
-        images.numImage = this.numPics // generiere bilder mit returnGeneratedImages()
-
-        console.log(images)
+        images.numImage = this.numPics
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
-        // if doGenerate = true -> target images vertical (left)
-        // if doGenerate = false -> target images horizontal (top)
+                // if doGenerate = true -> target images vertical (left)
+                // if doGenerate = false -> target images horizontal (top)
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
-            // generate basis from input images
-            // targetImages[numPics]
             if (this.levelNumber < 3){
                 this.targetImages = images.generatedImages // ImageGenerator Bilder
             } else { 
                 this.targetImages = images.folderImages // Bilder aus pics Ordner
             } 
             this.targetPixels = images.targetPixels
-            //console.log("TARGET PIXELS: " + this.targetPixels)
             this.width = this.targetImages[0].width
             this.height = this.targetImages[0].height
         } else {
@@ -135,7 +117,6 @@ class GameEngine {
              } else {
                  this.basisImages = images.folderImages // Bilder aus pics Ordner
              }
-             ////// TODO, line before
             this.width = this.basisImages[0].width
             this.height = this.basisImages[0].height
         }
@@ -146,22 +127,14 @@ class GameEngine {
         if (this.doGenerate == true) { // generate basis from input images
             this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
 
-            //let pixelsBasis = new Array(this.numPics, undefined) //int[][] pixelsBasis = new int[numPics][];
             this.basisPixels = new Array(this.numPics, undefined) // [numPics][pixel]
-            //this.basisPixels3 = new Array(this.numPics, undefined, undefined) //basisPixels3 = new double[numPics][][];
-            //this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen //basisImages = new BufferedImage[numPics]; 
 
             for (let i = 0; i < this.numPics; i++) {
-                //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
                 this.basisPixels[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
                 this.drawImagesInCanvas(this.basisPixels[i], i+1)
-                // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
-
-                //this.basisImages[i] = new Image() // basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-                //this.basisImages[i] = pixelsBasis[i]; // set RGB(A)
-                //this.basisImages[i] = this.calculateSetRGB(pixelsBasis[i])
             }
         } else {
+            // TODO: this calculation is still not finished!
             this.mInv = new Array(this.numPics, this.numPics)
             //let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ? // int[][] pixelsBasis = new int[numPics][width*height];
             this.basisPixels = new Array(this.numPics, this.width * this.height * 4) // [numPics][pixels]
@@ -171,7 +144,6 @@ class GameEngine {
                 this.basisPixels3 = new Array(this.numPics, undefined, undefined) // basisPixels3 = new double[numPics][][]; 
 
                 this.basisImages[i] = this.calculateGetRGB(this.basisPixels[i]) // maybe don't need the images[] arrays at all
-                
                 this.basisPixels[i] = this.basisImages[i] // get the pixels from basis image
                 
                 // get the pixel array of the basisImages
@@ -181,10 +153,8 @@ class GameEngine {
             for (let i = 0; i < this.numPics; i++) {
                 this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.basisPixels, this.mInv[i]) // liefert nur 3 Kanäle RGB zurück
             }
-
             this.generateRandomM()
-
-            this.targetPixels = new Array(this.numPics, this.width * this.height * 4) // TODO * 4? // targetPixels = new int[numPics][width*height];
+            this.targetPixels = new Array(this.numPics, this.width * this.height * 4)
 
             for (let i = 0; i < targetPixels.length; i++) {
 
@@ -192,21 +162,13 @@ class GameEngine {
                 this.drawImagesInCanvas(this.targetPixels[i], i+1)
 
                 //this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
-                //this.drawImagesInCanvas(this.targetPixels[i], i+1) // does this need to be in a numPics loop ?
-                // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
-
-                //this.targetImages[i] = new Image()
-                //this.targetImages[i] = this.calculateSetRGB(pixelsBasis[i])
             }
         }
         this.printResult()
     }
 
-    drawImagesInCanvas(calculatedImgData, index) { // TODO: calculatedImgData = pixel array, index = welche zeile / row
-        // draw the calcuated basis / target images into the canvas gui
-        // only have to be done once for each level
-        console.log("Drawing images into canvas...")
-
+    drawImagesInCanvas(calculatedImgData, index) {
+        // draw the calcuated basis / target images into the canvas gui, only have to be done once for each level
         try {
             if(this.doGenerate == true){ // wohin sollen bilder gemalt werden?
                 var canvas = document.getElementById("js-basis-image-" + index.toString())
@@ -215,16 +177,14 @@ class GameEngine {
             }
             let ctx = canvas.getContext("2d")
             let img = new Image()
-            canvas.width = this.width // not sure
-            canvas.height = this.height // not sure
+            canvas.width = this.width
+            canvas.height = this.height
             img.onload = function() {
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
             }
             let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-
             imgData.data.set(calculatedImgData)
             ctx.putImageData(imgData, 0, 0)
-
         } catch (err) {
             console.log("Could not draw images into canvas.")
             err.message = "Could not draw images into canvas."
@@ -233,81 +193,38 @@ class GameEngine {
 
     calculateSetRGB(pixels) {
         //TODO - should set the pixels of an existing image; show the image in GUI
-        // this is already the drawImagesInCanvas() method for the basis / target images 
-
     }
     calculateGetRGB(pixels) {
         //TODO - should return rgb values of an image - generated by using a given array of pixels
-
-        /*let imgPixels = new Uint8ClampedArray(pixels.length)
-        for (let i = 0; i < imgPixels.length; i++) {
-            imgPixels[i + 0] = pixels[i + 0]; //randomR; // R
-            imgPixels[i + 1] = pixels[i + 1]; //randomG; // G
-            imgPixels[i + 2] = pixels[i + 2]; //randomB; // B
-            imgPixels[i + 3] = pixels[i + 3]; // A
-        }
-
-        let img = new Image();
-        img.onload = function () {
-            ctx.drawImage(img, 0, 0, img.width, img.height); // draw the image on the canvas
-        }*/
     }
 
-    calculateUserImage(wUserRow, index) { // TODO: not finished
-        /* JAVA:
-        public BufferedImage calculateUserImage(double[] wUserRow, int index){	
-            // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users (jede Reihe einzelnd)
-            int[] pixelsBlended = blend3DDoubleToPixels(basisPixels3, wUserRow);
-            BufferedImage userImage =  new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-            userImage.setRGB(0, 0, width, height, pixelsBlended, 0, width);
-            userImagesPixels[index] = pixelsBlended;
-            return userImage;
-        }*/
-
-
+    calculateUserImage(wUserRow, index) {
         // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users 
-        // muss für jede Reihe einzelnd aufgerufen werden
+        // muss für jede Reihe einzelnd aufgerufen werden  
         let pixelsBlended = new Array()
-        // verwende blendPixelsToPixels hier
-        
-        //pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow) // calculates pixels for resulting image
-        
+        //pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow)
         pixelsBlended = this.blendPixelsToPixels(this.basisPixels, wUserRow);
-        //console.log("Pixels blended: " + pixelsBlended);
-
-            //let userImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_ARGB)
-            //userImage.setRGB(0, 0, this.width, this.height, pixelsBlended, 0, this.width)
         this.userImagesPixels[index] = pixelsBlended
-            //return userImage
         return pixelsBlended
-            // gibt die pixel des jeweiligen user images zurück
     }
 
     drawUserImage(row, imgPixels) { // welche Reihe und wie sieht das Bild aktuell aus
-        // TODO: male das vom User bisher zusammengerechnete Zielbild ins Canvas
         // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
-        
-        //let pixelsToDraw = new Uint8ClampedArray(this.width * this.height * 4)
-
-        console.log("Drawing user image into canvas...")
-
-        let pos = parseInt(row) + 1
+        let pos = parseInt(row) + 1 // für index.html ID
 
         try {
             let canvas = document.getElementById("js-user-image-" + pos.toString())
             console.log("Draw user image into: js-user-image-" + pos.toString())
             let ctx = canvas.getContext("2d")
             let img = new Image()
-            canvas.width = this.width // not sure
-            canvas.height = this.height // not sure
+            canvas.width = this.width
+            canvas.height = this.height
             img.onload = function() {
                 ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
             }
             let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-
             imgData.data.set(imgPixels)
             ctx.putImageData(imgData, 0, 0)
-
         } catch (err) {
             console.log("Could not draw user image into canvas.")
             err.message = "Could not draw user image into canvas."
@@ -323,16 +240,13 @@ class GameEngine {
             // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
 		    // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
 
-        // load new target images 
-        // calculate new basis images
+        // TODO: load new target images, calculate new basis images
         //this.clearArrays()
         //this.resetUserMatrix()
     }
 
     clearArrays(){
-        // TODO: build or clear arrays, use this in constructor
-        // set all arrays in this method
-        // reset all arrays back to the start when new level is loaded
+        // TODO: build or clear arrays for new level (wUser muss wieder auf 0 gesetzt werden)
     }
 
     resetUserMatrix() {
@@ -363,7 +277,7 @@ class GameEngine {
             score = 0;
         }
 
-        return score
+        return Math.floor(score)
     }
 
     comparePictures(index, wUserRow) { // TODO: not finished
