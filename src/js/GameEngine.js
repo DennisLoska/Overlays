@@ -83,7 +83,6 @@ class GameEngine {
             this.loadLevel();
             this.clearArrays();
             this.clearGUI()
-            this.getTargetAndBasisImages()
         }
     }
 
