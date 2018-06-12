@@ -139,10 +139,10 @@ class GameEngine {
             this.basisImages = new Array(this.numPics) // Basisbilder zum Anzeigen //basisImages = new BufferedImage[numPics]; 
 
             for (let i = 0; i < this.numPics; i++) {
-                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
+                //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
                 pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
                 this.drawImagesInCanvas(this.pixelsBasis[i], i)
-                // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest
+                // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
 
                 //this.basisImages[i] = new Image() // basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
                 //this.basisImages[i] = pixelsBasis[i]; // set RGB(A)
@@ -169,7 +169,7 @@ class GameEngine {
             for (let i = 0; i < targetPixels.length; i++) {
                 this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
                 this.drawImagesInCanvas(this.targetPixels[i], i) // does this need to be in a numPics loop ?
-                // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest
+                // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
 
                 //this.targetImages[i] = new Image()
                 //this.targetImages[i] = this.calculateSetRGB(pixelsBasis[i])
@@ -179,7 +179,7 @@ class GameEngine {
         //this.drawImagesInCanvas()
     }
 
-    drawImagesInCanvas(calculatedImgData, index) { // // TODO: imgData = pixel array, index = welche zeile / row
+    drawImagesInCanvas(calculatedImgData, index) { // TODO: calculatedImgData = pixel array, index = welche zeile / row
         // draw the calcuated basis / target images into the canvas gui
         // only have to be done once for each level
         let imagesToDraw = new Array(this.numPics)
@@ -188,27 +188,19 @@ class GameEngine {
         // loop needed or not? 
         // Parameter index needed or not for "js-basis-image-" + index.toString()?
         try {
-            for (let i = 0; i < this.numImages; i++) {
-                imagesToDraw[i] = new Image()
-                let j = i
-                j++
-                let canvas = document.getElementById("js-basis-image-" + index.toString())
-                let ctx = canvas.getContext("2d")
-                let img = imagesToDraw[i]
-                canvas.width = this.width // not sure
-                canvas.height = this.height // not sure
-                img.onload = function() {
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-                }
-                imagesToDraw[0].width = canvas.width
-                imagesToDraw[0].height = canvas.height
-                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-
-                imgData.data.set(calculatedImgData)
-                ctx.putImageData(imgData, 0, 0)
-
-                targetImgData.push(imgData.data)
+            let canvas = document.getElementById("js-basis-image-" + index.toString()) // wo soll bild gemalt werden?
+            let ctx = canvas.getContext("2d")
+            let img = new Image()
+            canvas.width = this.width // not sure
+            canvas.height = this.height // not sure
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
             }
+            let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+
+            imgData.data.set(calculatedImgData)
+            ctx.putImageData(imgData, 0, 0)
+            
         } catch (err) {
             console.log("Could not draw images into canvas.")
             err.message = "Could not draw images into canvas."
@@ -556,17 +548,18 @@ class GameEngine {
     //TODO make function applyable on pixels from imagedata of Canvas-API
     blendPixelsToPixels(pixelsIn, w) {
         // Java: private int[] blendPixelsToPixels(int[][] pixelsIn, double[] w) 
+        // pixelsIn: targetPixels = new int[numPics][width*height];
         // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
         let pixels = new Array(pixelsIn[0].length)
 
-        for (let i = 0; i < pixels.length; i += 4) { // i+=4 WICHTIG!
+        for (let i = 0; i < pixels.length; i += 4) { // i+=4 WICHTIG! // i läuft gegen width*height*4
             let r = 0;
             let g = 0;
             let b = 0;
             let a = 0;
 
-            for (let j = 0; j < pixelsIn.length; j += 4) { // j+=4 WICHTIG!
+            for (let j = 0; j < pixelsIn.length; j += 4) { // j+=4 WICHTIG! // j läuft gegen numPics
                 let cj = pixelsIn[j][i];
                 let rj = this.f(cj + 0); // f((cj >> 16) & 255)
                 let gj = this.f(cj + 1); // f((cj >>  8) & 255); 
@@ -576,7 +569,7 @@ class GameEngine {
                 r += w[j] * rj
                 b += w[j + 2] * bj
                 g += w[j + 1] * gj
-                a += aj // keine Gewichtung der Transparenz
+                a += aj // keine Gewichtung (Multiplikation) der Transparenz
             }
 
             //r = (r - 128) / this.numOnes + 128;
@@ -587,11 +580,11 @@ class GameEngine {
             r = Math.min(Math.max(0, this.fi(r)), 255)
             g = Math.min(Math.max(0, this.fi(g)), 255)
             b = Math.min(Math.max(0, this.fi(b)), 255)
-                //pixels[i] = 0xFF000000 | ((int)r <<16) | ((int)g << 8) | (int)b
-            pixels[i] = r
+
+            pixels[i + 0] = r
             pixels[i + 1] = g
             pixels[i + 2] = b
-            pixels[i + 3] = 255 //a
+            pixels[i + 3] = a // sollte immer a = 255 sein
         }
         return pixels
     }
