@@ -500,7 +500,7 @@ class GameEngine {
         let bMin = 0;
         let bMax = 255;
 
-        for (let i = 0; i < pixels.length; i+=4) { // i+=4
+        for (let i = 0; i < pixels.length; i+=4) { // i+=4, läuft durch alle Pixel
             let r = 0;
             let g = 0;
             let b = 0;
@@ -589,11 +589,11 @@ class GameEngine {
             let a = 0;
 
             for (let j = 0; j < pixelsIn.length; j ++) { // nicht j+=4, j läuft gegen numPics
-                let cj = pixelsIn[j][i];
-                let rj = this.f(cj + 0); // f((cj >> 16) & 255)
-                let gj = this.f(cj + 1); // f((cj >>  8) & 255); 
-                let bj = this.f(cj + 2); // f((cj      ) & 255);
-                let aj = this.f(cj + 3); // f((cj >> 24) & 255);
+                //let cj = pixelsIn[j][i];
+                let rj = this.f(pixelsIn[j][i + 0]); // f((cj >> 16) & 255)
+                let gj = this.f(pixelsIn[j][i + 1]); // f((cj >>  8) & 255); 
+                let bj = this.f(pixelsIn[j][i + 2]); // f((cj      ) & 255);
+                let aj = this.f(pixelsIn[j][i + 3]); // f((cj >> 24) & 255);
 
                 r += w[j] * rj
                 b += w[j] * bj
@@ -609,6 +609,7 @@ class GameEngine {
             r = Math.min(Math.max(0, this.fi(r)), 255)
             g = Math.min(Math.max(0, this.fi(g)), 255)
             b = Math.min(Math.max(0, this.fi(b)), 255)
+            a = 255
 
             pixels[i + 0] = r
             pixels[i + 1] = g
