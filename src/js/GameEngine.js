@@ -235,6 +235,7 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
 
         // TODO: load new target images, calculate new basis images
+        this.getTargetAndBasisImages()
     }
 
     clearArrays(){
