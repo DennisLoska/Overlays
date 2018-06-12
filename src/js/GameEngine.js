@@ -141,8 +141,8 @@ class GameEngine {
 
             for (let i = 0; i < this.numPics; i++) {
                 //this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
-                pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
-                this.drawImagesInCanvas(this.pixelsBasis[i], i)
+                //pixelsBasis[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
+                //this.drawImagesInCanvas(this.pixelsBasis[i], i)
                 // stop here - give only the pixels array into the drawImagesInCanvas() Method -> do rest there
 
                 //this.basisImages[i] = new Image() // basisImages[i] = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -607,22 +607,9 @@ class GameEngine {
 
     printResult() {
         console.log("Lösung:")
-        for (let i = 0; i < this.m.length; i++) {
-            for (let j = 0; j < this.m[i].length; j++) {
-                console.log("%6.2f", this.m[i][j])
-            }
-            console.log()
-        }
+        console.log(this.m)
+
         console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern:")
-        for (let i = 0; i < this.mInv.length; i++) {
-            let sum = 0
-            for (let j = 0; j < this.mInv[i].length; j++) {
-                let val = this.mInv[i][j]
-                console.log("%6.2f ", val)
-                sum += val
-            }
-            console.log("  --> %6.2f\n", sum)
-        }
-        console.log()
+        console.log(this.mInv)
     }
 }
