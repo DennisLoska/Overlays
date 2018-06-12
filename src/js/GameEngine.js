@@ -260,6 +260,7 @@ class GameEngine {
             this.drawUserImage(i, this.userImagesPixels[i]);
             this.correctUserCombinations[i] = 0;
         }  
+        this.clickCounter = 0 // reset clickCounter
     }
 
     clearArrays(){
