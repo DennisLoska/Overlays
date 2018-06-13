@@ -110,6 +110,7 @@ class GameEngine {
              } else {
                  this.basisImages = images.folderImages // Bilder aus pics Ordner
              }
+            this.basisPixels = images.targetPixels // delete?
             this.width = this.basisImages[0].width
             this.height = this.basisImages[0].height
         }
@@ -126,7 +127,7 @@ class GameEngine {
                 this.basisPixels[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
                 this.drawImagesInCanvas(this.basisPixels[i], i+1)
             }
-        } else {
+        } else {/*
             // TODO: this calculation is still not finished!
             this.mInv = new Array(this.numPics, this.numPics)
             //let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ? // int[][] pixelsBasis = new int[numPics][width*height];
@@ -146,7 +147,17 @@ class GameEngine {
             for (let i = 0; i < this.numPics; i++) {
                 this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.basisPixels, this.mInv[i]) // liefert nur 3 Kanäle RGB zurück
             }
-            this.generateRandomM()
+            this.generateRandomM()*/
+            // IN WORK
+            this.findCombinations()
+            this.targetPixels = new Array(this.numPics, undefined) // [numPics][pixel]
+
+            for (let i = 0; i < this.numPics; i++) {
+                this.targetPixels[i] = this.blendPixelsToPixels(this.basisPixels, this.mInv[i])
+                this.drawImagesInCanvas(this.targetPixels[i], i+1)
+            }
+            // IN WORK
+            /*
             this.targetPixels = new Array(this.numPics, this.width * this.height * 4)
 
             for (let i = 0; i < targetPixels.length; i++) {
@@ -155,7 +166,7 @@ class GameEngine {
                 this.drawImagesInCanvas(this.targetPixels[i], i + 1)
 
                 //this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
-            }
+            }*/
         }
         this.printResult()
     }
@@ -233,7 +244,6 @@ class GameEngine {
         // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
 
-        // TODO: load new target images, calculate new basis images
         this.getTargetAndBasisImages()
     }
 
