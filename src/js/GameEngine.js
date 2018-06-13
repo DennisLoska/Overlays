@@ -153,7 +153,7 @@ class GameEngine {
             this.targetPixels = new Array(this.numPics, undefined) // [numPics][pixel]
 
             for (let i = 0; i < this.numPics; i++) {
-                this.targetPixels[i] = this.blendTargetAndBasisImagesPixels(this.basisPixels, this.mInv[i])
+                this.targetPixels[i] = this.blendTargetAndBasisImagesPixels(this.basisPixels, this.m[i])
                 this.drawImagesInCanvas(this.targetPixels[i], i+1)
             }
             // IN WORK
