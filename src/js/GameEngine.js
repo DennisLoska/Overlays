@@ -533,6 +533,10 @@ class GameEngine {
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
         let pixels = new Array(pixelsIn[0].length)
 
+        let rMin = 0, rMax = 255;
+		let gMin = 0, gMax = 255;
+		let bMin = 0, bMax = 255;
+
         for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
             let r = 0;
             let g = 0;
@@ -554,18 +558,65 @@ class GameEngine {
             //r = (r - 128) / this.numOnes + 128;
             //g = (g - 128) / this.numOnes + 128;
             //b = (b - 128) / this.numOnes + 128;
-
+            /*
             // begrenzung zwischen 0 und 255
             r = Math.min(Math.max(0, this.fi(r)), 255)
             g = Math.min(Math.max(0, this.fi(g)), 255)
             b = Math.min(Math.max(0, this.fi(b)), 255)
-            a = 255
+            a = 255*/
 
+            r = this.fi(r);
+			g = this.fi(g);
+			b = this.fi(b);
+
+			if (r > rMax) rMax = r;
+			if (r < rMin) rMin = r;
+			if (g > gMax) gMax = g;
+			if (g < gMin) gMin = g;
+			if (b > bMax) bMax = b;
+			if (b < bMin) bMin = b;
+
+            /*pixels[i + 0] = r
+            pixels[i + 1] = g
+            pixels[i + 2] = b
+            pixels[i + 3] = a // sollte immer a = 255 sein*/
+        }
+        let max = Math.max(rMax, Math.max(gMax,  bMax));
+        let min = Math.min(rMin, Math.min(gMin,  bMin));
+        
+        for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
+            let r = 0;
+            let g = 0;
+            let b = 0;
+            let a = 0;
+            
+            for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
+                let rj = this.f(pixelsIn[j][i + 0]); // f((cj >> 16) & 255)
+                let gj = this.f(pixelsIn[j][i + 1]); // f((cj >>  8) & 255); 
+                let bj = this.f(pixelsIn[j][i + 2]); // f((cj      ) & 255);
+                //let aj = this.f(pixelsIn[j][i + 3]);
+
+                r += w[j] * rj
+                b += w[j] * bj
+                g += w[j] * gj
+                //a += aj // keine Gewichtung (Multiplikation) der Transparenz
+            }
+
+            r = this.fi(r);
+			g = this.fi(g);
+			b = this.fi(b);		
+			
+			r = (r-min)*255/(max-min);
+			g = (g-min)*255/(max-min);
+            b = (b-min)*255/(max-min);
+            
             pixels[i + 0] = r
             pixels[i + 1] = g
             pixels[i + 2] = b
-            pixels[i + 3] = a // sollte immer a = 255 sein
+            pixels[i + 3] = 255
         }
+
+
         return pixels
     }
 
