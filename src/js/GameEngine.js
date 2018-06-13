@@ -271,7 +271,7 @@ class GameEngine {
         $('#level-headline').html('Level ' + (this.levelNumber+1).toString())
     }
 
-    resetUserMatrix() {
+    /*resetUserMatrix() {
         // reset images by user (right side) and the amount of correct combinations
         this.correctUserCombinations = new Array(this.numPics)
         this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
@@ -286,7 +286,7 @@ class GameEngine {
             this.drawUserImage(i, this.userImagesPixels[i]);
             this.correctUserCombinations[i] = 0;
         }  
-    }
+    }*/
 
     returnScore(clicks) {
         let score = 0
