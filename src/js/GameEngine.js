@@ -124,7 +124,7 @@ class GameEngine {
             this.basisPixels = new Array(this.numPics, undefined) // [numPics][pixel]
 
             for (let i = 0; i < this.numPics; i++) {
-                this.basisPixels[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
+                this.basisPixels[i] = this.blendTargetAndBasisImagesPixels(this.targetPixels, this.mInv[i])
                 this.drawImagesInCanvas(this.basisPixels[i], i+1)
             }
         } else {/*
@@ -153,7 +153,7 @@ class GameEngine {
             this.targetPixels = new Array(this.numPics, undefined) // [numPics][pixel]
 
             for (let i = 0; i < this.numPics; i++) {
-                this.targetPixels[i] = this.blendPixelsToPixels(this.basisPixels, this.mInv[i])
+                this.targetPixels[i] = this.blendTargetAndBasisImagesPixels(this.basisPixels, this.mInv[i])
                 this.drawImagesInCanvas(this.targetPixels[i], i+1)
             }
             // IN WORK
@@ -207,7 +207,7 @@ class GameEngine {
         // muss für jede Reihe einzelnd aufgerufen werden  
         let pixelsBlended = new Array()
         //pixelsBlended = this.blend3DDoubleToPixels(this.basisPixels3, wUserRow)
-        pixelsBlended = this.blendPixelsToPixels(this.basisPixels, wUserRow);
+        pixelsBlended = this.blendPixelsToPixels(this.basisPixels, wUserRow); // TODO: another Method for blendPixelsToPixels (User)
         this.userImagesPixels[index] = pixelsBlended
         return pixelsBlended
     }
@@ -529,6 +529,46 @@ class GameEngine {
     }
 
     blendPixelsToPixels(pixelsIn, w) {
+        // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
+        // fi damit verschiebt man die Werte zum Zerolevel (-128)
+		// fi damit verschiebt man die Werte zum Zerolevel (-128)
+        let pixels = new Array(pixelsIn[0].length)
+
+
+        for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
+            let r = 0;
+            let g = 0;
+            let b = 0;
+            let a = 0;
+            
+            for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
+                let rj = this.f(pixelsIn[j][i + 0]); // f((cj >> 16) & 255)
+                let gj = this.f(pixelsIn[j][i + 1]); // f((cj >>  8) & 255); 
+                let bj = this.f(pixelsIn[j][i + 2]); // f((cj      ) & 255);
+                //let aj = this.f(pixelsIn[j][i + 3]);
+
+                r += w[j] * rj
+                b += w[j] * bj
+                g += w[j] * gj
+                //a += aj // keine Gewichtung (Multiplikation) der Transparenz
+            }
+            
+            // begrenzung zwischen 0 und 255
+            r = Math.min(Math.max(0, this.fi(r)), 255)
+            g = Math.min(Math.max(0, this.fi(g)), 255)
+            b = Math.min(Math.max(0, this.fi(b)), 255)
+            a = 255
+
+            pixels[i + 0] = r
+            pixels[i + 1] = g
+            pixels[i + 2] = b
+            pixels[i + 3] = a // sollte immer a = 255 sein
+        }
+
+        return pixels
+    }
+
+    blendTargetAndBasisImagesPixels(pixelsIn, w) {
         // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
         let pixels = new Array(pixelsIn[0].length)
