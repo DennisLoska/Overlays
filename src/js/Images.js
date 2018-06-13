@@ -20,7 +20,7 @@ class Images {
         this.numImages = undefined
         this.width = undefined
         this.height = undefined
-        this.targetImgData = undefined
+        this.targetImgData = new Array()
 
         this.vertical = undefined // position of target images, where to draw
     }
@@ -31,15 +31,15 @@ class Images {
 
     set position(state) {
         this.vertical = state
-        // position of target images 
-        // doGenerate = true, vertical = true -> target images in vertical column left
-        // doGenrate = false, vertical = false -> target images in horizontal row on top
+            // position of target images 
+            // doGenerate = true, vertical = true -> target images in vertical column left
+            // doGenrate = false, vertical = false -> target images in horizontal row on top
     }
 
-    get folderImages() {
+    folderImages(callback) {
         this.images = new Array(this.numImages)
         try {
-            let targetImgData = new Array()
+            //let targetImgData = new Array()
             for (let i = 0; i < this.numImages; i++) {
                 this.images[i] = new Image()
                 let j = i
@@ -53,27 +53,38 @@ class Images {
                 //console.log(canvas)
                 let ctx = canvas.getContext("2d")
                 let img = this.images[i]
-                img.onload = function () {
+                    //debugger
+                img.onload = function() {
+                    //debugger
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-                }
-                this.images[0].width = canvas.width
-                this.images[0].height = canvas.height
+                    this.images[i].width = canvas.width
+                    this.images[i].height = canvas.height
+                        //console.log("Image number " + i + ":" + "\n")
+                        //console.log(this.images[i])
+                    let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+                    this.targetImgData[i] = imgData.data
+                    console.log("TargetImgData:");
+
+                    console.log(this.targetImgData);
+
+                    if (i == this.numImages - 1) {
+                        debugger
+                        this.width = this.images[0].width
+                        this.height = this.images[0].height
+                        callback(this.images, this.targetImgData)
+                    }
+
+                }.bind(this)
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
-                //console.log("Image number " + i + ":" + "\n")
-                //console.log(this.images[i])
-                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-                targetImgData.push(imgData.data)
             }
-            this.targetImgData = targetImgData
         } catch (err) {
             console.log("Could not load image from folder.")
             err.message = "Could not load image from folder."
         }
         //console.log("All images: ")
         //console.log(this.images)
-        this.width = this.images[0].width
-        this.height = this.images[0].height
-        return this.images
+
+        //return this.images
     }
 
     get generatedImages() {
@@ -97,11 +108,11 @@ class Images {
                 let img = this.images[i]
                 canvas.width = generator.width
                 canvas.height = generator.height
-                img.onload = function () {
+                img.onload = function() {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
                 }
-                this.images[0].width = canvas.width
-                this.images[0].height = canvas.height
+                this.images[i].width = canvas.width
+                this.images[i].height = canvas.height
                 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
 
                 // get random pixel array from ImageGenerator
@@ -124,9 +135,19 @@ class Images {
         return this.images
     }
 
+    sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds) {
+                break;
+            }
+        }
+    }
+
     get targetPixels() {
         let targetPixels = this.targetImgData
         console.log("Debug Targetpixels:")
+            //this.sleep(1000000);
         console.log(targetPixels)
         return targetPixels
     }
