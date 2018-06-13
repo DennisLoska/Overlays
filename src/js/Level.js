@@ -116,8 +116,8 @@ class Level {
     }
 
     printSettings() {
-        console.log("######################\nLevel Index: " + this.lvl + "\nNum Pics: " + this.levelSettings[this.lvl][0] +
-            "\nNum Ones: " + this.levelSettings[this.lvl][1] + "\nTime: " + this.levelSettings[this.lvl][2] +
+        console.log("######################\nLevel: " + (this.lvl+1) + "\nNum Pics: " + this.levelSettings[this.lvl][0] +
+            "\nNum Ones: " + this.levelSettings[this.lvl][1] + "\nTime: " + this.levelSettings[this.lvl][2] + "\nMax amount of clicks: " + this.clickMax + 
             "\nTotal amount of Levels: " + this.amountOfLvls + "\n######################")
     }
 }
