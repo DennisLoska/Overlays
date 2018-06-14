@@ -89,30 +89,27 @@ class Level {
     setSettings() {
         // LEVEL ONE
         this.levelSettings[0] = [3, 2, 200]
-            // LEVEL TWO
+        // LEVEL TWO
         this.levelSettings[1] = [3, 2, 150]
-            // LEVEL THREE
+        // LEVEL THREE
         this.levelSettings[2] = [3, 2, 120]
-            // LEVEL FOUR
+        // LEVEL FOUR
         this.levelSettings[3] = [3, 2, 100]
-            // LEVEL FIVE
+        // LEVEL FIVE
         this.levelSettings[4] = [4, 2, 100]
-            // LEVEL SIX
+        // LEVEL SIX
         this.levelSettings[5] = [4, 2, 100]
-            // LEVEL SEVEN
+        // LEVEL SEVEN
         this.levelSettings[6] = [4, 3, 100]
-            // LEVEL EIGHT
+        // LEVEL EIGHT
         this.levelSettings[7] = [5, 3, 100]
-            // LEVEL NINE
+        // LEVEL NINE
         this.levelSettings[8] = [5, 3, 100]
-            // LEVEL TEN
+        // LEVEL TEN
         this.levelSettings[9] = [5, 4, 100]
 
-        console.log("Level:");
-
-        console.log(this.lvl);
+        console.log("Level:", this.lvl);
         this.numPics = this.levelSettings[this.lvl][0]
-
         this.numOne = this.levelSettings[this.lvl][1]
         this.lvlTime = this.levelSettings[this.lvl][2]
 
@@ -125,7 +122,3 @@ class Level {
             "\nTotal amount of Levels: " + this.amountOfLvls + "\n######################")
     }
 }
-
-
-//let level = new Level()
-//console.log(level);

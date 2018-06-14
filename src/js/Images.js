@@ -31,9 +31,9 @@ class Images {
 
     set position(state) {
         this.vertical = state
-            // position of target images 
-            // doGenerate = true, vertical = true -> target images in vertical column left
-            // doGenrate = false, vertical = false -> target images in horizontal row on top
+        // position of target images 
+        // doGenerate = true, vertical = true -> target images in vertical column left
+        // doGenrate = false, vertical = false -> target images in horizontal row on top
     }
 
     folderImages(callback) {
@@ -42,33 +42,28 @@ class Images {
             //let targetImgData = new Array()
             for (let i = 0; i < this.numImages; i++) {
                 this.images[i] = new Image()
-                let j = i
-                j++
                 let canvas
                 if (this.vertical == true) // wohin sollen bilder gemalt werden?
-                    canvas = document.getElementById("js-starting-image-" + j.toString())
-                else canvas = document.getElementById("js-basis-image-" + j.toString())
+                    canvas = document.getElementById("js-starting-image-" + i.toString())
+                else canvas = document.getElementById("js-basis-image-" + i.toString())
 
-                //console.log("Canvas number " + j + ":" + "\n");
+                //console.log("Canvas number " + i + ":" + "\n");
                 //console.log(canvas)
                 let ctx = canvas.getContext("2d")
                 let img = this.images[i]
-                    //debugger
-                img.onload = function() {
+                //debugger
+                img.onload = function () {
                     //debugger
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
                     this.images[i].width = canvas.width
                     this.images[i].height = canvas.height
-                        //console.log("Image number " + i + ":" + "\n")
-                        //console.log(this.images[i])
+                    //console.log("Image number " + i + ":" + "\n")
+                    //console.log(this.images[i])
                     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                     this.targetImgData[i] = imgData.data
-                    console.log("TargetImgData:");
-
-                    console.log(this.targetImgData);
+                    console.log("TargetImgData in onload of folderImages:", this.targetImgData)
 
                     if (i == this.numImages - 1) {
-                        debugger
                         this.width = this.images[0].width
                         this.height = this.images[0].height
                         callback(this.images, this.targetImgData)
@@ -78,17 +73,14 @@ class Images {
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
             }
         } catch (err) {
-            console.log("Could not load image from folder.")
-            err.message = "Could not load image from folder."
+            console.log("Could not load image from folder.", err.message)
         }
         //console.log("All images: ")
         //console.log(this.images)
-
         //return this.images
     }
 
     get generatedImages() {
-        //TODO ImageGenerator
         // instanziiere ImageGenerator und rufe randomImage() auf 
         console.log("Generated images used.")
         this.images = new Array(this.numImages)
@@ -97,18 +89,16 @@ class Images {
             for (let i = 0; i < this.numImages; i++) {
                 let generator = new ImageGenerator()
                 this.images[i] = new Image()
-                let j = i
-                j++
                 let canvas
                 if (this.vertical == true) // wohin sollen bilder gemalt werden?
-                    canvas = document.getElementById("js-starting-image-" + j.toString())
-                else canvas = document.getElementById("js-basis-image-" + j.toString())
+                    canvas = document.getElementById("js-starting-image-" + i.toString())
+                else canvas = document.getElementById("js-basis-image-" + i.toString())
 
                 let ctx = canvas.getContext("2d")
                 let img = this.images[i]
                 canvas.width = generator.width
                 canvas.height = generator.height
-                img.onload = function() {
+                img.onload = function () {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
                 }
                 this.images[i].width = canvas.width
@@ -127,28 +117,16 @@ class Images {
             }
             this.targetImgData = targetImgData
         } catch (err) {
-            console.log("Could not load image from generator.")
-            err.message = "Could not load image from generator."
+            console.log("Could not load image from generator.", err.message)
         }
         this.width = this.images[0].width
         this.height = this.images[0].height
         return this.images
     }
 
-    sleep(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-            if ((new Date().getTime() - start) > milliseconds) {
-                break;
-            }
-        }
-    }
-
     get targetPixels() {
         let targetPixels = this.targetImgData
-        console.log("Debug Targetpixels:")
-            //this.sleep(1000000);
-        console.log(targetPixels)
+        console.log("Debug Targetpixels:", targetPixels)
         return targetPixels
     }
 }
