@@ -190,13 +190,6 @@ class GameEngine {
         }
     }
 
-    calculateUserImage(wUserRow, index) {
-        // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users - muss für jede Reihe einzelnd aufgerufen werden 
-        let pixelsBlended = this.blendPixelsToPixels(this.basisPixels, wUserRow) // TODO: another Method for blendPixelsToPixels (User)
-        this.userImagesPixels[index] = pixelsBlended
-        return pixelsBlended
-    }
-
     drawUserImage(row, imgPixels) { // welche Reihe und wie sieht das Bild aktuell aus
         // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
         let pos = parseInt(row) // für index.html ID
@@ -211,6 +204,13 @@ class GameEngine {
         } catch (err) {
             console.log("Could not draw user image into canvas.", err.message)
         }
+    }
+
+    calculateUserImage(wUserRow, index) {
+        // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users - muss für jede Reihe einzelnd aufgerufen werden 
+        let pixelsBlended = this.blendPixelsToPixels(this.basisPixels, wUserRow) // TODO: another Method for blendPixelsToPixels (User)
+        this.userImagesPixels[index] = pixelsBlended
+        return pixelsBlended
     }
 
     loadLevel() {
@@ -284,29 +284,6 @@ class GameEngine {
         return equals
     }
 
-    getAmountOfCorrectCombinations() {
-        let correctCombinations = 0
-        for (let i = 0; i < this.correctUserCombinations.length; i++) {
-            if (this.correctUserCombinations[i] > 0)
-                correctCombinations++
-        }
-        return correctCombinations
-    }
-
-    setCorrectCombination(index, value) {
-        if (value == true)
-            this.correctUserCombinations[index] = 1
-        else this.correctUserCombinations[index] = 0
-    }
-
-    getUserMatrixValue(row, col) {
-        return this.wUser[row][col]
-    }
-
-    setUserMatrixValue(row, col, value) {
-        this.wUser[row][col] = value
-    }
-
     findCombinations() {
         let success
         let tries = 0
@@ -363,6 +340,217 @@ class GameEngine {
         }
     }
 
+    blendPixelsToPixels(pixelsIn, w) {
+        // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
+        // fi damit verschiebt man die Werte zum Zerolevel (-128)
+        // fi damit verschiebt man die Werte zum Zerolevel (-128)
+        let pixels = new Array(pixelsIn[0].length)
+        for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
+            let r = 0
+            let g = 0
+            let b = 0
+            let a = 0
+            for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
+                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
+                let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
+                let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
+                //let aj = this.f(pixelsIn[j][i + 3])
+                r += w[j] * rj
+                b += w[j] * bj
+                g += w[j] * gj
+                //a += aj // keine Gewichtung (Multiplikation) der Transparenz
+            }
+            // begrenzung zwischen 0 und 255
+            r = Math.min(Math.max(0, this.fi(r)), 255)
+            g = Math.min(Math.max(0, this.fi(g)), 255)
+            b = Math.min(Math.max(0, this.fi(b)), 255)
+            a = 255
+            pixels[i + 0] = r
+            pixels[i + 1] = g
+            pixels[i + 2] = b
+            pixels[i + 3] = a // sollte immer a = 255 sein
+        }
+        return pixels
+    }
+
+    blendTargetAndBasisImagesPixels(pixelsIn, w) {
+        // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
+        // fi damit verschiebt man die Werte zum Zerolevel (-128)
+        let pixels = new Array(pixelsIn[0].length)
+        let rMin = 0
+        let rMax = 255
+        let gMin = 0
+        let gMax = 255
+        let bMin = 0
+        let bMax = 255
+        for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
+            let r = 0
+            let g = 0
+            let b = 0
+            let a = 0
+            for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
+                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
+                let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
+                let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
+                //let aj = this.f(pixelsIn[j][i + 3])
+                r += w[j] * rj
+                b += w[j] * bj
+                g += w[j] * gj
+                //a += aj // keine Gewichtung (Multiplikation) der Transparenz
+            }
+            //r = (r - 128) / this.numOnes + 128
+            //g = (g - 128) / this.numOnes + 128
+            //b = (b - 128) / this.numOnes + 128
+            /*
+            // begrenzung zwischen 0 und 255
+            r = Math.min(Math.max(0, this.fi(r)), 255)
+            g = Math.min(Math.max(0, this.fi(g)), 255)
+            b = Math.min(Math.max(0, this.fi(b)), 255)
+            a = 255*/
+            r = this.fi(r)
+            g = this.fi(g)
+            b = this.fi(b)
+            if (r > rMax) rMax = r
+            if (r < rMin) rMin = r
+            if (g > gMax) gMax = g
+            if (g < gMin) gMin = g
+            if (b > bMax) bMax = b
+            if (b < bMin) bMin = b
+            /*pixels[i + 0] = r
+            pixels[i + 1] = g
+            pixels[i + 2] = b
+            pixels[i + 3] = a // sollte immer a = 255 sein*/
+        }
+        let max = Math.max(rMax, Math.max(gMax, bMax))
+        let min = Math.min(rMin, Math.min(gMin, bMin))
+        for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
+            let r = 0
+            let g = 0
+            let b = 0
+            let a = 0
+            for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
+                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
+                let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
+                let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
+                //let aj = this.f(pixelsIn[j][i + 3])
+                r += w[j] * rj
+                b += w[j] * bj
+                g += w[j] * gj
+                //a += aj // keine Gewichtung (Multiplikation) der Transparenz
+            }
+            r = this.fi(r)
+            g = this.fi(g)
+            b = this.fi(b)
+            r = (r - min) * 255 / (max - min)
+            g = (g - min) * 255 / (max - min)
+            b = (b - min) * 255 / (max - min)
+            pixels[i + 0] = r
+            pixels[i + 1] = g
+            pixels[i + 2] = b
+            pixels[i + 3] = 255
+        }
+        return pixels
+    }
+
+    f(val) {
+        let zeroLevel = 128
+        return val - zeroLevel
+    }
+
+    fi(val) {
+        let zeroLevel = 128
+        return (val + zeroLevel)
+    }
+
+    getAmountOfCorrectCombinations() {
+        let correctCombinations = 0
+        for (let i = 0; i < this.correctUserCombinations.length; i++) {
+            if (this.correctUserCombinations[i] > 0)
+                correctCombinations++
+        }
+        return correctCombinations
+    }
+
+    setCorrectCombination(index, value) {
+        if (value == true)
+            this.correctUserCombinations[index] = 1
+        else this.correctUserCombinations[index] = 0
+    }
+
+    getUserMatrixValue(row, col) {
+        return this.wUser[row][col]
+    }
+
+    setUserMatrixValue(row, col, value) {
+        this.wUser[row][col] = value
+    }
+
+    printResult() {
+        console.log("Lösung:", this.m)
+        console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern:", this.mInv)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    calculateSetRGB(pixels) {
+        //TODO - should set the pixels of an existing image show the image in GUI
+    }
+    calculateGetRGB(pixels) {
+        //TODO - should return rgb values of an image - generated by using a given array of pixels
+    }
+
+    /*resetUserMatrix() {
+        // reset images by user (right side) and the amount of correct combinations
+        this.correctUserCombinations = new Array(this.numPics)
+        this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
+        let length = this.width * this.height * 4
+        for (let i = 0; i < this.numPics; i++) {
+            this.userImagesPixels[i] = []
+            for (let j = 0; j < length; j++) {
+                this.wUser[i][j] = 0
+            }
+        }
+        for (let i = 0; i < this.numPics; i++) {
+            this.drawUserImage(i, this.userImagesPixels[i])
+            this.correctUserCombinations[i] = 0
+        }  
+    }*/
+
+    
     blendPixelsTo3DDoubleImage(pixelsIn, w) { // TODO: need this?
         //Java: private double[][] blendPixelsTo3DDoubleImage(int[][] pixelsIn, double[] w)
         let pixels = new Array(pixelsIn[0].length, 3)
@@ -461,180 +649,4 @@ class GameEngine {
         }
         return pixels
     }
-
-    blendPixelsToPixels(pixelsIn, w) {
-        // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
-        // fi damit verschiebt man die Werte zum Zerolevel (-128)
-        // fi damit verschiebt man die Werte zum Zerolevel (-128)
-        let pixels = new Array(pixelsIn[0].length)
-
-
-        for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
-            let r = 0
-            let g = 0
-            let b = 0
-            let a = 0
-
-            for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
-                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
-                let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
-                let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
-                //let aj = this.f(pixelsIn[j][i + 3])
-
-                r += w[j] * rj
-                b += w[j] * bj
-                g += w[j] * gj
-                //a += aj // keine Gewichtung (Multiplikation) der Transparenz
-            }
-
-            // begrenzung zwischen 0 und 255
-            r = Math.min(Math.max(0, this.fi(r)), 255)
-            g = Math.min(Math.max(0, this.fi(g)), 255)
-            b = Math.min(Math.max(0, this.fi(b)), 255)
-            a = 255
-
-            pixels[i + 0] = r
-            pixels[i + 1] = g
-            pixels[i + 2] = b
-            pixels[i + 3] = a // sollte immer a = 255 sein
-        }
-
-        return pixels
-    }
-
-    blendTargetAndBasisImagesPixels(pixelsIn, w) {
-        // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
-        // fi damit verschiebt man die Werte zum Zerolevel (-128)
-        let pixels = new Array(pixelsIn[0].length)
-
-        let rMin = 0
-        let rMax = 255
-        let gMin = 0
-        let gMax = 255
-        let bMin = 0
-        let bMax = 255
-
-        for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
-            let r = 0
-            let g = 0
-            let b = 0
-            let a = 0
-
-            for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
-                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
-                let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
-                let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
-                //let aj = this.f(pixelsIn[j][i + 3])
-
-                r += w[j] * rj
-                b += w[j] * bj
-                g += w[j] * gj
-                //a += aj // keine Gewichtung (Multiplikation) der Transparenz
-            }
-
-            //r = (r - 128) / this.numOnes + 128
-            //g = (g - 128) / this.numOnes + 128
-            //b = (b - 128) / this.numOnes + 128
-            /*
-            // begrenzung zwischen 0 und 255
-            r = Math.min(Math.max(0, this.fi(r)), 255)
-            g = Math.min(Math.max(0, this.fi(g)), 255)
-            b = Math.min(Math.max(0, this.fi(b)), 255)
-            a = 255*/
-
-            r = this.fi(r)
-            g = this.fi(g)
-            b = this.fi(b)
-
-            if (r > rMax) rMax = r
-            if (r < rMin) rMin = r
-            if (g > gMax) gMax = g
-            if (g < gMin) gMin = g
-            if (b > bMax) bMax = b
-            if (b < bMin) bMin = b
-
-            /*pixels[i + 0] = r
-            pixels[i + 1] = g
-            pixels[i + 2] = b
-            pixels[i + 3] = a // sollte immer a = 255 sein*/
-        }
-        let max = Math.max(rMax, Math.max(gMax, bMax))
-        let min = Math.min(rMin, Math.min(gMin, bMin))
-
-        for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
-            let r = 0
-            let g = 0
-            let b = 0
-            let a = 0
-
-            for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
-                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
-                let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
-                let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
-                //let aj = this.f(pixelsIn[j][i + 3])
-
-                r += w[j] * rj
-                b += w[j] * bj
-                g += w[j] * gj
-                //a += aj // keine Gewichtung (Multiplikation) der Transparenz
-            }
-
-            r = this.fi(r)
-            g = this.fi(g)
-            b = this.fi(b)
-
-            r = (r - min) * 255 / (max - min)
-            g = (g - min) * 255 / (max - min)
-            b = (b - min) * 255 / (max - min)
-
-            pixels[i + 0] = r
-            pixels[i + 1] = g
-            pixels[i + 2] = b
-            pixels[i + 3] = 255
-        }
-
-
-        return pixels
-    }
-
-    f(val) {
-        let zeroLevel = 128
-        return val - zeroLevel
-    }
-
-    fi(val) {
-        let zeroLevel = 128
-        return (val + zeroLevel)
-    }
-
-    printResult() {
-        console.log("Lösung:")
-        console.log(this.m)
-
-        console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern:")
-        console.log(this.mInv)
-    }
-    calculateSetRGB(pixels) {
-        //TODO - should set the pixels of an existing image show the image in GUI
-    }
-    calculateGetRGB(pixels) {
-        //TODO - should return rgb values of an image - generated by using a given array of pixels
-    }
-
-    /*resetUserMatrix() {
-        // reset images by user (right side) and the amount of correct combinations
-        this.correctUserCombinations = new Array(this.numPics)
-        this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
-        let length = this.width * this.height * 4
-        for (let i = 0; i < this.numPics; i++) {
-            this.userImagesPixels[i] = []
-            for (let j = 0; j < length; j++) {
-                this.wUser[i][j] = 0
-            }
-        }
-        for (let i = 0; i < this.numPics; i++) {
-            this.drawUserImage(i, this.userImagesPixels[i])
-            this.correctUserCombinations[i] = 0
-        }  
-    }*/
 }
