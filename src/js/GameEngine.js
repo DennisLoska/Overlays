@@ -365,9 +365,9 @@ class GameEngine {
             g = Math.min(Math.max(0, this.fi(g)), 255)
             b = Math.min(Math.max(0, this.fi(b)), 255)
             a = 255
-            pixels[i + 0] = r
-            pixels[i + 1] = g
-            pixels[i + 2] = b
+            pixels[i + 0] = Math.floor(r)
+            pixels[i + 1] = Math.floor(g)
+            pixels[i + 2] = Math.floor(b)
             pixels[i + 3] = a // sollte immer a = 255 sein
         }
         return pixels
@@ -389,7 +389,7 @@ class GameEngine {
             let b = 0
             let a = 0
             for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
-                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
+                let rj = this.f(pixelsIn[j][i]) // f((cj >> 16) & 255)
                 let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
                 let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
                 //let aj = this.f(pixelsIn[j][i + 3])
@@ -410,6 +410,7 @@ class GameEngine {
             r = this.fi(r)
             g = this.fi(g)
             b = this.fi(b)
+
             if (r > rMax) rMax = r
             if (r < rMin) rMin = r
             if (g > gMax) gMax = g
@@ -421,18 +422,18 @@ class GameEngine {
             pixels[i + 2] = b
             pixels[i + 3] = a // sollte immer a = 255 sein*/
         }
-        let max = Math.max(rMax, Math.max(gMax, bMax))
-        let min = Math.min(rMin, Math.min(gMin, bMin))
+        let max = Math.max(rMax, gMax, bMax)
+        let min = Math.min(rMin, gMin, bMin)
         for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
             let r = 0
             let g = 0
             let b = 0
             let a = 0
             for (let j = 0; j < pixelsIn.length; j++) { // nicht j+=4, j läuft gegen numPics
-                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
+                let rj = this.f(pixelsIn[j][i]) // f((cj >> 16) & 255)
                 let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
                 let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
-                //let aj = this.f(pixelsIn[j][i + 3])
+                let aj = this.f(pixelsIn[j][i + 3])
                 r += w[j] * rj
                 b += w[j] * bj
                 g += w[j] * gj
@@ -441,12 +442,14 @@ class GameEngine {
             r = this.fi(r)
             g = this.fi(g)
             b = this.fi(b)
+            //a = this.fi(a)
             r = (r - min) * 255 / (max - min)
             g = (g - min) * 255 / (max - min)
             b = (b - min) * 255 / (max - min)
-            pixels[i + 0] = r
-            pixels[i + 1] = g
-            pixels[i + 2] = b
+            //a = (a - min) * 255 / (max - min)
+            pixels[i + 0] = Math.floor(r)
+            pixels[i + 1] = Math.floor(g)
+            pixels[i + 2] = Math.floor(b)
             pixels[i + 3] = 255
         }
         return pixels
