@@ -404,15 +404,6 @@ class GameEngine {
                 g += w[j] * gj
                 //a += aj // keine Gewichtung (Multiplikation) der Transparenz
             }
-            //r = (r - 128) / this.numOnes + 128
-            //g = (g - 128) / this.numOnes + 128
-            //b = (b - 128) / this.numOnes + 128
-            /*
-            // begrenzung zwischen 0 und 255
-            r = Math.min(Math.max(0, this.fi(r)), 255)
-            g = Math.min(Math.max(0, this.fi(g)), 255)
-            b = Math.min(Math.max(0, this.fi(b)), 255)
-            a = 255*/
             r = this.fi(r)
             g = this.fi(g)
             b = this.fi(b)
@@ -423,13 +414,11 @@ class GameEngine {
             if (g < gMin) gMin = g
             if (b > bMax) bMax = b
             if (b < bMin) bMin = b
-            /*pixels[i + 0] = r
-            pixels[i + 1] = g
-            pixels[i + 2] = b
-            pixels[i + 3] = a // sollte immer a = 255 sein*/
         }
+
         let max = Math.max(rMax, gMax, bMax)
         let min = Math.min(rMin, gMin, bMin)
+
         for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
             let r = 0
             let g = 0
