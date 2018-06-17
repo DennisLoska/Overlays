@@ -87,9 +87,13 @@ class GameEngine {
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
-            if (this.levelNumber < 0)
+            if (this.levelNumber < 3){
                 this.targetImages = images.generatedImages // ImageGenerator Bilder
-            else {
+                this.targetPixels = images.targetPixels
+                this.width = this.targetImages[0].width
+                this.height = this.targetImages[0].height
+                this.calculateBasisAndTargetImages()
+            } else {
                 images.folderImages(function (targetImages, targetPixels) {
                     console.log("Image in callback:", images)
                     this.targetImages = targetImages
