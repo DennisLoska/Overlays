@@ -36,6 +36,15 @@ class Images {
         // doGenrate = false, vertical = false -> target images in horizontal row on top
     }
 
+    /*
+        https://www.html5canvastutorials.com/tutorials/html5-canvas-image-loader/
+        https://stackoverflow.com/questions/4123906/javascript-image-onload-callback-to-object-function
+        https://stackoverflow.com/questions/10652513/html5-dynamically-create-canvas#10652568
+    */
+
+
+    // Original
+    
     folderImages(callback) {
         this.images = new Array(this.numImages)
         try {
@@ -46,29 +55,23 @@ class Images {
                 if (this.vertical == true) // wohin sollen bilder gemalt werden?
                     canvas = document.getElementById("js-starting-image-" + i.toString())
                 else canvas = document.getElementById("js-basis-image-" + i.toString())
-
-                //console.log("Canvas number " + i + ":" + "\n");
-                //console.log(canvas)
                 let ctx = canvas.getContext("2d")
                 let img = this.images[i]
-                //debugger
-                img.onload = function () {
-                    //debugger
+
+                img.onload = function() {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
                     this.images[i].width = canvas.width
                     this.images[i].height = canvas.height
-                    //console.log("Image number " + i + ":" + "\n")
-                    //console.log(this.images[i])
                     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                     this.targetImgData[i] = imgData.data
-                    console.log("TargetImgData in onload of folderImages:", this.targetImgData)
-
+                    console.log("TargetImgData:",this.targetImgData);
+ 
                     if (i == this.numImages - 1) {
-                        this.width = this.images[0].width
-                        this.height = this.images[0].height
+                        debugger
+                        this.width = this.images[i].width
+                        this.height = this.images[i].height
                         callback(this.images, this.targetImgData)
                     }
-
                 }.bind(this)
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
             }
@@ -77,8 +80,156 @@ class Images {
         }
         //console.log("All images: ")
         //console.log(this.images)
+ 
         //return this.images
     }
+    
+
+    //3. Ansatz Callback again with some apsects from cache-"solution"
+
+    /*
+    loadImages(loadCallback, callback) {
+        this.images = new Array(this.numImages)
+        for (let i = 0; i < this.numImages; i++) {
+            this.images[i] = new Image()
+            let canvas
+            let loadedImages = i
+            if (this.vertical == true) // wohin sollen bilder gemalt werden?
+                canvas = document.getElementById("js-starting-image-" + i.toString())
+            else canvas = document.getElementById("js-basis-image-" + i.toString())
+            let ctx = canvas.getContext("2d")
+
+            this.images[i].onload = function () {
+                if (++loadedImages >= this.numImages)
+                    loadCallback()
+                this.images[i].width = canvas.width
+                this.images[i].height = canvas.height
+                let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+                this.targetImgData[i] = imgData.data
+                console.log("TargetImgData in onload of folderImages:", this.targetImgData)
+                if (i == this.numImages - 1) {
+                    this.width = this.images[i].width
+                    this.height = this.images[i].height
+                    callback(this.images, this.targetImgData)
+                }
+            }.bind(this)
+            this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
+        }
+    }
+
+    folderImages(callback) {
+        debugger
+        try {
+            this.loadImages(function () {
+                for (let i = 0; i < this.numImages; i++) {
+                    let canvas
+                    if (this.vertical == true) // wohin sollen bilder gemalt werden?
+                        canvas = document.getElementById("js-starting-image-" + i.toString())
+                    else canvas = document.getElementById("js-basis-image-" + i.toString())
+                    let ctx = canvas.getContext("2d")
+                    ctx.drawImage(this.images[i], 0, 0, canvas.width, canvas.height)
+                }
+            }.bind(this), callback)
+        } catch (err) {
+            console.log("Could not load image from folder.", err.message)
+        }
+    }
+*/
+
+
+    //2. Ansatz Cache
+
+    /*
+    loadIntoCache(callback) {
+        let images = new Array(this.imageNames.length)
+        try {
+            for (let i = 0; i < this.imageNames.length; i++) {
+                let loadedImages = i
+                let canvas = document.createElement('canvas')
+                let ctx = canvas.getContext("2d")
+                images[i] = new Image()
+                images[i].onload = function () {
+                    if(++loadedImages >= this.imageNames.length)
+                        callback(images,ctx,i,canvas)
+                }.bind(this)
+                images[i].src = "/img/image_sets/" + this.imageNames[i]
+            }
+        } catch (err) {
+            console.log("Could not load image to cache", err.message)
+        }
+    }
+
+    folderImages(callback) {
+        this.images = new Array(this.numImages)
+        try {
+            for (let i = 0; i < this.numImages; i++) {
+                let counter = i
+                this.images[i] = new Image()
+                let canvas
+                if (this.vertical == true) // wohin sollen bilder gemalt werden?
+                    canvas = document.getElementById("js-starting-image-" + i.toString())
+                else canvas = document.getElementById("js-basis-image-" + i.toString())
+                let ctx = canvas.getContext("2d")
+                this.images[i].onload = function () {
+                    ctx.drawImage(this.images[i], 0, 0, canvas.width, canvas.height)
+                    this.images[i].width = canvas.width
+                    this.images[i].height = canvas.height
+                    let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+                    this.targetImgData[i] = imgData.data
+                    console.log("TargetImgData in onload of folderImages:", this.targetImgData)
+                    if (i < this.numImages - 1) {
+                        this.width = this.images[i].width
+                        this.height = this.images[i].height
+                        callback(this.images, this.targetImgData)
+                    }
+                }.bind(this)
+                this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
+            }
+        } catch (err) {
+            console.log("Could not load image from folder.", err.message)
+        }
+    }
+
+    */
+
+    //1. ansatz Callback
+    /* 
+    loadImages(i, canvas, ctx, img, callback, addSrcCallback) {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+        this.images[i].width = canvas.width
+        this.images[i].height = canvas.height
+        let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+        this.targetImgData[i] = imgData.data
+        console.log("TargetImgData in onload of folderImages:", this.targetImgData)
+        if (i == this.numImages - 1) {
+            this.width = this.images[0].width
+            this.height = this.images[0].height
+            addSrcCallback(callback)
+        }
+    }
+
+    folderImages(callback) {
+        this.images = new Array(this.numImages)
+        try {
+            for (let i = 0; i < this.numImages; i++) {
+                this.images[i] = new Image()
+                let canvas
+                if (this.vertical == true) // wohin sollen bilder gemalt werden?
+                    canvas = document.getElementById("js-starting-image-" + i.toString())
+                else canvas = document.getElementById("js-basis-image-" + i.toString())
+                let ctx = canvas.getContext("2d")
+                let img = this.images[i]
+                img.onload = this.loadImages(i, canvas, ctx, img, callback, function (callback) {
+                    callback(this.images, this.targetImgData)
+                }.bind(this))
+                this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
+            }
+        } catch (err) {
+            console.log("Could not load image from folder.", err.message)
+        }
+    }
+
+    */
 
     get generatedImages() {
         // instanziiere ImageGenerator und rufe randomImage() auf 
