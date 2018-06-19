@@ -44,7 +44,7 @@ class Images {
 
 
     // Original
-    
+
     folderImages(callback) {
         this.images = new Array(this.numImages)
         try {
@@ -58,14 +58,14 @@ class Images {
                 let ctx = canvas.getContext("2d")
                 let img = this.images[i]
 
-                img.onload = function() {
+                img.onload = function () {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
                     this.images[i].width = canvas.width
                     this.images[i].height = canvas.height
                     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                     this.targetImgData[i] = imgData.data
-                    console.log("TargetImgData:",this.targetImgData);
- 
+                    console.log("TargetImgData:", this.targetImgData);
+
                     if (i == this.numImages - 1) {
                         debugger
                         this.width = this.images[i].width
@@ -80,10 +80,10 @@ class Images {
         }
         //console.log("All images: ")
         //console.log(this.images)
- 
+
         //return this.images
     }
-    
+
 
     //3. Ansatz Callback again with some apsects from cache-"solution"
 

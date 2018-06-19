@@ -24,17 +24,18 @@ class GameEngine {
         this.targetImages = targetImages
         this.basisImages = basisImages
 
-        this.m = new Array(undefined, undefined)
-        this.mInv = []
-        this.targetPixels = new Array(undefined, undefined)
+        //this.m = new Array(undefined, undefined)
+        //this.mInv = []
+        //this.targetPixels = new Array(undefined, undefined)
 
         // TODO: delete basisPixels3 (?), don't need RGB channel
-        this.basisPixels3 = new Array(undefined, undefined, undefined) // [Bildnummer][Position][Kanal]
+        //this.basisPixels3 = new Array(undefined, undefined, undefined) // [Bildnummer][Position][Kanal]
+        //this.basisPixels = new Array(undefined, undefined)
+
+        //this.width = undefined
+        //this.height = undefined
 
         this.maxWeight = 1 // 0.51, 0.71.. 2.01
-        this.width = undefined
-        this.height = undefined
-
         this.clickCounter = 0
         this.totalScore = 0
 
@@ -76,6 +77,7 @@ class GameEngine {
             this.levelNumber += 1
             this.clearArrays()
             this.loadLevel()
+            this.getTargetAndBasisImages()
             this.clearGUI()
         }
     }
@@ -106,12 +108,6 @@ class GameEngine {
                     this.calculateBasisAndTargetImages()
                 }.bind(this)) // Bilder aus pics Ordner
             }
-            /*
-                this.targetPixels = images.targetPixels
-                this.width = this.targetImages[0].width
-                this.height = this.targetImages[0].height
-                this.calculateBasisAndTargetImages
-            */
         } else {
             // read basis images
             if (this.levelNumber < 0)
@@ -229,7 +225,6 @@ class GameEngine {
         // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate()
-        this.getTargetAndBasisImages()
     }
 
     clearArrays() {
