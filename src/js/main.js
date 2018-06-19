@@ -24,8 +24,8 @@ function start() {
 function canvasDemo() {
     var img1 = new Images()
     img1.numImage = 3
-    img1.folderImages
-    //img1.generatedImages
+    //img1.folderImages
+    img1.generatedImages
     img1.targetPixels
     console.log("Debug InverseMatrix:")
     console.log(InverseMatrix.invert([

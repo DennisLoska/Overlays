@@ -30,7 +30,6 @@ class GameEngine {
 
         // TODO: delete basisPixels3 (?), don't need RGB channel
         this.basisPixels3 = new Array(undefined, undefined, undefined) // [Bildnummer][Position][Kanal]
-        this.basisPixels = new Array(undefined, undefined) // [Bildnummer][Position]
 
         this.maxWeight = 1 // 0.51, 0.71.. 2.01
         this.width = undefined
@@ -38,6 +37,8 @@ class GameEngine {
 
         this.clickCounter = 0
         this.totalScore = 0
+
+        this.getTargetAndBasisImages()
     }
 
     updateOnClick(row, col) {
@@ -86,6 +87,7 @@ class GameEngine {
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
+
         if (this.doGenerate == true) {
             if (this.levelNumber < 3){
                 this.targetImages = images.generatedImages // ImageGenerator Bilder
@@ -112,7 +114,7 @@ class GameEngine {
             */
         } else {
             // read basis images
-            if (this.levelNumber < 3)
+            if (this.levelNumber < 0)
                 this.basisImages = images.generatedImages // ImageGenerator Bilder
             else this.basisImages = images.folderImages // Bilder aus image_sets Ordner
 
@@ -129,7 +131,7 @@ class GameEngine {
 
             for (let i = 0; i < this.numPics; i++) {
                 this.basisPixels[i] = this.blendTargetAndBasisImagesPixels(this.targetPixels, this.mInv[i])
-                this.drawImagesInCanvas(this.basisPixels[i], i + 1)
+                this.drawImagesInCanvas(this.basisPixels[i], i)
             }
         } else {
             /*
@@ -173,6 +175,7 @@ class GameEngine {
                 //this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
             }*/
         }
+
         this.printResult()
     }
 

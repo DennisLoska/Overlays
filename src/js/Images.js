@@ -241,6 +241,7 @@ class Images {
                 let generator = new ImageGenerator()
                 this.images[i] = new Image()
                 let canvas
+
                 if (this.vertical == true) // wohin sollen bilder gemalt werden?
                     canvas = document.getElementById("js-starting-image-" + i.toString())
                 else canvas = document.getElementById("js-basis-image-" + i.toString())
@@ -252,8 +253,8 @@ class Images {
                 img.onload = function () {
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
                 }
-                this.images[i].width = canvas.width
-                this.images[i].height = canvas.height
+                this.images[0].width = canvas.width
+                this.images[0].height = canvas.height
                 let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
 
                 // get random pixel array from ImageGenerator
