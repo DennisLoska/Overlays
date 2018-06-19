@@ -5,7 +5,10 @@ class Game {
     }
 
     loadSettings() {
-        // calculate the target / basis images to display them
         this.calculator = new GameEngine(this.levelNumber)
+    }
+
+    get engine() {
+        return this.calculator
     }
 }

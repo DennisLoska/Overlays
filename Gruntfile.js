@@ -30,7 +30,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'src/css/style.css': 'src/scss/Game.scss',
+                    'src/css/style.css': 'src/scss/main.scss',
                 },
             },
         },
@@ -76,6 +76,10 @@ module.exports = function(grunt) {
             css: {
                 files: ['src/scss/*.scss', 'src/scss/**/*.scss'],
                 tasks: ['sass'],
+            },
+            cssmin: {
+                files: ['src/css/style.css'],
+                tasks: ['cssmin'],
             },
             js: { //all LPs share the same footer.js!
                 files: ['src/js/*.js'],
