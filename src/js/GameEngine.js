@@ -123,14 +123,13 @@ class GameEngine {
     calculateBasisAndTargetImages() {
         if (this.doGenerate == true) { // generate basis from input images
             this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
-            this.basisPixels = new Array(this.numPics, undefined) // [numPics][pixel]
-            
-            this.basisPixels3 = new Array(this.numPics, undefined) //TODO: use for user calculation
+
+            this.basisPixels = new Array(this.numPics, undefined) // pixels of basis images [numPics][pixel]
+            this.basisPixels3 = new Array(this.numPics, undefined) // use for user calculation later
 
             for (let i = 0; i < this.numPics; i++) {
                 this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i]);
-                //this.basisPixels[i] = this.blendTargetAndBasisImagesPixels(this.targetPixels, this.mInv[i])
-                this.basisPixels[i] = this.blendPixelsToPixels(this.targetPixels, this.mInv[i])
+                this.basisPixels[i] = this.blendTargetAndBasisImagesPixels(this.targetPixels, this.mInv[i])
                 this.drawImagesInCanvas(this.basisPixels[i], i)
             }
         } else {
@@ -217,7 +216,6 @@ class GameEngine {
         // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users - muss für jede Reihe einzelnd aufgerufen werden 
         console.log("calculateUserImage()")
         let pixelsBlended = this.blendPixelsOfUser(this.basisPixels3, wUserRow);
-        //let pixelsBlended = this.blendPixelsToPixels(this.basisPixels, wUserRow) // TODO: another Method for blendPixelsToPixels (User)
         this.userImagesPixels[index] = pixelsBlended
         return pixelsBlended
     }
@@ -348,11 +346,11 @@ class GameEngine {
         }
     }
 
-    blendPixelsToPixels(pixelsIn, w) {
+    blendTargetAndBasisImagesPixels(pixelsIn, w) {
         // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
-        console.log("blendPixelsToPixels()")
+        console.log("blendTargetAndBasisImagesPixels()")
         let pixels = new Array(pixelsIn[0].length)
         for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
             let r = 0
@@ -453,6 +451,34 @@ class GameEngine {
         return pixels
     }
 
+    blendPixelsTo3DDoubleImage(pixelsIn, w) {
+        let pixels = new Array(pixelsIn[0].length)
+
+        for (let i = 0; i < pixels.length; i += 4) { // += 4, läuft durch alle Pixel
+            let r = 0
+            let g = 0
+            let b = 0
+            let a = 0
+
+            for (let j = 0; j < pixelsIn.length; j++) { // nicht +=4, läuft gegen numPics
+                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
+                let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
+                let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
+                let aj = this.f(pixelsIn[j][i + 3]) // f((cj >> 24) & 255)
+
+                r += w[j] * rj
+                g += w[j] * gj
+                b += w[j] * bj
+                a += aj // Transparenz wird nicht extra multipliziert / gewichtet
+            }
+            pixels[i+0] = this.fi(r)
+            pixels[i+1] = this.fi(g)
+            pixels[i+2] = this.fi(b)
+            pixels[i+3] = this.fi(a) //volle Transparenz, a = 255
+        }
+        return pixels
+    }
+
     f(val) {
         let zeroLevel = 128
         return val - zeroLevel
@@ -488,36 +514,7 @@ class GameEngine {
 
     printResult() {
         console.log("Lösung:", this.m)
-        console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern:", this.mInv)
-    }
-    
-    blendPixelsTo3DDoubleImage(pixelsIn, w) { // TODO: need this?
-        //Java: private double[][] blendPixelsTo3DDoubleImage(int[][] pixelsIn, double[] w)
-        let pixels = new Array(pixelsIn[0].length)
-
-        for (let i = 0; i < pixels.length; i += 4) { // += 4, läuft durch alle Pixel
-            let r = 0
-            let g = 0
-            let b = 0
-            let a = 0
-
-            for (let j = 0; j < pixelsIn.length; j++) { // nicht +=4, läuft gegen numPics
-                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
-                let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
-                let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
-                let aj = this.f(pixelsIn[j][i + 3]) // f((cj >> 24) & 255)
-
-                r += w[j] * rj
-                g += w[j] * gj
-                b += w[j] * bj
-                a += aj // Transparenz wird nicht extra multipliziert / gewichtet
-            }
-            pixels[i+0] = this.fi(r)
-            pixels[i+1] = this.fi(g)
-            pixels[i+2] = this.fi(b)
-            pixels[i+3] = this.fi(a) //volle Transparenz, a = 255
-        }
-        return pixels
+        console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern (Inverse):", this.mInv)
     }
 
 }
