@@ -19,6 +19,7 @@ module.exports = function(grunt) {
                     'public/js/Images.js': 'src/js/Images.js',
                     'public/js/InverseMatrix.js': 'src/js/InverseMatrix.js',
                     'public/js/Level.js': 'src/js/Level.js',
+                    'public/js/View.js': 'src/js/View.js',
                     'public/js/Game.js': 'src/js/Game.js',
                     'public/js/main.js': 'src/js/main.js',
                 },

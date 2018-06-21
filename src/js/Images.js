@@ -41,10 +41,7 @@ class Images {
         https://stackoverflow.com/questions/4123906/javascript-image-onload-callback-to-object-function
         https://stackoverflow.com/questions/10652513/html5-dynamically-create-canvas#10652568
     */
-
-
     // Original JS event loop
-    
     folderImages(callback) {
         this.images = new Array(this.numImages)
         try {
@@ -65,15 +62,15 @@ class Images {
                     this.images[i].height = canvas.height
                     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                     this.targetImgData[i] = imgData.data
-                    console.log("TargetImgData in Images-Loop:", this.targetImgData);
+                    console.log("TargetImgData in Images-Loop:", this.targetImgData)
                     loadCounter++
                     if (loadCounter == this.numImages) {
                         debugger
                         this.width = this.images[i].width
                         this.height = this.images[i].height
-                        console.log("callback executed");
+                        console.log("callback executed")
                         
-                        callback(this.images, this.targetImgData)
+                        callback(this.targetImgData)
                     }
                 }.bind(this)
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]

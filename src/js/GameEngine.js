@@ -2,7 +2,6 @@ class GameEngine {
     constructor(levelNumber) {
         this.levelNumber = levelNumber
         this.loadLevel()
-
         this.wUser = new Array(this.numPics, this.numPics) // matrix der userwauswahl
         //inserting dummy-values into wUser - zeros
         for (let i = 0; i < this.numPics; i++) {
@@ -12,32 +11,10 @@ class GameEngine {
         }
         this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
         this.correctUserCombinations = new Array(this.numPics) // 1 wenn richtige kombination, 0 wenn falsch
-
-        let targetImages = new Array(this.numPics)
-        let basisImages = new Array(this.numPics)
-
-        for (let i = 0; i < targetImages.length; i++)
-            targetImages[i] = new Image()
-        for (let i = 0; i < basisImages.length; i++)
-            basisImages[i] = new Image()
-
-        this.targetImages = targetImages
-        this.basisImages = basisImages
-
-        //this.m = new Array(undefined, undefined)
-        //this.mInv = []
-        //this.targetPixels = new Array(undefined, undefined)
-
-        //this.basisPixels = new Array(undefined, undefined)
-
-        //this.width = undefined
-        //this.height = undefined
-
         this.maxWeight = 1 // 0.51, 0.71.. 2.01
         this.clickCounter = 0
         this.totalScore = 0
-
-        this.getTargetAndBasisImages()
+        this.loadImagesIntoLevel()
     }
 
     updateOnClick(row, col) {
@@ -67,6 +44,9 @@ class GameEngine {
         let correctCombs = this.getAmountOfCorrectCombinations()
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
+            this.loadLevel()
+            loadGameGUI(this) //from View.js
+            clickedTile(this) //from View.js
             console.log("Level completed with " + this.clickCounter + " clicks!")
             let levelScore = this.returnScore(this.clickCounter)
             this.totalScore += levelScore
@@ -74,51 +54,48 @@ class GameEngine {
             $('#js-game-score').html("Score: " + this.totalScore.toString())
             this.levelNumber += 1
             this.clearArrays()
-            this.loadLevel()
-            this.getTargetAndBasisImages()
+            this.loadImagesIntoLevel()
             this.clearGUI()
         }
     }
 
-    getTargetAndBasisImages() {
+    loadImagesIntoLevel() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
         let images = new Images()
         images.numImage = this.numPics
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
-
         if (this.doGenerate == true) {
-            if (this.levelNumber < 3){
-                this.targetImages = images.generatedImages // ImageGenerator Bilder
+            if (this.levelNumber % 2 == 0) {
+                images.generatedImages
                 this.targetPixels = images.targetPixels
-                this.width = this.targetImages[0].width
-                this.height = this.targetImages[0].height
-                this.calculateBasisAndTargetImages()
+                this.width = images.images[0].width
+                this.height = images.images[0].height
+                this.calculateImages()
             } else {
-                images.folderImages(function (targetImages, targetPixels) {
+                images.folderImages(function (targetPixels) {
                     console.log("Image in callback:", images)
-                    this.targetImages = targetImages
                     this.targetPixels = targetPixels
+                    this.width = images.images[0].width
+                    this.height = images.images[0].height
                     console.log("Targetpixels in callback:", images.targetPixels)
-                    this.width = this.targetImages[0].width
-                    this.height = this.targetImages[0].height
-                    this.calculateBasisAndTargetImages()
+                    this.calculateImages()
                 }.bind(this)) // Bilder aus pics Ordner
             }
         } else {
             // read basis images
             if (this.levelNumber < 0)
-                this.basisImages = images.generatedImages // ImageGenerator Bilder
-            else this.basisImages = images.folderImages // Bilder aus image_sets Ordner
+                images.generatedImages // ImageGenerator Bilder
+            else images.folderImages // Bilder aus image_sets Ordner
 
             this.basisPixels = images.targetPixels // delete?
-            this.width = this.basisImages[0].width
-            this.height = this.basisImages[0].height
+            this.width = images.images[0].width
+            this.height = images.images[0].height
         }
     }
 
-    calculateBasisAndTargetImages() {
+    calculateImages() {
         if (this.doGenerate == true) { // generate basis from input images
             this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
 
@@ -126,7 +103,7 @@ class GameEngine {
             this.basisPixels3 = new Array(this.numPics, undefined) // use for user calculation later
 
             for (let i = 0; i < this.numPics; i++) {
-                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i]);
+                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
                 this.basisPixels[i] = this.blendTargetAndBasisImagesPixels(this.targetPixels, this.mInv[i])
                 this.drawImagesInCanvas(this.basisPixels[i], i)
             }
@@ -469,10 +446,10 @@ class GameEngine {
                 b += w[j] * bj
                 a += aj // Transparenz wird nicht extra multipliziert / gewichtet
             }
-            pixels[i+0] = this.fi(r)
-            pixels[i+1] = this.fi(g)
-            pixels[i+2] = this.fi(b)
-            pixels[i+3] = this.fi(a) //volle Transparenz, a = 255
+            pixels[i + 0] = this.fi(r)
+            pixels[i + 1] = this.fi(g)
+            pixels[i + 2] = this.fi(b)
+            pixels[i + 3] = this.fi(a) //volle Transparenz, a = 255
         }
         return pixels
     }

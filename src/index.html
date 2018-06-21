@@ -21,6 +21,7 @@
     <script src="js/GameEngine.js"></script>
     <script src="js/ImageGenerator.js"></script>
     <script src="js/InverseMatrix.js"></script>
+    <script src="js/View.js"></script>
     <script src="js/Game.js"></script>
     <script src="js/main.js"></script>
     <title>Overlays</title>
@@ -276,73 +277,77 @@
                         <h3 id="level-headline">Level
                             <span id="js-current-lvl">1</span>
                         </h3>
-                        <div class="row justify-content-center align-items-center tile-row">
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <div class="tile-square hide-shadow" id="js-game-score"> Score:</div>
+                        <div id="js-game-wrapper">
+                            <!--
+                            <div class="row justify-content-center align-items-center tile-row">
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <div class="tile-square hide-shadow" id="js-game-score"> Score:</div>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square" id="js-basis-image-0"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square" id="js-basis-image-1"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square" id="js-basis-image-2"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <div class="tile-square hide-shadow" id="js-game-timer"></div>
+                                </div>
                             </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square" id="js-basis-image-0"></canvas>
+                            <div class="row justify-content-center align-items-center tile-row">
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square" id="js-starting-image-0"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square js-card" data-col="0" data-row="0"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square js-card " data-col="1" data-row="0"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square js-card" data-col="2" data-row="0"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square" id="js-user-image-0"></canvas>
+                                </div>
                             </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square" id="js-basis-image-1"></canvas>
+                            <div class="row justify-content-center align-items-center tile-row">
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square" id="js-starting-image-1"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square js-card" data-col="0" data-row="1"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square js-card" data-col="1" data-row="1"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square js-card" data-col="2" data-row="1"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square" id="js-user-image-1"></canvas>
+                                </div>
                             </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square" id="js-basis-image-2"></canvas>
+                            <div class="row justify-content-center align-items-center tile-row">
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square" id="js-starting-image-2"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square js-card" data-col="0" data-row="2"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square js-card" data-col="1" data-row="2"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square js-card" data-col="2" data-row="2"></canvas>
+                                </div>
+                                <div class="tile-square-wrapper col-2 text-center">
+                                    <canvas class="tile-square" id="js-user-image-2"></canvas>
+                                </div>
                             </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <div class="tile-square hide-shadow" id="js-game-timer"></div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center align-items-center tile-row">
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square" id="js-starting-image-0"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square js-card" data-col="0" data-row="0"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square js-card " data-col="1" data-row="0"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square js-card" data-col="2" data-row="0"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square" id="js-user-image-0"></canvas>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center align-items-center tile-row">
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square" id="js-starting-image-1"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square js-card" data-col="0" data-row="1"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square js-card" data-col="1" data-row="1"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square js-card" data-col="2" data-row="1"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square" id="js-user-image-1"></canvas>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center align-items-center tile-row">
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square" id="js-starting-image-2"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square js-card" data-col="0" data-row="2"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square js-card" data-col="1" data-row="2"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square js-card" data-col="2" data-row="2"></canvas>
-                            </div>
-                            <div class="tile-square-wrapper col-2 text-center">
-                                <canvas class="tile-square" id="js-user-image-2"></canvas>
-                            </div>
+                             -->
                         </div>
                     </section>
                 </div>
@@ -370,13 +375,6 @@
         });
     </script>
     <!--SMOOTH SCROLL end-->
-    <!--FLIP begin-->
-    <script>
-        $('.js-card').click(function () {
-            $(this).toggleClass('js-is-flipped');
-        });
-    </script>
-    <!--FLIP end-->
 </body>
 
 </html>
