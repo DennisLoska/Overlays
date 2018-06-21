@@ -28,8 +28,6 @@ class GameEngine {
         //this.mInv = []
         //this.targetPixels = new Array(undefined, undefined)
 
-        // TODO: delete basisPixels3 (?), don't need RGB channel
-        //this.basisPixels3 = new Array(undefined, undefined, undefined) // [Bildnummer][Position][Kanal]
         //this.basisPixels = new Array(undefined, undefined)
 
         //this.width = undefined
@@ -148,7 +146,7 @@ class GameEngine {
 
                             // get the pixel array of the basisImages
                             //basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width);
-                            //this.basisImages[i] = pixelBasis[i] // TODO: not sure?
+                            //this.basisImages[i] = pixelBasis[i] // not sure?
                         }
                         for (let i = 0; i < this.numPics; i++) {
                             this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.basisPixels, this.mInv[i]) // liefert nur 3 Kanäle RGB zurück
