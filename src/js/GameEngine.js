@@ -2,7 +2,6 @@ class GameEngine {
     constructor(levelNumber) {
         this.levelNumber = levelNumber
         this.loadLevel()
-
         this.wUser = new Array(this.numPics, this.numPics) // matrix der userwauswahl
         //inserting dummy-values into wUser - zeros
         for (let i = 0; i < this.numPics; i++) {
@@ -12,34 +11,10 @@ class GameEngine {
         }
         this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
         this.correctUserCombinations = new Array(this.numPics) // 1 wenn richtige kombination, 0 wenn falsch
-
-        let targetImages = new Array(this.numPics)
-        let basisImages = new Array(this.numPics)
-
-        for (let i = 0; i < targetImages.length; i++)
-            targetImages[i] = new Image()
-        for (let i = 0; i < basisImages.length; i++)
-            basisImages[i] = new Image()
-
-        this.targetImages = targetImages
-        this.basisImages = basisImages
-
-        //this.m = new Array(undefined, undefined)
-        //this.mInv = []
-        //this.targetPixels = new Array(undefined, undefined)
-
-        // TODO: delete basisPixels3 (?), don't need RGB channel
-        //this.basisPixels3 = new Array(undefined, undefined, undefined) // [Bildnummer][Position][Kanal]
-        //this.basisPixels = new Array(undefined, undefined)
-
-        //this.width = undefined
-        //this.height = undefined
-
         this.maxWeight = 1 // 0.51, 0.71.. 2.01
         this.clickCounter = 0
         this.totalScore = 0
-
-        this.getTargetAndBasisImages()
+        this.loadImagesIntoLevel()
     }
 
     updateOnClick(row, col) {
@@ -69,63 +44,66 @@ class GameEngine {
         let correctCombs = this.getAmountOfCorrectCombinations()
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
+            this.levelNumber += 1
+            this.loadLevel()
+            loadGameGUI(this) //from View.js
+            clickedTile(this) //from View.js
             console.log("Level completed with " + this.clickCounter + " clicks!")
             let levelScore = this.returnScore(this.clickCounter)
             this.totalScore += levelScore
             console.log("Score: " + this.totalScore.toString())
             $('#js-game-score').html("Score: " + this.totalScore.toString())
-            this.levelNumber += 1
             this.clearArrays()
-            this.loadLevel()
-            this.getTargetAndBasisImages()
+            this.loadImagesIntoLevel()
             this.clearGUI()
         }
     }
 
-    getTargetAndBasisImages() {
+    loadImagesIntoLevel() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
         let images = new Images()
         images.numImage = this.numPics
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
-
         if (this.doGenerate == true) {
-            if (this.levelNumber < 3){
-                this.targetImages = images.generatedImages // ImageGenerator Bilder
+            if (this.levelNumber % 2 == 0) {
+                images.generatedImages
                 this.targetPixels = images.targetPixels
-                this.width = this.targetImages[0].width
-                this.height = this.targetImages[0].height
-                this.calculateBasisAndTargetImages()
+                this.width = images.images[0].width
+                this.height = images.images[0].height
+                this.calculateImages()
             } else {
-                images.folderImages(function (targetImages, targetPixels) {
+                images.folderImages(function (targetPixels) {
                     console.log("Image in callback:", images)
-                    this.targetImages = targetImages
                     this.targetPixels = targetPixels
+                    this.width = images.images[0].width
+                    this.height = images.images[0].height
                     console.log("Targetpixels in callback:", images.targetPixels)
-                    this.width = this.targetImages[0].width
-                    this.height = this.targetImages[0].height
-                    this.calculateBasisAndTargetImages()
+                    this.calculateImages()
                 }.bind(this)) // Bilder aus pics Ordner
             }
         } else {
             // read basis images
             if (this.levelNumber < 0)
-                this.basisImages = images.generatedImages // ImageGenerator Bilder
-            else this.basisImages = images.folderImages // Bilder aus image_sets Ordner
+                images.generatedImages // ImageGenerator Bilder
+            else images.folderImages // Bilder aus image_sets Ordner
 
             this.basisPixels = images.targetPixels // delete?
-            this.width = this.basisImages[0].width
-            this.height = this.basisImages[0].height
+            this.width = images.images[0].width
+            this.height = images.images[0].height
         }
     }
 
-    calculateBasisAndTargetImages() {
+    calculateImages() {
         if (this.doGenerate == true) { // generate basis from input images
             this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
-            this.basisPixels = new Array(this.numPics, undefined) // [numPics][pixel]
+
+            this.basisPixels = new Array(this.numPics, undefined) // pixels of basis images [numPics][pixel]
+            this.basisPixels3 = new Array(this.numPics, undefined) // use for user calculation later
 
             for (let i = 0; i < this.numPics; i++) {
+                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.targetPixels, this.mInv[i])
                 this.basisPixels[i] = this.blendTargetAndBasisImagesPixels(this.targetPixels, this.mInv[i])
                 this.drawImagesInCanvas(this.basisPixels[i], i)
             }
@@ -145,7 +123,7 @@ class GameEngine {
 
                             // get the pixel array of the basisImages
                             //basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width);
-                            //this.basisImages[i] = pixelBasis[i] // TODO: not sure?
+                            //this.basisImages[i] = pixelBasis[i] // not sure?
                         }
                         for (let i = 0; i < this.numPics; i++) {
                             this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.basisPixels, this.mInv[i]) // liefert nur 3 Kanäle RGB zurück
@@ -156,7 +134,7 @@ class GameEngine {
             this.targetPixels = new Array(this.numPics, undefined) // [numPics][pixel]
 
             for (let i = 0; i < this.numPics; i++) {
-                this.targetPixels[i] = this.blendTargetAndBasisImagesPixels(this.basisPixels, this.m[i])
+                this.targetPixels[i] = this.blendPixelsOfUser(this.basisPixels, this.m[i])
                 this.drawImagesInCanvas(this.targetPixels[i], i)
             }
             // IN WORK
@@ -212,7 +190,7 @@ class GameEngine {
     calculateUserImage(wUserRow, index) {
         // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users - muss für jede Reihe einzelnd aufgerufen werden 
         console.log("calculateUserImage()")
-        let pixelsBlended = this.blendPixelsToPixels(this.basisPixels, wUserRow) // TODO: another Method for blendPixelsToPixels (User)
+        let pixelsBlended = this.blendPixelsOfUser(this.basisPixels3, wUserRow);
         this.userImagesPixels[index] = pixelsBlended
         return pixelsBlended
     }
@@ -343,11 +321,11 @@ class GameEngine {
         }
     }
 
-    blendPixelsToPixels(pixelsIn, w) {
+    blendTargetAndBasisImagesPixels(pixelsIn, w) {
         // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
-        console.log("blendPixelsToPixels()")
+        console.log("blendTargetAndBasisImagesPixels()")
         let pixels = new Array(pixelsIn[0].length)
         for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
             let r = 0
@@ -377,7 +355,7 @@ class GameEngine {
         return pixels
     }
 
-    blendTargetAndBasisImagesPixels(pixelsIn, w) {
+    blendPixelsOfUser(pixelsIn, w) {
         // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
         let pixels = new Array(pixelsIn[0].length)
@@ -448,6 +426,34 @@ class GameEngine {
         return pixels
     }
 
+    blendPixelsTo3DDoubleImage(pixelsIn, w) {
+        let pixels = new Array(pixelsIn[0].length)
+
+        for (let i = 0; i < pixels.length; i += 4) { // += 4, läuft durch alle Pixel
+            let r = 0
+            let g = 0
+            let b = 0
+            let a = 0
+
+            for (let j = 0; j < pixelsIn.length; j++) { // nicht +=4, läuft gegen numPics
+                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
+                let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
+                let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
+                let aj = this.f(pixelsIn[j][i + 3]) // f((cj >> 24) & 255)
+
+                r += w[j] * rj
+                g += w[j] * gj
+                b += w[j] * bj
+                a += aj // Transparenz wird nicht extra multipliziert / gewichtet
+            }
+            pixels[i + 0] = this.fi(r)
+            pixels[i + 1] = this.fi(g)
+            pixels[i + 2] = this.fi(b)
+            pixels[i + 3] = this.fi(a) //volle Transparenz, a = 255
+        }
+        return pixels
+    }
+
     f(val) {
         let zeroLevel = 128
         return val - zeroLevel
@@ -483,48 +489,7 @@ class GameEngine {
 
     printResult() {
         console.log("Lösung:", this.m)
-        console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern:", this.mInv)
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    blendPixelsTo3DDoubleImage(pixelsIn, w) { // TODO: need this?
-        //Java: private double[][] blendPixelsTo3DDoubleImage(int[][] pixelsIn, double[] w)
-        let pixels = new Array(pixelsIn[0].length, 3)
-        for (let i = 0; i < pixels.length; i += 4) { // += 4, läuft durch alle Pixel
-            let r = 0
-            let g = 0
-            let b = 0
-            let a = 0
-            for (let j = 0; j < pixelsIn.length; j++) { // nicht +=4, läuft gegen numPics
-                let rj = this.f(pixelsIn[j][i + 0]) // f((cj >> 16) & 255)
-                let gj = this.f(pixelsIn[j][i + 1]) // f((cj >>  8) & 255)
-                let bj = this.f(pixelsIn[j][i + 2]) // f((cj      ) & 255)
-                let aj = this.f(pixelsIn[j][i + 3]) // f((cj >> 24) & 255)
-                r += w[j] * rj
-                g += w[j] * gj
-                b += w[j] * bj
-                a += aj // Transparenz wird nicht extra multipliziert / gewichtet
-            }
-            pixels[i+0] = this.fi(r)
-            pixels[i+1] = this.fi(g)
-            pixels[i+2] = this.fi(b)
-            pixels[i+3] = this.fi(a) //volle Transparenz, a = 255
-        }
-        return pixels
+        console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern (Inverse):", this.mInv)
     }
 
 }

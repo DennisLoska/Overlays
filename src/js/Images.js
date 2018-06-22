@@ -41,14 +41,12 @@ class Images {
         https://stackoverflow.com/questions/4123906/javascript-image-onload-callback-to-object-function
         https://stackoverflow.com/questions/10652513/html5-dynamically-create-canvas#10652568
     */
-
-
-    // Original
-
+    // Original JS event loop
     folderImages(callback) {
         this.images = new Array(this.numImages)
         try {
             //let targetImgData = new Array()
+            let loadCounter = 0
             for (let i = 0; i < this.numImages; i++) {
                 this.images[i] = new Image()
                 let canvas
@@ -64,16 +62,102 @@ class Images {
                     this.images[i].height = canvas.height
                     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                     this.targetImgData[i] = imgData.data
-                    console.log("TargetImgData:", this.targetImgData);
-
-                    if (i == this.numImages - 1) {
+                    console.log("TargetImgData in Images-Loop:", this.targetImgData)
+                    loadCounter++
+                    if (loadCounter == this.numImages) {
                         debugger
                         this.width = this.images[i].width
                         this.height = this.images[i].height
-                        callback(this.images, this.targetImgData)
+                        console.log("callback executed")
+                        
+                        callback(this.targetImgData)
                     }
                 }.bind(this)
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
+            }
+        } catch (err) {
+            console.log("Could not load image from folder.", err.message)
+        }
+    }
+    
+    // 4.Ansatz - jQuery Deferred
+/*
+    folderImages(callback) {
+        this.images = new Array(this.numImages)
+        try {
+            //let targetImgData = new Array()
+            for (let i = 0; i < this.numImages; i++) {
+                $.loadImage = function (i) {
+                    // Define a "worker" function that should eventually resolve or reject the deferred object.
+                    var loadImage = function (deferred) {
+                        this.images[i] = new Image()
+                        let canvas
+                        if (this.vertical == true) // wohin sollen bilder gemalt werden?
+                            canvas = document.getElementById("js-starting-image-" + i.toString())
+                        else canvas = document.getElementById("js-basis-image-" + i.toString())
+                        let ctx = canvas.getContext("2d")
+                        let url = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
+                        // Set up event handlers to know when the image has loaded
+                        // or fails to load due to an error or abort.
+                        debugger
+                        this.images[i].onload = loaded();
+                        this.images[i].onerror = errored(); // URL returns 404, etc
+                        this.images[i].onabort = errored(); // IE may call this if user clicks "Stop"
+
+                        // Setting the src property begins loading the image.
+                        this.images[i].src = url;
+
+                        function loaded() {
+                            debugger
+                            console.log("ctx", ctx);
+                            console.log("this.images[i]", this.images[i]);
+
+
+                            ctx.drawImage(this.images[i], 0, 0, canvas.width, canvas.height)
+                            this.images[i].width = canvas.width
+                            this.images[i].height = canvas.height
+                            let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+                            this.targetImgData[i] = imgData.data
+                            console.log("executed load:", this.targetImgData);
+
+                            unbindEvents();
+                            // Calling resolve means the image loaded sucessfully and is ready to use.
+                            deferred.resolve();
+                        }
+
+                        function errored() {
+                            unbindEvents();
+                            // Calling reject means we failed to load the image (e.g. 404, server offline, etc).
+                            console.log("errored - failed to load image.", this.images);
+                            deferred.reject();
+                        }
+
+                        function unbindEvents() {
+                            // Ensures the event callbacks only get called once.
+                            this.images[i].onload = null;
+                            this.images[i].onerror = null;
+                            this.images[i].onabort = null;
+                        }
+                    }.bind(this);
+                    // Create the deferred object that will contain the loaded image.
+                    // We don't want callers to have access to the resolve() and reject() methods, 
+                    // so convert to "read-only" by calling `promise()`.
+                    return $.Deferred(loadImage).promise();
+                }.bind(this);
+                debugger
+                $.loadImage(i)
+                    .done(function () {
+                        console.log("TargetImgData:", this.targetImgData);
+                        if (i == this.numImages - 1) {
+                            this.width = this.images[i].width
+                            this.height = this.images[i].height
+                            callback(this.images, this.targetImgData)
+                        }
+                    }.bind(this))
+                    .fail(function () {
+                        i--;
+                        alert("Failed to load image");
+                    });
             }
         } catch (err) {
             console.log("Could not load image from folder.", err.message)
@@ -83,8 +167,7 @@ class Images {
 
         //return this.images
     }
-
-
+*/
     //3. Ansatz Callback again with some apsects from cache-"solution"
 
     /*
@@ -193,7 +276,7 @@ class Images {
     */
 
     //1. ansatz Callback
-    /* 
+    /*
     loadImages(i, canvas, ctx, img, callback, addSrcCallback) {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
         this.images[i].width = canvas.width

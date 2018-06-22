@@ -12,6 +12,7 @@
 }
 
 #game-container #js-game-score,
+#js-game-timer,
 #game-container #js-game-timer {
     background-color: inherit;
 }
@@ -27,7 +28,9 @@
     display: inline-block;
 }
 
-#js-game-score {
+#js-game-score,
+#js-game-timer,
+#js-game-timer {
     line-height: 4vw;
     vertical-align: middle;
     font-size: 26px;
@@ -78,7 +81,8 @@
         height: 6vw;
         width: 6vw;
     }
-    #js-game-score {
+    #js-game-score,
+    #js-game-timer {
         line-height: 6vw;
     }
     .tile-square>span {
@@ -91,12 +95,29 @@
         margin-left: 1vw;
         margin-right: 1vw;
     }
+    #game-container .js-tile-square-wrapper-4 {
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+    #game-container .js-tile-square-wrapper-5 {
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
     #game-container .tile-square {
         height: 17vw;
         width: 17vw;
     }
-    #js-game-score {
+    #js-game-score,
+    #js-game-timer {
         line-height: 17vw;
+    }
+    #game-container .js-4-tiles-per-row {
+        height: 10vw;
+        width: 10vw;
+    }
+    #game-container .js-5-tiles-per-row {
+        height: 10vw;
+        width: 10vw;
     }
 }
 
@@ -105,12 +126,29 @@
         margin-left: 1.5vw;
         margin-right: 1.5vw;
     }
+    #game-container .js-tile-square-wrapper-4 {
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+    #game-container .js-tile-square-wrapper-5 {
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
     #game-container .tile-square {
         height: 17vw;
         width: 17vw;
     }
-    #js-game-score {
+    #js-game-score,
+    #js-game-timer {
         line-height: 17vw;
+    }
+    #game-container .js-4-tiles-per-row {
+        height: 10vw;
+        width: 10vw;
+    }
+    #game-container .js-5-tiles-per-row {
+        height: 10vw;
+        width: 10vw;
     }
 }
 
@@ -123,7 +161,24 @@
         height: 16vw;
         width: 16vw;
     }
-    #js-game-score {
+    #game-container .js-4-tiles-per-row {
+        height: 10vw;
+        width: 10vw;
+    }
+    #game-container .js-5-tiles-per-row {
+        height: 10vw;
+        width: 10vw;
+    }
+    #game-container .js-tile-square-wrapper-4 {
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+    #game-container .js-tile-square-wrapper-5 {
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+    #js-game-score,
+    #js-game-timer {
         line-height: 16vw;
     }
 }
@@ -140,12 +195,29 @@
         margin-left: -1vw;
         margin-right: -1vw;
     }
+    #game-container .js-tile-square-wrapper-4 {
+        margin-left: 1vw;
+        margin-right: 1vw;
+    }
+    #game-container .js-tile-square-wrapper-5 {
+        margin-left: 1vw;
+        margin-right: 1vw;
+    }
     #game-container .tile-square {
         height: 12.5vw;
         width: 12.5vw;
     }
-    #js-game-score {
+    #js-game-score,
+    #js-game-timer {
         line-height: 12.5vw;
+    }
+    #game-container .js-4-tiles-per-row {
+        height: 7.5vw;
+        width: 7.5vw;
+    }
+    #game-container .js-5-tiles-per-row {
+        height: 7vw;
+        width: 7vw;
     }
 }
 
@@ -154,11 +226,24 @@
         margin-left: -3vw;
         margin-right: -3vw;
     }
+    #game-container .js-tile-square-wrapper-4 {
+        margin-left: 1vw;
+        margin-right: 1vw;
+    }
+    #game-container .js-tile-square-wrapper-5 {
+        margin-left: 0vw;
+        margin-right: 0vw;
+    }
     #game-container .tile-square {
         height: 8.5vw;
         width: 8.5vw;
     }
-    #js-game-score {
+    #game-container .js-5-tiles-per-row {
+        height: 5.5vw;
+        width: 5.5vw;
+    }
+    #js-game-score,
+    #js-game-timer {
         line-height: 8.5vw;
     }
 }
@@ -168,11 +253,24 @@
         margin-left: -4.1vw;
         margin-right: -4.1vw;
     }
+    #game-container .js-tile-square-wrapper-4 {
+        margin-left: 1vw;
+        margin-right: 1vw;
+    }
+    #game-container .js-tile-square-wrapper-5 {
+        margin-left: 0vw;
+        margin-right: 0vw;
+    }
     #game-container .tile-square {
         height: 7.5vw;
         width: 7.5vw;
     }
-    #js-game-score {
+    #game-container .js-5-tiles-per-row {
+        height: 5.5vw;
+        width: 5.5vw;
+    }
+    #js-game-score,
+    #js-game-timer {
         line-height: 7.5vw;
     }
 }

@@ -345,6 +345,7 @@ a.nav-link:hover {
   color: #efefef; }
 
 #game-container #js-game-score,
+#js-game-timer,
 #game-container #js-game-timer {
   background-color: inherit; }
 
@@ -357,7 +358,9 @@ a.nav-link:hover {
   background-color: gold;
   display: inline-block; }
 
-#js-game-score {
+#js-game-score,
+#js-game-timer,
+#js-game-timer {
   line-height: 4vw;
   vertical-align: middle;
   font-size: 26px; }
@@ -399,7 +402,8 @@ a.nav-link:hover {
   .tile-square {
     height: 6vw;
     width: 6vw; }
-  #js-game-score {
+  #js-game-score,
+  #js-game-timer {
     line-height: 6vw; }
   .tile-square > span {
     font-size: 1vw; } }
@@ -408,21 +412,47 @@ a.nav-link:hover {
   #game-container .tile-square-wrapper {
     margin-left: 1vw;
     margin-right: 1vw; }
+  #game-container .js-tile-square-wrapper-4 {
+    margin-left: 2vw;
+    margin-right: 2vw; }
+  #game-container .js-tile-square-wrapper-5 {
+    margin-left: 2vw;
+    margin-right: 2vw; }
   #game-container .tile-square {
     height: 17vw;
     width: 17vw; }
-  #js-game-score {
-    line-height: 17vw; } }
+  #js-game-score,
+  #js-game-timer {
+    line-height: 17vw; }
+  #game-container .js-4-tiles-per-row {
+    height: 10vw;
+    width: 10vw; }
+  #game-container .js-5-tiles-per-row {
+    height: 10vw;
+    width: 10vw; } }
 
 @media only screen and (max-width: 650px) {
   #game-container .tile-square-wrapper {
     margin-left: 1.5vw;
     margin-right: 1.5vw; }
+  #game-container .js-tile-square-wrapper-4 {
+    margin-left: 2vw;
+    margin-right: 2vw; }
+  #game-container .js-tile-square-wrapper-5 {
+    margin-left: 2vw;
+    margin-right: 2vw; }
   #game-container .tile-square {
     height: 17vw;
     width: 17vw; }
-  #js-game-score {
-    line-height: 17vw; } }
+  #js-game-score,
+  #js-game-timer {
+    line-height: 17vw; }
+  #game-container .js-4-tiles-per-row {
+    height: 10vw;
+    width: 10vw; }
+  #game-container .js-5-tiles-per-row {
+    height: 10vw;
+    width: 10vw; } }
 
 @media only screen and (max-width: 500px) {
   #game-container .tile-square-wrapper {
@@ -431,7 +461,20 @@ a.nav-link:hover {
   #game-container .tile-square {
     height: 16vw;
     width: 16vw; }
-  #js-game-score {
+  #game-container .js-4-tiles-per-row {
+    height: 10vw;
+    width: 10vw; }
+  #game-container .js-5-tiles-per-row {
+    height: 10vw;
+    width: 10vw; }
+  #game-container .js-tile-square-wrapper-4 {
+    margin-left: 2vw;
+    margin-right: 2vw; }
+  #game-container .js-tile-square-wrapper-5 {
+    margin-left: 2vw;
+    margin-right: 2vw; }
+  #js-game-score,
+  #js-game-timer {
     line-height: 16vw; } }
 
 @media only screen and (min-width: 768px) {
@@ -443,30 +486,63 @@ a.nav-link:hover {
   #game-container .tile-square-wrapper {
     margin-left: -1vw;
     margin-right: -1vw; }
+  #game-container .js-tile-square-wrapper-4 {
+    margin-left: 1vw;
+    margin-right: 1vw; }
+  #game-container .js-tile-square-wrapper-5 {
+    margin-left: 1vw;
+    margin-right: 1vw; }
   #game-container .tile-square {
     height: 12.5vw;
     width: 12.5vw; }
-  #js-game-score {
-    line-height: 12.5vw; } }
+  #js-game-score,
+  #js-game-timer {
+    line-height: 12.5vw; }
+  #game-container .js-4-tiles-per-row {
+    height: 7.5vw;
+    width: 7.5vw; }
+  #game-container .js-5-tiles-per-row {
+    height: 7vw;
+    width: 7vw; } }
 
 @media only screen and (min-width: 1700px) {
   #game-container .tile-square-wrapper {
     margin-left: -3vw;
     margin-right: -3vw; }
+  #game-container .js-tile-square-wrapper-4 {
+    margin-left: 1vw;
+    margin-right: 1vw; }
+  #game-container .js-tile-square-wrapper-5 {
+    margin-left: 0vw;
+    margin-right: 0vw; }
   #game-container .tile-square {
     height: 8.5vw;
     width: 8.5vw; }
-  #js-game-score {
+  #game-container .js-5-tiles-per-row {
+    height: 5.5vw;
+    width: 5.5vw; }
+  #js-game-score,
+  #js-game-timer {
     line-height: 8.5vw; } }
 
 @media only screen and (min-width: 1600px) {
   #game-container .tile-square-wrapper {
     margin-left: -4.1vw;
     margin-right: -4.1vw; }
+  #game-container .js-tile-square-wrapper-4 {
+    margin-left: 1vw;
+    margin-right: 1vw; }
+  #game-container .js-tile-square-wrapper-5 {
+    margin-left: 0vw;
+    margin-right: 0vw; }
   #game-container .tile-square {
     height: 7.5vw;
     width: 7.5vw; }
-  #js-game-score {
+  #game-container .js-5-tiles-per-row {
+    height: 5.5vw;
+    width: 5.5vw; }
+  #js-game-score,
+  #js-game-timer {
     line-height: 7.5vw; } }
 
 #lp-row {
