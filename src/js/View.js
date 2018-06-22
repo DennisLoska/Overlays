@@ -26,8 +26,6 @@ function loadGameGUI(game) {
             let tile = $('<canvas />', {
                 'class': 'tile-square'
             })
-
-
             if (numPics == 4) {
                 col = $('<div />', {
                     'class': 'js-col-' + j.toString() +
@@ -35,14 +33,29 @@ function loadGameGUI(game) {
                 })
                 tile.addClass('js-4-tiles-per-row')
             } else if (numPics != 4) {
-                col = $('<div />', {
-                    'class': 'js-col-' + j.toString() +
-                        ' tile-square-wrapper col-2 text-center'
-                })
+                if (numPics != 5) {
+                    col = $('<div />', {
+                        'class': 'js-col-' + j.toString() +
+                            ' tile-square-wrapper col-2 text-center'
+                    })
+                }
                 tile.removeClass('js-4-tiles-per-row')
             }
-
-
+            if (numPics == 5) {
+                col = $('<div />', {
+                    'class': 'js-col-' + j.toString() +
+                        ' tile-square-wrapper  js-tile-square-wrapper-5 col-1 text-center'
+                })
+                tile.addClass('js-5-tiles-per-row')
+            } else if (numPics != 5) {
+                if (numPics != 4) {
+                    col = $('<div />', {
+                        'class': 'js-col-' + j.toString() +
+                            ' tile-square-wrapper col-2 text-center'
+                    })
+                }
+                tile.removeClass('js-5-tiles-per-row')
+            }
             if (i == 0) {
                 if (j == numPics + 1) {
                     tile = $('<div />', {

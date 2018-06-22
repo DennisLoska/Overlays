@@ -44,6 +44,7 @@ class GameEngine {
         let correctCombs = this.getAmountOfCorrectCombinations()
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
+            this.levelNumber += 1
             this.loadLevel()
             loadGameGUI(this) //from View.js
             clickedTile(this) //from View.js
@@ -52,7 +53,6 @@ class GameEngine {
             this.totalScore += levelScore
             console.log("Score: " + this.totalScore.toString())
             $('#js-game-score').html("Score: " + this.totalScore.toString())
-            this.levelNumber += 1
             this.clearArrays()
             this.loadImagesIntoLevel()
             this.clearGUI()
