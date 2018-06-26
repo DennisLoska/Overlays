@@ -80,8 +80,12 @@ class Level {
         let maximum
         let optimum
 
-        maximum = (parseInt(Math.pow(2, this.numPictures)) - this.numOne) * this.numPictures
+        //maximum = (parseInt(Math.pow(2, this.numPictures)) - this.numOne) * this.numPictures
         optimum = this.numPictures * this.numOne
+        maximum = Math.floor(2.5 * optimum)
+
+        console.log("Optimum clicks: " + optimum)
+        console.log("Maximum clicks: " + maximum)
 
         this.clickMax = maximum
         this.clickOpt = optimum
@@ -119,7 +123,7 @@ class Level {
     }
 
     printSettings() {
-        console.log("######################\nLevel: " + (this.lvl) + "\nNum Pics: " + this.levelSettings[this.lvl][0] +
+        console.log("######################\nLevel index: " + (this.lvl) + "\nNum Pics: " + this.levelSettings[this.lvl][0] +
             "\nNum Ones: " + this.levelSettings[this.lvl][1] + "\nTime: " + this.levelSettings[this.lvl][2] + "\nMax amount of clicks: " + this.clickMax +
             "\nTotal amount of Levels: " + this.amountOfLvls + "\n######################")
     }

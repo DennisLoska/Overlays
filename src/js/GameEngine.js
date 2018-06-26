@@ -235,20 +235,47 @@ class GameEngine {
 
     returnScore(clicks) {
         let score = 0
+
+        // PART 1: Clicks
+        let scoreByClicks = 0
         let maximum = this.level.clickMaximum
         let optimum = this.level.clickOptimum
-        let fullScoreLimit = 2 * optimum
+        //let fullScoreLimit = 2 * optimum
 
-        if (clicks == optimum || clicks <= fullScoreLimit)
-            score = 100
-        else if (clicks < maximum && clicks > fullScoreLimit) {
-            // abgestuft weniger Punktzahlen
-            let count = clicks - optimum
-            let schritte = (100.0 - fullScoreLimit) / maximum
-            score = 100 - (schritte * count)
-        } else if (clicks > maximum)
-            score = 0
-        return Math.floor(score)
+        if (clicks == optimum)
+            scoreByClicks = 100
+        else if (clicks < maximum && clicks > optimum) {
+            // zwischen click optimum und maximum: abgestuft weniger Punktzahlen
+            let count = clicks - optimum // wie viele schritt über maximum
+            let schritte = (100.0 - optimum) / maximum // prozentualer anteil
+            scoreByClicks = 100 - (schritte * count)
+        } else if (clicks >= maximum)
+            // keine punkte wenn click maximum erreicht ist
+            scoreByClicks = 0
+        
+        // PART 2: Time
+        let scoreByTime = 0
+        let time = 0 // = inputTime; what the clock says when finished -> add parameter of the method
+        let levelTime = this.level.time
+        let timeNeeded = levelTime - time
+
+        // unterteile punkte für zeit:
+        if(timeNeeded <= 1/3*levelTime){
+            //schneller als 1/3 der Zeit -> volle Punktzahl
+            scoreByTime = 100
+        } else if(timeNeeded > 1/3*levelTime && timeNeeded <= 2/3*levelTime){
+            //zwischen 1/3 und 2/3 der Zeit -> abgestufte Punktzahl
+            let count = timeNeeded - 1/3*levelTime // wie viele sekunden über optimaler Zeit
+            let schritte = (100.0 - 1/3*levelTime) / 2/3*levelTime // prozentualer anteil
+            scoreByClicks = 100 - (schritte * count)
+        } else if(timeNeeded > 2/3*levelTime){
+            //langsamer als 2/3 der Zeit -> keine Punkte
+            scoreByTime = 0
+        }
+
+
+        score = 0.5 * scoreByClicks + 0.5 * scoreByTime
+        return Math.floor(scoreByClicks)
     }
 
     comparePictures(index, wUserRow) {
