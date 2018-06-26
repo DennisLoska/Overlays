@@ -85,13 +85,31 @@ class GameEngine {
             }
         } else {
             // read basis images
-            if (this.levelNumber < 0)
+
+            if (this.levelNumber % 2 == 0) {
+                images.generatedImages
+                this.basisPixels = images.targetPixels
+                this.width = images.images[0].width
+                this.height = images.images[0].height
+                this.calculateImages()
+            } else {
+                images.folderImages(function (basisPixels) {
+                    console.log("Image in callback:", images)
+                    this.basisPixels = basisPixels
+                    this.width = images.images[0].width
+                    this.height = images.images[0].height
+                    console.log("Basispixels in callback:", images.basisPixels)
+                    this.calculateImages()
+                }.bind(this)) // Bilder aus pics Ordner
+            }
+
+            /*if (this.levelNumber < 0)
                 images.generatedImages // ImageGenerator Bilder
             else images.folderImages // Bilder aus image_sets Ordner
 
             this.basisPixels = images.targetPixels // delete?
             this.width = images.images[0].width
-            this.height = images.images[0].height
+            this.height = images.images[0].height*/
         }
     }
 
@@ -108,46 +126,30 @@ class GameEngine {
                 this.drawImagesInCanvas(this.basisPixels[i], i)
             }
         } else {
-            /*
-                        // TODO: this calculation is still not finished!
-                        this.mInv = new Array(this.numPics, this.numPics)
-                        //let pixelsBasis = Array(this.numPics, this.width * this.height * 4) // TODO: * 4 ? // int[][] pixelsBasis = new int[numPics][width*height];
-                        this.basisPixels = new Array(this.numPics, this.width * this.height * 4) // [numPics][pixels]
-
-                        for (let i = 0; i < this.numPics; i++) {
-                            this.mInv[i][i] = 1 //1./numOnes;
-                            this.basisPixels3 = new Array(this.numPics, undefined, undefined) // basisPixels3 = new double[numPics][][]; 
-
-                            this.basisImages[i] = this.calculateGetRGB(this.basisPixels[i]) // maybe don't need the images[] arrays at all
-                            this.basisPixels[i] = this.basisImages[i] // get the pixels from basis image
-
-                            // get the pixel array of the basisImages
-                            //basisImages[i].getRGB(0, 0, width, height, pixelsBasis[i], 0, width);
-                            //this.basisImages[i] = pixelBasis[i] // not sure?
-                        }
-                        for (let i = 0; i < this.numPics; i++) {
-                            this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.basisPixels, this.mInv[i]) // liefert nur 3 Kanäle RGB zurück
-                        }
-                        this.generateRandomM()*/
-            // IN WORK
-            this.findCombinations()
             this.targetPixels = new Array(this.numPics, undefined) // [numPics][pixel]
+            this.basisPixels3 = new Array(this.numPics, undefined)
+
+            this.mInv = new Array(this.numPics, this.numPics)
+            // fill with zeros first
+            for (let i = 0; i < this.numPics; i++) {
+                this.mInv[i] = []
+                for (let j = 0; j < this.numPics; j++)
+                    this.mInv[i][j] = 0
+            }
+            for (let i = 0; i < this.numPics; i++){
+                this.mInv[i][i] = 1; //1./numOnes;
+            }
+
+            for (let i = 0; i < this.numPics; i++){
+				this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.basisPixels, this.mInv[i]);
+            }
+            
+            this.generateRandomM()
 
             for (let i = 0; i < this.numPics; i++) {
-                this.targetPixels[i] = this.blendPixelsOfUser(this.basisPixels, this.m[i])
+                this.targetPixels[i] = this.blendPixelsOfUser(this.basisPixels3, this.m[i])
                 this.drawImagesInCanvas(this.targetPixels[i], i)
             }
-            // IN WORK
-            /*
-            this.targetPixels = new Array(this.numPics, this.width * this.height * 4)
-
-            for (let i = 0; i < targetPixels.length; i++) {
-
-                this.targetPixels[i] = this.blendPixelsToPixels(this.basisPixels, this.mInv[i])
-                this.drawImagesInCanvas(this.targetPixels[i], i + 1)
-
-                //this.targetPixels[i] = this.blend3DDoubleToPixels(this.basisPixels3, this.m[i])
-            }*/
         }
 
         this.printResult()

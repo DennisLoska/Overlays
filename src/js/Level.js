@@ -70,7 +70,7 @@ class Level {
     }
 
     doGenerate() {
-        let state = true
+        let state = false
         console.log("doGenerate: " + state)
         return state
     }
