@@ -99,9 +99,9 @@ class Level {
         // LEVEL FIVE
         this.levelSettings[4] = [4, 2, 100, false]
         // LEVEL SIX
-        this.levelSettings[5] = [4, 2, 100, false]
+        this.levelSettings[5] = [4, 2, 100, true]
         // LEVEL SEVEN
-        this.levelSettings[6] = [4, 3, 100, true]
+        this.levelSettings[6] = [4, 3, 100, false]
         // LEVEL EIGHT
         this.levelSettings[7] = [5, 3, 100, true]
         // LEVEL NINE
