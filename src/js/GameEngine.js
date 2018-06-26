@@ -68,12 +68,14 @@ class GameEngine {
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
             if (this.levelNumber % 2 == 0) {
+                // generated images 
                 images.generatedImages
                 this.targetPixels = images.targetPixels
                 this.width = images.images[0].width
                 this.height = images.images[0].height
                 this.calculateImages()
             } else {
+                // folder images 
                 images.folderImages(function (targetPixels) {
                     console.log("Image in callback:", images)
                     this.targetPixels = targetPixels
@@ -85,14 +87,15 @@ class GameEngine {
             }
         } else {
             // read basis images
-
             if (this.levelNumber % 2 == 0) {
+                // generated images 
                 images.generatedImages
                 this.basisPixels = images.targetPixels
                 this.width = images.images[0].width
                 this.height = images.images[0].height
                 this.calculateImages()
             } else {
+                // folder images 
                 images.folderImages(function (basisPixels) {
                     console.log("Image in callback:", images)
                     this.basisPixels = basisPixels
@@ -102,14 +105,6 @@ class GameEngine {
                     this.calculateImages()
                 }.bind(this)) // Bilder aus pics Ordner
             }
-
-            /*if (this.levelNumber < 0)
-                images.generatedImages // ImageGenerator Bilder
-            else images.folderImages // Bilder aus image_sets Ordner
-
-            this.basisPixels = images.targetPixels // delete?
-            this.width = images.images[0].width
-            this.height = images.images[0].height*/
         }
     }
 
@@ -204,7 +199,7 @@ class GameEngine {
         this.numOnes = this.level.numOnes
         // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
-        this.doGenerate = this.level.doGenerate()
+        this.doGenerate = this.level.doGenerate
     }
 
     clearArrays() {

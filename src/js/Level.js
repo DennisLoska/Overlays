@@ -7,6 +7,7 @@ class Level {
         this.lvlTime = undefined
         this.clickOpt = undefined
         this.clickMax = undefined
+        this.generateState = undefined
         this.amountOfLvls = 10
         this.levelSettings = new Array(this.amountOfLvls)
 
@@ -69,8 +70,8 @@ class Level {
         return this.clickOpt
     }
 
-    doGenerate() {
-        let state = false
+    get doGenerate() {
+        let state = this.generateState
         console.log("doGenerate: " + state)
         return state
     }
@@ -88,30 +89,31 @@ class Level {
 
     setSettings() {
         // LEVEL ONE
-        this.levelSettings[0] = [3, 2, 200]
+        this.levelSettings[0] = [3, 2, 200, false]
         // LEVEL TWO
-        this.levelSettings[1] = [3, 2, 150]
+        this.levelSettings[1] = [3, 2, 150, true]
         // LEVEL THREE
-        this.levelSettings[2] = [3, 2, 120]
+        this.levelSettings[2] = [3, 2, 120, false]
         // LEVEL FOUR
-        this.levelSettings[3] = [3, 2, 100]
+        this.levelSettings[3] = [3, 2, 100, true]
         // LEVEL FIVE
-        this.levelSettings[4] = [4, 2, 100]
+        this.levelSettings[4] = [4, 2, 100, false]
         // LEVEL SIX
-        this.levelSettings[5] = [4, 2, 100]
+        this.levelSettings[5] = [4, 2, 100, false]
         // LEVEL SEVEN
-        this.levelSettings[6] = [4, 3, 100]
+        this.levelSettings[6] = [4, 3, 100, true]
         // LEVEL EIGHT
-        this.levelSettings[7] = [5, 3, 100]
+        this.levelSettings[7] = [5, 3, 100, true]
         // LEVEL NINE
-        this.levelSettings[8] = [5, 3, 100]
+        this.levelSettings[8] = [5, 3, 100, false]
         // LEVEL TEN
-        this.levelSettings[9] = [5, 4, 100]
+        this.levelSettings[9] = [5, 4, 100, true]
 
         console.log("Level:", this.lvl);
         this.numPics = this.levelSettings[this.lvl][0]
         this.numOne = this.levelSettings[this.lvl][1]
         this.lvlTime = this.levelSettings[this.lvl][2]
+        this.generateState = this.levelSettings[this.lvl][3]
 
         this.calculateClicksForScore()
     }
