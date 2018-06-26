@@ -82,7 +82,7 @@ class Level {
 
         //maximum = (parseInt(Math.pow(2, this.numPictures)) - this.numOne) * this.numPictures
         optimum = this.numPictures * this.numOne
-        maximum = Math.floor(2.5 * optimum)
+        maximum = 3 * optimum
 
         console.log("Optimum clicks: " + optimum)
         console.log("Maximum clicks: " + maximum)

@@ -44,14 +44,15 @@ class GameEngine {
         let correctCombs = this.getAmountOfCorrectCombinations()
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
+            console.log("Level completed with " + this.clickCounter + " clicks!")
+            let levelScore = this.returnScore(this.clickCounter)
+            console.log("Score for this level: " + levelScore.toString())
+            this.totalScore += levelScore
+            console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
             this.loadLevel()
             loadGameGUI(this) //from View.js
             clickedTile(this) //from View.js
-            console.log("Level completed with " + this.clickCounter + " clicks!")
-            let levelScore = this.returnScore(this.clickCounter)
-            this.totalScore += levelScore
-            console.log("Score: " + this.totalScore.toString())
             $('#js-game-score').html("Score: " + this.totalScore.toString())
             this.clearArrays()
             this.loadImagesIntoLevel()
@@ -234,25 +235,23 @@ class GameEngine {
     }
 
     returnScore(clicks) {
-        let score = 0
-
         // PART 1: Clicks
         let scoreByClicks = 0
         let maximum = this.level.clickMaximum
         let optimum = this.level.clickOptimum
-        //let fullScoreLimit = 2 * optimum
 
         if (clicks == optimum)
             scoreByClicks = 100
         else if (clicks < maximum && clicks > optimum) {
             // zwischen click optimum und maximum: abgestuft weniger Punktzahlen
-            let count = clicks - optimum // wie viele schritt über maximum
-            let schritte = (100.0 - optimum) / maximum // prozentualer anteil
-            scoreByClicks = 100 - (schritte * count)
+            let count = clicks - optimum // wie viele clicks über optimum
+            let steps = 100.0 / (maximum - optimum) // prozentualer anteil = anzahl schritte die zwischen grenzen liegen
+            scoreByClicks = 100 - (steps * count)
         } else if (clicks >= maximum)
             // keine punkte wenn click maximum erreicht ist
             scoreByClicks = 0
         
+
         // PART 2: Time
         let scoreByTime = 0
         let time = 0 // = inputTime; what the clock says when finished -> add parameter of the method
@@ -265,16 +264,20 @@ class GameEngine {
             scoreByTime = 100
         } else if(timeNeeded > 1/3*levelTime && timeNeeded <= 2/3*levelTime){
             //zwischen 1/3 und 2/3 der Zeit -> abgestufte Punktzahl
-            let count = timeNeeded - 1/3*levelTime // wie viele sekunden über optimaler Zeit
+            /*let count = timeNeeded - 1/3*levelTime // wie viele sekunden über optimaler Zeit
             let schritte = (100.0 - 1/3*levelTime) / 2/3*levelTime // prozentualer anteil
-            scoreByClicks = 100 - (schritte * count)
+            scoreByClicks = 100 - (schritte * count)*/
+           
+            /*let d = 100 / (1/3 * levelTime) // schritte die abgezogen werden, wenn über optimum -> maximum - optimum = anzahl schritte die dazwischen liegen
+            let e = timeNeeded - 1/3*levelTime // wie viele clicks über optimum // TODO: berechnung mit milisekunden anders
+            let f = 100 - (e*f) 
+            scoreByClicks = f*/
         } else if(timeNeeded > 2/3*levelTime){
             //langsamer als 2/3 der Zeit -> keine Punkte
             scoreByTime = 0
         }
 
-
-        score = 0.5 * scoreByClicks + 0.5 * scoreByTime
+        let score = 0.5 * scoreByClicks + 0.5 * scoreByTime
         return Math.floor(scoreByClicks)
     }
 
