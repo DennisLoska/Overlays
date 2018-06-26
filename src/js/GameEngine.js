@@ -54,6 +54,7 @@ class GameEngine {
             loadGameGUI(this) //from View.js
             clickedTile(this) //from View.js
             $('#js-game-score').html("Score: " + this.totalScore.toString())
+            $('#js-game-timer').html("Zeit: " + (this.level.time/1000) + "s")
             this.clearArrays()
             this.loadImagesIntoLevel()
             this.clearGUI()
@@ -202,6 +203,7 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate
 
+        $('#js-game-timer').html("Zeit: " + (this.level.time/1000) + "s")
         this.startTime = this.getTime()
     }
 
@@ -279,7 +281,6 @@ class GameEngine {
         this.endTime = this.getTime()
         let timeNeeded = this.endTime - this.startTime
         console.log("Time needed: " + timeNeeded + " milliseconds or " + (timeNeeded/1000) +  " seconds.")
-        //let difference = levelTime - timeNeeded
 
         let boundaryTop = 1/3 * levelTime // grenze bis zu der es volle Punktzahl gibt 
         let boundaryLow = 3/4 * levelTime // grenze ab der es keine Punkte mehr gibt
