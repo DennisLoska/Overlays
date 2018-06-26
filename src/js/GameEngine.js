@@ -361,7 +361,8 @@ class GameEngine {
                 for (let j = 0; j < this.numPics; j++)
                     this.m[i][j] = 0
             }
-            for (let i = 0; i < this.numPics; i++) {
+            // numOnes mal eine 1 in jede Zeile von m setzen
+            for (let i = 0; i < this.m.length; i++) {
                 for (let j = 0; j < this.numOnes; j++) {
                     let index
                     do index = Math.floor(Math.random() * this.numPics)
