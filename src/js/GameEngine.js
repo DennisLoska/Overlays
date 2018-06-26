@@ -274,34 +274,47 @@ class GameEngine {
 
         // PART 2: Time
         let scoreByTime = 0
-        let levelTime = this.level.time
+        let levelTime = this.level.time // hole gesamt gegebene Zeit des Levels
 
         this.endTime = this.getTime()
         let timeNeeded = this.endTime - this.startTime
         console.log("Time needed: " + timeNeeded + " milliseconds or " + (timeNeeded/1000) +  " seconds.")
-        let difference = levelTime - timeNeeded
+        //let difference = levelTime - timeNeeded
+
+        let boundaryTop = 1/3 * levelTime // grenze bis zu der es volle Punktzahl gibt 
+        let boundaryLow = 3/4 * levelTime // grenze ab der es keine Punkte mehr gibt
 
         // unterteile punkte für zeit:
-        if(timeNeeded <= 1/3*levelTime){
+        if(timeNeeded <= boundaryTop){
             //schneller als 1/3 der Zeit -> volle Punktzahl
             scoreByTime = 100
-        } else if(timeNeeded > 1/3*levelTime && timeNeeded <= 2/3*levelTime){
-            //zwischen 1/3 und 2/3 der Zeit -> abgestufte Punktzahl
-            /*let count = timeNeeded - 1/3*levelTime // wie viele sekunden über optimaler Zeit
-            let schritte = (100.0 - 1/3*levelTime) / 2/3*levelTime // prozentualer anteil
-            scoreByClicks = 100 - (schritte * count)*/
-           
-            /*let d = 100 / (1/3 * levelTime) // schritte die abgezogen werden, wenn über optimum -> maximum - optimum = anzahl schritte die dazwischen liegen
-            let e = timeNeeded - 1/3*levelTime // wie viele clicks über optimum // TODO: berechnung mit milisekunden anders
-            let f = 100 - (e*f) 
-            scoreByClicks = f*/
-        } else if(timeNeeded > 2/3*levelTime){
-            //langsamer als 2/3 der Zeit -> keine Punkte
+        } else if(timeNeeded > boundaryTop && timeNeeded <= boundaryLow){
+            //zwischen boundaryTop und boundaryLow der Zeit -> abgestufte Punktzahl
+            let coeff = boundaryTop / timeNeeded 
+            // z.B wenn levelTime = 300000, dann: 10000 / 16000 = 0.6666 = 66.666 Punkte
+            scoreByTime = 100 * coeff
+        } else if(timeNeeded > boundaryLow){
+            //gebrauchte Zeit höher als boundaryLow -> keine Punkte
             scoreByTime = 0
         }
 
         let score = 0.5 * scoreByClicks + 0.5 * scoreByTime
-        return Math.floor(scoreByClicks)
+
+        // PART 3: Vergabe von Sternen
+        let stars = 0
+        if(score >= 100*2/3){
+            stars = 3
+        } else if(score < 100*2/3 && score >= 100*1/3){
+            stars = 2
+        } else if(score < 100*1/3){
+            stars = 1
+        } else if(score == 0){
+            stars = 0
+        }
+        console.log("Sterne für dieses Level: " + stars.toString())
+        //erstelle totalStars? - this.totalStars += stars 
+
+        return Math.floor(score)
     }
 
     comparePictures(index, wUserRow) {
