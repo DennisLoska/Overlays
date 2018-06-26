@@ -201,6 +201,26 @@ class GameEngine {
         // true: generiere Basisbilder, die die gelesenen Eingangsbilder erzeugen
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate
+
+        this.startTime = this.getTime()
+    }
+
+    getTime(){
+        let t = 0
+
+        let timer = new Date()
+        let h = timer.getHours();
+        let m = timer.getMinutes();
+        let s = timer.getSeconds();
+        let ms = timer.getMilliseconds();
+
+        let minutes = m + h * 60
+        let seconds = s + minutes * 60
+        let milliseconds = ms + seconds * 1000
+
+        t = milliseconds
+
+        return t
     }
 
     clearArrays() {
@@ -254,9 +274,12 @@ class GameEngine {
 
         // PART 2: Time
         let scoreByTime = 0
-        let time = 0 // = inputTime; what the clock says when finished -> add parameter of the method
         let levelTime = this.level.time
-        let timeNeeded = levelTime - time
+
+        this.endTime = this.getTime()
+        let timeNeeded = this.endTime - this.startTime
+        console.log("Time needed: " + timeNeeded + " milliseconds or " + (timeNeeded/1000) +  " seconds.")
+        let difference = levelTime - timeNeeded
 
         // unterteile punkte für zeit:
         if(timeNeeded <= 1/3*levelTime){
