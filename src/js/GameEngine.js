@@ -335,7 +335,7 @@ class GameEngine {
         do {
             this.generateRandomM()
             success = true
-            this.mInv = InverseMatrix.invert(this.m)
+            this.mInv = matrix_invert(this.m)
             console.log("Inverted Matrix:", this.mInv)
             for (let i = 0; i < this.mInv.length; i++) {
                 for (let j = 0; j < this.mInv[i].length; j++) {
