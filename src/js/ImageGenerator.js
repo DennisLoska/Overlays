@@ -5,14 +5,14 @@ class ImageGenerator {
         this.height = 150
         //The * 4 at the end represent RGBA which we need to be compatible with canvas.
         this.rndImagePixels = new Uint8ClampedArray(this.width * this.height * 4)
-
+        this.counter = 1
         let whiteBackground = true
 
         // generate color between 1 and 255
         let randomR = Math.floor((Math.random() * 255) + 1)
         let randomG = Math.floor((Math.random() * 255) + 1)
         let randomB = Math.floor((Math.random() * 255) + 1)
-        let white = 255
+        let white = 128
 
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
@@ -44,7 +44,8 @@ class ImageGenerator {
     addShapes(ctx) {
         // add random shapes in random colors to the image
         let color = this.randomColor
-        let option = Math.floor(Math.random() * 3) + 1
+        //let option = Math.floor(Math.random() * 3) + 1
+        let option = this.counter % 3+1
         if (option == 1) {
             // Rectangle
             let xStart = this.width / 4
@@ -56,7 +57,8 @@ class ImageGenerator {
             offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // this will add minus sign in 50% of cases
 
             ctx.fillStyle = color
-            ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset)
+            //ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset)
+            ctx.fillRect(20, 20, 80, 80)
         }
         if (option == 2) {
             // Circle
@@ -66,7 +68,9 @@ class ImageGenerator {
 
             ctx.fillStyle = color
             ctx.beginPath()
-            ctx.arc(this.width / 2 + offset, this.height / 2 + offset, radius, 0, 2 * Math.PI)
+            //ctx.arc(this.width / 2 + offset, this.height / 2 + offset, radius, 0, 2 * Math.PI)
+            ctx.arc(this.width / 2, this.height / 2, 40, 0, 2 * Math.PI)
+
             ctx.fill()
             ctx.closePath()
         }
@@ -80,12 +84,18 @@ class ImageGenerator {
 
             ctx.fillStyle = color
             ctx.beginPath()
-            ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
-            ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
-            ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
+            //ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
+            //ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
+            //ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
+
+            ctx.moveTo(110, 110) // von 110, 110
+            ctx.lineTo(110, 20) // zu 110, 20
+            ctx.lineTo(20, 110) // zu 20, 110
+
             ctx.fill()
             ctx.closePath()
         }
+        this.counter++
     }
 
     get randomColor() {

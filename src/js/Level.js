@@ -93,9 +93,9 @@ class Level {
 
     setSettings() {
         // LEVEL ONE
-        this.levelSettings[0] = [3, 2, 30000, false]
+        this.levelSettings[0] = [3, 2, 30000, true]
         // LEVEL TWO
-        this.levelSettings[1] = [3, 2, 30000, true]
+        this.levelSettings[1] = [4, 2, 30000, true]
         // LEVEL THREE
         this.levelSettings[2] = [3, 2, 30000, false]
         // LEVEL FOUR

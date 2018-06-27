@@ -69,7 +69,7 @@ class GameEngine {
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
-            if (this.levelNumber % 2 == 0) {
+            if (this.levelNumber < 6) {
                 // generated images 
                 images.generatedImages
                 this.targetPixels = images.targetPixels

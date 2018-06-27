@@ -320,8 +320,9 @@ class Images {
         this.images = new Array(this.numImages)
         try {
             let targetImgData = new Array()
+            let generator = new ImageGenerator()
             for (let i = 0; i < this.numImages; i++) {
-                let generator = new ImageGenerator()
+                //let generator = new ImageGenerator()
                 this.images[i] = new Image()
                 let canvas
 
