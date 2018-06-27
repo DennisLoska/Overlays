@@ -54,7 +54,7 @@ class GameEngine {
             loadGameGUI(this) //from View.js
             clickedTile(this) //from View.js
             $('#js-game-score').html("Score: " + this.totalScore.toString())
-            $('#js-game-timer').html("Zeit: " + (this.level.time/1000) + "s")
+            $('#js-game-timer').html("Zeit: " + (this.level.time / 1000) + "s")
             this.clearArrays()
             this.loadImagesIntoLevel()
             this.clearGUI()
@@ -133,14 +133,14 @@ class GameEngine {
                 for (let j = 0; j < this.numPics; j++)
                     this.mInv[i][j] = 0
             }
-            for (let i = 0; i < this.numPics; i++){
+            for (let i = 0; i < this.numPics; i++) {
                 this.mInv[i][i] = 1; //1./numOnes;
             }
 
-            for (let i = 0; i < this.numPics; i++){
-				this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.basisPixels, this.mInv[i]);
+            for (let i = 0; i < this.numPics; i++) {
+                this.basisPixels3[i] = this.blendPixelsTo3DDoubleImage(this.basisPixels, this.mInv[i]);
             }
-            
+
             this.generateRandomM()
 
             for (let i = 0; i < this.numPics; i++) {
@@ -203,11 +203,11 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate
 
-        $('#js-game-timer').html("Zeit: " + (this.level.time/1000) + "s")
+        $('#js-game-timer').html("Zeit: " + (this.level.time / 1000) + "s")
         this.startTime = this.getTime()
     }
 
-    getTime(){
+    getTime() {
         let t = 0
 
         let timer = new Date()
@@ -268,13 +268,13 @@ class GameEngine {
             // zwischen click optimum und maximum: abgestuft weniger Punktzahlen
             let count = clicks - optimum // overhead; wie viele clicks über optimum
             let steps = 100.0 / (maximum - optimum) // prozentualer anteil
-                                                    // maximum - optimum = anzahl schritte die abgestuft bewertet werden
-                                                    // 100.0 / (maximum - optimum) = größe der schritte 
+            // maximum - optimum = anzahl schritte die abgestuft bewertet werden
+            // 100.0 / (maximum - optimum) = größe der schritte 
             scoreByClicks = 100 - (steps * count)
         } else if (clicks > maximum)
             // keine punkte wenn click maximum erreicht ist
             scoreByClicks = 0
-        
+
 
         // PART 2: Time
         let scoreByTime = 0
@@ -282,21 +282,21 @@ class GameEngine {
 
         this.endTime = this.getTime()
         let timeNeeded = this.endTime - this.startTime
-        console.log("Time needed: " + timeNeeded + " milliseconds or " + (timeNeeded/1000) +  " seconds.")
+        console.log("Time needed: " + timeNeeded + " milliseconds or " + (timeNeeded / 1000) + " seconds.")
 
-        let boundaryTop = 1/3 * levelTime // grenze bis zu der es volle Punktzahl gibt 
-        let boundaryLow = 3/4 * levelTime // grenze ab der es keine Punkte mehr gibt
+        let boundaryTop = 1 / 3 * levelTime // grenze bis zu der es volle Punktzahl gibt 
+        let boundaryLow = 3 / 4 * levelTime // grenze ab der es keine Punkte mehr gibt
 
         // unterteile punkte für zeit:
-        if(timeNeeded <= boundaryTop){
+        if (timeNeeded <= boundaryTop) {
             //schneller als 1/3 der Zeit -> volle Punktzahl
             scoreByTime = 100
-        } else if(timeNeeded > boundaryTop && timeNeeded <= boundaryLow){
+        } else if (timeNeeded > boundaryTop && timeNeeded <= boundaryLow) {
             //zwischen boundaryTop und boundaryLow der Zeit -> abgestufte Punktzahl
-            let coeff = boundaryTop / timeNeeded 
+            let coeff = boundaryTop / timeNeeded
             // z.B wenn levelTime = 300000 und timeNeeded = 160000, dann: 10000 / 16000 = 0.6666 = 66.666 Punkte
             scoreByTime = 100 * coeff
-        } else if(timeNeeded > boundaryLow){
+        } else if (timeNeeded > boundaryLow) {
             //gebrauchte Zeit höher als boundaryLow -> keine Punkte
             scoreByTime = 0
         }
@@ -305,13 +305,13 @@ class GameEngine {
 
         // PART 3: Vergabe von Sternen
         let stars = 0
-        if(score >= 100*2/3){
+        if (score >= 100 * 2 / 3) {
             stars = 3
-        } else if(score < 100*2/3 && score >= 100*1/3){
+        } else if (score < 100 * 2 / 3 && score >= 100 * 1 / 3) {
             stars = 2
-        } else if(score < 100*1/3){
+        } else if (score < 100 * 1 / 3) {
             stars = 1
-        } else if(score == 0){
+        } else if (score == 0) {
             stars = 0
         }
         console.log("Sterne für dieses Level: " + stars.toString())
@@ -335,7 +335,8 @@ class GameEngine {
         let success
         let tries = 0
         do {
-            this.generateRandomM()
+            do this.generateRandomM()
+            while (matrix_invert(this.m) == undefined)
             success = true
             this.mInv = matrix_invert(this.m)
             console.log("Inverted Matrix:", this.mInv)
