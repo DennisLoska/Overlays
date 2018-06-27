@@ -7,9 +7,10 @@ function clickedTile(game) {
 }
 
 function loadGameGUI(game) {
-    if (game == undefined)
-        numPics = 3
-    else numPics = game.numPics
+    if (game == undefined) {
+        let lv = new Level(0) //always first Level
+        numPics = lv.numPics
+    } else numPics = game.numPics
     let area = $('#js-game-wrapper')
     area.html('')
 
