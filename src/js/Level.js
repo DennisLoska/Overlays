@@ -82,7 +82,7 @@ class Level {
 
         //maximum = (parseInt(Math.pow(2, this.numPictures)) - this.numOne) * this.numPictures
         optimum = this.numPictures * this.numOne
-        maximum = 3 * optimum
+        maximum = 2 * optimum // alternativ: * this.numOne anstatt * 2
 
         console.log("Optimum clicks: " + optimum)
         console.log("Maximum clicks: " + maximum)
@@ -93,25 +93,25 @@ class Level {
 
     setSettings() {
         // LEVEL ONE
-        this.levelSettings[0] = [3, 2, 40000, false]
+        this.levelSettings[0] = [3, 2, 30000, false]
         // LEVEL TWO
-        this.levelSettings[1] = [3, 2, 40000, true]
+        this.levelSettings[1] = [3, 2, 30000, true]
         // LEVEL THREE
-        this.levelSettings[2] = [3, 2, 35000, false]
+        this.levelSettings[2] = [3, 2, 30000, false]
         // LEVEL FOUR
-        this.levelSettings[3] = [3, 2, 35000, true]
+        this.levelSettings[3] = [3, 2, 30000, true]
         // LEVEL FIVE
-        this.levelSettings[4] = [4, 2, 30000, false]
+        this.levelSettings[4] = [4, 2, 35000, false]
         // LEVEL SIX
-        this.levelSettings[5] = [4, 2, 25000, true]
+        this.levelSettings[5] = [4, 2, 35000, true]
         // LEVEL SEVEN
-        this.levelSettings[6] = [4, 3, 25000, false]
+        this.levelSettings[6] = [4, 3, 40000, false]
         // LEVEL EIGHT
-        this.levelSettings[7] = [5, 3, 20000, true]
+        this.levelSettings[7] = [5, 3, 40000, true]
         // LEVEL NINE
-        this.levelSettings[8] = [5, 3, 20000, false]
+        this.levelSettings[8] = [5, 3, 40000, false]
         // LEVEL TEN
-        this.levelSettings[9] = [5, 4, 15000, true]
+        this.levelSettings[9] = [5, 4, 45000, true]
 
         console.log("Level:", this.lvl);
         this.numPics = this.levelSettings[this.lvl][0]
