@@ -264,12 +264,14 @@ class GameEngine {
 
         if (clicks == optimum)
             scoreByClicks = 100
-        else if (clicks < maximum && clicks > optimum) {
+        else if (clicks > optimum && clicks <= maximum) {
             // zwischen click optimum und maximum: abgestuft weniger Punktzahlen
-            let count = clicks - optimum // wie viele clicks über optimum
-            let steps = 100.0 / (maximum - optimum) // prozentualer anteil = anzahl schritte die zwischen grenzen liegen
+            let count = clicks - optimum // overhead; wie viele clicks über optimum
+            let steps = 100.0 / (maximum - optimum) // prozentualer anteil
+                                                    // maximum - optimum = anzahl schritte die abgestuft bewertet werden
+                                                    // 100.0 / (maximum - optimum) = größe der schritte 
             scoreByClicks = 100 - (steps * count)
-        } else if (clicks >= maximum)
+        } else if (clicks > maximum)
             // keine punkte wenn click maximum erreicht ist
             scoreByClicks = 0
         
@@ -292,7 +294,7 @@ class GameEngine {
         } else if(timeNeeded > boundaryTop && timeNeeded <= boundaryLow){
             //zwischen boundaryTop und boundaryLow der Zeit -> abgestufte Punktzahl
             let coeff = boundaryTop / timeNeeded 
-            // z.B wenn levelTime = 300000, dann: 10000 / 16000 = 0.6666 = 66.666 Punkte
+            // z.B wenn levelTime = 300000 und timeNeeded = 160000, dann: 10000 / 16000 = 0.6666 = 66.666 Punkte
             scoreByTime = 100 * coeff
         } else if(timeNeeded > boundaryLow){
             //gebrauchte Zeit höher als boundaryLow -> keine Punkte
