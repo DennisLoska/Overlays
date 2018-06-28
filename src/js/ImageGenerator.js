@@ -45,7 +45,7 @@ class ImageGenerator {
         // add random shapes in random colors to the image
         let color = this.randomColor
 
-        //let color = this.seededColor
+        let seededColor = this.seededColor
 
         //let option = Math.floor(Math.random() * 3) + 1
         let option = this.counter % 3+1
@@ -114,15 +114,36 @@ class ImageGenerator {
         console.log("--- SEED: " + seed + "---")
 
         // Random r = new Random(seed)
-        let r = 0;
-        let g = 0;
-        let b = 0;
+        let r = this.generateWithSeed(seed);
+        let g = this.generateWithSeed(seed);
+        let b = this.generateWithSeed(seed);
 
-        let color = rgbToHex(r, g, b)
+        let color = this.rgbToHex(r, g, b)
         return color
     }
 
+    generateWithSeed(seed){
+        let m_w = 123456789;
+        let m_z = 987654321;
+        let mask = 0xffffffff;
+
+        // Takes any integer
+        m_w = seed;
+        m_z = 987654321;
+
+        // Returns number between 0 (inclusive) and 1.0 (exclusive),
+        // just like Math.random(). 
+        m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask;
+        m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask;
+        let result = ((m_z << 16) + m_w) & mask;
+        result /= 4294967296;
+        result = result + 0.5;
+
+        console.log("### SEED Output: " + result)
+    }
+
     rgbToHex(r, g, b) {
+        console.log("#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1));
         return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
     }
 }
