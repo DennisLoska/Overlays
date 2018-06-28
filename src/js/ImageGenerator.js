@@ -44,6 +44,9 @@ class ImageGenerator {
     addShapes(ctx) {
         // add random shapes in random colors to the image
         let color = this.randomColor
+
+        //let color = this.seededColor
+
         //let option = Math.floor(Math.random() * 3) + 1
         let option = this.counter % 3+1
         if (option == 1) {
@@ -104,5 +107,22 @@ class ImageGenerator {
         while (c == "#FFFFFF" || c == "#000000")
             c = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
         return c
+    }
+
+    get seededColor(){
+        let seed = Math.floor(Math.random() * 201) // generiert random Zahl zwischen 0 und 200 
+        console.log("--- SEED: " + seed + "---")
+
+        // Random r = new Random(seed)
+        let r = 0;
+        let g = 0;
+        let b = 0;
+
+        let color = rgbToHex(r, g, b)
+        return color
+    }
+
+    rgbToHex(r, g, b) {
+        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
     }
 }

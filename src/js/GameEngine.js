@@ -285,7 +285,7 @@ class GameEngine {
         console.log("Time needed: " + timeNeeded + " milliseconds or " + (timeNeeded / 1000) + " seconds.")
 
         let boundaryTop = 1 / 3 * levelTime // grenze bis zu der es volle Punktzahl gibt 
-        let boundaryLow = 3 / 4 * levelTime // grenze ab der es keine Punkte mehr gibt
+        let boundaryLow = levelTime // grenze ab der es keine Punkte mehr gibt
 
         // unterteile punkte für zeit:
         if (timeNeeded <= boundaryTop) {
