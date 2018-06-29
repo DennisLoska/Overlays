@@ -6,7 +6,42 @@ function clickedTile(game) {
     })
 }
 
+function loadLvlCompleteBox(game) {
+    let box = '<div id="level-finished-wrapper"><div id="level-finished-box"><h3 id="js-finished-lvl">LEVEL COMPLETED!</h3><div id="star-wrapper"><span id="1-star" class="fa fa-star"></span><span id="2-star" class="fa fa-star"></span><span id="3-star" class="fa fa-star"></span></div><div id="finished-data-wrapper"><div id="js-finished-score">SCORE: </div><div id="js-finished-time">TIME:</div></div><button id="btn-next-lvl">NEXT LEVEL</button></div></div>'
+
+    $('#js-level-finished-box').html(box)
+    $('#js-finished-lvl').html('LEVEL ' + game.levelNumber + ' COMPLETED!')
+
+    for (let i = 1; i <= game.stars; i++) {
+        let star = '#' + i.toString() + '-star'
+        $(star).toggleClass('checked')
+    }
+    $('#js-finished-score').html('Score: ' + game.totalScore.toString())
+    $('#js-finished-time').html('Zeit: ' + (game.level.time / 1000) + 's')
+}
+
+function clickedNextLvl(game) {
+    $('#btn-next-lvl').click(function () {
+        var row = $(this).attr('data-row')
+        var col = $(this).attr('data-col')
+        game.updateOnClick(row, col)
+    })
+}
+
+function toggleLvlCompleteBox() {
+    $('#level-finished-wrapper').toggleClass('hide-box')
+}
+
+function clearGUI(game) {
+    $('.js-card').each(function () {
+        $(game).removeClass('js-is-flipped')
+    })
+    $('#level-headline').html('Level ' + (game.levelNumber + 1).toString())
+    toggleLvlCompleteBox()
+}
+
 function loadGameGUI(game) {
+    toggleLvlCompleteBox()
     if (game == undefined) {
         let lv = new Level(0) //always first Level
         numPics = lv.numPics
@@ -71,12 +106,12 @@ function loadGameGUI(game) {
                     tile.attr('id', 'js-game-score')
                     tile.html('Score:')
                 } else if (j < numPics)
-                    tile.attr('id', "js-basis-image-" + j.toString())
+                    tile.attr('id', 'js-basis-image-' + j.toString())
             } else {
                 if (j == numPics)
-                    tile.attr('id', "js-starting-image-" + (i - 1).toString())
+                    tile.attr('id', 'js-starting-image-' + (i - 1).toString())
                 else if (j == numPics + 1)
-                    tile.attr('id', "js-user-image-" + (i - 1).toString())
+                    tile.attr('id', 'js-user-image-' + (i - 1).toString())
                 else {
                     tile.addClass('js-card')
                     tile.attr('data-row', (i - 1).toString())

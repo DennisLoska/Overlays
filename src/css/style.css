@@ -694,6 +694,54 @@ footer {
   display: none; }
 
 /* MODULES - Individual site components */
+#js-level-finished-box {
+  width: 25vw;
+  min-width: 300px; }
+  #js-level-finished-box #level-finished-wrapper {
+    position: fixed;
+    top: 17vh;
+    box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8); }
+    #js-level-finished-box #level-finished-wrapper #level-finished-box {
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      width: 25vw;
+      min-width: 300px;
+      height: 500px;
+      padding: 50px;
+      border-radius: 5px; }
+      #js-level-finished-box #level-finished-wrapper #level-finished-box #star-wrapper {
+        font-size: 70px; }
+        #js-level-finished-box #level-finished-wrapper #level-finished-box #star-wrapper .checked {
+          color: gold; }
+        #js-level-finished-box #level-finished-wrapper #level-finished-box #star-wrapper .fa-star {
+          padding: 10px; }
+      #js-level-finished-box #level-finished-wrapper #level-finished-box #finished-data-wrapper {
+        text-align: left;
+        font-size: 24px; }
+      #js-level-finished-box #level-finished-wrapper #level-finished-box #btn-next-lvl {
+        width: 150px;
+        height: 50px;
+        color: #fff;
+        background-color: #d15151;
+        border: 1px solid #d15151;
+        box-sizing: border-box;
+        transition: all .25s ease-in;
+        -moz-transition: all .25s ease-in;
+        -webkit-transition: all .25s ease-in;
+        border-radius: 3px;
+        font-size: 20px;
+        font-weight: 500; }
+      #js-level-finished-box #level-finished-wrapper #level-finished-box #btn-next-lvl:hover {
+        opacity: 0.8; }
+
+.hide-box {
+  display: none; }
+
 .tut-tile-off {
   background-color: #333; }
 

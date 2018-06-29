@@ -50,14 +50,18 @@ class GameEngine {
             this.totalScore += levelScore
             console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
-            this.loadLevel()
-            loadGameGUI(this) //from View.js
-            clickedTile(this) //from View.js
-            $('#js-game-score').html("Score: " + this.totalScore.toString())
-            $('#js-game-timer').html("Zeit: " + (this.level.time / 1000) + "s")
-            this.clearArrays()
-            this.loadImagesIntoLevel()
-            this.clearGUI()
+            loadLvlCompleteBox(this)
+            $('#btn-next-lvl').click(function () {
+                toggleLvlCompleteBox()
+                this.loadLevel()
+                loadGameGUI(this) //from View.js
+                clickedTile(this) //from View.js
+                $('#js-game-score').html("Score: " + this.totalScore.toString())
+                $('#js-game-timer').html("Zeit: " + (this.level.time / 1000) + "s")
+                this.clearArrays()
+                this.loadImagesIntoLevel()
+                clearGUI(this)
+            }.bind(this))
         }
     }
 
@@ -249,13 +253,6 @@ class GameEngine {
         this.clickCounter = 0 // resets clickCounter
     }
 
-    clearGUI() {
-        $('.js-card').each(function () {
-            $(this).removeClass('js-is-flipped')
-        })
-        $('#level-headline').html('Level ' + (this.levelNumber + 1).toString())
-    }
-
     returnScore(clicks) {
         // PART 1: Clicks
         let scoreByClicks = 0
@@ -314,6 +311,7 @@ class GameEngine {
         } else if (score == 0) {
             stars = 0
         }
+        this.stars = stars
         console.log("Sterne für dieses Level: " + stars.toString())
         //erstelle totalStars? - this.totalStars += stars 
 
