@@ -317,10 +317,13 @@ class Images {
     get generatedImages() {
         // instanziiere ImageGenerator und rufe randomImage() auf 
         console.log("Generated images used.")
-        this.images = new Array(this.numImages)
+        this.images = new Array(this.numImages) 
+
+        let seed = Math.floor(Math.random() * 501) // generiert random Zahl zwischen 0 und 500 
+        let generator = new ImageGenerator(seed, this.numImages)
+
         try {
             let targetImgData = new Array()
-            let generator = new ImageGenerator()
             for (let i = 0; i < this.numImages; i++) {
                 //let generator = new ImageGenerator()
                 this.images[i] = new Image()
@@ -347,7 +350,7 @@ class Images {
                 ctx.putImageData(imgData, 0, 0)
 
                 // put random shape of random color on picture
-                generator.addShapes(ctx)
+                generator.addShapes(ctx, i) // i = index of image
                 let imgDataWithShapes = ctx.getImageData(0, 0, canvas.width, canvas.height)
                 targetImgData.push(imgDataWithShapes.data)
             }

@@ -1,6 +1,6 @@
 class ImageGenerator {
 
-    constructor() {
+    constructor(seed, numImgs) {
         this.width = 150
         this.height = 150
         //The * 4 at the end represent RGBA which we need to be compatible with canvas.
@@ -8,11 +8,11 @@ class ImageGenerator {
         this.counter = 1
         let whiteBackground = true
 
-        // generate color between 1 and 255
-        let randomR = Math.floor((Math.random() * 255) + 1)
-        let randomG = Math.floor((Math.random() * 255) + 1)
-        let randomB = Math.floor((Math.random() * 255) + 1)
-        let white = 128
+        // generate color between 0 and 255
+        let randomR = Math.floor((Math.random() * 256))
+        let randomG = Math.floor((Math.random() * 256))
+        let randomB = Math.floor((Math.random() * 256))
+        let white = 128 // gray level for background
 
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
@@ -30,6 +30,36 @@ class ImageGenerator {
                 }
             }
         }
+
+        // SEED FUNCTION:
+        Math.seed = function(s) {
+            var m_w  = s;
+            var m_z  = 987654321;
+            var mask = 0xffffffff;
+
+            m_w = 987654321 + s; //added
+            m_z = 123456789 - s; // added
+        
+            return function() {
+              m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask;
+              m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask;
+        
+              var result = ((m_z << 16) + m_w) & mask;
+              result /= 4294967296;
+        
+              return result + 0.5;
+            }
+        }
+        console.log("--- SEED: " + seed + "---")
+        this.seedFunction = Math.seed(seed); // call this function to generate nums between 0 and 1
+
+        this.seed = seed
+        this.seededColors = new Array(numImgs); // store seeded colors in array
+        // initialize - fill with dummy values / zeros
+        for(let i = 0; i < this.seededColors.length; i++){
+            this.seededColors[i] = 0
+        }
+        this.seededColors = this.randomSeed(); // fill array with colors 
     }
 
     set randomImagePixels(array) {
@@ -41,11 +71,10 @@ class ImageGenerator {
         return this.rndImagePixels
     }
 
-    addShapes(ctx) {
+    addShapes(ctx, index) {
         // add random shapes in random colors to the image
-        let color = this.randomColor
-
-        let seededColor = this.seededColor
+        //let color = this.randomColor
+        let seededColor = this.seededColors[index] //index = welches image, von Images.js loop
 
         //let option = Math.floor(Math.random() * 3) + 1
         let option = this.counter % 3+1
@@ -59,7 +88,8 @@ class ImageGenerator {
             let offset = Math.floor(Math.random() * 10) + 1 // this will get a number between 1 and 10;
             offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // this will add minus sign in 50% of cases
 
-            ctx.fillStyle = color
+            //ctx.fillStyle = color
+            ctx.fillStyle = seededColor
             //ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset)
             ctx.fillRect(20, 20, 80, 80)
         }
@@ -69,7 +99,8 @@ class ImageGenerator {
             offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
             let radius = Math.floor(Math.random() * 40) + 20
 
-            ctx.fillStyle = color
+            //ctx.fillStyle = color
+            ctx.fillStyle = seededColor
             ctx.beginPath()
             //ctx.arc(this.width / 2 + offset, this.height / 2 + offset, radius, 0, 2 * Math.PI)
             ctx.arc(this.width / 2, this.height / 2, 40, 0, 2 * Math.PI)
@@ -85,7 +116,8 @@ class ImageGenerator {
             let offset2 = Math.floor(Math.random() * 20) + 1
             offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
 
-            ctx.fillStyle = color
+            //ctx.fillStyle = color
+            ctx.fillStyle = seededColor
             ctx.beginPath()
             //ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
             //ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
@@ -109,41 +141,28 @@ class ImageGenerator {
         return c
     }
 
-    get seededColor(){
-        let seed = Math.floor(Math.random() * 201) // generiert random Zahl zwischen 0 und 200 
-        console.log("--- SEED: " + seed + "---")
+    randomSeed(){
+        // fill with random rgb
+        for(let i = 0; i < this.seededColors.length; i++){
+            // this.seedFunction() defined in constructor 
+            let r = this.seedFunction();
+            let g = this.seedFunction();
+            let b = this.seedFunction();
+    
+            r = Math.floor(r * 255)
+            g = Math.floor(g * 255)
+            b = Math.floor(b * 255)
+    
+            let color = this.rgbToHex(r, g, b) // hex color
 
-        // Random r = new Random(seed)
-        let r = this.generateWithSeed(seed);
-        let g = this.generateWithSeed(seed);
-        let b = this.generateWithSeed(seed);
-
-        let color = this.rgbToHex(r, g, b)
-        return color
-    }
-
-    generateWithSeed(seed){
-        let m_w = 123456789;
-        let m_z = 987654321;
-        let mask = 0xffffffff;
-
-        // Takes any integer
-        m_w = seed;
-        m_z = 987654321;
-
-        // Returns number between 0 (inclusive) and 1.0 (exclusive),
-        // just like Math.random(). 
-        m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask;
-        m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask;
-        let result = ((m_z << 16) + m_w) & mask;
-        result /= 4294967296;
-        result = result + 0.5;
-
-        console.log("### SEED Output: " + result)
+            this.seededColors[i] = color
+            console.log("seededColors[" + i + "] = " + color + ", rgb(" + r + ", " + g + ", " + b + ")");
+        }
+        return this.seededColors
     }
 
     rgbToHex(r, g, b) {
-        console.log("#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1));
+        // turns rgb into hex string 
         return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
     }
 }
