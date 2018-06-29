@@ -50,7 +50,7 @@ class ImageGenerator {
               return result + 0.5;
             }
         }
-        console.log("--- SEED: " + seed + "---")
+        console.log("--- SEED: " + seed + " ---")
         this.seedFunction = Math.seed(seed); // call this function to generate nums between 0 and 1
 
         this.seed = seed

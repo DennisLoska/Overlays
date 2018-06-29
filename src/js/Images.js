@@ -320,6 +320,7 @@ class Images {
         this.images = new Array(this.numImages) 
 
         let seed = Math.floor(Math.random() * 501) // generiert random Zahl zwischen 0 und 500 
+        // save good seed values: 4, 221, 324
         let generator = new ImageGenerator(seed, this.numImages)
 
         try {
