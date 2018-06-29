@@ -5,7 +5,7 @@ class ImageGenerator {
         this.height = 150
         //The * 4 at the end represent RGBA which we need to be compatible with canvas.
         this.rndImagePixels = new Uint8ClampedArray(this.width * this.height * 4)
-        this.counter = 1
+        //this.counter = 1 //static option
         let whiteBackground = true
 
         // generate color between 0 and 255
@@ -32,22 +32,22 @@ class ImageGenerator {
         }
 
         // SEED FUNCTION:
-        Math.seed = function(s) {
-            var m_w  = s;
-            var m_z  = 987654321;
+        Math.seed = function (s) {
+            var m_w = s;
+            var m_z = 987654321;
             var mask = 0xffffffff;
 
             m_w = 987654321 + s; //added
             m_z = 123456789 - s; // added
-        
-            return function() {
-              m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask;
-              m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask;
-        
-              var result = ((m_z << 16) + m_w) & mask;
-              result /= 4294967296;
-        
-              return result + 0.5;
+
+            return function () {
+                m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask;
+                m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask;
+
+                var result = ((m_z << 16) + m_w) & mask;
+                result /= 4294967296;
+
+                return result + 0.5;
             }
         }
         console.log("--- SEED: " + seed + " ---")
@@ -55,7 +55,7 @@ class ImageGenerator {
 
         this.seededColors = new Array(numImgs); // store seeded colors in array
         // initialize - fill with dummy values / zeros
-        for(let i = 0; i < this.seededColors.length; i++){
+        for (let i = 0; i < this.seededColors.length; i++) {
             this.seededColors[i] = 0
         }
         this.seededColors = this.randomSeed(); // fill array with colors 
@@ -75,8 +75,8 @@ class ImageGenerator {
         //let color = this.randomColor
         let seededColor = this.seededColors[index] //index = welches image, von Images.js loop
 
-        //let option = Math.floor(Math.random() * 3) + 1
-        let option = this.counter % 3+1
+        let option = Math.floor(Math.random() * 3) + 1
+        //let option = this.counter % 3+1 //static option
         if (option == 1) {
             // Rectangle
             let xStart = this.width / 4
@@ -89,8 +89,8 @@ class ImageGenerator {
 
             //ctx.fillStyle = color
             ctx.fillStyle = seededColor
-            //ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset)
-            ctx.fillRect(20, 20, 80, 80)
+            ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset)
+            //ctx.fillRect(20, 20, 80, 80) //static option
         }
         if (option == 2) {
             // Circle
@@ -101,8 +101,8 @@ class ImageGenerator {
             //ctx.fillStyle = color
             ctx.fillStyle = seededColor
             ctx.beginPath()
-            //ctx.arc(this.width / 2 + offset, this.height / 2 + offset, radius, 0, 2 * Math.PI)
-            ctx.arc(this.width / 2, this.height / 2, 40, 0, 2 * Math.PI)
+            ctx.arc(this.width / 2 + offset, this.height / 2 + offset, radius, 0, 2 * Math.PI)
+            //ctx.arc(this.width / 2, this.height / 2, 40, 0, 2 * Math.PI) //static option
 
             ctx.fill()
             ctx.closePath()
@@ -118,18 +118,18 @@ class ImageGenerator {
             //ctx.fillStyle = color
             ctx.fillStyle = seededColor
             ctx.beginPath()
-            //ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
-            //ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
-            //ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
+            ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
+            ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
+            ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
 
-            ctx.moveTo(110, 110) // von 110, 110
-            ctx.lineTo(110, 20) // zu 110, 20
-            ctx.lineTo(20, 110) // zu 20, 110
+            //ctx.moveTo(110, 110) // von 110, 110 //static option
+            //ctx.lineTo(110, 20) // zu 110, 20 //static option
+            //ctx.lineTo(20, 110) // zu 20, 110 //static option
 
             ctx.fill()
             ctx.closePath()
         }
-        this.counter++
+        //this.counter++ //static option
     }
 
     get randomColor() {
@@ -140,18 +140,18 @@ class ImageGenerator {
         return c
     }
 
-    randomSeed(){
+    randomSeed() {
         // fill with random rgb
-        for(let i = 0; i < this.seededColors.length; i++){
+        for (let i = 0; i < this.seededColors.length; i++) {
             // this.seedFunction() defined in constructor 
             let r = this.seedFunction();
             let g = this.seedFunction();
             let b = this.seedFunction();
-    
+
             r = Math.floor(r * 255)
             g = Math.floor(g * 255)
             b = Math.floor(b * 255)
-    
+
             let color = this.rgbToHex(r, g, b) // hex color
 
             this.seededColors[i] = color
