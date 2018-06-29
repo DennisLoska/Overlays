@@ -53,7 +53,6 @@ class ImageGenerator {
         console.log("--- SEED: " + seed + " ---")
         this.seedFunction = Math.seed(seed); // call this function to generate nums between 0 and 1
 
-        this.seed = seed
         this.seededColors = new Array(numImgs); // store seeded colors in array
         // initialize - fill with dummy values / zeros
         for(let i = 0; i < this.seededColors.length; i++){
