@@ -17,7 +17,7 @@ function loadLvlCompleteBox(game) {
         $(star).toggleClass('checked')
     }
     $('#js-finished-score').html('Score: ' + game.totalScore.toString())
-    $('#js-finished-time').html('Zeit: ' + (game.level.time / 1000) + 's')
+    $('#js-finished-time').html('Time: ' + (game.level.time / 1000) + 's')
 }
 
 function clickedNextLvl(game) {
@@ -49,7 +49,7 @@ function setBackgroundImg() {
     ]
     let i = Math.floor(Math.random() * images.length) + 0
     let url = 'img/background/' + images[i]
-    $('#game-container').css('background-image', 'url(' + url + ')');
+    $('#game-container').css('background-image', 'url(' + url + ')')
 }
 
 function loadGameGUI(game) {
@@ -137,6 +137,6 @@ function loadGameGUI(game) {
         area.append(row)
     }
     $('.js-card').click(function () {
-        $(this).toggleClass('js-is-flipped');
-    });
+        $(this).toggleClass('js-is-flipped')
+    })
 }

@@ -62,8 +62,6 @@ class Images {
                         debugger
                         this.width = this.images[i].width
                         this.height = this.images[i].height
-                        console.log("callback executed")
-
                         callback(this.targetImgData)
                     }
                 }.bind(this)

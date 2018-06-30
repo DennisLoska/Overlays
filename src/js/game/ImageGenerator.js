@@ -33,32 +33,32 @@ class ImageGenerator {
 
         // SEED FUNCTION:
         Math.seed = function (s) {
-            var m_w = s;
-            var m_z = 987654321;
-            var mask = 0xffffffff;
+            var m_w = s
+            var m_z = 987654321
+            var mask = 0xffffffff
 
-            m_w = 987654321 + s; //added
-            m_z = 123456789 - s; // added
+            m_w = 987654321 + s //added
+            m_z = 123456789 - s // added
 
             return function () {
-                m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask;
-                m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask;
+                m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & mask
+                m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & mask
 
-                var result = ((m_z << 16) + m_w) & mask;
-                result /= 4294967296;
+                var result = ((m_z << 16) + m_w) & mask
+                result /= 4294967296
 
-                return result + 0.5;
+                return result + 0.5
             }
         }
         console.log("--- SEED: " + seed + " ---")
-        this.seedFunction = Math.seed(seed); // call this function to generate nums between 0 and 1
+        this.seedFunction = Math.seed(seed) // call this function to generate nums between 0 and 1
 
-        this.seededColors = new Array(numImgs); // store seeded colors in array
+        this.seededColors = new Array(numImgs) // store seeded colors in array
         // initialize - fill with dummy values / zeros
         for (let i = 0; i < this.seededColors.length; i++) {
             this.seededColors[i] = 0
         }
-        this.seededColors = this.randomSeed(); // fill array with colors 
+        this.seededColors = this.randomSeed() // fill array with colors 
     }
 
     set randomImagePixels(array) {
@@ -144,9 +144,9 @@ class ImageGenerator {
         // fill with random rgb
         for (let i = 0; i < this.seededColors.length; i++) {
             // this.seedFunction() defined in constructor 
-            let r = this.seedFunction();
-            let g = this.seedFunction();
-            let b = this.seedFunction();
+            let r = this.seedFunction()
+            let g = this.seedFunction()
+            let b = this.seedFunction()
 
             r = Math.floor(r * 255)
             g = Math.floor(g * 255)
@@ -155,13 +155,13 @@ class ImageGenerator {
             let color = this.rgbToHex(r, g, b) // hex color
 
             this.seededColors[i] = color
-            console.log("seededColors[" + i + "] = " + color + ", rgb(" + r + ", " + g + ", " + b + ")");
+            console.log("seededColors[" + i + "] = " + color + ", rgb(" + r + ", " + g + ", " + b + ")")
         }
         return this.seededColors
     }
 
     rgbToHex(r, g, b) {
         // turns rgb into hex string 
-        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
     }
 }

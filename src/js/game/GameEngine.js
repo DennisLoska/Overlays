@@ -138,7 +138,7 @@ class GameEngine {
                     this.mInv[i][j] = 0
             }
             for (let i = 0; i < this.numPics; i++) {
-                this.mInv[i][i] = 1; //1./numOnes;
+                this.mInv[i][i] = 1 //1./numOnes;
             }
 
             for (let i = 0; i < this.numPics; i++) {
@@ -193,7 +193,7 @@ class GameEngine {
     calculateUserImage(wUserRow, index) {
         // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users - muss für jede Reihe einzelnd aufgerufen werden 
         console.log("calculateUserImage()")
-        let pixelsBlended = this.blendPixelsOfUser(this.basisPixels3, wUserRow);
+        let pixelsBlended = this.blendPixelsOfUser(this.basisPixels3, wUserRow)
         this.userImagesPixels[index] = pixelsBlended
         return pixelsBlended
     }
@@ -215,10 +215,10 @@ class GameEngine {
         let t = 0
 
         let timer = new Date()
-        let h = timer.getHours();
-        let m = timer.getMinutes();
-        let s = timer.getSeconds();
-        let ms = timer.getMilliseconds();
+        let h = timer.getHours()
+        let m = timer.getMinutes()
+        let s = timer.getSeconds()
+        let ms = timer.getMilliseconds()
 
         let minutes = m + h * 60
         let seconds = s + minutes * 60
@@ -374,7 +374,7 @@ class GameEngine {
             success = true
             for (let i = 0; i < this.numPics; i++) {
                 for (let j = i + 1; j < this.numPics; j++) {
-                    let same = true; // identische Kombinationen/Zeilen vermeiden
+                    let same = true // identische Kombinationen/Zeilen vermeiden
                     for (let k = 0; k < this.numPics; k++)
                         if (this.m[i][k] != this.m[j][k])
                             same = false

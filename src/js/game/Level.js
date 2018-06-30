@@ -113,7 +113,7 @@ class Level {
         // LEVEL TEN
         this.levelSettings[9] = [5, 4, 45000, true]
 
-        console.log("Level:", this.lvl);
+        console.log("Level:", this.lvl)
         this.numPics = this.levelSettings[this.lvl][0]
         this.numOne = this.levelSettings[this.lvl][1]
         this.lvlTime = this.levelSettings[this.lvl][2]
