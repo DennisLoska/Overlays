@@ -126,9 +126,15 @@ function loadGameGUI(game) {
                 else if (j == numPics + 1)
                     tile.attr('id', 'js-user-image-' + (i - 1).toString())
                 else {
+                    tile = $('<img src="" />', {
+                        'class': 'tile-square'
+                    })
                     tile.addClass('js-card')
+                    let src_tile = 'img/diamond.png'
+                    tile.attr("src", src_tile);
                     tile.attr('data-row', (i - 1).toString())
                     tile.attr('data-col', (j).toString())
+                    tile.width(150)
                 }
             }
             col.append(tile)
