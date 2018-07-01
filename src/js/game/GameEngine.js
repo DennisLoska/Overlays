@@ -13,7 +13,9 @@ class GameEngine {
         this.correctUserCombinations = new Array(this.numPics) // 1 wenn richtige kombination, 0 wenn falsch
         this.maxWeight = 1 // 0.51, 0.71.. 2.01
         this.clickCounter = 0
-        this.totalScore = 0
+        this.totalScore = 0 // score for all levels in total
+        this.levelScore = 0 // score per level
+        this.timeNeeded = 0 // time needed for one level
         this.loadImagesIntoLevel()
     }
 
@@ -45,9 +47,9 @@ class GameEngine {
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
             console.log("Level completed with " + this.clickCounter + " clicks!")
-            let levelScore = this.returnScore(this.clickCounter)
-            console.log("Score for this level: " + levelScore.toString())
-            this.totalScore += levelScore
+            this.levelScore  = this.returnScore(this.clickCounter)
+            console.log("Score for this level: " + this.levelScore.toString())
+            this.totalScore += this.levelScore
             console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
             loadLvlCompleteBox(this)
@@ -278,22 +280,22 @@ class GameEngine {
         let levelTime = this.level.time // hole gesamt gegebene Zeit des Levels
 
         this.endTime = this.getTime()
-        let timeNeeded = this.endTime - this.startTime
-        console.log("Time needed: " + timeNeeded + " milliseconds or " + (timeNeeded / 1000) + " seconds.")
+        this.timeNeeded = this.endTime - this.startTime
+        console.log("Time needed: " + this.timeNeeded + " milliseconds or " + (this.timeNeeded / 1000) + " seconds.")
 
         let boundaryTop = 1 / 3 * levelTime // grenze bis zu der es volle Punktzahl gibt 
         let boundaryLow = levelTime // grenze ab der es keine Punkte mehr gibt
 
         // unterteile punkte für zeit:
-        if (timeNeeded <= boundaryTop) {
+        if (this.timeNeeded <= boundaryTop) {
             //schneller als 1/3 der Zeit -> volle Punktzahl
             scoreByTime = 100
-        } else if (timeNeeded > boundaryTop && timeNeeded <= boundaryLow) {
+        } else if (this.timeNeeded > boundaryTop && this.timeNeeded <= boundaryLow) {
             //zwischen boundaryTop und boundaryLow der Zeit -> abgestufte Punktzahl
-            let coeff = boundaryTop / timeNeeded
+            let coeff = boundaryTop / this.timeNeeded
             // z.B wenn levelTime = 300000 und timeNeeded = 160000, dann: 10000 / 16000 = 0.6666 = 66.666 Punkte
             scoreByTime = 100 * coeff
-        } else if (timeNeeded > boundaryLow) {
+        } else if (this.timeNeeded > boundaryLow) {
             //gebrauchte Zeit höher als boundaryLow -> keine Punkte
             scoreByTime = 0
         }
