@@ -134,7 +134,8 @@ function loadGameGUI(game) {
                     tile.attr("src", src_tile);
                     tile.attr('data-row', (i - 1).toString())
                     tile.attr('data-col', (j).toString())
-                    tile.width(150)
+                    //tile.width(150)
+                    tile.height(150)
                 }
             }
             col.append(tile)
