@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     /*
       Do grunt-related things in here
       npm install --save-dev load-grunt-tasks
@@ -14,14 +14,16 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'public/js/GameEngine.js': 'src/js/GameEngine.js',
-                    'public/js/ImageGenerator.js': 'src/js/ImageGenerator.js',
-                    'public/js/Images.js': 'src/js/Images.js',
-                    'public/js/InverseMatrix.js': 'src/js/InverseMatrix.js',
-                    'public/js/Level.js': 'src/js/Level.js',
-                    'public/js/View.js': 'src/js/View.js',
-                    'public/js/Game.js': 'src/js/Game.js',
+                    'public/js/GameEngine.js': 'src/js/game/GameEngine.js',
+                    'public/js/ImageGenerator.js': 'src/js/game/ImageGenerator.js',
+                    'public/js/Images.js': 'src/js/game/Images.js',
+                    'public/js/InverseMatrix.js': 'src/js/game/InverseMatrix.js',
+                    'public/js/Level.js': 'src/js/game/Level.js',
+                    'public/js/View.js': 'src/js/game/View.js',
+                    'public/js/Game.js': 'src/js/game/Game.js',
                     'public/js/main.js': 'src/js/main.js',
+                    'public/js/utils/animations.js': 'src/js/utils/animations.js',
+                    'public/js/utils/scrolllock.js': 'src/js/utils/scrolllock.js',
                 },
             },
         },
@@ -65,12 +67,6 @@ module.exports = function(grunt) {
                 src: 'img/**',
                 dest: 'public/',
             },
-            MathJS: {
-                expand: true,
-                cwd: 'src/',
-                src: 'js/math.js',
-                dest: 'public/',
-            },
         },
 
         watch: {
@@ -83,7 +79,7 @@ module.exports = function(grunt) {
                 tasks: ['cssmin'],
             },
             js: { //all LPs share the same footer.js!
-                files: ['src/js/*.js'],
+                files: ['src/js/*.js', 'src/js/**/*.js'],
                 tasks: ['babel'],
             },
             html: {

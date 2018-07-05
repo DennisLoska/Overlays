@@ -7,6 +7,7 @@
     height: 100vh;
     padding: 25px;
     background-color: rgba(118, 185, 0, 0.4);
+    background-size: cover;
     text-align: center;
     color: #efefef;
 }
@@ -60,11 +61,17 @@
 }
 
 #game-container .js-is-flipped {
-    -webkit-transform: rotateY(180deg);
+    -webkit-transform: rotateY(30deg) rotateZ(270deg);
     -webkit-transform-style: preserve-3d;
-    transform: rotateY(180deg);
+    transform: rotateY(30deg) rotateZ(270deg);
     transform-style: preserve-3d;
-    background-color: #efefef;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#game-container .js-card {
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 #inner-game-container {

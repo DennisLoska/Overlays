@@ -1,0 +1,47 @@
+#cta-btn {
+    display: inline-block;
+    min-width: 210px;
+    width: 305px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #76B900;
+    border-radius: 3px;
+    box-sizing: border-box;
+    transition: all .25s ease-in;
+    -moz-transition: all .25s ease-in;
+    -webkit-transition: all .25s ease-in;
+    text-decoration: none;
+}
+
+#cta-btn:hover {
+    opacity: .5;
+}
+
+@media only screen and (max-width: 768px) {
+    #cta-btn {
+        max-width: 210px;
+    }
+}
+
+#btn-next-lvl {
+    width: 150px;
+    height: 50px;
+    color: #fff;
+    background-color: #d15151;
+    border: 1px solid #d15151;
+    box-sizing: border-box;
+    transition: all .25s ease-in;
+    -moz-transition: all .25s ease-in;
+    -webkit-transition: all .25s ease-in;
+    border-radius: 3px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#btn-next-lvl:hover {
+    opacity: 0.8;
+}

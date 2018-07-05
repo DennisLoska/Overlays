@@ -1,0 +1,42 @@
+#js-level-finished-box {
+    width: 25vw;
+    min-width: 300px;
+    #level-finished-wrapper {
+        position: fixed;
+        top: 17vh;
+        box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
+        #level-finished-box {
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            width: 25vw;
+            min-width: 300px;
+            height: 500px;
+            padding: 50px;
+            border-radius: 5px;
+            #star-wrapper {
+                font-size: 70px;
+                .checked {
+                    color: gold;
+                }
+                .fa-star {
+                    padding: 10px;
+                }
+            }
+            #finished-data-wrapper {
+                text-align: left;
+                font-size: 24px;
+            }
+            #js-finished-score {}
+            #js-finished-time {}
+        }
+    }
+}
+
+.hide-box {
+    display: none;
+}
