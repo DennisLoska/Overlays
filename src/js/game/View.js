@@ -70,7 +70,7 @@ function loadGameGUI(game) {
         for (let j = 0; j < numPics + 2; j++) {
             let col = $('<div />', {
                 'class': 'js-col-' + j.toString() +
-                    ' tile-square-wrapper col-2 text-center'
+                    ' tile-square-wrapper'
             })
             let tile = $('<canvas />', {
                 'class': 'tile-square'
@@ -78,14 +78,14 @@ function loadGameGUI(game) {
             if (numPics == 4) {
                 col = $('<div />', {
                     'class': 'js-col-' + j.toString() +
-                        ' tile-square-wrapper  js-tile-square-wrapper-4 col-1 text-center'
+                        ' tile-square-wrapper  js-tile-square-wrapper-4'
                 })
                 tile.addClass('js-4-tiles-per-row')
             } else if (numPics != 4) {
                 if (numPics != 5) {
                     col = $('<div />', {
                         'class': 'js-col-' + j.toString() +
-                            ' tile-square-wrapper col-2 text-center'
+                            ' tile-square-wrapper'
                     })
                 }
                 tile.removeClass('js-4-tiles-per-row')
@@ -93,14 +93,14 @@ function loadGameGUI(game) {
             if (numPics == 5) {
                 col = $('<div />', {
                     'class': 'js-col-' + j.toString() +
-                        ' tile-square-wrapper  js-tile-square-wrapper-5 col-1 text-center'
+                        ' tile-square-wrapper  js-tile-square-wrapper-5'
                 })
                 tile.addClass('js-5-tiles-per-row')
             } else if (numPics != 5) {
                 if (numPics != 4) {
                     col = $('<div />', {
                         'class': 'js-col-' + j.toString() +
-                            ' tile-square-wrapper col-2 text-center'
+                            ' tile-square-wrapper'
                     })
                 }
                 tile.removeClass('js-5-tiles-per-row')
@@ -122,20 +122,18 @@ function loadGameGUI(game) {
                     tile.attr('id', 'js-basis-image-' + j.toString())
             } else {
                 if (j == numPics)
-                    tile.attr('id', 'js-starting-image-' + (i - 1).toString())
-                else if (j == numPics + 1)
                     tile.attr('id', 'js-user-image-' + (i - 1).toString())
+                else if (j == numPics + 1)
+                    tile.attr('id', 'js-starting-image-' + (i - 1).toString())
                 else {
                     tile = $('<img src="" />', {
                         'class': 'tile-square'
                     })
                     tile.addClass('js-card')
-                    let src_tile = 'img/diamond.png'
+                    let src_tile = 'img/green-glass.png'
                     tile.attr("src", src_tile);
                     tile.attr('data-row', (i - 1).toString())
                     tile.attr('data-col', (j).toString())
-                    //tile.width(150)
-                    tile.height(150)
                 }
             }
             col.append(tile)
