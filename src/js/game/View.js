@@ -6,6 +6,9 @@ function clickedTile(game) {
     })
 }
 
+/*
+ * Generates the box after a level is completed. It is positioned fixed on the screen
+ */
 function loadLvlCompleteBox(game) {
     let box = '<div id="level-finished-wrapper"><div id="level-finished-box"><h3 id="js-finished-lvl">LEVEL COMPLETED!</h3><div id="star-wrapper"><span id="1-star" class="fa fa-star"></span><span id="2-star" class="fa fa-star"></span><span id="3-star" class="fa fa-star"></span></div><div id="finished-data-wrapper"><div id="js-finished-score">SCORE: </div><div id="js-finished-time">TIME:</div></div><button id="btn-next-lvl">NEXT LEVEL</button></div></div>'
 
@@ -40,18 +43,33 @@ function clearGUI(game) {
     toggleLvlCompleteBox()
 }
 
+/*
+ * Yeah you might wonder why this server-side code is on the frontend - well
+ * I am sorry we didn't had the time to start learning Node.js since we had to
+ * implement new features on a weekly basis without the time to do things properly :(
+ * 
+ */
 function setBackgroundImg() {
     let images = [
         'back_0.jpg', 'back_1.png', 'back_2.jpg',
         'back_3.png', 'back_4.jpg', 'back_5.jpg',
         'back_6.jpg', 'back_7.jpg', 'back_8.jpg',
-        'back_9.jpg', 'back_10.jpg', 'back_11.jpg'
+        'back_9.jpg'
     ]
     let i = Math.floor(Math.random() * images.length) + 0
     let url = 'img/background/' + images[i]
     $('#game-container').css('background-image', 'url(' + url + ')')
 }
 
+/*
+ * Hey there, I am so sorry that you have to deal with this mess of code.
+ * If, who ever you might be are in this miserable situation that you have to
+ * add new features to this GUI then I would suggest you do everthing in/from scratch.
+ * 
+ * This function dynamically creates the HTML for a N * N game field and uses the iterators to
+ * number all cols and rows. These numbers are neccessary, since they will be used in the GameEngine
+ * to determine, which exact tile was clicked.
+ */
 function loadGameGUI(game) {
     setBackgroundImg()
     toggleLvlCompleteBox()
@@ -61,7 +79,6 @@ function loadGameGUI(game) {
     } else numPics = game.numPics
     let area = $('#js-game-wrapper')
     area.html('')
-
     for (let i = 0; i < numPics + 1; i++) {
         let row = $('<div />', {
             'class': 'js-row-' + i.toString() +
