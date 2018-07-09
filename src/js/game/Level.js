@@ -104,8 +104,8 @@ class Level {
         this.levelSettings[8] = [5, 3, 40000, false]
         this.levelSettings[9] = [5, 4, 45000, true]
         this.levelSettings[10] = [5, 4, 45000, false]
-        this.levelSettings[11] = [6, 4, 50000, true]
-        this.levelSettings[12] = [6, 4, 55000, false]
+        this.levelSettings[11] = [5, 4, 50000, true]
+        this.levelSettings[12] = [5, 4, 55000, false]
 
         console.log("Level:", this.lvl)
         this.numPics = this.levelSettings[this.lvl][0]
