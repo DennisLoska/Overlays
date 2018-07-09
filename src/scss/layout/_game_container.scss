@@ -26,7 +26,6 @@
     max-width: 150px;
     max-height: 150px;
     text-align: left;
-
     .tile-square {
         background-color: gold;
         display: inline-block;
@@ -35,11 +34,10 @@
         max-width: 150px;
         max-height: 150px;
     }
-
     .js-card {
         height: inherit;
         max-height: 150px;
-        opacity: .7;
+        opacity: .8;
     }
 }
 
@@ -51,7 +49,7 @@
 }
 
 #game-container .tile-square {
-    background-color: rgba(128,128,128,.5);
+    background-color: rgba(128, 128, 128, .5);
     -webkit-box-shadow: 10px 10px 36px 0px rgba(51, 51, 51, 0.58);
     -moz-box-shadow: 10px 10px 36px 0px rgba(51, 51, 51, 0.58);
     box-shadow: 10px 10px 36px 0px rgba(51, 51, 51, 0.58);
@@ -72,12 +70,18 @@
 }
 
 #game-container .js-is-flipped {
-    -webkit-transform: rotateY(30deg) rotateZ(270deg);
+    -webkit-transform: rotateY(20deg) rotateZ(-45deg);
     -webkit-transform-style: preserve-3d;
-    transform: rotateY(30deg) rotateZ(270deg);
+    transform: rotateY(20deg) rotateZ(-45deg);
     transform-style: preserve-3d;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    transform-origin: 40% 25%;
+    -moz-transform-origin: 40% 25%;
+    -ms-transform-origin: 40% 25%;
+    -o-transform-origin: 40% 25%;
+    -webkit-transform-origin: 40% 25%;
+    transform-origin: 40% 25%;
 }
 
 #game-container .js-card {
