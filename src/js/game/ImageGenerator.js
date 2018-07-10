@@ -1,26 +1,26 @@
 class ImageGenerator {
 
-    constructor(seed, numImgs) {
+    constructor(seed, numImgs, matrix) {
         this.width = 150
         this.height = 150
         //The * 4 at the end represent RGBA which we need to be compatible with canvas.
         this.rndImagePixels = new Uint8ClampedArray(this.width * this.height * 4)
         //this.counter = 1 //static option
-        let whiteBackground = true
+        let grayBackground = true
 
         // generate color between 0 and 255
         let randomR = Math.floor((Math.random() * 256))
         let randomG = Math.floor((Math.random() * 256))
         let randomB = Math.floor((Math.random() * 256))
-        let white = 128 // gray level for background
+        let graylevel = 128 // gray level for background
 
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 let pos = (y * this.width + x) * 4 // position in buffer based on x and y
-                if (whiteBackground == true) {
-                    this.rndImagePixels[pos + 0] = white // R
-                    this.rndImagePixels[pos + 1] = white // G
-                    this.rndImagePixels[pos + 2] = white // B
+                if (grayBackground == true) {
+                    this.rndImagePixels[pos + 0] = graylevel // R
+                    this.rndImagePixels[pos + 1] = graylevel // G
+                    this.rndImagePixels[pos + 2] = graylevel // B
                     this.rndImagePixels[pos + 3] = 255 // A
                 } else {
                     this.rndImagePixels[pos + 0] = randomR // R
@@ -53,12 +53,116 @@ class ImageGenerator {
         console.log("--- SEED: " + seed + " ---")
         this.seedFunction = Math.seed(seed) // call this function to generate nums between 0 and 1
 
-        this.seededColors = new Array(numImgs) // store seeded colors in array
+        // store seeded colors in array
+        this.seededColors = new Array(numImgs)
         // initialize - fill with dummy values / zeros
         for (let i = 0; i < this.seededColors.length; i++) {
             this.seededColors[i] = 0
         }
-        this.seededColors = this.randomSeed() // fill array with colors 
+
+        // test colors (Grenzbereich, Nähe zu grau 128, Nähe zueinander)
+        let tested = false;
+        while(!tested){
+            this.seededColors = this.randomSeed() // fill array with colors 
+            tested = this.test(this.seededColors, matrix, numImgs);
+            //tested = true;
+        }
+    }
+
+    test(colors, matrix, numPics){
+        console.log("Colors for test: " + colors); //seededColors
+        console.log("Matrix for test: " + matrix); //mInv
+        console.log("Matrix size: " + numPics + "x" + numPics); //mInv
+        let state = true
+
+        // declare and initialize arrays
+        let seededRGB = new Array(numPics, 3) // RGB values
+        let colorsMinusGray = new Array(numPics, 3) // RGB values - 128
+        // fill with 0 values
+        for (let i = 0; i < numPics; i++) {
+            seededRGB[i] = []
+            colorsMinusGray[i] = []
+            for (let j = 0; j < 3; j++){
+                seededRGB[i][j] = 0
+                colorsMinusGray[i][j] = 0
+            }
+        }
+
+        // colors[] stores hex colors – convert back to rgb and store in seededRGB[]
+        for(let i = 0; i < numPics; i++){
+            let r, g, b
+            let c;
+            let hex = colors[i]
+            if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+                c= hex.substring(1).split('');
+                if(c.length== 3){
+                    c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+                }
+                c= '0x'+c.join('');
+                r = (c>>16)&255
+                g = (c>>8)&255
+                b = c&255
+                seededRGB[i][0] = r
+                seededRGB[i][1] = g
+                seededRGB[i][2] = b
+            }
+        }
+        //console.log(seededRGB)
+
+
+        // 1. Test: Innerhalb des Grenzbereiches (- 128 * mInv + 128)
+        for(let i = 0; i < numPics; i++){
+            colorsMinusGray[i][0] = seededRGB[i][0] - 128; // r
+            colorsMinusGray[i][1] = seededRGB[i][1] - 128; // g
+            colorsMinusGray[i][2] = seededRGB[i][2] - 128; // b
+        }
+        console.log("COLORS - 128:")
+        console.log(colorsMinusGray)
+
+        let mixedColors = new Array(numPics) // colors - 128 * mInv
+        // initialize - fill with dummy values / zeros
+        for (let i = 0; i < mixedColors.length; i++) {
+            mixedColors[i] = 0
+        }
+
+        // multiply with inverse matrix[][]
+        for(let i = 0; i < numPics; i++){
+            for(let j = 0; j < numPics; j++){
+                mixedColors[i] += colorsMinusGray[i][j] * matrix[j][i]
+            }
+        }
+
+        // + 128 and check if between 0 and 255
+        for(let i = 0; i < numPics; i++){
+            mixedColors[i] += 128;
+            if(mixedColors[i] < 0 && mixedColors[i] > 255){
+                console.log("NOT INSIDE 0-255 ZONE");
+                return false;
+            }  
+        }
+        console.log("MULTIPLIED WITH INVERSE MATRIX:")
+        console.log(mixedColors)
+
+
+        // 2. Test: Distanz zu grau 128
+        let distanceMin = 15000 // minimum square distance to 128
+        for (let i = 0; i < colors.length; i++) {
+            let differenceR = 128 - seededRGB[i][0] // 128 - r
+            let differenceG = 128 - seededRGB[i][1] // 128 - g
+            let differenceB = 128 - seededRGB[i][2] // 128 - b
+            let distance = Math.pow(differenceR, 2) + Math.pow(differenceG, 2) + Math.pow(differenceB, 2)
+            //console.log("square distance of rgb to 128: " + distance)
+
+            if(distance < distanceMin){
+                console.log("Color too close to 128")
+                return false;
+            }
+        }
+
+        
+        // 3. Test: Distanz zueinander
+
+        return state;
     }
 
     set randomImagePixels(array) {
