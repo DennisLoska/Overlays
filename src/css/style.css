@@ -393,6 +393,38 @@ a.nav-link:hover {
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease; }
 
+div.light-rays {
+  background: linear-gradient(to top, rgba(255, 0, 0, 0), red);
+  width: 0.4vw;
+  max-height: 800px;
+  height: 35vw;
+  opacity: .5;
+  margin-top: -6px;
+  margin-right: auto;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
+  box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4); }
+
+#light-ray-0 {
+  margin-left: 27.5%;
+  background: linear-gradient(to top, rgba(255, 0, 0, 0), red); }
+
+#light-ray-1 {
+  margin-left: 34%;
+  background: linear-gradient(to top, rgba(255, 0, 0, 0), lime); }
+
+#light-ray-2 {
+  margin-left: 40.5%;
+  background: linear-gradient(to top, rgba(255, 0, 0, 0), blue); }
+
+#light-ray-3 {
+  margin-left: 47%;
+  background: linear-gradient(to top, rgba(255, 0, 0, 0), yellow); }
+
+#light-ray-4 {
+  margin-left: 53.5%;
+  background: linear-gradient(to top, rgba(255, 0, 0, 0), magenta); }
+
 #game-container .js-is-flipped {
   -webkit-transform: rotateY(20deg) rotateZ(-45deg);
   -webkit-transform-style: preserve-3d;
@@ -420,7 +452,9 @@ a.nav-link:hover {
 @media only screen and (max-width: 1024px) {
   #js-game-score,
   #js-game-timer {
-    font-size: 2vw; } }
+    font-size: 2vw; }
+  div.light-rays {
+    height: 72vw; } }
 
 @media only screen and (max-width: 360px) {
   #game-container .tile-square-wrapper {
@@ -621,6 +655,8 @@ footer {
   #js-level-finished-box #level-finished-wrapper {
     position: fixed;
     top: 17vh;
+    -webkit-box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
     box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8); }
     #js-level-finished-box #level-finished-wrapper #level-finished-box {
       background-color: #fff;

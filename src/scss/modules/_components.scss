@@ -4,6 +4,8 @@
     #level-finished-wrapper {
         position: fixed;
         top: 17vh;
+        -webkit-box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
+        -moz-box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
         box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
         #level-finished-box {
             background-color: #fff;

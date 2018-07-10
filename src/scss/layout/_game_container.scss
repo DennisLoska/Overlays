@@ -69,6 +69,44 @@
     transition: all 0.5s ease;
 }
 
+div.light-rays {
+    background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 0, 0, 1)); //default
+    width: 0.4vw;
+    max-height: 800px;
+    height: 35vw;
+    opacity: .5;
+    margin-top: -6px;
+    margin-right: auto;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, .40);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, .40);
+    box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, .40);
+}
+
+#light-ray-0 {
+    margin-left: 27.5%;
+    background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 0, 0, 1));
+}
+
+#light-ray-1 {
+    margin-left: 34%;
+    background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(0, 255, 0, 1));
+}
+
+#light-ray-2 {
+    margin-left: 40.5%;
+    background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(0, 0, 255, 1));
+}
+
+#light-ray-3 {
+    margin-left: 47%;
+    background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 255, 0, 1));
+}
+
+#light-ray-4 {
+    margin-left: 53.5%;
+    background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 0, 255, 1));
+}
+
 #game-container .js-is-flipped {
     -webkit-transform: rotateY(20deg) rotateZ(-45deg);
     -webkit-transform-style: preserve-3d;
@@ -101,6 +139,9 @@
     #js-game-score,
     #js-game-timer {
         font-size: 2vw;
+    }
+    div.light-rays {
+        height: 72vw;
     }
 }
 

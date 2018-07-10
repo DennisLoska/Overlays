@@ -158,6 +158,9 @@ function loadGameGUI(game) {
         }
         area.append(row)
     }
+    for (let i = 0; i < numPics; i++) {
+        $('<div class="light-rays" id="light-ray-' + i.toString() + '"></div>').insertAfter("#js-basis-image-" + i.toString()); 
+    }
     $('.js-card').click(function () {
         $(this).toggleClass('js-is-flipped')
     })
