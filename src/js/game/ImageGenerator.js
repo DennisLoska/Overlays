@@ -60,16 +60,6 @@ class ImageGenerator {
             this.seededColors[i] = 0
         }
 
-        // RGB values of seeded colors (hex)
-        /*this.seededColorsRGB = new Array(numImgs, 3)
-        for (let i = 0; i < this.seededColorsRGB.length; i++) {
-            this.seededColorsRGB[i] = []
-            for (let j = 0; j < 3; j++){
-                this.seededColorsRGB[i][j] = j
-            }
-        }
-        console.log(this.seededColorsRGB)*/
-
         // test colors (Grenzbereich, Nähe zu grau 128, Nähe zueinander)
         let tested = false;
         while(!tested){
@@ -119,6 +109,7 @@ class ImageGenerator {
         }
         //console.log(seededRGB)
 
+
         // 1. Test: Innerhalb des Grenzbereiches (- 128 * mInv + 128)
         for(let i = 0; i < numPics; i++){
             colorsMinusGray[i][0] = seededRGB[i][0] - 128; // r
@@ -127,11 +118,48 @@ class ImageGenerator {
         }
         console.log("COLORS - 128:")
         console.log(colorsMinusGray)
-        // return false;
+
+        let mixedColors = new Array(numPics) // colors - 128 * mInv
+        // initialize - fill with dummy values / zeros
+        for (let i = 0; i < mixedColors.length; i++) {
+            mixedColors[i] = 0
+        }
+
+        // multiply with inverse matrix[][]
+        for(let i = 0; i < numPics; i++){
+            for(let j = 0; j < numPics; j++){
+                mixedColors[i] += colorsMinusGray[i][j] * matrix[j][i]
+            }
+        }
+
+        // + 128 and check if between 0 and 255
+        for(let i = 0; i < numPics; i++){
+            mixedColors[i] += 128;
+            if(mixedColors[i] < 0 && mixedColors[i] > 255){
+                console.log("NOT INSIDE 0-255 ZONE");
+                return false;
+            }  
+        }
+        console.log("MULTIPLIED WITH INVERSE MATRIX:")
+        console.log(mixedColors)
+
 
         // 2. Test: Distanz zu grau 128
+        let distanceMin = 15000 // minimum square distance to 128
+        for (let i = 0; i < colors.length; i++) {
+            let differenceR = 128 - seededRGB[i][0] // 128 - r
+            let differenceG = 128 - seededRGB[i][1] // 128 - g
+            let differenceB = 128 - seededRGB[i][2] // 128 - b
+            let distance = Math.pow(differenceR, 2) + Math.pow(differenceG, 2) + Math.pow(differenceB, 2)
+            //console.log("square distance of rgb to 128: " + distance)
 
+            if(distance < distanceMin){
+                console.log("Color too close to 128")
+                return false;
+            }
+        }
 
+        
         // 3. Test: Distanz zueinander
 
         return state;
