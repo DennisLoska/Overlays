@@ -1,14 +1,12 @@
 function clickedTile(game) {
+    let ray;
     $('.js-card').click(function () {
         let row = $(this).attr('data-row')
         let col = $(this).attr('data-col')
-        let ray;
-        let current_id;
-        if (!($(this).next().length)) {
-            ray = $('<div class="light-rays horizontal-rays" id="hor-light-ray-' + col + '"></div>')
+        ray = $('<div class="light-rays horizontal-rays" id="hor-light-ray-' + col + row + '"></div>')
+        if (!($(this).next().length))
             ray.insertAfter($(this))
-        }
-        $('#hor-light-ray-' + col).toggleClass('hide-rays')
+        $(this).next().toggleClass('show-rays')
         game.updateOnClick(row, col)
     })
 }
@@ -58,12 +56,12 @@ function clearGUI(game) {
  */
 function setBackgroundImg() {
     let images = [
-        'back_0.jpg', 'back_1.png', 'back_2.jpg',
-        'back_3.png', 'back_4.jpg', 'back_5.jpg',
+        'back_1.png', 'back_2.jpg',
+        'back_3.jpg', 'back_4.jpg', 'back_5.jpg',
         'back_6.jpg', 'back_7.jpg', 'back_8.jpg',
         'back_9.jpg'
     ]
-    let i = Math.floor(Math.random() * images.length) + 0
+    let i = Math.floor(Math.random() * images.length) + 1
     let url = 'img/background/' + images[i]
     $('#game-container').css('background-image', 'url(' + url + ')')
 }

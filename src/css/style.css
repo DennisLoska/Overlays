@@ -357,7 +357,9 @@ a.nav-link:hover {
   height: 6.5vw;
   max-width: 150px;
   max-height: 150px;
-  text-align: left; }
+  text-align: left;
+  z-index: 1;
+  position: relative; }
   .tile-square-wrapper .tile-square {
     background-color: gold;
     display: inline-block;
@@ -418,28 +420,35 @@ div.horizontal-rays {
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
   z-index: 0;
-  margin-top: -60%; }
+  margin-top: -60%;
+  display: none;
+  height: 20vw; }
 
-div.hide-rays {
-  display: none; }
+div.show-rays {
+  display: block; }
 
-#light-ray-0 {
+#light-ray-0,
+#hor-light-ray-00, #hor-light-ray-01, #hor-light-ray-02, #hor-light-ray-03, #hor-light-ray-04 {
   margin-left: 27.5%;
   background: linear-gradient(to top, rgba(255, 0, 0, 0), red); }
 
-#light-ray-1 {
+#light-ray-1,
+#hor-light-ray-10, #hor-light-ray-11, #hor-light-ray-12, #hor-light-ray-13, #hor-light-ray-14 {
   margin-left: 34%;
   background: linear-gradient(to top, rgba(255, 0, 0, 0), lime); }
 
-#light-ray-2 {
+#light-ray-2,
+#hor-light-ray-20, #hor-light-ray-21, #hor-light-ray-22, #hor-light-ray-23, #hor-light-ray-24 {
   margin-left: 40.5%;
   background: linear-gradient(to top, rgba(255, 0, 0, 0), blue); }
 
-#light-ray-3 {
+#light-ray-3,
+#hor-light-ray-30, #hor-light-ray-31, #hor-light-ray-32, #hor-light-ray-33, #hor-light-ray-34 {
   margin-left: 47%;
   background: linear-gradient(to top, rgba(255, 0, 0, 0), yellow); }
 
-#light-ray-4 {
+#light-ray-4,
+#hor-light-ray-40, #hor-light-ray-41, #hor-light-ray-42, #hor-light-ray-43, #hor-light-ray-44 {
   margin-left: 53.5%;
   background: linear-gradient(to top, rgba(255, 0, 0, 0), magenta); }
 
