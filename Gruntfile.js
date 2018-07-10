@@ -24,6 +24,11 @@ module.exports = function (grunt) {
                     'public/js/main.js': 'src/js/main.js',
                     'public/js/utils/animations.js': 'src/js/utils/animations.js',
                     'public/js/utils/scrolllock.js': 'src/js/utils/scrolllock.js',
+
+                    'public/js/vendor/bootstrap.min.js': 'src/js/vendor/bootstrap.min.js',
+                    'public/js/vendor/jquery-3.3.1.slim.min.js': 'src/js/vendor/jquery-3.3.1.slim.min.js',
+                    'public/js/vendor/jquery.min.js': 'src/js/vendor/jquery.min.js',
+                    'public/js/vendor/popper.min.js': 'src/js/vendor/popper.min.js',
                 },
             },
         },
@@ -54,7 +59,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src',
-                    src: ['css/style.css', '!*.min.css'],
+                    src: ['css/*.css', '!*.min.css'],
                     dest: 'public/',
                     ext: '.min.css',
                 }, ],

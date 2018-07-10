@@ -368,7 +368,9 @@ a.nav-link:hover {
   .tile-square-wrapper .js-card {
     height: inherit;
     max-height: 150px;
-    opacity: .8; }
+    opacity: .8;
+    position: relative;
+    z-index: 1; }
 
 #js-game-score,
 #js-game-timer {
@@ -404,6 +406,22 @@ div.light-rays {
   -webkit-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
   -moz-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
   box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4); }
+
+div.horizontal-rays {
+  -webkit-transform: rotateZ(-90deg);
+  -webkit-transform-style: preserve-3d;
+  transform: rotateZ(-90deg);
+  transform-style: preserve-3d;
+  -moz-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  z-index: 0;
+  margin-top: -60%; }
+
+div.hide-rays {
+  display: none; }
 
 #light-ray-0 {
   margin-left: 27.5%;

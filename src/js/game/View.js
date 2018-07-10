@@ -1,7 +1,14 @@
 function clickedTile(game) {
     $('.js-card').click(function () {
-        var row = $(this).attr('data-row')
-        var col = $(this).attr('data-col')
+        let row = $(this).attr('data-row')
+        let col = $(this).attr('data-col')
+        let ray;
+        let current_id;
+        if (!($(this).next().length)) {
+            ray = $('<div class="light-rays horizontal-rays" id="hor-light-ray-' + col + '"></div>')
+            ray.insertAfter($(this))
+        }
+        $('#hor-light-ray-' + col).toggleClass('hide-rays')
         game.updateOnClick(row, col)
     })
 }
@@ -159,7 +166,7 @@ function loadGameGUI(game) {
         area.append(row)
     }
     for (let i = 0; i < numPics; i++) {
-        $('<div class="light-rays" id="light-ray-' + i.toString() + '"></div>').insertAfter("#js-basis-image-" + i.toString()); 
+        $('<div class="light-rays" id="light-ray-' + i.toString() + '"></div>').insertAfter("#js-basis-image-" + i.toString());
     }
     $('.js-card').click(function () {
         $(this).toggleClass('js-is-flipped')
