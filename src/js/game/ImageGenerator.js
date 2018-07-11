@@ -124,7 +124,7 @@ class ImageGenerator {
         // initialize - fill with dummy values / zeros
         for (let i = 0; i < mixedColors.length; i++) {
             mixedColors[i] = []
-            for (let j = 0; j < mixedColors.length; j++) {
+            for (let j = 0; j < 3; j++) {
                 mixedColors[i][j] = 0
             }
         }*/
