@@ -97,7 +97,6 @@ function loadGameGUI(game) {
             let tile = $('<canvas />', {
                 'class': 'tile-square'
             })
-            $('<img src="img/bilderrahmen.png" alt="Bilderrahmen">').insertAfter(tile)
             if (numPics == 4) {
                 col = $('<div />', {
                     'class': 'js-col-' + j.toString() +
@@ -165,7 +164,7 @@ function loadGameGUI(game) {
         area.append(row)
     }
     for (let i = 0; i < numPics; i++) {
-        $('<div class="light-rays" id="light-ray-' + i.toString() + '"></div>').insertAfter("#js-basis-image-" + i.toString());
+        $('<div class="light-rays" id="light-ray-' + i.toString() + '"></div>').insertAfter('#js-basis-image-' + i.toString());
     }
     $('.js-card').click(function () {
         $(this).toggleClass('js-is-flipped')
