@@ -415,15 +415,14 @@ a.nav-link:hover {
     -webkit-transform-origin: 40% 25%;
     transform-origin: 40% 25%; }
   .tile-square-wrapper div.light-rays {
-    background: linear-gradient(to top, rgba(255, 0, 0, 0), red);
+    background: white;
+    border-radius: 5px;
+    margin-top: 10px;
     width: 0.4vw;
     max-height: 800px;
-    height: 35vw;
-    opacity: .5;
+    height: 42vw;
+    opacity: .9;
     margin-right: auto;
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
-    box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
     z-index: 0; }
   .tile-square-wrapper div.horizontal-rays {
     -webkit-transform: rotateZ(-90deg);
@@ -448,7 +447,9 @@ a.nav-link:hover {
   .tile-square-wrapper #hor-light-ray-03,
   .tile-square-wrapper #hor-light-ray-04 {
     margin-left: 43.5%;
-    background: linear-gradient(to top, rgba(255, 0, 0, 0), red); }
+    -webkit-box-shadow: 0px 0px 10px 5px red;
+    -moz-box-shadow: 0px 0px 10px 5px red;
+    box-shadow: 0px 0px 10px 5px red; }
   .tile-square-wrapper #light-ray-1,
   .tile-square-wrapper #hor-light-ray-10,
   .tile-square-wrapper #hor-light-ray-11,
@@ -456,7 +457,9 @@ a.nav-link:hover {
   .tile-square-wrapper #hor-light-ray-13,
   .tile-square-wrapper #hor-light-ray-14 {
     margin-left: 51%;
-    background: linear-gradient(to top, rgba(255, 0, 0, 0), lime); }
+    -webkit-box-shadow: 0px 0px 10px 5px lime;
+    -moz-box-shadow: 0px 0px 10px 5px lime;
+    box-shadow: 0px 0px 10px 5px lime; }
   .tile-square-wrapper #light-ray-2,
   .tile-square-wrapper #hor-light-ray-20,
   .tile-square-wrapper #hor-light-ray-21,
@@ -464,7 +467,9 @@ a.nav-link:hover {
   .tile-square-wrapper #hor-light-ray-23,
   .tile-square-wrapper #hor-light-ray-24 {
     margin-left: 56.5%;
-    background: linear-gradient(to top, rgba(255, 0, 0, 0), blue); }
+    -webkit-box-shadow: 0px 0px 10px 5px blue;
+    -moz-box-shadow: 0px 0px 10px 5px blue;
+    box-shadow: 0px 0px 10px 5px blue; }
   .tile-square-wrapper #light-ray-3,
   .tile-square-wrapper #hor-light-ray-30,
   .tile-square-wrapper #hor-light-ray-31,
@@ -472,7 +477,9 @@ a.nav-link:hover {
   .tile-square-wrapper #hor-light-ray-33,
   .tile-square-wrapper #hor-light-ray-34 {
     margin-left: 63%;
-    background: linear-gradient(to top, rgba(255, 0, 0, 0), yellow); }
+    -webkit-box-shadow: 0px 0px 10px 5px yellow;
+    -moz-box-shadow: 0px 0px 10px 5px yellow;
+    box-shadow: 0px 0px 10px 5px yellow; }
   .tile-square-wrapper #light-ray-4,
   .tile-square-wrapper #hor-light-ray-40,
   .tile-square-wrapper #hor-light-ray-41,
@@ -480,7 +487,9 @@ a.nav-link:hover {
   .tile-square-wrapper #hor-light-ray-43,
   .tile-square-wrapper #hor-light-ray-44 {
     margin-left: 69.5%;
-    background: linear-gradient(to top, rgba(255, 0, 0, 0), magenta); }
+    -webkit-box-shadow: 0px 0px 10px 5px magenta;
+    -moz-box-shadow: 0px 0px 10px 5px magenta;
+    box-shadow: 0px 0px 10px 5px magenta; }
   @media only screen and (max-width: 1024px) {
     .tile-square-wrapper #js-game-score,
     .tile-square-wrapper #js-game-timer {

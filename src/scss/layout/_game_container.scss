@@ -91,15 +91,14 @@
         transform-origin: 40% 25%;
     }
     div.light-rays {
-        background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 0, 0, 1)); //default
+        background: rgba(255, 255, 255, 1.0); //default
+        border-radius: 5px;
+        margin-top: 10px;
         width: 0.4vw;
         max-height: 800px;
-        height: 35vw;
-        opacity: .5;
+        height: 42vw;
+        opacity: .9;
         margin-right: auto;
-        -webkit-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, .40);
-        -moz-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, .40);
-        box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, .40);
         z-index: 0;
     }
     div.horizontal-rays {
@@ -127,7 +126,9 @@
     #hor-light-ray-03,
     #hor-light-ray-04 {
         margin-left: 43.5%;
-        background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 0, 0, 1));
+        -webkit-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 0, 1);
+        -moz-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 0, 1);
+        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 0, 1); //background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 0, 0, 1));
     }
     #light-ray-1,
     #hor-light-ray-10,
@@ -136,7 +137,9 @@
     #hor-light-ray-13,
     #hor-light-ray-14 {
         margin-left: 51%;
-        background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(0, 255, 0, 1));
+        -webkit-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 255, 0, 1);
+        -moz-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 255, 0, 1);
+        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 255, 0, 1); //background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(0, 255, 0, 1));
     }
     #light-ray-2,
     #hor-light-ray-20,
@@ -145,7 +148,9 @@
     #hor-light-ray-23,
     #hor-light-ray-24 {
         margin-left: 56.5%;
-        background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(0, 0, 255, 1));
+        -webkit-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 0, 255, 1);
+        -moz-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 0, 255, 1);
+        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 0, 255, 1); //background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(0, 0, 255, 1));
     }
     #light-ray-3,
     #hor-light-ray-30,
@@ -154,7 +159,9 @@
     #hor-light-ray-33,
     #hor-light-ray-34 {
         margin-left: 63%;
-        background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 255, 0, 1));
+        -webkit-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 255, 0, 1);
+        -moz-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 255, 0, 1);
+        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 255, 0, 1); //background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 255, 0, 1));
     }
     #light-ray-4,
     #hor-light-ray-40,
@@ -163,7 +170,9 @@
     #hor-light-ray-43,
     #hor-light-ray-44 {
         margin-left: 69.5%;
-        background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 0, 255, 1));
+        -webkit-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 255, 1);
+        -moz-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 255, 1);
+        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 255, 1); //background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 0, 255, 1));
     }
     @media only screen and (max-width: 1024px) {
         #js-game-score,
