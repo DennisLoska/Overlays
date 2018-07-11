@@ -117,11 +117,18 @@ class ImageGenerator {
             colorsMinusGray[i][1] = seededRGB[i][1] - 128; // g
             colorsMinusGray[i][2] = seededRGB[i][2] - 128; // b
         }
-        console.log("COLORS - 128:")
+        console.log("Colors - 128:")
         console.log(colorsMinusGray)
 
-        let mixedColors = new Array(numPics) // colors - 128 * mInv
+        /*let mixedColors = new Array(numPics, numPics) // colors - 128 * mInv
         // initialize - fill with dummy values / zeros
+        for (let i = 0; i < mixedColors.length; i++) {
+            mixedColors[i] = []
+            for (let j = 0; j < mixedColors.length; j++) {
+                mixedColors[i][j] = 0
+            }
+        }*/
+        let mixedColors = new Array(numPics)
         for (let i = 0; i < mixedColors.length; i++) {
             mixedColors[i] = 0
         }
@@ -129,9 +136,12 @@ class ImageGenerator {
         // multiply with inverse matrix[][]
         for(let i = 0; i < numPics; i++){
             for(let j = 0; j < numPics; j++){
-                mixedColors[i] += colorsMinusGray[i][j] * matrix[j][i]
+                //colorsMinusGray[numPics][rgb]
+                mixedColors[i] += Math.floor(colorsMinusGray[j][i] * matrix[i][j])
             }
         }
+        console.log("Colors multiplied with inverse matrix:")
+        console.log(mixedColors)
 
         // + 128 and check if between 0 and 255
         for(let i = 0; i < numPics; i++){
@@ -141,8 +151,8 @@ class ImageGenerator {
                 return false;
             }  
         }
-        //console.log("MULTIPLIED WITH INVERSE MATRIX:")
-        //console.log(mixedColors)
+        console.log("(Colors - 128) * mInv + 128:")
+        console.log(mixedColors)
 
 
         /* 2. TEST: Distanz zu grau 128 */
