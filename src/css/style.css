@@ -335,20 +335,25 @@ a.nav-link:hover {
 
 #game-container {
   display: flex;
-  align-items: center; }
-
-#game-container {
+  align-items: center;
   height: 100vh;
   padding: 25px;
   background-color: rgba(118, 185, 0, 0.4);
   background-size: cover;
   text-align: center;
   color: #efefef; }
-
-#game-container #js-game-score,
-#js-game-timer,
-#game-container #js-game-timer {
-  background-color: inherit; }
+  #game-container #js-game-score,
+  #game-container #js-game-timer {
+    background-color: inherit;
+    vertical-align: middle;
+    font-size: 1.5vw;
+    text-align: center; }
+  #game-container .hide-shadow {
+    box-shadow: none; }
+  #game-container #inner-game-container {
+    height: 100%; }
+  #game-container #level-headline {
+    font-size: 3.5vw; }
 
 .tile-square-wrapper {
   padding: 0;
@@ -359,179 +364,141 @@ a.nav-link:hover {
   max-height: 150px;
   text-align: left;
   z-index: 1;
-  position: relative; }
+  position: relative;
+  background-image: url("../../img/bilderrahmen.png");
+  background-size: cover; }
   .tile-square-wrapper .tile-square {
     background-color: gold;
     display: inline-block;
     width: inherit;
     height: inherit;
     max-width: 150px;
-    max-height: 150px; }
+    max-height: 150px;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    background-color: gray;
+    -webkit-box-shadow: 10px 10px 36px 0px rgba(51, 51, 51, 0.58);
+    -moz-box-shadow: 10px 10px 36px 0px rgba(51, 51, 51, 0.58);
+    box-shadow: 10px 10px 36px 0px rgba(51, 51, 51, 0.58); }
+    .tile-square-wrapper .tile-square span {
+      display: inline-block;
+      font-size: 0.8vw; }
   .tile-square-wrapper .js-card {
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
     height: inherit;
     max-height: 150px;
     position: relative;
-    z-index: 1; }
-  .tile-square-wrapper img.js-card {
+    z-index: 1;
     -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75); }
-
-#js-game-score,
-#js-game-timer {
-  vertical-align: middle;
-  font-size: 1.5vw;
-  text-align: center; }
-
-#game-container .tile-square {
-  background-color: gray;
-  -webkit-box-shadow: 10px 10px 36px 0px rgba(51, 51, 51, 0.58);
-  -moz-box-shadow: 10px 10px 36px 0px rgba(51, 51, 51, 0.58);
-  box-shadow: 10px 10px 36px 0px rgba(51, 51, 51, 0.58); }
-
-#game-container .hide-shadow {
-  box-shadow: none; }
-
-.tile-square > span {
-  display: inline-block;
-  font-size: 0.8vw; }
-
-.tile-square {
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  background-image: url("../../img/bilderrahmen.png");
-  background-size: cover; }
-
-div.light-rays {
-  background: linear-gradient(to top, rgba(255, 0, 0, 0), red);
-  width: 0.4vw;
-  max-height: 800px;
-  height: 35vw;
-  opacity: .5;
-  margin-top: -6px;
-  margin-right: auto;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
-  box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4); }
-
-div.horizontal-rays {
-  -webkit-transform: rotateZ(-90deg);
-  -webkit-transform-style: preserve-3d;
-  transform: rotateZ(-90deg);
-  transform-style: preserve-3d;
-  -moz-transform-origin: 0 0;
-  -ms-transform-origin: 0 0;
-  -o-transform-origin: 0 0;
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-  z-index: 0;
-  margin-top: -60%;
-  display: none;
-  height: 20vw; }
-
-div.show-rays {
-  display: block; }
-
-#light-ray-0,
-#hor-light-ray-00,
-#hor-light-ray-01,
-#hor-light-ray-02,
-#hor-light-ray-03,
-#hor-light-ray-04 {
-  margin-left: 27.5%;
-  background: linear-gradient(to top, rgba(255, 0, 0, 0), red); }
-
-#light-ray-1,
-#hor-light-ray-10,
-#hor-light-ray-11,
-#hor-light-ray-12,
-#hor-light-ray-13,
-#hor-light-ray-14 {
-  margin-left: 34%;
-  background: linear-gradient(to top, rgba(255, 0, 0, 0), lime); }
-
-#light-ray-2,
-#hor-light-ray-20,
-#hor-light-ray-21,
-#hor-light-ray-22,
-#hor-light-ray-23,
-#hor-light-ray-24 {
-  margin-left: 40.5%;
-  background: linear-gradient(to top, rgba(255, 0, 0, 0), blue); }
-
-#light-ray-3,
-#hor-light-ray-30,
-#hor-light-ray-31,
-#hor-light-ray-32,
-#hor-light-ray-33,
-#hor-light-ray-34 {
-  margin-left: 47%;
-  background: linear-gradient(to top, rgba(255, 0, 0, 0), yellow); }
-
-#light-ray-4,
-#hor-light-ray-40,
-#hor-light-ray-41,
-#hor-light-ray-42,
-#hor-light-ray-43,
-#hor-light-ray-44 {
-  margin-left: 53.5%;
-  background: linear-gradient(to top, rgba(255, 0, 0, 0), magenta); }
-
-#game-container .js-is-flipped {
-  -webkit-transform: rotateY(20deg) rotateZ(-45deg);
-  -webkit-transform-style: preserve-3d;
-  transform: rotateY(20deg) rotateZ(-45deg);
-  transform-style: preserve-3d;
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  transform-origin: 40% 25%;
-  -moz-transform-origin: 40% 25%;
-  -ms-transform-origin: 40% 25%;
-  -o-transform-origin: 40% 25%;
-  -webkit-transform-origin: 40% 25%;
-  transform-origin: 40% 25%; }
-
-#game-container .js-card {
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease; }
-
-#inner-game-container {
-  height: 100%; }
-
-#level-headline {
-  font-size: 3.5vw; }
-
-@media only screen and (max-width: 1024px) {
-  #js-game-score,
-  #js-game-timer {
-    font-size: 2vw; }
-  div.light-rays {
-    height: 72vw; } }
-
-@media only screen and (max-width: 360px) {
-  #game-container .tile-square-wrapper {
-    width: 8.9vw;
-    height: 8.9vw; } }
-
-@media only screen and (min-width: 360px) {
-  #game-container .tile-square-wrapper {
-    width: 9.5vw;
-    height: 9.5vw; } }
-
-@media only screen and (min-width: 400px) {
-  #game-container .tile-square-wrapper {
-    width: 10vw;
-    height: 10vw; } }
-
-@media only screen and (min-width: 768px) {
-  #game-container .tile-square-wrapper {
-    width: 12vw;
-    height: 12vw; } }
-
-@media only screen and (min-width: 1025px) {
-  #game-container .tile-square-wrapper {
-    width: 6.5vw;
-    height: 6.5vw; } }
+  .tile-square-wrapper .js-is-flipped {
+    -webkit-transform: rotateY(20deg) rotateZ(-45deg);
+    -webkit-transform-style: preserve-3d;
+    transform: rotateY(20deg) rotateZ(-45deg);
+    transform-style: preserve-3d;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    transform-origin: 40% 25%;
+    -moz-transform-origin: 40% 25%;
+    -ms-transform-origin: 40% 25%;
+    -o-transform-origin: 40% 25%;
+    -webkit-transform-origin: 40% 25%;
+    transform-origin: 40% 25%; }
+  .tile-square-wrapper div.light-rays {
+    background: linear-gradient(to top, rgba(255, 0, 0, 0), red);
+    width: 0.4vw;
+    max-height: 800px;
+    height: 35vw;
+    opacity: .5;
+    margin-top: -6px;
+    margin-right: auto;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4);
+    box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.4); }
+  .tile-square-wrapper div.horizontal-rays {
+    -webkit-transform: rotateZ(-90deg);
+    -webkit-transform-style: preserve-3d;
+    transform: rotateZ(-90deg);
+    transform-style: preserve-3d;
+    -moz-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    z-index: 0;
+    margin-top: -60%;
+    display: none;
+    height: 20vw; }
+  .tile-square-wrapper div.show-rays {
+    display: block; }
+  .tile-square-wrapper #light-ray-0,
+  .tile-square-wrapper #hor-light-ray-00,
+  .tile-square-wrapper #hor-light-ray-01,
+  .tile-square-wrapper #hor-light-ray-02,
+  .tile-square-wrapper #hor-light-ray-03,
+  .tile-square-wrapper #hor-light-ray-04 {
+    margin-left: 27.5%;
+    background: linear-gradient(to top, rgba(255, 0, 0, 0), red); }
+  .tile-square-wrapper #light-ray-1,
+  .tile-square-wrapper #hor-light-ray-10,
+  .tile-square-wrapper #hor-light-ray-11,
+  .tile-square-wrapper #hor-light-ray-12,
+  .tile-square-wrapper #hor-light-ray-13,
+  .tile-square-wrapper #hor-light-ray-14 {
+    margin-left: 34%;
+    background: linear-gradient(to top, rgba(255, 0, 0, 0), lime); }
+  .tile-square-wrapper #light-ray-2,
+  .tile-square-wrapper #hor-light-ray-20,
+  .tile-square-wrapper #hor-light-ray-21,
+  .tile-square-wrapper #hor-light-ray-22,
+  .tile-square-wrapper #hor-light-ray-23,
+  .tile-square-wrapper #hor-light-ray-24 {
+    margin-left: 40.5%;
+    background: linear-gradient(to top, rgba(255, 0, 0, 0), blue); }
+  .tile-square-wrapper #light-ray-3,
+  .tile-square-wrapper #hor-light-ray-30,
+  .tile-square-wrapper #hor-light-ray-31,
+  .tile-square-wrapper #hor-light-ray-32,
+  .tile-square-wrapper #hor-light-ray-33,
+  .tile-square-wrapper #hor-light-ray-34 {
+    margin-left: 47%;
+    background: linear-gradient(to top, rgba(255, 0, 0, 0), yellow); }
+  .tile-square-wrapper #light-ray-4,
+  .tile-square-wrapper #hor-light-ray-40,
+  .tile-square-wrapper #hor-light-ray-41,
+  .tile-square-wrapper #hor-light-ray-42,
+  .tile-square-wrapper #hor-light-ray-43,
+  .tile-square-wrapper #hor-light-ray-44 {
+    margin-left: 53.5%;
+    background: linear-gradient(to top, rgba(255, 0, 0, 0), magenta); }
+  @media only screen and (max-width: 1024px) {
+    .tile-square-wrapper #js-game-score,
+    .tile-square-wrapper #js-game-timer {
+      font-size: 2vw; }
+    .tile-square-wrapper div.light-rays {
+      height: 72vw; } }
+  @media only screen and (max-width: 360px) {
+    .tile-square-wrapper .tile-square-wrapper {
+      width: 8.9vw;
+      height: 8.9vw; } }
+  @media only screen and (min-width: 360px) {
+    .tile-square-wrapper .tile-square-wrapper {
+      width: 9.5vw;
+      height: 9.5vw; } }
+  @media only screen and (min-width: 400px) {
+    .tile-square-wrapper .tile-square-wrapper {
+      width: 10vw;
+      height: 10vw; } }
+  @media only screen and (min-width: 768px) {
+    .tile-square-wrapper .tile-square-wrapper {
+      width: 12vw;
+      height: 12vw; } }
+  @media only screen and (min-width: 1025px) {
+    .tile-square-wrapper .tile-square-wrapper {
+      width: 6.5vw;
+      height: 6.5vw; } }
 
 #lp-row {
   height: 97.5vh;
