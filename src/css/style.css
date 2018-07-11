@@ -503,26 +503,61 @@ a.nav-link:hover {
       font-size: 2vw; }
     .tile-square-wrapper div.light-rays {
       height: 72vw; } }
-  @media only screen and (max-width: 360px) {
-    .tile-square-wrapper .tile-square-wrapper {
-      width: 8.9vw;
-      height: 8.9vw; } }
-  @media only screen and (min-width: 360px) {
-    .tile-square-wrapper .tile-square-wrapper {
-      width: 9.5vw;
-      height: 9.5vw; } }
-  @media only screen and (min-width: 400px) {
-    .tile-square-wrapper .tile-square-wrapper {
-      width: 10vw;
-      height: 10vw; } }
-  @media only screen and (min-width: 768px) {
-    .tile-square-wrapper .tile-square-wrapper {
-      width: 12vw;
-      height: 12vw; } }
-  @media only screen and (min-width: 1025px) {
-    .tile-square-wrapper .tile-square-wrapper {
-      width: 6.5vw;
-      height: 6.5vw; } }
+
+@media only screen and (max-width: 360px) {
+  .js-tile-square-wrapper-5 {
+    width: 8.9vw;
+    height: 8.9vw; }
+  .js-tile-square-wrapper-4 {
+    width: 10.5vw;
+    height: 10.5vw; }
+  .js-tile-square-wrapper-3 {
+    width: 13.5vw;
+    height: 13.5vw; } }
+
+@media only screen and (min-width: 360px) {
+  .js-tile-square-wrapper-5 {
+    width: 9.5vw;
+    height: 9.5vw; }
+  .js-tile-square-wrapper-4 {
+    width: 11.5vw;
+    height: 11.5vw; }
+  .js-tile-square-wrapper-3 {
+    width: 14vw;
+    height: 14vw; } }
+
+@media only screen and (min-width: 400px) {
+  .js-tile-square-wrapper-5 {
+    width: 10vw;
+    height: 10vw; }
+  .js-tile-square-wrapper-4 {
+    width: 12vw;
+    height: 12vw; }
+  .js-tile-square-wrapper-3 {
+    width: 15vw;
+    height: 15vw; } }
+
+@media only screen and (min-width: 768px) {
+  .js-tile-square-wrapper-5 {
+    width: 12vw;
+    height: 12vw; }
+  .js-tile-square-wrapper-4 {
+    width: 14vw;
+    height: 14vw; }
+  .js-tile-square-wrappe-3 {
+    width: 17vw;
+    height: 17vw; } }
+
+@media only screen and (min-width: 1025px) {
+  .js-tile-square-wrapper-5 {
+    width: 6.5vw;
+    height: 6.5vw; }
+  .js-tile-square-wrapper-4 {
+    width: 8vw;
+    height: 8vw; }
+  .js-tile-square-wrapper-3 {
+    width: 8vw;
+    height: 8vw; } }
 
 #lp-row {
   height: 97.5vh;

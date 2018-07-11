@@ -25,7 +25,7 @@ function loadLvlCompleteBox(game) {
         $(star).toggleClass('checked')
     }
     $('#js-finished-score').html('Score: ' + game.levelScore.toString())
-    $('#js-finished-time').html('Time: ' + Math.round( (game.timeNeeded / 1000) * 10 ) / 10 + 's')
+    $('#js-finished-time').html('Time: ' + Math.round((game.timeNeeded / 1000) * 10) / 10 + 's')
 }
 
 function clickedNextLvl(game) {
@@ -107,7 +107,7 @@ function loadGameGUI(game) {
                 if (numPics != 5) {
                     col = $('<div />', {
                         'class': 'js-col-' + j.toString() +
-                            ' tile-square-wrapper'
+                            ' tile-square-wrapper js-tile-square-wrapper-3'
                     })
                 }
                 tile.removeClass('js-4-tiles-per-row')
@@ -122,7 +122,7 @@ function loadGameGUI(game) {
                 if (numPics != 4) {
                     col = $('<div />', {
                         'class': 'js-col-' + j.toString() +
-                            ' tile-square-wrapper'
+                            ' tile-square-wrapper js-tile-square-wrapper-3'
                     })
                 }
                 tile.removeClass('js-5-tiles-per-row')

@@ -63,7 +63,7 @@ class ImageGenerator {
         //this.seededColors = this.randomSeed() // fill array with colors 
 
         // test colors (Grenzbereich 0 bis 255, Nähe zu grau 128, Nähe zueinander)
-        let tested = false;
+        let tested = true;
         console.log("--- START TEST ---");
         while(!tested){
             this.seededColors = this.randomSeed() // fill array with colors 
