@@ -62,7 +62,7 @@ function setBackgroundImg() {
         'back_9.jpg'
     ]
     let i = Math.floor(Math.random() * images.length) + 1
-    let url = 'img/background/' + images[i]
+    let url = 'img/background/' + images[5]
     $('#game-container').css('background-image', 'url(' + url + ')')
 }
 
@@ -97,6 +97,7 @@ function loadGameGUI(game) {
             let tile = $('<canvas />', {
                 'class': 'tile-square'
             })
+            $('<img src="img/bilderrahmen.png" alt="Bilderrahmen">').insertAfter(tile)
             if (numPics == 4) {
                 col = $('<div />', {
                     'class': 'js-col-' + j.toString() +
@@ -152,7 +153,7 @@ function loadGameGUI(game) {
                         'class': 'tile-square'
                     })
                     tile.addClass('js-card')
-                    let src_tile = 'img/green-glass.png'
+                    let src_tile = 'img/glas-schraube-5.png'
                     tile.attr("src", src_tile);
                     tile.attr('data-row', (i - 1).toString())
                     tile.attr('data-col', (j).toString())
@@ -168,5 +169,6 @@ function loadGameGUI(game) {
     }
     $('.js-card').click(function () {
         $(this).toggleClass('js-is-flipped')
+
     })
 }
