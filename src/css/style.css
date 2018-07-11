@@ -715,6 +715,14 @@ footer {
 .hide-box {
   display: none; }
 
+#about-link {
+  position: absolute;
+  font-size: 1.2em;
+  bottom: 10px;
+  right: 10px; }
+  #about-link a {
+    color: #fff; }
+
 #tut-game-container .tut-tile-off {
   background-color: #333; }
 

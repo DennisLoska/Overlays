@@ -4,10 +4,14 @@ var app = express()
 app.set('port', (process.env.PORT || 5001))
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', function(request, response) {
+app.get('/', function (request, response) {
     response.send('Hello World! Welcome to Overlays!')
 })
 
-app.listen(app.get('port'), function() {
+app.get('/about', function (req, res) {
+    res.sendFile(__dirname + '/public/about.html');
+});
+
+app.listen(app.get('port'), function () {
     console.log("Node app is running at localhost:" + app.get('port'))
 })

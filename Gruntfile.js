@@ -51,6 +51,7 @@ module.exports = function (grunt) {
                 files: { // Dictionary of files
                     // 'destination': 'source'
                     'public/index.html': 'src/index.html',
+                    'public/about.html': 'src/about.html',
                 },
             },
         },
