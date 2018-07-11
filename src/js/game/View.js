@@ -62,7 +62,7 @@ function setBackgroundImg() {
         'back_9.jpg'
     ]
     let i = Math.floor(Math.random() * images.length) + 1
-    let url = 'img/background/' + images[5]
+    let url = 'img/background/' + images[6]
     $('#game-container').css('background-image', 'url(' + url + ')')
 }
 
@@ -166,6 +166,7 @@ function loadGameGUI(game) {
     for (let i = 0; i < numPics; i++) {
         $('<div class="light-rays" id="light-ray-' + i.toString() + '"></div>').insertAfter('#js-basis-image-' + i.toString());
     }
+    $('<img class="frame-overlay" src="img/bilderrahmen.png" alt="Bilderrahmen">').insertAfter('.tile-square');
     $('.js-card').click(function () {
         $(this).toggleClass('js-is-flipped')
 
