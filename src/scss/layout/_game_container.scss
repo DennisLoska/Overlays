@@ -63,6 +63,8 @@
         position: absolute;
         width: inherit;
         height: inherit;
+        max-width: 150px;
+        max-height: 150px;
         z-index: 1;
     }
     .js-card {
@@ -92,6 +94,11 @@
     }
     div.light-rays {
         background: rgba(255, 255, 255, 1.0); //default
+        -webkit-filter: blur(3px);
+        -moz-filter: blur(3px);
+        -o-filter: blur(3px);
+        -ms-filter: blur(3px);
+        filter: blur(3px);
         border-radius: 5px;
         margin-top: 10px;
         width: 0.4vw;

@@ -1,63 +1,52 @@
-.tut-tile-off {
-    background-color: #333;
-}
-
-.tut-tile-on {
-    background-color: #efefef;
-}
-
-.tut-correct {
-    background-color: rgb(25, 160, 25);
-}
-
-.tut-incorrect {
-    background-color: #da3131;
-}
-
-.tut-basic {
-    background-color: dodgerblue;
-}
-
-#tutorial-list {
-    list-style-type: none;
-    padding-top: 25px;
-    padding-left: 20px;
-}
-
-#tutorial-list li {
-    text-align: left;
-    padding-bottom: 5px;
-}
-
-span.li-color {
-    color: #efefef;
-    display: inline-block;
-    width: 95%;
-    padding-left: 15px;
-}
-
-#tutorial-list li:nth-of-type(1) {
-    color: dodgerblue;
-}
-
-#tutorial-list li:nth-of-type(2) {
-    color: gold;
-}
-
-#tutorial-list li:nth-of-type(3) {
-    color: #efefef;
-}
-
-#tutorial-list li:nth-of-type(4) {
-    color: #333;
-}
-
-#tutorial-list li:nth-of-type(5) {
-    color: rgb(25, 160, 25);
-}
-
-#tutorial-list li:nth-of-type(6) {
-    color: #da3131;
+#tut-game-container {
+    .tut-tile-off {
+        background-color: #333;
+    }
+    .tut-tile-on {
+        background-color: #efefef;
+    }
+    .tut-correct {
+        background-color: rgb(25, 160, 25);
+    }
+    .tut-incorrect {
+        background-color: #da3131;
+    }
+    .tut-basic {
+        background-color: dodgerblue;
+    }
+    #tutorial-list {
+        list-style-type: none;
+        padding-top: 25px;
+        padding-left: 20px;
+        li {
+            text-align: left;
+            padding-bottom: 5px;
+        }
+        li:nth-of-type(1) {
+            color: dodgerblue;
+        }
+    }
+    span.li-color {
+        color: #efefef;
+        display: inline-block;
+        width: 95%;
+        padding-left: 15px;
+    }
+    li:nth-of-type(2) {
+        color: gold;
+    }
+    li:nth-of-type(3) {
+        color: #efefef;
+    }
+    li:nth-of-type(4) {
+        color: #333;
+    }
+    li:nth-of-type(5) {
+        color: rgb(25, 160, 25);
+    }
+    li:nth-of-type(6) {
+        color: #da3131;
+    }
 }
 
 @media only screen and (max-width: 1024px) {
