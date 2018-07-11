@@ -25,7 +25,7 @@ function loadLvlCompleteBox(game) {
         $(star).toggleClass('checked')
     }
     $('#js-finished-score').html('Score: ' + game.levelScore.toString())
-    $('#js-finished-time').html('Time: ' + (game.timeNeeded / 1000) + 's')
+    $('#js-finished-time').html('Time: ' + Math.round( (game.timeNeeded / 1000) * 10 ) / 10 + 's')
 }
 
 function clickedNextLvl(game) {

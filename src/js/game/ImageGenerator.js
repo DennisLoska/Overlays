@@ -117,14 +117,14 @@ class ImageGenerator {
             colorsMinusGray[i][1] = seededRGB[i][1] - 128; // g
             colorsMinusGray[i][2] = seededRGB[i][2] - 128; // b
         }
-        console.log("Colors - 128:")
+        console.log("colors - 128:")
         console.log(colorsMinusGray)
 
         /*let mixedColors = new Array(numPics, numPics) // colors - 128 * mInv
         // initialize - fill with dummy values / zeros
         for (let i = 0; i < mixedColors.length; i++) {
             mixedColors[i] = []
-            for (let j = 0; j < mixedColors.length; j++) {
+            for (let j = 0; j < 3; j++) {
                 mixedColors[i][j] = 0
             }
         }*/
@@ -134,13 +134,17 @@ class ImageGenerator {
         }
 
         // multiply with inverse matrix[][]
-        for(let i = 0; i < numPics; i++){
-            for(let j = 0; j < numPics; j++){
-                //colorsMinusGray[numPics][rgb]
-                mixedColors[i] += Math.floor(colorsMinusGray[j][i] * matrix[i][j])
+        for(let rgb = 0; rgb < 3; rgb++){
+            for(let i = 0; i < numPics; i++){
+                for(let j = 0; j < numPics; j++){
+                    //colorsMinusGray[numPics][rgb]
+                    //mixedColors[i] += Math.floor(colorsMinusGray[i][j] * matrix[i][j])
+
+                    mixedColors[i] += Math.floor(colorsMinusGray[i][rgb] * matrix[i][j])
+                }
             }
         }
-        console.log("Colors multiplied with inverse matrix:")
+        console.log("(colors - 128) * mInv")
         console.log(mixedColors)
 
         // + 128 and check if between 0 and 255
@@ -151,12 +155,12 @@ class ImageGenerator {
                 return false;
             }  
         }
-        console.log("(Colors - 128) * mInv + 128:")
+        console.log("(colors - 128) * mInv + 128:")
         console.log(mixedColors)
 
 
         /* 2. TEST: Distanz zu grau 128 */
-        let distanceMin = 12000 // minimum square distance to 128
+        let distanceMin = 26000 // minimum square distance to 128
         for (let i = 0; i < colors.length; i++) {
             let differenceR = 128 - seededRGB[i][0] // 128 - r
             let differenceG = 128 - seededRGB[i][1] // 128 - g
@@ -171,7 +175,7 @@ class ImageGenerator {
 
         
         /* 3. TEST: Distanz der Farben zueinander */
-        let distanceToEachOther = 14000 // minimum square distance to each color
+        let distanceToEachOther = 34000 // minimum square distance to each color
         for (let i = 0; i < colors.length; i++) {
             for (let j = 0; j < colors.length; j++) {
                 if(i != j){
