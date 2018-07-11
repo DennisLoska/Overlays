@@ -160,7 +160,7 @@ class ImageGenerator {
 
 
         /* 2. TEST: Distanz zu grau 128 */
-        let distanceMin = 12000 // minimum square distance to 128
+        let distanceMin = 26000 // minimum square distance to 128
         for (let i = 0; i < colors.length; i++) {
             let differenceR = 128 - seededRGB[i][0] // 128 - r
             let differenceG = 128 - seededRGB[i][1] // 128 - g
@@ -175,7 +175,7 @@ class ImageGenerator {
 
         
         /* 3. TEST: Distanz der Farben zueinander */
-        let distanceToEachOther = 14000 // minimum square distance to each color
+        let distanceToEachOther = 34000 // minimum square distance to each color
         for (let i = 0; i < colors.length; i++) {
             for (let j = 0; j < colors.length; j++) {
                 if(i != j){
