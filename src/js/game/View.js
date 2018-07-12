@@ -3,7 +3,8 @@ function clickedTile(game) {
     $('.js-card').click(function () {
         let row = $(this).attr('data-row')
         let col = $(this).attr('data-col')
-        ray = $('<div class="light-rays horizontal-rays" id="hor-light-ray-' + col + row + '"></div>')
+        ray = $('<div class="light-rays horizontal-rays hor-light-ray-' + col + '"></div>')
+        ray.addClass('js-hor-light-ray-' + col + '-' + game.numPics)
         if (!($(this).next().length))
             ray.insertAfter($(this))
         $(this).next().toggleClass('show-rays')
@@ -164,7 +165,7 @@ function loadGameGUI(game) {
         area.append(row)
     }
     for (let i = 0; i < numPics; i++) {
-        $('<div class="light-rays" id="light-ray-' + i.toString() + '"></div>').insertAfter('#js-basis-image-' + i.toString());
+        $('<div class="light-rays js-vert-light-ray-' + numPics + '"' + 'id="light-ray-' + i.toString() + '"></div>').insertAfter('#js-basis-image-' + i.toString());
     }
     $('<img class="frame-overlay" src="img/bilderrahmen.png" alt="Bilderrahmen">').insertAfter('.tile-square');
     $('.js-card').click(function () {

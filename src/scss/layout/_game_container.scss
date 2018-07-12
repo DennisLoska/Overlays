@@ -92,7 +92,7 @@
         -webkit-transform-origin: 40% 25%;
         transform-origin: 40% 25%;
     }
-    div.light-rays {
+    .light-rays {
         background: rgba(255, 255, 255, 1.0); //default
         -webkit-filter: blur(3px);
         -moz-filter: blur(3px);
@@ -101,14 +101,14 @@
         filter: blur(3px);
         border-radius: 5px;
         margin-top: 10px;
-        width: 0.4vw;
-        max-height: 800px;
+        width: 3px;
+        max-height: 950px;
         height: 42vw;
-        opacity: .9;
+        opacity: .8;
         margin-right: auto;
         z-index: 0;
     }
-    div.horizontal-rays {
+    .horizontal-rays {
         -webkit-transform: rotateZ(-90deg);
         -webkit-transform-style: preserve-3d;
         transform: rotateZ(-90deg);
@@ -122,75 +122,158 @@
         margin-top: -60%;
         display: none;
         height: 20vw;
+        max-height: 750px;
     }
-    div.show-rays {
+    .show-rays {
         display: block;
     }
     #light-ray-0,
-    #hor-light-ray-00,
-    #hor-light-ray-01,
-    #hor-light-ray-02,
-    #hor-light-ray-03,
-    #hor-light-ray-04 {
-        margin-left: 43.5%;
+    .hor-light-ray-0 {
+        margin-left: 40%;
         -webkit-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 0, 1);
         -moz-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 0, 1);
-        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 0, 1); //background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 0, 0, 1));
+        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 0, 1);
     }
     #light-ray-1,
-    #hor-light-ray-10,
-    #hor-light-ray-11,
-    #hor-light-ray-12,
-    #hor-light-ray-13,
-    #hor-light-ray-14 {
-        margin-left: 51%;
+    .hor-light-ray-1 {
+        margin-left: 40%;
         -webkit-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 255, 0, 1);
         -moz-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 255, 0, 1);
-        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 255, 0, 1); //background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(0, 255, 0, 1));
+        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 255, 0, 1);
     }
     #light-ray-2,
-    #hor-light-ray-20,
-    #hor-light-ray-21,
-    #hor-light-ray-22,
-    #hor-light-ray-23,
-    #hor-light-ray-24 {
-        margin-left: 56.5%;
+    .hor-light-ray-2 {
+        margin-left: 50%;
         -webkit-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 0, 255, 1);
         -moz-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 0, 255, 1);
-        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 0, 255, 1); //background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(0, 0, 255, 1));
+        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(0, 0, 255, 1);
     }
     #light-ray-3,
-    #hor-light-ray-30,
-    #hor-light-ray-31,
-    #hor-light-ray-32,
-    #hor-light-ray-33,
-    #hor-light-ray-34 {
-        margin-left: 63%;
+    .hor-light-ray-3 {
+        margin-left: 60%;
         -webkit-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 255, 0, 1);
         -moz-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 255, 0, 1);
-        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 255, 0, 1); //background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 255, 0, 1));
+        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 255, 0, 1);
     }
     #light-ray-4,
-    #hor-light-ray-40,
-    #hor-light-ray-41,
-    #hor-light-ray-42,
-    #hor-light-ray-43,
-    #hor-light-ray-44 {
-        margin-left: 69.5%;
+    .hor-light-ray-4 {
+        margin-left: 65%;
         -webkit-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 255, 1);
         -moz-box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 255, 1);
-        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 255, 1); //background: linear-gradient(to top, rgba(255, 0, 0, 0.0), rgba(255, 0, 255, 1));
+        box-shadow: 0px 0px $shadow_blur $shadow_int rgba(255, 0, 255, 1);
+    }
+    /* individual offset of horizontal rays per column */
+    .hor-light-ray-0 {
+        margin-top: -85%;
+    }
+    .hor-light-ray-1 {
+        margin-top: -75%;
+    }
+    .hor-light-ray-2 {
+        margin-top: -65%;
+    }
+    .hor-light-ray-3 {
+        margin-top: -55%;
+    }
+    .hor-light-ray-4 {
+        margin-top: -45%;
+    }
+    /* individual length of horizontal rays per col and game-type (3,4 or 5 tiles per row) tiles --> numPics */
+    .js-hor-light-ray-0-3 {
+        height: 350%;
+    }
+    .js-hor-light-ray-1-3 {
+        height: 250%;
+    }
+    .js-hor-light-ray-2-3 {
+        height: 150%;
+    }
+    .js-hor-light-ray-0-4 {
+        height: 450%;
+    }
+    .js-hor-light-ray-1-4 {
+        height: 350%;
+    }
+    .js-hor-light-ray-2-4 {
+        height: 250%;
+    }
+    .js-hor-light-ray-3-4 {
+        height: 150%;
+    }
+    .js-hor-light-ray-0-5 {
+        height: 550%;
+    }
+    .js-hor-light-ray-1-5 {
+        height: 450%;
+    }
+    .js-hor-light-ray-2-5 {
+        height: 350%;
+    }
+    .js-hor-light-ray-3-5 {
+        height: 250%;
+    }
+    .js-hor-light-ray-4-5 {
+        height: 150%;
+    }
+    /* individual length of vertical rays per col and amount of tiles --> numPics */
+    .js-vert-light-ray-3 {
+        height: 450%;
+    }
+    .js-vert-light-ray-4 {
+        height: 550%;
+    }
+    .js-vert-light-ray-5 {
+        height: 650%;
+    }
+    @media only screen and (max-width: 768px) {
+        .light-rays {
+            -webkit-filter: blur(1.5px);
+            -moz-filter: blur(1.5px);
+            -o-filter: blur(1.5px);
+            -ms-filter: blur(1.5px);
+            filter: blur(1.5px);
+            width: 2px;
+        }
+        #light-ray-0,
+        .hor-light-ray-0 {
+            -webkit-box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(255, 0, 0, 1);
+            -moz-box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(255, 0, 0, 1);
+            box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(255, 0, 0, 1);
+        }
+        #light-ray-1,
+        .hor-light-ray-1 {
+            -webkit-box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(0, 255, 0, 1);
+            -moz-box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(0, 255, 0, 1);
+            box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(0, 255, 0, 1);
+        }
+        #light-ray-2,
+        .hor-light-ray-2 {
+            -webkit-box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(0, 0, 255, 1);
+            -moz-box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(0, 0, 255, 1);
+            box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(0, 0, 255, 1);
+        }
+        #light-ray-3,
+        .hor-light-ray-3 {
+            -webkit-box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(255, 255, 0, 1);
+            -moz-box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(255, 255, 0, 1);
+            box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(255, 255, 0, 1);
+        }
+        #light-ray-4,
+        .hor-light-ray-4 {
+            -webkit-box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(255, 0, 255, 1);
+            -moz-box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(255, 0, 255, 1);
+            box-shadow: 0px 0px $shadow_blur_mobile $shadow_int_mobile rgba(255, 0, 255, 1);
+        }
     }
     @media only screen and (max-width: 1024px) {
         #js-game-score,
         #js-game-timer {
             font-size: 2vw;
         }
-        div.light-rays {
-            height: 72vw;
-        }
     }
 }
+
+/*changing tile-sizes depending on 3x3, 4x4 or 5x5 and different devices */
 
 @media only screen and (max-width: 360px) {
     .js-tile-square-wrapper-5 {
