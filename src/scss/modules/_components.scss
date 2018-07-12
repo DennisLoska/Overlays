@@ -1,6 +1,8 @@
 #js-level-finished-box {
     width: 25vw;
     min-width: 300px;
+    position: relative;
+    z-index: 2;
     #level-finished-wrapper {
         position: fixed;
         top: 17vh;
