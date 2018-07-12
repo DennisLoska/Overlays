@@ -1,7 +1,13 @@
 function clickedTile(game) {
+    let ray;
     $('.js-card').click(function () {
-        var row = $(this).attr('data-row')
-        var col = $(this).attr('data-col')
+        let row = $(this).attr('data-row')
+        let col = $(this).attr('data-col')
+        ray = $('<div class="light-rays horizontal-rays hor-light-ray-' + col + '"></div>')
+        ray.addClass('js-hor-light-ray-' + col + '-' + game.numPics)
+        if (!($(this).next().length))
+            ray.insertAfter($(this))
+        $(this).next().toggleClass('show-rays')
         game.updateOnClick(row, col)
     })
 }
@@ -20,7 +26,7 @@ function loadLvlCompleteBox(game) {
         $(star).toggleClass('checked')
     }
     $('#js-finished-score').html('Score: ' + game.levelScore.toString())
-    $('#js-finished-time').html('Time: ' + (game.timeNeeded / 1000) + 's')
+    $('#js-finished-time').html('Time: ' + Math.round((game.timeNeeded / 1000) * 10) / 10 + 's')
 }
 
 function clickedNextLvl(game) {
@@ -51,13 +57,13 @@ function clearGUI(game) {
  */
 function setBackgroundImg() {
     let images = [
-        'back_0.jpg', 'back_1.png', 'back_2.jpg',
-        'back_3.png', 'back_4.jpg', 'back_5.jpg',
+        'back_1.png', 'back_2.jpg',
+        'back_3.jpg', 'back_4.jpg', 'back_5.jpg',
         'back_6.jpg', 'back_7.jpg', 'back_8.jpg',
         'back_9.jpg'
     ]
-    let i = Math.floor(Math.random() * images.length) + 0
-    let url = 'img/background/' + images[i]
+    let i = Math.floor(Math.random() * images.length) + 1
+    let url = 'img/background/' + images[6]
     $('#game-container').css('background-image', 'url(' + url + ')')
 }
 
@@ -102,7 +108,7 @@ function loadGameGUI(game) {
                 if (numPics != 5) {
                     col = $('<div />', {
                         'class': 'js-col-' + j.toString() +
-                            ' tile-square-wrapper'
+                            ' tile-square-wrapper js-tile-square-wrapper-3'
                     })
                 }
                 tile.removeClass('js-4-tiles-per-row')
@@ -117,7 +123,7 @@ function loadGameGUI(game) {
                 if (numPics != 4) {
                     col = $('<div />', {
                         'class': 'js-col-' + j.toString() +
-                            ' tile-square-wrapper'
+                            ' tile-square-wrapper js-tile-square-wrapper-3'
                     })
                 }
                 tile.removeClass('js-5-tiles-per-row')
@@ -147,7 +153,7 @@ function loadGameGUI(game) {
                         'class': 'tile-square'
                     })
                     tile.addClass('js-card')
-                    let src_tile = 'img/green-glass.png'
+                    let src_tile = 'img/glas-schraube-5.png'
                     tile.attr("src", src_tile);
                     tile.attr('data-row', (i - 1).toString())
                     tile.attr('data-col', (j).toString())
@@ -158,7 +164,12 @@ function loadGameGUI(game) {
         }
         area.append(row)
     }
+    for (let i = 0; i < numPics; i++) {
+        $('<div class="light-rays js-vert-light-ray-' + numPics + '"' + 'id="light-ray-' + i.toString() + '"></div>').insertAfter('#js-basis-image-' + i.toString());
+    }
+    $('<img class="frame-overlay" src="img/bilderrahmen.png" alt="Bilderrahmen">').insertAfter('.tile-square');
     $('.js-card').click(function () {
         $(this).toggleClass('js-is-flipped')
+
     })
 }

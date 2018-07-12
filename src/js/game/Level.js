@@ -93,14 +93,14 @@ class Level {
 
     setSettings() {
         // [numPics, numOnes, time, doGenerate]
-        this.levelSettings[0] = [3, 2, 30000, false]
+        this.levelSettings[0] = [3, 2, 30000, true]
         this.levelSettings[1] = [3, 2, 30000, true]
         this.levelSettings[2] = [3, 2, 30000, false]
         this.levelSettings[3] = [3, 2, 30000, true]
         this.levelSettings[4] = [4, 2, 35000, false]
         this.levelSettings[5] = [4, 2, 35000, true]
         this.levelSettings[6] = [4, 3, 40000, false]
-        this.levelSettings[7] = [5, 3, 40000, true]
+        this.levelSettings[7] = [4, 3, 40000, true]
         this.levelSettings[8] = [5, 3, 40000, false]
         this.levelSettings[9] = [5, 4, 45000, true]
         this.levelSettings[10] = [5, 4, 45000, false]

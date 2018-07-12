@@ -1,6 +1,6 @@
 class Images {
 
-    constructor() {
+    constructor(matrix) {
         this.imageNames = [
             "A2.jpg", "B2.jpg", "C2.jpg", "D2.jpg", "E2.jpg", // 0
             "A3.jpg", "B3.jpg", "C3.jpg", "D3.jpg", "E3.jpg", // 1
@@ -22,6 +22,8 @@ class Images {
         this.height = undefined
         this.targetImgData = new Array()
         this.vertical = undefined // position of target images, where to draw
+
+        this.mInv = matrix
     }
 
     set numImage(num) {
@@ -78,8 +80,8 @@ class Images {
         this.images = new Array(this.numImages)
 
         let seed = Math.floor(Math.random() * 501) // generiert random Zahl zwischen 0 und 500 
-        // save good seed values: 474, 193, 4, 229, 221, 324, 112
-        let generator = new ImageGenerator(seed, this.numImages)
+        // save good seed values: 474, 193, 4, 229, 221, 324, 112, 131, 378
+        let generator = new ImageGenerator(seed, this.numImages, this.mInv)
 
         try {
             let targetImgData = new Array()
