@@ -63,7 +63,7 @@ function setBackgroundImg() {
         'back_9.jpg'
     ]
     let i = Math.floor(Math.random() * images.length) + 1
-    let url = 'img/background/' + images[6]
+    let url = 'img/background/' + images[i]
     $('#game-container').css('background-image', 'url(' + url + ')')
 }
 
