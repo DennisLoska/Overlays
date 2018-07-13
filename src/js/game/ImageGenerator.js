@@ -63,7 +63,7 @@ class ImageGenerator {
         //this.seededColors = this.randomSeed() // fill array with colors 
 
         // test colors (Grenzbereich 0 bis 255, Nähe zu grau 128, Nähe zueinander)
-        let tested = true;
+        let tested = false;
         console.log("--- START TEST ---");
         while(!tested){
             this.seededColors = this.randomSeed() // fill array with colors 
@@ -160,7 +160,7 @@ class ImageGenerator {
 
 
         /* 2. TEST: Distanz zu grau 128 */
-        let distanceMin = 26000 // minimum square distance to 128
+        let distanceMin = 24000 // minimum square distance to 128
         for (let i = 0; i < colors.length; i++) {
             let differenceR = 128 - seededRGB[i][0] // 128 - r
             let differenceG = 128 - seededRGB[i][1] // 128 - g
@@ -175,7 +175,7 @@ class ImageGenerator {
 
         
         /* 3. TEST: Distanz der Farben zueinander */
-        let distanceToEachOther = 34000 // minimum square distance to each color
+        let distanceToEachOther = 38000 // minimum square distance to each color
         for (let i = 0; i < colors.length; i++) {
             for (let j = 0; j < colors.length; j++) {
                 if(i != j){
