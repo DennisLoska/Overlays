@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     height: 100vh;
-    padding: 25px;
+    //padding: 25px;
     background-color: rgba(118, 185, 0, 0.4);
     background-size: cover;
     text-align: center;
@@ -23,9 +23,6 @@
     }
     #inner-game-container {
         height: 100%;
-    }
-    #level-headline {
-        font-size: 3.5vw;
     }
 }
 
@@ -77,6 +74,9 @@
         -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
         -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
         box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+    }
+    .js-card:hover {
+        cursor: pointer;
     }
     .js-is-flipped {
         -webkit-transform: rotateY(20deg) rotateZ(-45deg);

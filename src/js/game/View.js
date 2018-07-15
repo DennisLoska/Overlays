@@ -45,7 +45,7 @@ function clearGUI(game) {
     $('.js-card').each(function () {
         $(game).removeClass('js-is-flipped')
     })
-    $('#level-headline').html('Level ' + (game.levelNumber + 1).toString())
+    $('#js-current-lvl').html('Level ' + (game.levelNumber + 1).toString())
     toggleLvlCompleteBox()
 }
 
@@ -88,7 +88,7 @@ function loadGameGUI(game) {
     for (let i = 0; i < numPics + 1; i++) {
         let row = $('<div />', {
             'class': 'js-row-' + i.toString() +
-                ' row justify-content-center align-items-center tile-row'
+                ' row justify-content-between align-items-center tile-row'
         })
         for (let j = 0; j < numPics + 2; j++) {
             let col = $('<div />', {

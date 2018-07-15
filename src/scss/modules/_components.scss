@@ -44,3 +44,97 @@
 .hide-box {
     display: none;
 }
+
+#custom-menu-container {
+    max-width: 1000px;
+}
+
+#time-bar-wrapper,
+#game-menu-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+#time-bar-wrapper {
+    height: 30px;
+    margin-top: 30px;
+    border-radius: 5px;
+    border: 3px solid white;
+    #time-bar {
+        background-color: $menu-blue;
+    }
+}
+
+#game-menu-wrapper {
+    margin-top: 2.5px;
+    #game-menu {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+        #game-menu-options {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            ul {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                list-style-type: none;
+                align-items: center;
+                li {
+                    white-space: nowrap;
+                    display: inline;
+                    padding: 0px 5px;
+                    a {
+                        color: #fff;
+                        padding: 5px;
+                    }
+                    a:hover {
+                        color: #fff;
+                        text-decoration: none;
+                    }
+                }
+                li.li-info {
+                    font-size: 42px;
+                    color: #000;
+                }
+            }
+        }
+        @media only screen and (max-width: 767px) {
+            #game-menu-options {
+                ul {
+                    padding: 20px 0px 20px 0px;
+                    flex-direction: column;
+                    li {
+                        padding: 5px;
+                        a {
+                            min-width: 250px;
+                            display: inline-block;
+                            line-height: inherit;
+                            padding: 9px;
+                        }
+                    }
+                }
+            }
+        }
+        @media only screen and (max-width: 360px) {
+            #game-menu-options {
+                ul {
+                    padding: 0;
+                    flex-direction: column;
+                    li {
+                        padding: 5px;
+                        a {
+                            height: 40px;
+                            padding: 4px
+                        }
+                    }
+                    li.li-info {
+                        font-size: 32px;
+                        color: #000;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}
