@@ -58,11 +58,20 @@ When you are done cloning the repository you can install all dependencies using
 npm install
 ```
 
-and after that you can install grunt (skip this step first because it may not be needed):
+and after that you can install grunt & other dev-dependencies:
 
 ```
 npm install -g grunt-cli
+npm install --save-dev grunt-contrib-imagemin
+npm install save-dev imagemin-mozjpeg
 npm install grunt 
+```
+
+Now you have to do this, if you are a Linux user, in order for the image-compression task to work:
+
+```
+sudo apt-get install libpng16-16 //if you don't have it
+sudo ldconfig
 ```
 
 Now test, whether you installed everything correctly by executing
