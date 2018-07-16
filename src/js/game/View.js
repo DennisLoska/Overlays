@@ -154,7 +154,7 @@ function loadGameGUI(game) {
                         'class': 'tile-square'
                     })
                     tile.addClass('js-card')
-                    let src_tile = 'img/glas-schraube-5.png'
+                    let src_tile = 'img/glas-screw.png'
                     tile.attr("src", src_tile);
                     tile.attr('data-row', (i - 1).toString())
                     tile.attr('data-col', (j).toString())

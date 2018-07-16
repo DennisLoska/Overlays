@@ -6,6 +6,8 @@ module.exports = function (grunt) {
       order to use grunt you need to use grunt, grunt watch or grunt build
     */
     require('load-grunt-tasks')(grunt);
+    const mozjpeg = require('imagemin-mozjpeg');
+
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.initConfig({
         babel: {
@@ -100,6 +102,37 @@ module.exports = function (grunt) {
                 },
             },
         },
+        imagemin: {
+            static: {
+                options: {
+                    optimizationLevel: 3,
+                    svgoPlugins: [{
+                        removeViewBox: false
+                    }],
+                    progressive: true,
+                    use: [mozjpeg()] // Example plugin usage
+                },
+                files: {
+                    'public/img/glas-screw.png': 'public/img/glas-screw.png',
+                }
+            },
+            dynamic: {
+                options: {
+                    optimizationLevel: 3,
+                    svgoPlugins: [{
+                        removeViewBox: false
+                    }],
+                    progressive: true,
+                    use: [mozjpeg()] // Example plugin usage
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'src/img/background',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: 'public/img/background/'
+                }]
+            }
+        },
         watch: {
             css: {
                 files: ['src/scss/*.scss', 'src/scss/**/*.scss'],
@@ -123,6 +156,6 @@ module.exports = function (grunt) {
             },
         },
     });
-    grunt.registerTask('default', ['babel', 'sass', 'htmlmin', 'cssmin','uglify', 'copy', 'watch']);
-    grunt.registerTask('build', ['babel', 'sass', 'htmlmin', 'cssmin','uglify', 'copy']);
+    grunt.registerTask('default', ['babel', 'sass', 'htmlmin', 'cssmin', 'uglify', 'copy', 'watch']);
+    grunt.registerTask('build', ['babel', 'sass', 'htmlmin', 'cssmin', 'uglify', 'copy', 'imagemin']);
 };

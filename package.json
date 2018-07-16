@@ -14,7 +14,6 @@
         "grunt-contrib-copy": "^1.0.0",
         "grunt-contrib-cssmin": "^2.2.1",
         "grunt-contrib-htmlmin": "^2.4.0",
-        "grunt-contrib-imagemin": "^2.0.1",
         "grunt-contrib-jshint": "~0.10.0",
         "grunt-contrib-nodeunit": "~0.4.1",
         "grunt-contrib-uglify": "~3.3.0",
@@ -39,5 +38,9 @@
     "contributors": [
         "Dennis Loska <d.loska@hotmail.de> (http://dennisloska.com)"
     ],
-    "license": "MIT"
+    "license": "MIT",
+    "devDependencies": {
+        "grunt-contrib-imagemin": "^2.0.1",
+        "imagemin-mozjpeg": "^7.0.0"
+    }
 }
