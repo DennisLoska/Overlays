@@ -570,47 +570,47 @@ a.nav-link:hover {
 /*changing tile-sizes depending on 3x3, 4x4 or 5x5 and different devices */
 @media only screen and (max-width: 360px) {
   .js-tile-square-wrapper-5 {
-    width: 8.9vw;
-    height: 8.9vw; }
+    width: 8vw;
+    height: 8vw; }
+  .js-tile-square-wrapper-4 {
+    width: 9.5vw;
+    height: 9.5vw; }
+  .js-tile-square-wrapper-3 {
+    width: 11.5vw;
+    height: 11.5vw; } }
+
+@media only screen and (min-width: 360px) {
+  .js-tile-square-wrapper-5 {
+    width: 8.5vw;
+    height: 8.5vw; }
+  .js-tile-square-wrapper-4 {
+    width: 10vw;
+    height: 10vw; }
+  .js-tile-square-wrapper-3 {
+    width: 12.5vw;
+    height: 12.5vw; } }
+
+@media only screen and (min-width: 400px) {
+  .js-tile-square-wrapper-5 {
+    width: 9vw;
+    height: 9vw; }
   .js-tile-square-wrapper-4 {
     width: 10.5vw;
     height: 10.5vw; }
   .js-tile-square-wrapper-3 {
-    width: 13.5vw;
-    height: 13.5vw; } }
-
-@media only screen and (min-width: 360px) {
-  .js-tile-square-wrapper-5 {
-    width: 9.5vw;
-    height: 9.5vw; }
-  .js-tile-square-wrapper-4 {
-    width: 11.5vw;
-    height: 11.5vw; }
-  .js-tile-square-wrapper-3 {
-    width: 14vw;
-    height: 14vw; } }
-
-@media only screen and (min-width: 400px) {
-  .js-tile-square-wrapper-5 {
-    width: 10vw;
-    height: 10vw; }
-  .js-tile-square-wrapper-4 {
-    width: 12vw;
-    height: 12vw; }
-  .js-tile-square-wrapper-3 {
-    width: 15vw;
-    height: 15vw; } }
+    width: 12.5vw;
+    height: 12.5vw; } }
 
 @media only screen and (min-width: 768px) {
   .js-tile-square-wrapper-5 {
+    width: 10.5vw;
+    height: 10.5vw; }
+  .js-tile-square-wrapper-4 {
     width: 12vw;
     height: 12vw; }
-  .js-tile-square-wrapper-4 {
-    width: 14vw;
-    height: 14vw; }
-  .js-tile-square-wrappe-3 {
-    width: 17vw;
-    height: 17vw; } }
+  .js-tile-square-wrapper-3 {
+    width: 14.5vw;
+    height: 14.5vw; } }
 
 @media only screen and (min-width: 1025px) {
   .js-tile-square-wrapper-5 {
@@ -622,6 +622,10 @@ a.nav-link:hover {
   .js-tile-square-wrapper-3 {
     width: 8vw;
     height: 8vw; } }
+
+@media only screen and (max-width: 1025px) {
+  .tile-validation-wrapper {
+    justify-content: center; } }
 
 #lp-row {
   height: 97.5vh;
@@ -879,7 +883,7 @@ a.menu-btn {
             text-decoration: none; }
         #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
           font-size: 42px;
-          color: lightgrey; }
+          color: darkgrey; }
           #game-menu-wrapper #game-menu #game-menu-options ul li.stars .checked {
             color: gold; }
           #game-menu-wrapper #game-menu #game-menu-options ul li.stars .fa-star {
@@ -889,29 +893,52 @@ a.menu-btn {
           color: #000; }
     @media only screen and (max-width: 1440px) {
       #game-menu-wrapper #game-menu #game-menu-options ul {
-        padding: 0;
+        padding: 20px 0px 20px 0px;
         flex-direction: column; }
         #game-menu-wrapper #game-menu #game-menu-options ul li {
           padding: 5px; }
           #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
             min-width: 350px;
             display: inline-block;
-            height: 40px;
-            padding: 4px; }
+            height: 40px; }
         #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
-          font-size: 32px;
-          color: #000;
+          font-size: 24px;
           font-weight: 500; } }
-    @media only screen and (max-width: 767px) {
+    @media only screen and (max-width: 1024px) {
       #game-menu-wrapper #game-menu #game-menu-options ul {
-        padding: 20px 0px 20px 0px;
-        flex-direction: column; }
+        padding: 0; }
         #game-menu-wrapper #game-menu #game-menu-options ul li {
-          padding: 5px; }
+          padding: 1px; }
           #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
             min-width: 250px;
-            line-height: inherit;
-            padding: 9px; } }
+            line-height: inherit; }
+        #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
+          font-size: 42px; }
+          #game-menu-wrapper #game-menu #game-menu-options ul li.stars .fa-star {
+            padding-top: 0px;
+            padding-bottom: 0px; }
+        #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
+          font-size: 22px; } }
+    @media only screen and (max-width: 767px) {
+      #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
+        min-width: 250px;
+        line-height: inherit; }
+      #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
+        font-size: 42px; }
+        #game-menu-wrapper #game-menu #game-menu-options ul li.stars .fa-star {
+          padding-top: 0px;
+          padding-bottom: 0px; } }
+    @media only screen and (max-width: 360px) {
+      #game-menu-wrapper #game-menu #game-menu-options ul li {
+        padding: 1px; }
+        #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
+          padding: 0;
+          min-width: 200px;
+          height: 30px; }
+      #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
+        font-size: 32px; }
+      #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
+        font-size: 20px; } }
 
 #tut-game-container .tut-tile-off {
   background-color: #333; }

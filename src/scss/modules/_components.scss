@@ -100,7 +100,7 @@
                 }
                 li.stars {
                     font-size: 42px;
-                    color: lightgrey;
+                    color: darkgrey;
                     .checked {
                         color: gold;
                     }
@@ -117,7 +117,7 @@
         @media only screen and (max-width: 1440px) {
             #game-menu-options {
                 ul {
-                    padding: 0;
+                    padding: 20px 0px 20px 0px;
                     flex-direction: column;
                     li {
                         padding: 5px;
@@ -125,13 +125,35 @@
                             min-width: 350px;
                             display: inline-block;
                             height: 40px;
-                            padding: 4px;
                         }
                     }
                     li.li-info {
-                        font-size: 32px;
-                        color: #000;
+                        font-size: 24px;
                         font-weight: 500;
+                    }
+                }
+            }
+        }
+        @media only screen and (max-width: 1024px) {
+            #game-menu-options {
+                ul {
+                    padding: 0;
+                    li {
+                        padding: 1px;
+                        a.menu-btn {
+                            min-width: 250px;
+                            line-height: inherit;
+                        }
+                    }
+                    li.stars {
+                        font-size: 42px;
+                        .fa-star {
+                            padding-top: 0px;
+                            padding-bottom: 0px;
+                        }
+                    }
+                    li.li-info {
+                        font-size: 22px;
                     }
                 }
             }
@@ -139,15 +161,38 @@
         @media only screen and (max-width: 767px) {
             #game-menu-options {
                 ul {
-                    padding: 20px 0px 20px 0px;
-                    flex-direction: column;
                     li {
-                        padding: 5px;
                         a.menu-btn {
                             min-width: 250px;
                             line-height: inherit;
-                            padding: 9px;
                         }
+                    }
+                    li.stars {
+                        font-size: 42px;
+                        .fa-star {
+                            padding-top: 0px;
+                            padding-bottom: 0px;
+                        }
+                    }
+                }
+            }
+        }
+        @media only screen and (max-width: 360px) {
+            #game-menu-options {
+                ul {
+                    li {
+                        padding: 1px;
+                        a.menu-btn {
+                            padding: 0;
+                            min-width: 200px;
+                            height: 30px;
+                        }
+                    }
+                    li.stars {
+                        font-size: 32px;
+                    }
+                    li.li-info {
+                        font-size: 20px;
                     }
                 }
             }
