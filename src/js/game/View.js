@@ -10,10 +10,6 @@ function clickedTile(game) {
         $(this).children(0).next().toggleClass('show-rays')
         game.updateOnClick(row, col)
     })
-
-
-
-
 }
 
 /*
@@ -50,7 +46,20 @@ function clearGUI(game) {
         $(game).removeClass('js-is-flipped')
     })
     $('#js-current-lvl').html('Level ' + (game.levelNumber + 1).toString())
+    $('#time-bar').html(game.this.level.time / 1000)
     toggleLvlCompleteBox()
+}
+
+function progress(timeleft, timetotal, timeBar) {
+    var progressBarWidth = timeleft * timeBar.width() / timetotal;
+    timeBar.children(0).animate({
+        width: progressBarWidth
+    }, 500).html(Math.floor(timeleft / 60) + ":" + timeleft % 60);
+    if (timeleft > 0) {
+        setTimeout(function () {
+            progress(timeleft - 1, timetotal, timeBar);
+        }, 1000);
+    }
 }
 
 /*
@@ -136,7 +145,7 @@ function defineNumPics(game) {
 
 function clearGame() {
     let area = $('#js-game-wrapper')
-    area.html('')
+    area.html()
     return area
 }
 

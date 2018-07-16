@@ -841,9 +841,14 @@ a.menu-btn {
   height: 30px;
   margin-top: 30px;
   border-radius: 5px;
-  border: 3px solid white; }
+  border: 3px solid white;
+  background: linear-gradient(to right, #d15151, #397a05); }
   #time-bar-wrapper #time-bar {
-    background-color: #397a05; }
+    width: 100%;
+    text-align: right;
+    display: block;
+    background-color: #2996b7;
+    box-sizing: border-box; }
 
 #game-menu-wrapper {
   margin-top: 2.5px; }

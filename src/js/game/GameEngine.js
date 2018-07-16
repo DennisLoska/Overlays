@@ -20,6 +20,8 @@ class GameEngine {
     }
 
     updateOnClick(row, col) {
+        if(this.clickCounter == 0)
+            progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
         this.clickCounter += 1
 
         // 1. update the value in the user matrix wUser[][]
