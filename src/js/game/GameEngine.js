@@ -336,6 +336,7 @@ class GameEngine {
         for (let i = 0; i < this.numPics; i++) {
             if (wUserRow[i] == this.m[index][i])
                 equals = true
+            else return false
         }
         return equals
     }
