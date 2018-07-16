@@ -182,7 +182,7 @@ function clearGame() {
 function createRow(i) {
     let row = $('<div />', {
         'class': 'js-row-' + i.toString() +
-            ' row justify-content-between align-items-center tile-row'
+            ' row justify-content-between align-items-center tile-row no-select'
     })
     return row
 }
@@ -190,7 +190,7 @@ function createRow(i) {
 function createCol(j) {
     let col = $('<div />', {
         'class': 'js-col-' + j.toString() +
-            ' tile-square-wrapper'
+            ' tile-square-wrapper no-select'
     })
     return col
 }
@@ -198,7 +198,7 @@ function createCol(j) {
 function create3x3Cols(j, tile) {
     let col = $('<div />', {
         'class': 'js-col-' + j.toString() +
-            ' tile-square-wrapper js-tile-square-wrapper-3'
+            ' tile-square-wrapper js-tile-square-wrapper-3 no-select'
     })
     return col
 }
@@ -206,7 +206,7 @@ function create3x3Cols(j, tile) {
 function create4x4Cols(j, tile) {
     let col = $('<div />', {
         'class': 'js-col-' + j.toString() +
-            ' tile-square-wrapper  js-tile-square-wrapper-4'
+            ' tile-square-wrapper  js-tile-square-wrapper-4 no-select'
     })
     tile.addClass('js-4-tiles-per-row')
     return col
@@ -215,7 +215,7 @@ function create4x4Cols(j, tile) {
 function create5x5Cols(j, tile) {
     let col = $('<div />', {
         'class': 'js-col-' + j.toString() +
-            ' tile-square-wrapper  js-tile-square-wrapper-5'
+            ' tile-square-wrapper  js-tile-square-wrapper-5 no-select'
     })
     tile.addClass('js-5-tiles-per-row')
     return col
@@ -223,14 +223,14 @@ function create5x5Cols(j, tile) {
 
 function createTile() {
     let tile = $('<canvas />', {
-        'class': 'tile-square'
+        'class': 'tile-square no-select'
     })
     return tile
 }
 
 function createTimeTile() {
     let tile = $('<div />', {
-        'class': ' tile-square hide-shadow'
+        'class': ' tile-square hide-shadow no-select'
     })
     tile.attr('id', 'js-game-timer')
     tile.html('LEVEL TIME:')
@@ -239,7 +239,7 @@ function createTimeTile() {
 
 function createScoreTile() {
     let tile = $('<div />', {
-        'class': ' tile-square hide-shadow'
+        'class': ' tile-square hide-shadow no-select'
     })
     tile.attr('id', 'js-game-score')
     tile.html('TOTAL SCORE: 0')
@@ -248,7 +248,7 @@ function createScoreTile() {
 
 function createEmptyTile() {
     let tile = $('<div />', {
-        'class': ' tile-square hide-shadow'
+        'class': ' tile-square hide-shadow no-select'
     })
     tile.attr('id', 'js-empty-tile')
     tile.html('')
@@ -257,7 +257,7 @@ function createEmptyTile() {
 
 function createGlassTile(i, j) {
     let tile = $('<img src="" />', {
-        'class': 'tile-square'
+        'class': 'tile-square no-select'
     })
     tile.addClass('js-card')
     let src_tile = 'img/glas-screw.png'
@@ -270,7 +270,7 @@ function createGlassTile(i, j) {
 function createValidationTile(i, col) {
     col.addClass('tile-validation-wrapper')
     let tile = $('<img src="" />', {
-        'class': 'tile-square'
+        'class': 'tile-square no-select'
     })
     tile.attr('id', 'js-validation-image-' + (i - 1).toString())
     tile.addClass('js-validation')
@@ -283,13 +283,13 @@ function createValidationTile(i, col) {
 function addVerticalRays(numPics) {
     let currentRay
     for (let i = 0; i < numPics; i++) {
-        currentRay = '<div class="light-rays js-vert-light-ray-' + numPics + '"' + 'id="light-ray-' + i.toString() + '"></div>'
+        currentRay = '<div class="light-rays no-select js-vert-light-ray-' + numPics + '"' + 'id="light-ray-' + i.toString() + '"></div>'
         $(currentRay).insertAfter('#js-basis-image-' + i.toString())
     }
 }
 
 function addImageFrame() {
-    let frame = '<img class="frame-overlay" src="img/bilderrahmen.png" alt="Bilderrahmen">'
+    let frame = '<img class="frame-overlay no-select" src="img/bilderrahmen.png" alt="Bilderrahmen">'
     $(frame).insertAfter('.tile-square')
 }
 
@@ -298,7 +298,9 @@ function handleGlassClicks() {
         $(this).children().toggleClass('js-is-flipped')
 
     })
+    /*
     $('.js-card').parent().hover(function () {
         $(this).css('cursor', 'pointer')
     })
+    */
 }

@@ -24,6 +24,21 @@
     }
     #inner-game-container {
         height: 100%;
+        .no-select {
+            -webkit-touch-callout: none;
+            /* iOS Safari */
+            -webkit-user-select: none;
+            /* Safari */
+            -khtml-user-select: none;
+            /* Konqueror HTML */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* Internet Explorer/Edge */
+            user-select: none;
+            /* Non-prefixed version, currently
+                                            supported by Chrome and Opera */
+        }
     }
 }
 
@@ -76,9 +91,11 @@
         -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
         box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     }
+    /*
     .js-card:hover {
         cursor: pointer;
     }
+    */
     .js-is-flipped {
         -webkit-transform: rotateY(20deg) rotateZ(-45deg);
         -webkit-transform-style: preserve-3d;

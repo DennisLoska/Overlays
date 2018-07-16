@@ -10,7 +10,8 @@ html {
   line-height: 1.15;
   /* 1 */
   -webkit-text-size-adjust: 100%;
-  /* 2 */ }
+  /* 2 */
+  cursor: url("../img/rainbow-cursor.png"), default; }
 
 /* Sections
      ========================================================================== */
@@ -356,6 +357,20 @@ a.nav-link:hover {
     box-shadow: none; }
   #game-container #inner-game-container {
     height: 100%; }
+    #game-container #inner-game-container .no-select {
+      -webkit-touch-callout: none;
+      /* iOS Safari */
+      -webkit-user-select: none;
+      /* Safari */
+      -khtml-user-select: none;
+      /* Konqueror HTML */
+      -moz-user-select: none;
+      /* Firefox */
+      -ms-user-select: none;
+      /* Internet Explorer/Edge */
+      user-select: none;
+      /* Non-prefixed version, currently
+                                            supported by Chrome and Opera */ }
 
 .tile-square-wrapper {
   padding: 0;
@@ -367,6 +382,11 @@ a.nav-link:hover {
   text-align: left;
   z-index: 1;
   position: relative;
+  /*
+    .js-card:hover {
+        cursor: pointer;
+    }
+    */
   /* individual offset of horizontal rays per column */
   /* individual length of horizontal rays per col and game-type (3,4 or 5 tiles per row) tiles --> numPics */
   /* individual length of vertical rays per col and amount of tiles --> numPics */ }
@@ -405,8 +425,6 @@ a.nav-link:hover {
     -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75); }
-  .tile-square-wrapper .js-card:hover {
-    cursor: pointer; }
   .tile-square-wrapper .js-is-flipped {
     -webkit-transform: rotateY(20deg) rotateZ(-45deg);
     -webkit-transform-style: preserve-3d;
