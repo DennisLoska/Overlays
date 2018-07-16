@@ -1,13 +1,13 @@
 function clickedTile(game) {
-    let ray;
-    $('.js-card').click(function () {
-        let row = $(this).attr('data-row')
-        let col = $(this).attr('data-col')
+    let ray
+    $('.js-card').parent().click(function () {
+        let row = $(this).children().attr('data-row')
+        let col = $(this).children().attr('data-col')
         ray = $('<div class="light-rays horizontal-rays hor-light-ray-' + col + '"></div>')
         ray.addClass('js-hor-light-ray-' + col + '-' + game.numPics)
-        if (!($(this).next().length))
+        if (!($(this).children().next().length))
             ray.insertAfter($(this))
-        $(this).next().toggleClass('show-rays')
+        $(this).children().next().toggleClass('show-rays')
         game.updateOnClick(row, col)
     })
 }
@@ -63,9 +63,6 @@ function setBackgroundImg() {
     ]
     let i = Math.floor(Math.random() * images.length) + 0
     let url = 'img/background/' + images[i]
-    console.log("HALLLO", url);
-    debugger
-
     $('#game-container').css('background-image', 'url(' + url + ')')
 }
 
@@ -81,85 +78,37 @@ function setBackgroundImg() {
 function loadGameGUI(game) {
     setBackgroundImg()
     toggleLvlCompleteBox()
-    let numPics
-    if (game == undefined) {
-        let lv = new Level(0) //always first Level
-        numPics = lv.numPics
-    } else numPics = game.numPics
-    let area = $('#js-game-wrapper')
-    area.html('')
+    let numPics = defineNumPics(game)
+    let area = clearGame()
     for (let i = 0; i < numPics + 1; i++) {
-        let row = $('<div />', {
-            'class': 'js-row-' + i.toString() +
-                ' row justify-content-between align-items-center tile-row'
-        })
-        for (let j = 0; j < numPics + 2; j++) {
-            let col = $('<div />', {
-                'class': 'js-col-' + j.toString() +
-                    ' tile-square-wrapper'
-            })
-            let tile = $('<canvas />', {
-                'class': 'tile-square'
-            })
-            if (numPics == 4) {
-                col = $('<div />', {
-                    'class': 'js-col-' + j.toString() +
-                        ' tile-square-wrapper  js-tile-square-wrapper-4'
-                })
-                tile.addClass('js-4-tiles-per-row')
-            } else if (numPics != 4) {
-                if (numPics != 5) {
-                    col = $('<div />', {
-                        'class': 'js-col-' + j.toString() +
-                            ' tile-square-wrapper js-tile-square-wrapper-3'
-                    })
-                }
-                tile.removeClass('js-4-tiles-per-row')
-            }
-            if (numPics == 5) {
-                col = $('<div />', {
-                    'class': 'js-col-' + j.toString() +
-                        ' tile-square-wrapper  js-tile-square-wrapper-5'
-                })
-                tile.addClass('js-5-tiles-per-row')
-            } else if (numPics != 5) {
-                if (numPics != 4) {
-                    col = $('<div />', {
-                        'class': 'js-col-' + j.toString() +
-                            ' tile-square-wrapper js-tile-square-wrapper-3'
-                    })
-                }
-                tile.removeClass('js-5-tiles-per-row')
-            }
+        let row = createRow(i)
+        for (let j = 0; j < numPics + 3; j++) {
+            let col = createCol(j)
+            let tile = createTile()
+            if (numPics == 3)
+                col = create3x3Cols(j, tile)
+            else if (numPics == 4)
+                col = create4x4Cols(j, tile)
+            else if (numPics == 5)
+                col = create5x5Cols(j, tile)
             if (i == 0) {
-                if (j == numPics + 1) {
-                    tile = $('<div />', {
-                        'class': ' tile-square hide-shadow'
-                    })
-                    tile.attr('id', 'js-game-timer')
-                    tile.html('Zeit:')
-                } else if (j == numPics) {
-                    tile = $('<div />', {
-                        'class': ' tile-square hide-shadow'
-                    })
-                    tile.attr('id', 'js-game-score')
-                    tile.html('Score: 0')
-                } else if (j < numPics)
-                    tile.attr('id', 'js-basis-image-' + j.toString())
+                if (j < numPics)
+                    tile.attr('id', 'js-basis-image-' + j.toString()) //basis images at the top
+                else if (j == numPics)
+                    tile = createScoreTile()
+                else if (j == numPics + 1)
+                    tile = createTimeTile()
+                else if (j == numPics + 2)
+                    tile = createEmptyTile()
             } else {
                 if (j == numPics)
-                    tile.attr('id', 'js-user-image-' + (i - 1).toString())
+                    tile.attr('id', 'js-user-image-' + (i - 1).toString()) //user images at the second col from the right
                 else if (j == numPics + 1)
-                    tile.attr('id', 'js-starting-image-' + (i - 1).toString())
+                    tile.attr('id', 'js-starting-image-' + (i - 1).toString()) //starting images at the far right col
+                else if (j == numPics + 2)
+                    tile = createValidationTile(i)
                 else {
-                    tile = $('<img src="" />', {
-                        'class': 'tile-square'
-                    })
-                    tile.addClass('js-card')
-                    let src_tile = 'img/glas-screw.png'
-                    tile.attr("src", src_tile);
-                    tile.attr('data-row', (i - 1).toString())
-                    tile.attr('data-col', (j).toString())
+                    tile = createGlassTile(i, j)
                 }
             }
             col.append(tile)
@@ -167,12 +116,145 @@ function loadGameGUI(game) {
         }
         area.append(row)
     }
-    for (let i = 0; i < numPics; i++) {
-        $('<div class="light-rays js-vert-light-ray-' + numPics + '"' + 'id="light-ray-' + i.toString() + '"></div>').insertAfter('#js-basis-image-' + i.toString());
-    }
-    $('<img class="frame-overlay" src="img/bilderrahmen.png" alt="Bilderrahmen">').insertAfter('.tile-square');
-    $('.js-card').click(function () {
-        $(this).toggleClass('js-is-flipped')
+    addVerticalRays(numPics)
+    addImageFrame()
+    handleGlassClicks()
+}
 
+function defineNumPics(game) {
+    let numPics
+    if (game == undefined) {
+        let lv = new Level(0) //always first Level
+        numPics = lv.numPics
+    } else numPics = game.numPics
+    return numPics
+}
+
+function clearGame() {
+    let area = $('#js-game-wrapper')
+    area.html('')
+    return area
+}
+
+function createRow(i) {
+    let row = $('<div />', {
+        'class': 'js-row-' + i.toString() +
+            ' row justify-content-between align-items-center tile-row'
+    })
+    return row
+}
+
+function createCol(j) {
+    let col = $('<div />', {
+        'class': 'js-col-' + j.toString() +
+            ' tile-square-wrapper'
+    })
+    return col
+}
+
+function create3x3Cols(j, tile) {
+    let col = $('<div />', {
+        'class': 'js-col-' + j.toString() +
+            ' tile-square-wrapper js-tile-square-wrapper-3'
+    })
+    return col
+}
+
+function create4x4Cols(j, tile) {
+    let col = $('<div />', {
+        'class': 'js-col-' + j.toString() +
+            ' tile-square-wrapper  js-tile-square-wrapper-4'
+    })
+    tile.addClass('js-4-tiles-per-row')
+    return col
+}
+
+function create5x5Cols(j, tile) {
+    let col = $('<div />', {
+        'class': 'js-col-' + j.toString() +
+            ' tile-square-wrapper  js-tile-square-wrapper-5'
+    })
+    tile.addClass('js-5-tiles-per-row')
+    return col
+}
+
+function createTile() {
+    let tile = $('<canvas />', {
+        'class': 'tile-square'
+    })
+    return tile
+}
+
+function createTimeTile() {
+    let tile = $('<div />', {
+        'class': ' tile-square hide-shadow'
+    })
+    tile.attr('id', 'js-game-timer')
+    tile.html('TIME:')
+    return tile
+}
+
+function createScoreTile() {
+    let tile = $('<div />', {
+        'class': ' tile-square hide-shadow'
+    })
+    tile.attr('id', 'js-game-score')
+    tile.html('SCORE: 0')
+    return tile
+}
+
+function createEmptyTile() {
+    let tile = $('<div />', {
+        'class': ' tile-square hide-shadow'
+    })
+    tile.attr('id', 'js-empty-tile')
+    tile.html('')
+    return tile
+}
+
+function createGlassTile(i, j) {
+    let tile = $('<img src="" />', {
+        'class': 'tile-square'
+    })
+    tile.addClass('js-card')
+    let src_tile = 'img/glas-screw.png'
+    tile.attr("src", src_tile);
+    tile.attr('data-row', (i - 1).toString())
+    tile.attr('data-col', (j).toString())
+    return tile
+}
+
+function createValidationTile(i) {
+    let tile = $('<img src="" />', {
+        'class': 'tile-square'
+    })
+    tile.attr('id', 'js-validation-image-' + (i - 1).toString())
+    tile.addClass('js-validation')
+    let valid = 'img/valid.png'
+    let invalid = 'img/invalid.png'
+    tile.attr("src", invalid);
+    return tile
+}
+
+function addVerticalRays(numPics) {
+    let currentRay
+    for (let i = 0; i < numPics; i++) {
+        currentRay = '<div class="light-rays js-vert-light-ray-' + numPics + '"' + 'id="light-ray-' + i.toString() + '"></div>'
+        $(currentRay).insertAfter('#js-basis-image-' + i.toString())
+    }
+}
+
+function addImageFrame() {
+    let frame = '<img class="frame-overlay" src="img/bilderrahmen.png" alt="Bilderrahmen">'
+    $(frame).insertAfter('.tile-square')
+}
+
+function handleGlassClicks() {
+    $('.js-card').parent().click(function () {
+        $(this).children().toggleClass('js-is-flipped')
+
+    })
+    $('.js-card').parent().hover(function () {
+        $(this).css('cursor', 'pointer')
     })
 }

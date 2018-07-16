@@ -1,21 +1,22 @@
 #game-container {
     display: flex;
     align-items: center;
-    height: 100vh;
-    //padding: 25px;
+    height: 100vh; //padding: 25px;
     background-color: rgba(118, 185, 0, 0.4);
     background-size: cover;
     text-align: center;
     color: #efefef;
     #js-game-score,
-    #js-game-timer {
+    #js-game-timer,
+    #js-empty-tile {
         background-color: inherit;
         vertical-align: middle;
         font-size: 1.5vw;
         text-align: center;
     }
     #js-game-score+img.frame-overlay,
-    #js-game-timer+img.frame-overlay {
+    #js-game-timer+img.frame-overlay,
+    #js-empty-tile+img.frame-overlay {
         display: none;
     }
     .hide-shadow {
@@ -270,6 +271,15 @@
         #js-game-timer {
             font-size: 2vw;
         }
+    }
+}
+
+.js-col-7.tile-square-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img.js-validation {
+        //margin-right: 50px; NOOOOOOOOOOOOO
     }
 }
 

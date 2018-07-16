@@ -342,13 +342,15 @@ a.nav-link:hover {
   text-align: center;
   color: #efefef; }
   #game-container #js-game-score,
-  #game-container #js-game-timer {
+  #game-container #js-game-timer,
+  #game-container #js-empty-tile {
     background-color: inherit;
     vertical-align: middle;
     font-size: 1.5vw;
     text-align: center; }
   #game-container #js-game-score + img.frame-overlay,
-  #game-container #js-game-timer + img.frame-overlay {
+  #game-container #js-game-timer + img.frame-overlay,
+  #game-container #js-empty-tile + img.frame-overlay {
     display: none; }
   #game-container .hide-shadow {
     box-shadow: none; }
@@ -557,6 +559,11 @@ a.nav-link:hover {
     .tile-square-wrapper #js-game-score,
     .tile-square-wrapper #js-game-timer {
       font-size: 2vw; } }
+
+.js-col-7.tile-square-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
 /*changing tile-sizes depending on 3x3, 4x4 or 5x5 and different devices */
 @media only screen and (max-width: 360px) {

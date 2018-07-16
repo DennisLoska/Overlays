@@ -47,7 +47,7 @@ class GameEngine {
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
             console.log("Level completed with " + this.clickCounter + " clicks!")
-            this.levelScore  = this.returnScore(this.clickCounter)
+            this.levelScore = this.returnScore(this.clickCounter)
             console.log("Score for this level: " + this.levelScore.toString())
             this.totalScore += this.levelScore
             console.log("Score: " + this.totalScore.toString())
@@ -58,8 +58,8 @@ class GameEngine {
                 this.loadLevel()
                 loadGameGUI(this) //from View.js
                 clickedTile(this) //from View.js
-                $('#js-game-score').html("Score: " + this.totalScore.toString())
-                $('#js-game-timer').html("Zeit: " + (this.level.time / 1000) + "s")
+                $('#js-game-score').html("SCORE: " + this.totalScore.toString())
+                $('#js-game-timer').html("TIME: " + (this.level.time / 1000) + "s")
                 this.clearArrays()
                 this.loadImagesIntoLevel()
                 clearGUI(this)
@@ -213,7 +213,7 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate
 
-        $('#js-game-timer').html("Zeit: " + (this.level.time / 1000) + "s")
+        $('#js-game-timer').html("TIME: " + (this.level.time / 1000) + "s")
         this.startTime = this.getTime()
     }
 
