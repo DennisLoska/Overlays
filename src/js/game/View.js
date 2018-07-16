@@ -1,3 +1,5 @@
+let timeOut
+
 function clickedTile(game) {
     let ray
     $('.js-card').parent().click(function () {
@@ -16,6 +18,7 @@ function clickedTile(game) {
  * Generates the box after a level is completed. It is positioned fixed on the screen
  */
 function loadLvlCompleteBox(game) {
+    clearTimeout(timeOut);
     let box = '<div id="level-finished-wrapper"><div id="level-finished-box"><h3 id="js-finished-lvl">LEVEL COMPLETED!</h3><div id="star-wrapper"><span id="1-star" class="fa fa-star"></span><span id="2-star" class="fa fa-star"></span><span id="3-star" class="fa fa-star"></span></div><div id="finished-data-wrapper"><div id="js-finished-score">SCORE: </div><div id="js-finished-time">TIME:</div></div><button id="btn-next-lvl">NEXT LEVEL</button></div></div>'
 
     $('#js-level-finished-box').html(box)
@@ -29,34 +32,23 @@ function loadLvlCompleteBox(game) {
     $('#js-finished-time').html('Time: ' + Math.round((game.timeNeeded / 1000) * 10) / 10 + 's')
 }
 
-function clickedNextLvl(game) {
-    $('#btn-next-lvl').click(function () {
-        var row = $(this).attr('data-row')
-        var col = $(this).attr('data-col')
-        game.updateOnClick(row, col)
-    })
-}
-
 function toggleLvlCompleteBox() {
     $('#level-finished-wrapper').toggleClass('hide-box')
 }
 
 function clearGUI(game) {
-    $('.js-card').each(function () {
-        $(game).removeClass('js-is-flipped')
-    })
     $('#js-current-lvl').html('Level ' + (game.levelNumber + 1).toString())
-    $('#time-bar').html(game.this.level.time / 1000)
+    $('#time-bar').html('0:' + game.level.time / 1000).css('width', '100%')
     toggleLvlCompleteBox()
 }
 
 function progress(timeleft, timetotal, timeBar) {
-    var progressBarWidth = timeleft * timeBar.width() / timetotal;
+    let progressBarWidth = timeleft * timeBar.width() / timetotal;
     timeBar.children(0).animate({
         width: progressBarWidth
     }, 500).html(Math.floor(timeleft / 60) + ":" + timeleft % 60);
     if (timeleft > 0) {
-        setTimeout(function () {
+        timeOut = setTimeout(function () {
             progress(timeleft - 1, timetotal, timeBar);
         }, 1000);
     }
@@ -145,7 +137,7 @@ function defineNumPics(game) {
 
 function clearGame() {
     let area = $('#js-game-wrapper')
-    area.html()
+    area.html('')
     return area
 }
 

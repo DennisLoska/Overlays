@@ -20,7 +20,7 @@ class GameEngine {
     }
 
     updateOnClick(row, col) {
-        if(this.clickCounter == 0)
+        if (this.clickCounter == 0)
             progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
         this.clickCounter += 1
 
@@ -64,8 +64,8 @@ class GameEngine {
             $('#btn-next-lvl').click(function () {
                 toggleLvlCompleteBox()
                 this.loadLevel()
-                loadGameGUI(this) //from View.js
-                clickedTile(this) //from View.js
+                loadGameGUI(this)
+                clickedTile(this)
                 $('#js-game-score').html("SCORE: " + this.totalScore.toString())
                 $('#js-game-timer').html("TIME: " + (this.level.time / 1000) + "s")
                 this.clearArrays()
