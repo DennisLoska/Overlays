@@ -28,11 +28,22 @@ function resetStars(game) {
     }
 }
 
+function resetChange() {
+    $('#btn-change-lvl').css('background-color', '#2996b7')
+}
+
 function setScoreAndTime(game) {
-    $('#js-game-score').html("SCORE: " + game.totalScore.toString())
-    $('#js-game-timer').html("TIME: 0:" + (game.level.time / 1000))
+    $('#js-game-score').html("TOTAL SCORE: " + game.totalScore.toString())
+    $('#js-game-timer').html("LEVEL TIME: 0:" + (game.level.time / 1000))
     $('#js-game-score-menu').html("SCORE: " + game.levelScore.toString())
     $('#js-game-timer-menu').html("TIME: 0:" + (game.timeNeeded / 1000))
+}
+
+function resetScoreAndTime(game) {
+    $('#js-game-score').html("TOTAL SCORE: " + game.totalScore.toString())
+    $('#js-game-timer').html("LEVEL TIME: 0:" + (game.level.time / 1000))
+    $('#js-game-score-menu').html("SCORE: 0")
+    $('#js-game-timer-menu').html("TIME: 0:00")
 }
 
 /*
@@ -59,7 +70,7 @@ function toggleLvlCompleteBox() {
 */
 
 function clearGUI(game) {
-    $('#js-current-lvl').html('Level ' + (game.levelNumber + 1).toString())
+    $('#js-current-lvl').html((game.levelNumber + 1).toString())
     $('#time-bar').html('0:' + game.level.time / 1000).css('width', '100%')
     $('#btn-next-lvl').css('background-color', 'darkgrey')
     //toggleLvlCompleteBox()
@@ -222,7 +233,7 @@ function createTimeTile() {
         'class': ' tile-square hide-shadow'
     })
     tile.attr('id', 'js-game-timer')
-    tile.html('TIME:')
+    tile.html('LEVEL TIME:')
     return tile
 }
 
@@ -231,7 +242,7 @@ function createScoreTile() {
         'class': ' tile-square hide-shadow'
     })
     tile.attr('id', 'js-game-score')
-    tile.html('SCORE: 0')
+    tile.html('TOTAL SCORE: 0')
     return tile
 }
 
