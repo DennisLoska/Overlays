@@ -20,6 +20,8 @@ class GameEngine {
     }
 
     updateOnClick(row, col) {
+        if (this.clickCounter == 0)
+            progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
         this.clickCounter += 1
 
         // 1. update the value in the user matrix wUser[][]
@@ -37,34 +39,72 @@ class GameEngine {
         this.drawUserImage(row, currentUserImg)
 
         // 4. check if the row is now completed; the right result in this row
+        let valid = 'img/valid.png'
+        let invalid = 'img/invalid.png'
         let state = this.comparePictures(row, wUserRow) // vergleiche die matrizen (user auswahl und lösungsmatrix)
-        if (state == true)
+        if (state == true) {
             this.setCorrectCombination(row, true) //richtige Kombination
-        else this.setCorrectCombination(row, false) //falsche Kombination
+            $('#js-validation-image-' + row.toString()).attr("src", valid)
+        } else {
+            this.setCorrectCombination(row, false) //falsche Kombination
+            $('#js-validation-image-' + row.toString()).attr("src", invalid)
+        }
 
         // 5. check if all rows are finished / have the correct combinations => next level
         let correctCombs = this.getAmountOfCorrectCombinations()
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
             console.log("Level completed with " + this.clickCounter + " clicks!")
-            this.levelScore  = this.returnScore(this.clickCounter)
+            this.levelScore = this.returnScore(this.clickCounter)
             console.log("Score for this level: " + this.levelScore.toString())
             this.totalScore += this.levelScore
             console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
-            loadLvlCompleteBox(this)
-            $('#btn-next-lvl').click(function () {
-                toggleLvlCompleteBox()
+            $('#btn-next-lvl').css('background-color', '#4CAF50')
+            $('#btn-change-lvl').css('background-color', 'lightgrey')
+            stopTimer()
+            setStars(this)
+            setScoreAndTime(this)
+            //loadLvlCompleteBox(this)
+            this.nextLevelClicked()
+        }
+    }
+
+    changeClicked() {
+        $('#btn-change-lvl').click(function () {
+            //toggleLvlCompleteBox()
+            let correctCombs = this.getAmountOfCorrectCombinations()
+            if (correctCombs != this.numPics) {
+                stopTimer()
                 this.loadLevel()
-                loadGameGUI(this) //from View.js
-                clickedTile(this) //from View.js
-                $('#js-game-score').html("Score: " + this.totalScore.toString())
-                $('#js-game-timer').html("Zeit: " + (this.level.time / 1000) + "s")
+                loadGameGUI(this)
+                clickedTile(this)
+                resetStars(this)
+                resetChange()
+                resetScoreAndTime(this)
                 this.clearArrays()
                 this.loadImagesIntoLevel()
                 clearGUI(this)
-            }.bind(this))
-        }
+            }
+        }.bind(this))
+    }
+
+    nextLevelClicked() {
+        $('#btn-next-lvl').click(function () {
+            //toggleLvlCompleteBox()
+            let correctCombs = this.getAmountOfCorrectCombinations()
+            if (correctCombs == this.numPics) {
+                this.loadLevel()
+                loadGameGUI(this)
+                clickedTile(this)
+                resetStars(this)
+                resetChange()
+                resetScoreAndTime(this)
+                this.clearArrays()
+                this.loadImagesIntoLevel()
+                clearGUI(this)
+            }
+        }.bind(this))
     }
 
     loadImagesIntoLevel() {
@@ -213,7 +253,8 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate
 
-        $('#js-game-timer').html("Zeit: " + (this.level.time / 1000) + "s")
+        $('#js-game-timer').html("LEVEL TIME: 0:" + (this.level.time / 1000))
+        $('#js-game-timer-menu').html("TIME: 0:00")
         this.startTime = this.getTime()
     }
 

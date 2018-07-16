@@ -1,7 +1,7 @@
 {
     "name": "Overlays",
     "version": "0.1.0",
-    "description": "Yet another web-application with the goal to share the flair of creativity through it's users.",
+    "description": "",
     "main": "index.js",
     "scripts": {
         "start": "node index.js"
@@ -16,11 +16,10 @@
         "grunt-contrib-htmlmin": "^2.4.0",
         "grunt-contrib-jshint": "~0.10.0",
         "grunt-contrib-nodeunit": "~0.4.1",
-        "grunt-contrib-uglify": "~0.5.0",
+        "grunt-contrib-uglify": "~3.3.0",
         "grunt-contrib-watch": "^1.0.0",
         "grunt-sass": "^2.0.0",
-        "load-grunt-tasks": "^3.5.2",
-        "mathjs": "^4.4.1"
+        "load-grunt-tasks": "^3.5.2"
     },
     "engines": {
         "node": "4.0.0"
@@ -39,5 +38,9 @@
     "contributors": [
         "Dennis Loska <d.loska@hotmail.de> (http://dennisloska.com)"
     ],
-    "license": "MIT"
+    "license": "MIT",
+    "devDependencies": {
+        "grunt-contrib-imagemin": "^2.0.1",
+        "imagemin-mozjpeg": "^7.0.0"
+    }
 }

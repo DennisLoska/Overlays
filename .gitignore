@@ -4,6 +4,7 @@ out/
 node_modules
 public/
 public
+src/ES5
 
 # Maven
 target/

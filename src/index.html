@@ -13,16 +13,7 @@
     <script src="js/vendor/jquery.min.js"></script>
     <script src="js/vendor/popper.min.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
-    <script src="js/Images.js"></script>
-    <script src="js/Level.js"></script>
-    <script src="js/GameEngine.js"></script>
-    <script src="js/ImageGenerator.js"></script>
-    <script src="js/InverseMatrix.js"></script>
-    <script src="js/View.js"></script>
-    <script src="js/Game.js"></script>
-    <script src="js/utils/animations.js"></script>
-    <script src="js/utils/scrolllock.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/app.js"></script>
     <title>Overlays</title>
 </head>
 
@@ -33,14 +24,55 @@
             <div class="row justify-content-center">
                 <div class="col-12" id="game-container">
                     <section class="container-fluid" id="inner-game-container">
-                        <h3 id="level-headline">Level
-                            <span id="js-current-lvl">1</span>
-                        </h3>
-                        <span id="about-link">
-                            <a href="about.html">Mehr erfahren</a>
-                        </span>
                         <div id="js-game-wrapper">
                             <!-- dynamically filled with JS -->
+                        </div>
+                        <div class="container-fluid" id="menu-container">
+                            <div class="container">
+                                <div class="row" id="time-bar-wrapper">
+                                    <div class="" id="time-bar">0:30</div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center" id="game-menu-wrapper">
+                                <div class="col-12" id="game-menu">
+                                    <div id="game-menu-options">
+                                        <ul>
+                                            <li class="li-info">
+                                                <span class="no-select" id="js-game-score-menu">SCORE: 0</span>
+                                            </li>
+                                            <li>
+                                                <a class="menu-btn no-select" href="index.html">RESTART</a>
+                                            </li>
+                                            <li>
+                                                <a id="btn-change-lvl" class="menu-btn no-select" href="#">CHANGE</a>
+                                            </li>
+                                            <!--
+                                            <li>
+                                                <a class="menu-btn" href="#">PREVIOUS LEVEL</a>
+                                            </li>
+                                            -->
+                                            <li class="li-info no-select">
+                                                LEVEL:
+                                                <span class="no-select" id="js-current-lvl">1</span>
+                                            </li>
+                                            <li class="stars no-select">
+                                                <span id="1-star" class="fa fa-star"></span>
+                                                <span id="2-star" class="fa fa-star"></span>
+                                                <span id="3-star" class="fa fa-star"></span>
+                                            </li>
+                                            <li>
+                                                <a id="btn-next-lvl" class="menu-btn no-select" href="#">NEXT LEVEL</a>
+                                            </li>
+                                            <li>
+                                                <a class="menu-btn no-select" href="about.html">ABOUT</a>
+                                            </li>
+                                            <li class="li-info">
+                                                <span class="no-select" id="js-game-timer-menu">TIME: 0</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 </div>

@@ -1,21 +1,22 @@
 #game-container {
     display: flex;
     align-items: center;
-    height: 100vh;
-    padding: 25px;
+    height: 100vh; //padding: 25px;
     background-color: rgba(118, 185, 0, 0.4);
     background-size: cover;
     text-align: center;
     color: #efefef;
     #js-game-score,
-    #js-game-timer {
+    #js-game-timer,
+    #js-empty-tile {
         background-color: inherit;
         vertical-align: middle;
         font-size: 1.5vw;
         text-align: center;
     }
     #js-game-score+img.frame-overlay,
-    #js-game-timer+img.frame-overlay {
+    #js-game-timer+img.frame-overlay,
+    #js-empty-tile+img.frame-overlay {
         display: none;
     }
     .hide-shadow {
@@ -23,9 +24,21 @@
     }
     #inner-game-container {
         height: 100%;
-    }
-    #level-headline {
-        font-size: 3.5vw;
+        .no-select {
+            -webkit-touch-callout: none;
+            /* iOS Safari */
+            -webkit-user-select: none;
+            /* Safari */
+            -khtml-user-select: none;
+            /* Konqueror HTML */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* Internet Explorer/Edge */
+            user-select: none;
+            /* Non-prefixed version, currently
+                                            supported by Chrome and Opera */
+        }
     }
 }
 
@@ -78,6 +91,11 @@
         -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
         box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     }
+    /*
+    .js-card:hover {
+        cursor: pointer;
+    }
+    */
     .js-is-flipped {
         -webkit-transform: rotateY(20deg) rotateZ(-45deg);
         -webkit-transform-style: preserve-3d;
@@ -273,65 +291,74 @@
     }
 }
 
+.tile-validation-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    img.js-validation {
+        max-width: 75%;
+    }
+}
+
 /*changing tile-sizes depending on 3x3, 4x4 or 5x5 and different devices */
 
 @media only screen and (max-width: 360px) {
     .js-tile-square-wrapper-5 {
-        width: 8.9vw;
-        height: 8.9vw;
+        width: 8vw;
+        height: 8vw;
+    }
+    .js-tile-square-wrapper-4 {
+        width: 9.5vw;
+        height: 9.5vw;
+    }
+    .js-tile-square-wrapper-3 {
+        width: 11.5vw;
+        height: 11.5vw;
+    }
+}
+
+@media only screen and (min-width: 360px) {
+    .js-tile-square-wrapper-5 {
+        width: 8.5vw;
+        height: 8.5vw;
+    }
+    .js-tile-square-wrapper-4 {
+        width: 10vw;
+        height: 10vw;
+    }
+    .js-tile-square-wrapper-3 {
+        width: 12.5vw;
+        height: 12.5vw;
+    }
+}
+
+@media only screen and (min-width: 400px) {
+    .js-tile-square-wrapper-5 {
+        width: 9vw;
+        height: 9vw;
     }
     .js-tile-square-wrapper-4 {
         width: 10.5vw;
         height: 10.5vw;
     }
     .js-tile-square-wrapper-3 {
-        width: 13.5vw;
-        height: 13.5vw;
-    }
-}
-
-@media only screen and (min-width: 360px) {
-    .js-tile-square-wrapper-5 {
-        width: 9.5vw;
-        height: 9.5vw;
-    }
-    .js-tile-square-wrapper-4 {
-        width: 11.5vw;
-        height: 11.5vw;
-    }
-    .js-tile-square-wrapper-3 {
-        width: 14vw;
-        height: 14vw;
-    }
-}
-
-@media only screen and (min-width: 400px) {
-    .js-tile-square-wrapper-5 {
-        width: 10vw;
-        height: 10vw;
-    }
-    .js-tile-square-wrapper-4 {
-        width: 12vw;
-        height: 12vw;
-    }
-    .js-tile-square-wrapper-3 {
-        width: 15vw;
-        height: 15vw;
+        width: 12.5vw;
+        height: 12.5vw;
     }
 }
 
 @media only screen and (min-width: 768px) {
     .js-tile-square-wrapper-5 {
+        width: 10.5vw;
+        height: 10.5vw;
+    }
+    .js-tile-square-wrapper-4 {
         width: 12vw;
         height: 12vw;
     }
-    .js-tile-square-wrapper-4 {
-        width: 14vw;
-        height: 14vw;
-    }
-    .js-tile-square-wrappe-3 {
-        width: 17vw;
-        height: 17vw;
+    .js-tile-square-wrapper-3 {
+        width: 14.5vw;
+        height: 14.5vw;
     }
 }
 
@@ -347,5 +374,11 @@
     .js-tile-square-wrapper-3 {
         width: 8vw;
         height: 8vw;
+    }
+}
+
+@media only screen and (max-width: 1025px) {
+    .tile-validation-wrapper {
+        justify-content: center;
     }
 }
