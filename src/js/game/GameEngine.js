@@ -92,15 +92,18 @@ class GameEngine {
     nextLevelClicked() {
         $('#btn-next-lvl').click(function () {
             //toggleLvlCompleteBox()
-            this.loadLevel()
-            loadGameGUI(this)
-            clickedTile(this)
-            resetStars(this)
-            resetChange()
-            resetScoreAndTime(this)
-            this.clearArrays()
-            this.loadImagesIntoLevel()
-            clearGUI(this)
+            let correctCombs = this.getAmountOfCorrectCombinations()
+            if (correctCombs == this.numPics) {
+                this.loadLevel()
+                loadGameGUI(this)
+                clickedTile(this)
+                resetStars(this)
+                resetChange()
+                resetScoreAndTime(this)
+                this.clearArrays()
+                this.loadImagesIntoLevel()
+                clearGUI(this)
+            }
         }.bind(this))
     }
 
