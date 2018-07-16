@@ -70,7 +70,7 @@ class GameEngine {
                 this.loadLevel()
                 loadGameGUI(this)
                 clickedTile(this)
-                setStars(this)
+                resetStars(this)
                 setScoreAndTime(this)
                 this.clearArrays()
                 this.loadImagesIntoLevel()

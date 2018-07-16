@@ -14,10 +14,17 @@ function clickedTile(game) {
     })
 }
 
-function setStars(game){
+function setStars(game) {
     for (let i = 1; i <= game.stars; i++) {
         let star = '#' + i.toString() + '-star'
         $(star).toggleClass('checked')
+    }
+}
+
+function resetStars(game) {
+    for (let i = 1; i <= game.stars; i++) {
+        let star = '#' + i.toString() + '-star'
+        $(star).attr('class', 'fa fa-star')
     }
 }
 
