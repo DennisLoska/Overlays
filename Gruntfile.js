@@ -146,6 +146,10 @@ module.exports = function (grunt) {
                 files: ['src/js/*.js', 'src/js/**/*.js'],
                 tasks: ['babel'],
             },
+            ES5: { //all LPs share the same footer.js!
+                files: ['src/ES5/*.js', 'src/ES5/**/*.js'],
+                tasks: ['uglify'],
+            },
             html: {
                 files: ['src/*.html'],
                 tasks: ['htmlmin'],

@@ -61,8 +61,11 @@ function setBackgroundImg() {
         'back_3.jpg', 'back_4.jpg', 'back_5.jpg',
         'back_6.jpg', 'back_7.jpg'
     ]
-    let i = Math.floor(Math.random() * images.length) + 1
+    let i = Math.floor(Math.random() * images.length) + 0
     let url = 'img/background/' + images[i]
+    console.log("HALLLO", url);
+    debugger
+
     $('#game-container').css('background-image', 'url(' + url + ')')
 }
 

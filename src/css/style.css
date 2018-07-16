@@ -775,8 +775,8 @@ a.menu-btn {
   width: 150px;
   height: 50px;
   color: #fff;
-  background-color: #5bc0de;
-  border: 1px solid #5bc0de;
+  background-color: #2996b7;
+  border: 1px solid #2996b7;
   box-sizing: border-box;
   transition: all .25s ease-in;
   -moz-transition: all .25s ease-in;
@@ -836,7 +836,7 @@ a.menu-btn {
   border-radius: 5px;
   border: 3px solid white; }
   #time-bar-wrapper #time-bar {
-    background-color: #5bc0de; }
+    background-color: #397a05; }
 
 #game-menu-wrapper {
   margin-top: 2.5px; }
@@ -865,7 +865,8 @@ a.menu-btn {
             text-decoration: none; }
         #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
           font-size: 42px;
-          color: #000; }
+          color: #000;
+          background-color: rgba(255, 255, 255, 0.3); }
     @media only screen and (max-width: 767px) {
       #game-menu-wrapper #game-menu #game-menu-options ul {
         padding: 20px 0px 20px 0px;
