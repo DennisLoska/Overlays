@@ -11,6 +11,7 @@ module.exports = function (grunt) {
         babel: {
             options: {
                 sourceMap: false,
+                presets: ['env']
             },
             dist: {
                 files: {
@@ -74,7 +75,20 @@ module.exports = function (grunt) {
                 dest: 'public/',
             },
         },
-
+        uglify: {
+            target: {
+                files: {
+                    'public/js/GameEngine.js': 'public/js/GameEngine.js',
+                    'public/js/ImageGenerator.js': 'public/js/ImageGenerator.js',
+                    'public/js/Images.js': 'public/js/Images.js',
+                    'public/js/InverseMatrix.js': 'public/js/InverseMatrix.js',
+                    'public/js/Level.js': 'public/js/Level.js',
+                    'public/js/View.js': 'public/js/View.js',
+                    'public/js/Game.js': 'public/js/Game.js',
+                    'public/js/main.js': 'public/js/main.js',
+                },
+            },
+        },
         watch: {
             css: {
                 files: ['src/scss/*.scss', 'src/scss/**/*.scss'],
@@ -99,5 +113,5 @@ module.exports = function (grunt) {
         },
     });
     grunt.registerTask('default', ['babel', 'sass', 'htmlmin', 'cssmin', 'copy', 'watch']);
-    grunt.registerTask('build', ['babel', 'sass', 'htmlmin', 'cssmin', 'copy']);
+    grunt.registerTask('build', ['babel', 'sass', 'htmlmin', 'cssmin', 'uglify', 'copy']);
 };
