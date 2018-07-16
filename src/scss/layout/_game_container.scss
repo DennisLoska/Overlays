@@ -277,9 +277,9 @@
 .tile-validation-wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     img.js-validation {
-        //margin-right: 50px; NOOOOOOOOOOOOO
+        max-width: 75%;
     }
 }
 

@@ -14,11 +14,25 @@ function clickedTile(game) {
     })
 }
 
+function setStars(game){
+    for (let i = 1; i <= game.stars; i++) {
+        let star = '#' + i.toString() + '-star'
+        $(star).toggleClass('checked')
+    }
+}
+
+function setScoreAndTime(game) {
+    $('#js-game-score').html("SCORE: " + game.totalScore.toString())
+    $('#js-game-timer').html("TIME: 0:" + (game.level.time / 1000))
+    $('#js-game-score-menu').html("SCORE: " + game.levelScore.toString())
+    $('#js-game-timer-menu').html("TIME: 0:" + (game.timeNeeded / 1000))
+}
+
 /*
  * Generates the box after a level is completed. It is positioned fixed on the screen
  */
+/*
 function loadLvlCompleteBox(game) {
-    clearTimeout(timeOut);
     let box = '<div id="level-finished-wrapper"><div id="level-finished-box"><h3 id="js-finished-lvl">LEVEL COMPLETED!</h3><div id="star-wrapper"><span id="1-star" class="fa fa-star"></span><span id="2-star" class="fa fa-star"></span><span id="3-star" class="fa fa-star"></span></div><div id="finished-data-wrapper"><div id="js-finished-score">SCORE: </div><div id="js-finished-time">TIME:</div></div><button id="btn-next-lvl">NEXT LEVEL</button></div></div>'
 
     $('#js-level-finished-box').html(box)
@@ -35,11 +49,13 @@ function loadLvlCompleteBox(game) {
 function toggleLvlCompleteBox() {
     $('#level-finished-wrapper').toggleClass('hide-box')
 }
+*/
 
 function clearGUI(game) {
     $('#js-current-lvl').html('Level ' + (game.levelNumber + 1).toString())
     $('#time-bar').html('0:' + game.level.time / 1000).css('width', '100%')
-    toggleLvlCompleteBox()
+    $('#btn-next-lvl').css('background-color', 'darkgrey')
+    //toggleLvlCompleteBox()
 }
 
 function progress(timeleft, timetotal, timeBar) {
@@ -52,6 +68,10 @@ function progress(timeleft, timetotal, timeBar) {
             progress(timeleft - 1, timetotal, timeBar);
         }, 1000);
     }
+}
+
+function stopTimer() {
+    clearTimeout(timeOut)
 }
 
 /*
@@ -82,7 +102,7 @@ function setBackgroundImg() {
  */
 function loadGameGUI(game) {
     setBackgroundImg()
-    toggleLvlCompleteBox()
+    //toggleLvlCompleteBox()
     let numPics = defineNumPics(game)
     let area = clearGame()
     for (let i = 0; i < numPics + 1; i++) {

@@ -73,7 +73,7 @@
 #game-menu-wrapper {
     margin-top: 2.5px;
     #game-menu {
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.6);
         border-radius: 5px;
         #game-menu-options {
             display: flex;
@@ -98,10 +98,41 @@
                         text-decoration: none;
                     }
                 }
+                li.stars {
+                    font-size: 42px;
+                    color: lightgrey;
+                    .checked {
+                        color: gold;
+                    }
+                    .fa-star {
+                        padding: 10px;
+                    }
+                }
                 li.li-info {
                     font-size: 42px;
-                    color: #000;
-                    background-color: rgba(255, 255, 255, 0.3);
+                    color: #000; //background-color: rgba(255, 255, 255, 0.3);
+                }
+            }
+        }
+        @media only screen and (max-width: 1440px) {
+            #game-menu-options {
+                ul {
+                    padding: 0;
+                    flex-direction: column;
+                    li {
+                        padding: 5px;
+                        a.menu-btn {
+                            min-width: 350px;
+                            display: inline-block;
+                            height: 40px;
+                            padding: 4px;
+                        }
+                    }
+                    li.li-info {
+                        font-size: 32px;
+                        color: #000;
+                        font-weight: 500;
+                    }
                 }
             }
         }
@@ -112,32 +143,11 @@
                     flex-direction: column;
                     li {
                         padding: 5px;
-                        a {
+                        a.menu-btn {
                             min-width: 250px;
-                            display: inline-block;
                             line-height: inherit;
                             padding: 9px;
                         }
-                    }
-                }
-            }
-        }
-        @media only screen and (max-width: 360px) {
-            #game-menu-options {
-                ul {
-                    padding: 0;
-                    flex-direction: column;
-                    li {
-                        padding: 5px;
-                        a {
-                            height: 40px;
-                            padding: 4px
-                        }
-                    }
-                    li.li-info {
-                        font-size: 32px;
-                        color: #000;
-                        font-weight: 500;
                     }
                 }
             }

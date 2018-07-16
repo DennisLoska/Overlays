@@ -60,14 +60,18 @@ class GameEngine {
             this.totalScore += this.levelScore
             console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
-            loadLvlCompleteBox(this)
+            $('#btn-next-lvl').css('background-color', '#4CAF50')
+            stopTimer()
+            setStars(this)
+            setScoreAndTime(this)
+            //loadLvlCompleteBox(this)
             $('#btn-next-lvl').click(function () {
-                toggleLvlCompleteBox()
+                //toggleLvlCompleteBox()
                 this.loadLevel()
                 loadGameGUI(this)
                 clickedTile(this)
-                $('#js-game-score').html("SCORE: " + this.totalScore.toString())
-                $('#js-game-timer').html("TIME: " + (this.level.time / 1000) + "s")
+                setStars(this)
+                setScoreAndTime(this)
                 this.clearArrays()
                 this.loadImagesIntoLevel()
                 clearGUI(this)
@@ -221,7 +225,8 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate
 
-        $('#js-game-timer').html("TIME: " + (this.level.time / 1000) + "s")
+        $('#js-game-timer').html("TIME: 0:" + (this.level.time / 1000))
+        $('#js-game-timer-menu').html("TIME: 0:" + (this.level.time / 1000))
         this.startTime = this.getTime()
     }
 

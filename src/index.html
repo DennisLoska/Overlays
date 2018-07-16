@@ -27,29 +27,48 @@
                         <div id="js-game-wrapper">
                             <!-- dynamically filled with JS -->
                         </div>
-                        <div class="container">
-                            <div class="row" id="time-bar-wrapper">
-                                <div class="" id="time-bar">0:30</div>
+                        <div class="container-fluid" id="menu-container">
+                            <div class="container">
+                                <div class="row" id="time-bar-wrapper">
+                                    <div class="" id="time-bar">0:30</div>
+                                </div>
                             </div>
                             <div class="row justify-content-center" id="game-menu-wrapper">
                                 <div class="col-12" id="game-menu">
                                     <div id="game-menu-options">
                                         <ul>
+                                            <li class="li-info">
+                                                <span id="js-game-score-menu">SCORE: 0</span>
+                                            </li>
                                             <li>
                                                 <a class="menu-btn" href="index.html">RESTART</a>
                                             </li>
+                                            <!--
                                             <li>
                                                 <a class="menu-btn" href="#">PREVIOUS LEVEL</a>
                                             </li>
+                                            -->
                                             <li class="li-info">
                                                 LEVEL:
                                                 <span id="js-current-lvl">1</span>
                                             </li>
+                                            <li class="stars">
+                                                <span id="1-star" class="fa fa-star"></span>
+                                            </li>
+                                            <li class="stars">
+                                                <span id="2-star" class="fa fa-star"></span>
+                                            </li>
+                                            <li class="stars">
+                                                <span id="3-star" class="fa fa-star"></span>
+                                            </li>
                                             <li>
-                                                <a class="menu-btn" href="#">NEXT LEVEL</a>
+                                                <a id="btn-next-lvl" class="menu-btn" href="#">NEXT LEVEL</a>
                                             </li>
                                             <li>
                                                 <a class="menu-btn" href="about.html">ABOUT</a>
+                                            </li>
+                                            <li class="li-info">
+                                                <span id="js-game-timer-menu">TIME: 0</span>
                                             </li>
                                         </ul>
                                     </div>
