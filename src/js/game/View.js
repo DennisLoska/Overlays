@@ -59,8 +59,7 @@ function setBackgroundImg() {
     let images = [
         'back_1.png', 'back_2.jpg',
         'back_3.jpg', 'back_4.jpg', 'back_5.jpg',
-        'back_6.jpg', 'back_7.jpg', 'back_8.jpg',
-        'back_9.jpg'
+        'back_6.jpg', 'back_7.jpg'
     ]
     let i = Math.floor(Math.random() * images.length) + 1
     let url = 'img/background/' + images[i]
@@ -141,7 +140,7 @@ function loadGameGUI(game) {
                         'class': ' tile-square hide-shadow'
                     })
                     tile.attr('id', 'js-game-score')
-                    tile.html('Score:')
+                    tile.html('Score: 0')
                 } else if (j < numPics)
                     tile.attr('id', 'js-basis-image-' + j.toString())
             } else {
