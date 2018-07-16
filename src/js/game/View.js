@@ -1,15 +1,19 @@
 function clickedTile(game) {
     let ray
     $('.js-card').parent().click(function () {
-        let row = $(this).children().attr('data-row')
-        let col = $(this).children().attr('data-col')
+        let row = $(this).children(0).attr('data-row')
+        let col = $(this).children(0).attr('data-col')
         ray = $('<div class="light-rays horizontal-rays hor-light-ray-' + col + '"></div>')
         ray.addClass('js-hor-light-ray-' + col + '-' + game.numPics)
-        if (!($(this).children().next().length))
-            ray.insertAfter($(this))
-        $(this).children().next().toggleClass('show-rays')
+        if (!($(this).children(0).next().length))
+            ray.insertAfter($(this).children(0))
+        $(this).children(0).next().toggleClass('show-rays')
         game.updateOnClick(row, col)
     })
+
+
+
+
 }
 
 /*
@@ -106,7 +110,7 @@ function loadGameGUI(game) {
                 else if (j == numPics + 1)
                     tile.attr('id', 'js-starting-image-' + (i - 1).toString()) //starting images at the far right col
                 else if (j == numPics + 2)
-                    tile = createValidationTile(i)
+                    tile = createValidationTile(i, col)
                 else {
                     tile = createGlassTile(i, j)
                 }
@@ -224,14 +228,15 @@ function createGlassTile(i, j) {
     return tile
 }
 
-function createValidationTile(i) {
+function createValidationTile(i, col) {
+    col.addClass('tile-validation-wrapper')
     let tile = $('<img src="" />', {
         'class': 'tile-square'
     })
     tile.attr('id', 'js-validation-image-' + (i - 1).toString())
     tile.addClass('js-validation')
-    let valid = 'img/valid.png'
     let invalid = 'img/invalid.png'
+    //let valid = 'img/valid.png'
     tile.attr("src", invalid);
     return tile
 }

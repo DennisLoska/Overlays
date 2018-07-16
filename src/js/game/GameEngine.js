@@ -37,10 +37,16 @@ class GameEngine {
         this.drawUserImage(row, currentUserImg)
 
         // 4. check if the row is now completed; the right result in this row
+        let valid = 'img/valid.png'
+        let invalid = 'img/invalid.png'
         let state = this.comparePictures(row, wUserRow) // vergleiche die matrizen (user auswahl und lösungsmatrix)
-        if (state == true)
+        if (state == true) {
             this.setCorrectCombination(row, true) //richtige Kombination
-        else this.setCorrectCombination(row, false) //falsche Kombination
+            $('#js-validation-image-' + row.toString()).attr("src", valid)
+        } else {
+            this.setCorrectCombination(row, false) //falsche Kombination
+            $('#js-validation-image-' + row.toString()).attr("src", invalid)
+        }
 
         // 5. check if all rows are finished / have the correct combinations => next level
         let correctCombs = this.getAmountOfCorrectCombinations()
@@ -330,7 +336,6 @@ class GameEngine {
         for (let i = 0; i < this.numPics; i++) {
             if (wUserRow[i] == this.m[index][i])
                 equals = true
-            else return false
         }
         return equals
     }
