@@ -79,6 +79,7 @@ function setBackgroundImg() {
 function loadGameGUI(game) {
     setBackgroundImg()
     toggleLvlCompleteBox()
+    let numPics
     if (game == undefined) {
         let lv = new Level(0) //always first Level
         numPics = lv.numPics

@@ -15,21 +15,14 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'public/js/GameEngine.js': 'src/js/game/GameEngine.js',
-                    'public/js/ImageGenerator.js': 'src/js/game/ImageGenerator.js',
-                    'public/js/Images.js': 'src/js/game/Images.js',
-                    'public/js/InverseMatrix.js': 'src/js/game/InverseMatrix.js',
-                    'public/js/Level.js': 'src/js/game/Level.js',
-                    'public/js/View.js': 'src/js/game/View.js',
-                    'public/js/Game.js': 'src/js/game/Game.js',
-                    'public/js/main.js': 'src/js/main.js',
-                    'public/js/utils/animations.js': 'src/js/utils/animations.js',
-                    'public/js/utils/scrolllock.js': 'src/js/utils/scrolllock.js',
-
-                    'public/js/vendor/bootstrap.min.js': 'src/js/vendor/bootstrap.min.js',
-                    'public/js/vendor/jquery-3.3.1.slim.min.js': 'src/js/vendor/jquery-3.3.1.slim.min.js',
-                    'public/js/vendor/jquery.min.js': 'src/js/vendor/jquery.min.js',
-                    'public/js/vendor/popper.min.js': 'src/js/vendor/popper.min.js',
+                    'src/ES5/GameEngine.js': 'src/js/game/GameEngine.js',
+                    'src/ES5/ImageGenerator.js': 'src/js/game/ImageGenerator.js',
+                    'src/ES5/Images.js': 'src/js/game/Images.js',
+                    'src/ES5/InverseMatrix.js': 'src/js/game/InverseMatrix.js',
+                    'src/ES5/Level.js': 'src/js/game/Level.js',
+                    'src/ES5/View.js': 'src/js/game/View.js',
+                    'src/ES5/Game.js': 'src/js/game/Game.js',
+                    'src/ES5/main.js': 'src/js/main.js',
                 },
             },
         },
@@ -74,10 +67,17 @@ module.exports = function (grunt) {
                 src: 'img/**',
                 dest: 'public/',
             },
+            Vendor: {
+                expand: true,
+                cwd: 'src/',
+                src: 'js/vendor/*.js',
+                dest: 'public/',
+            },
         },
         uglify: {
             target: {
                 files: {
+                    /*
                     'public/js/GameEngine.js': 'public/js/GameEngine.js',
                     'public/js/ImageGenerator.js': 'public/js/ImageGenerator.js',
                     'public/js/Images.js': 'public/js/Images.js',
@@ -86,6 +86,17 @@ module.exports = function (grunt) {
                     'public/js/View.js': 'public/js/View.js',
                     'public/js/Game.js': 'public/js/Game.js',
                     'public/js/main.js': 'public/js/main.js',
+                    */
+                    'public/js/app.js': ['src/js/utils/animations.js', 'src/ES5/Images.js',
+                        'src/ES5/Level.js', 'src/ES5/GameEngine.js', 'src/ES5/ImageGenerator.js', 'src/ES5/InverseMatrix.js',
+                        'src/ES5/View.js', 'src/ES5/Game.js', 'src/ES5/main.js'
+                    ],
+                    /*
+                    'public/js/vendor/bootstrap.min.js': 'src/js/vendor/bootstrap.min.js',
+                    'public/js/vendor/jquery-3.3.1.slim.min.js': 'src/js/vendor/jquery-3.3.1.slim.min.js',
+                    'public/js/vendor/jquery.min.js': 'src/js/vendor/jquery.min.js',
+                    'public/js/vendor/popper.min.js': 'src/js/vendor/popper.min.js',
+                    */
                 },
             },
         },
@@ -112,6 +123,6 @@ module.exports = function (grunt) {
             },
         },
     });
-    grunt.registerTask('default', ['babel', 'sass', 'htmlmin', 'cssmin', 'copy', 'watch']);
-    grunt.registerTask('build', ['babel', 'sass', 'htmlmin', 'cssmin', 'uglify', 'copy']);
+    grunt.registerTask('default', ['babel', 'sass', 'htmlmin', 'cssmin','uglify', 'copy', 'watch']);
+    grunt.registerTask('build', ['babel', 'sass', 'htmlmin', 'cssmin','uglify', 'copy']);
 };
