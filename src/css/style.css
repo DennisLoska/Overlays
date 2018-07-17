@@ -343,12 +343,16 @@ a.nav-link:hover {
   text-align: center;
   color: #efefef; }
   #game-container #js-game-score,
+  #game-container #js-game-timer {
+    font-family: scoreboard;
+    text-align: center;
+    font-size: 3.2vw;
+    line-height: 80%;
+    color: #0d0d0d; }
+  #game-container #js-game-score,
   #game-container #js-game-timer,
   #game-container #js-empty-tile {
-    background-color: inherit;
-    vertical-align: middle;
-    font-size: 1.5vw;
-    text-align: center; }
+    background-color: inherit; }
   #game-container #js-game-score + img.frame-overlay,
   #game-container #js-game-timer + img.frame-overlay,
   #game-container #js-empty-tile + img.frame-overlay {
@@ -385,11 +389,6 @@ a.nav-link:hover {
   text-align: left;
   z-index: 1;
   position: relative;
-  /*
-    .js-card:hover {
-        cursor: pointer;
-    }
-    */
   /* individual offset of horizontal rays per column */
   /* individual length of horizontal rays per col and game-type (3,4 or 5 tiles per row) tiles --> numPics */
   /* individual length of vertical rays per col and amount of tiles --> numPics */ }
@@ -428,6 +427,8 @@ a.nav-link:hover {
     -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75); }
+  .tile-square-wrapper .js-card:hover {
+    cursor: pointer; }
   .tile-square-wrapper .js-is-flipped {
     -webkit-transform: rotateY(20deg) rotateZ(-45deg);
     -webkit-transform-style: preserve-3d;
@@ -607,7 +608,10 @@ a.nav-link:hover {
     height: 9.5vw; }
   .js-tile-square-wrapper-3 {
     width: 11.5vw;
-    height: 11.5vw; } }
+    height: 11.5vw; }
+  #game-container #js-game-timer,
+  #game-container #js-game-score {
+    font-size: 4.3vw; } }
 
 @media only screen and (min-width: 360px) {
   .js-tile-square-wrapper-5 {
@@ -618,7 +622,10 @@ a.nav-link:hover {
     height: 10vw; }
   .js-tile-square-wrapper-3 {
     width: 12.5vw;
-    height: 12.5vw; } }
+    height: 12.5vw; }
+  #game-container #js-game-timer,
+  #game-container #js-game-score {
+    font-size: 4.3vw; } }
 
 @media only screen and (min-width: 400px) {
   .js-tile-square-wrapper-5 {
@@ -629,7 +636,10 @@ a.nav-link:hover {
     height: 10.5vw; }
   .js-tile-square-wrapper-3 {
     width: 12.5vw;
-    height: 12.5vw; } }
+    height: 12.5vw; }
+  #game-container #js-game-timer,
+  #game-container #js-game-score {
+    font-size: 4.7vw; } }
 
 @media only screen and (min-width: 768px) {
   .js-tile-square-wrapper-5 {
@@ -640,7 +650,10 @@ a.nav-link:hover {
     height: 12vw; }
   .js-tile-square-wrapper-3 {
     width: 14.5vw;
-    height: 14.5vw; } }
+    height: 14.5vw; }
+  #game-container #js-game-timer,
+  #game-container #js-game-score {
+    font-size: 5vw; } }
 
 @media only screen and (min-width: 1025px) {
   .js-tile-square-wrapper-5 {
@@ -651,7 +664,10 @@ a.nav-link:hover {
     height: 8vw; }
   .js-tile-square-wrapper-3 {
     width: 8vw;
-    height: 8vw; } }
+    height: 8vw; }
+  #game-container #js-game-timer,
+  #game-container #js-game-score {
+    font-size: 3vw; } }
 
 /* row-margins for 3x3, 4x4 and 5x5 */
 @media only screen and (min-width: 1024px) {
@@ -671,7 +687,10 @@ a.nav-link:hover {
   .tile-row-4 {
     margin-bottom: 3vh; }
   .tile-row-5 {
-    margin-bottom: 2vh; } }
+    margin-bottom: 2vh; }
+  #game-container #js-game-timer,
+  #game-container #js-game-score {
+    font-size: 2.5vw; } }
 
 @media only screen and (max-width: 1024px) {
   .tile-row-4 {
@@ -979,6 +998,7 @@ div#menu-container div.container-fluid {
           #game-menu-wrapper #game-menu #game-menu-options ul li.stars .fa-star {
             padding: 10px; }
         #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
+          font-family: scoreboard;
           font-size: 42px;
           color: #000; }
     @media only screen and (max-width: 1440px) {
@@ -1029,6 +1049,10 @@ div#menu-container div.container-fluid {
         font-size: 32px; }
       #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
         font-size: 20px; } }
+
+@font-face {
+  font-family: scoreboard;
+  src: url(../fonts/SCOREBOARD.ttf); }
 
 #tut-game-container .tut-tile-off {
   background-color: #333; }

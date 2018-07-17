@@ -75,6 +75,12 @@ module.exports = function (grunt) {
                 src: 'js/vendor/*.js',
                 dest: 'public/',
             },
+            Fonts: {
+                expand: true,
+                cwd: 'src/',
+                src: 'fonts/**',
+                dest: 'public/',
+            },
         },
         uglify: {
             target: {
@@ -155,7 +161,7 @@ module.exports = function (grunt) {
                 tasks: ['htmlmin'],
             },
             copy: {
-                files: ['src/img/**'],
+                files: ['src/img/**', 'src/fonts/**'],
                 tasks: ['copy'],
             },
         },
