@@ -124,7 +124,7 @@ function loadGameGUI(game) {
     let numPics = defineNumPics(game)
     let area = clearGame()
     for (let i = 0; i < numPics + 1; i++) {
-        let row = createRow(i)
+        let row = createRow(i, numPics)
         for (let j = 0; j < numPics + 3; j++) {
             let col = createCol(j)
             let tile = createTile()
@@ -179,10 +179,11 @@ function clearGame() {
     return area
 }
 
-function createRow(i) {
+function createRow(i, numPics) {
     let row = $('<div />', {
         'class': 'js-row-' + i.toString() +
-            ' row justify-content-between align-items-center tile-row no-select'
+            ' row justify-content-between align-items-center tile-row' +
+            ' tile-row-' + numPics + ' no-select'
     })
     return row
 }
