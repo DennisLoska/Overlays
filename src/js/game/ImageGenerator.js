@@ -73,7 +73,7 @@ class ImageGenerator {
     }
 
     test(colors, matrix, numPics){
-        console.log("Colors for test: " + colors); //seededColors
+        //console.log("Colors for test: " + colors); //seededColors
         let state = true
 
         // declare and initialize arrays
@@ -117,8 +117,8 @@ class ImageGenerator {
             colorsMinusGray[i][1] = seededRGB[i][1] - 128; // g
             colorsMinusGray[i][2] = seededRGB[i][2] - 128; // b
         }
-        console.log("colors - 128:")
-        console.log(colorsMinusGray)
+        //console.log("colors - 128:")
+        //console.log(colorsMinusGray)
 
         /*let mixedColors = new Array(numPics, numPics) // colors - 128 * mInv
         // initialize - fill with dummy values / zeros
@@ -144,8 +144,8 @@ class ImageGenerator {
                 }
             }
         }
-        console.log("(colors - 128) * mInv")
-        console.log(mixedColors)
+        //console.log("(colors - 128) * mInv")
+        //console.log(mixedColors)
 
         // + 128 and check if between 0 and 255
         for(let i = 0; i < numPics; i++){
@@ -155,12 +155,12 @@ class ImageGenerator {
                 return false;
             }  
         }
-        console.log("(colors - 128) * mInv + 128:")
-        console.log(mixedColors)
+        //console.log("(colors - 128) * mInv + 128:")
+        //console.log(mixedColors)
 
 
         /* 2. TEST: Distanz zu grau 128 */
-        let distanceMin = 24000 // minimum square distance to 128
+        let distanceMin = 20000 // minimum square distance to 128
         for (let i = 0; i < colors.length; i++) {
             let differenceR = 128 - seededRGB[i][0] // 128 - r
             let differenceG = 128 - seededRGB[i][1] // 128 - g
@@ -175,7 +175,7 @@ class ImageGenerator {
 
         
         /* 3. TEST: Distanz der Farben zueinander */
-        let distanceToEachOther = 38000 // minimum square distance to each color
+        let distanceToEachOther = 28000 // minimum square distance to each color
         for (let i = 0; i < colors.length; i++) {
             for (let j = 0; j < colors.length; j++) {
                 if(i != j){
@@ -213,29 +213,38 @@ class ImageGenerator {
         //let option = this.counter % 3+1 //static option
         if (option == 1) {
             // Rectangle
-            let xStart = this.width / 4
-            let yStart = this.height / 4
-            let xEnd = xStart + Math.floor(Math.random() * this.width / 2) + 1
-            let yEnd = yStart + Math.floor(Math.random() * this.height / 2) + 1
+            let xStart = Math.floor(Math.random() * this.width) 
+            let yStart = Math.floor(Math.random() * this.height)
+            let xEnd = xStart + Math.floor(Math.random() * this.width - xStart)
+            let yEnd = yStart + Math.floor(Math.random() * this.height - yStart)
 
             let offset = Math.floor(Math.random() * 10) + 1 // this will get a number between 1 and 10;
             offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // this will add minus sign in 50% of cases
 
+            let offset2 = Math.floor(Math.random() * 10) + 1 // this will get a number between 1 and 10;
+            offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // this will add minus sign in 50% of cases
+
+            // two offsets so that the shapes do not look too similar 
+
             //ctx.fillStyle = color
             ctx.fillStyle = seededColor
-            ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset)
+            ctx.fillRect(xStart + offset, yStart + offset2, xEnd + offset2, yEnd + offset)
             //ctx.fillRect(20, 20, 80, 80) //static option
         }
         if (option == 2) {
             // Circle
             let offset = Math.floor(Math.random() * 20) + 1
-            offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
-            let radius = Math.floor(Math.random() * 40) + 20
+            offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // add minus sign in 50% of cases
+            let radius = Math.floor(Math.random() * this.width / 2) + 10 // width/2 > radius > 10 (min radius size)
+
+            let xPos = Math.floor(Math.random() * this.width)
+            let yPos = Math.floor(Math.random() * this.height)
 
             //ctx.fillStyle = color
             ctx.fillStyle = seededColor
             ctx.beginPath()
-            ctx.arc(this.width / 2 + offset, this.height / 2 + offset, radius, 0, 2 * Math.PI)
+            //ctx.arc(this.width / 2 + offset, this.height / 2 + offset, radius, 0, 2 * Math.PI)
+            ctx.arc(xPos, yPos, radius, 0, 2 * Math.PI)
             //ctx.arc(this.width / 2, this.height / 2, 40, 0, 2 * Math.PI) //static option
 
             ctx.fill()
@@ -243,18 +252,36 @@ class ImageGenerator {
         }
         if (option == 3) {
             // Filled triangle
-            let offset = Math.floor(Math.random() * 20) + 1
+            let offset = Math.floor(Math.random() * 250)
             offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
 
-            let offset2 = Math.floor(Math.random() * 20) + 1
+            let offset2 = Math.floor(Math.random() * 250)
             offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+
+            let offset3 = Math.floor(Math.random() * 250)
+            offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+
+            let offset4 = Math.floor(Math.random() * 250)
+            offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+
+            // random position to start
+            let xPos = Math.floor(Math.random() * this.width)
+            let yPos = Math.floor(Math.random() * this.height)
 
             //ctx.fillStyle = color
             ctx.fillStyle = seededColor
             ctx.beginPath()
-            ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
-            ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
-            ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
+            //ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
+            //ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
+            //ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
+
+            ctx.moveTo(xPos, yPos) // von 110, 110
+            ctx.lineTo(xPos + offset, yPos + offset2) // zu 110, 20
+            ctx.lineTo(xPos + offset3, yPos + offset4) // zu 20, 110
+
+            console.log("moveTo: (" + xPos + ", " + yPos + ")")
+            console.log("lineTo: (" + xPos + offset + ", " + yPos + offset2 + ")")
+            console.log("lineTo: (" + xPos + offset3 + ", " + yPos + offset4 + ")")
 
             //ctx.moveTo(110, 110) // von 110, 110 //static option
             //ctx.lineTo(110, 20) // zu 110, 20 //static option
