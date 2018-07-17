@@ -63,7 +63,7 @@ and after that you can install grunt & other dev-dependencies:
 ```
 npm install -g grunt-cli
 npm install --save-dev grunt-contrib-imagemin
-npm install save-dev imagemin-mozjpeg
+npm install --save-dev imagemin-mozjpeg
 npm install grunt 
 ```
 
