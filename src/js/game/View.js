@@ -33,17 +33,17 @@ function resetChange() {
 }
 
 function setScoreAndTime(game) {
-    $('#js-game-score').html("TOTAL SCORE: " + game.totalScore.toString())
+    $('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString())
     $('#js-game-timer').html("LEVEL TIME: 0:" + (game.level.time / 1000))
-    $('#js-game-score-menu').html("SCORE: " + game.levelScore.toString())
-    $('#js-game-timer-menu').html("TIME: 0:" + (game.timeNeeded / 1000))
+    $('#js-game-score-menu').html("SCORE " + game.levelScore.toString())
+    $('#js-game-timer-menu').html("TIME 0:" + (game.timeNeeded / 1000))
 }
 
 function resetScoreAndTime(game) {
-    $('#js-game-score').html("TOTAL SCORE: " + game.totalScore.toString())
+    $('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString())
     $('#js-game-timer').html("LEVEL TIME: 0:" + (game.level.time / 1000))
-    $('#js-game-score-menu').html("SCORE: 0")
-    $('#js-game-timer-menu').html("TIME: 0:00")
+    $('#js-game-score-menu').html("SCORE 0")
+    $('#js-game-timer-menu').html("TIME 0:00")
 }
 
 /*
@@ -244,7 +244,7 @@ function createScoreTile() {
         'class': ' tile-square hide-shadow no-select'
     })
     tile.attr('id', 'js-game-score')
-    tile.html('TOTAL SCORE: 0')
+    tile.html('TOTAL SCORE 00000')
     return tile
 }
 
@@ -306,9 +306,9 @@ function handleGlassClicks() {
         $(this).children().toggleClass('js-is-flipped')
 
     })
-    /*
+
     $('.js-card').parent().hover(function () {
         $(this).css('cursor', 'pointer')
     })
-    */
+
 }
