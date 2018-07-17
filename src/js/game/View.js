@@ -161,6 +161,7 @@ function loadGameGUI(game) {
     }
     addVerticalRays(numPics)
     addImageFrame()
+    preventImageDragging()
     handleGlassClicks()
 }
 
@@ -292,6 +293,12 @@ function addVerticalRays(numPics) {
 function addImageFrame() {
     let frame = '<img class="frame-overlay no-select" src="img/bilderrahmen.png" alt="Bilderrahmen">'
     $(frame).insertAfter('.tile-square')
+}
+
+function preventImageDragging() {
+    $('img').on('dragstart', function (event) {
+        event.preventDefault();
+    });
 }
 
 function handleGlassClicks() {
