@@ -312,6 +312,7 @@
 @media only screen and (min-width: 1025px) {
     #inner-game-container {
         padding: 30px;
+        padding-top: 0;
     }
 }
 
@@ -392,14 +393,37 @@
     }
 }
 
-/* row-margins for 3x3 */
+/* row-margins for 3x3, 4x4 and 5x5 */
 
 @media only screen and (min-width: 1024px) {
     .tile-row-3 {
         margin-bottom: 7vh;
     }
-    .tile-row-3:last-of-type {
+    .tile-row-4 {
+        margin-bottom: 0vh;
+    }
+    .tile-row-5 {
+        margin-bottom: 0vh;
+    }
+    .tile-row-3:last-of-type,
+    .tile-row-4:last-of-type .tile-row-5:last-of-type {
         margin-bottom: 0;
+    }
+}
+
+@media only screen and (min-width: 2000px) {
+
+    .tile-row-4 {
+        margin-bottom: 3vh;
+    }
+    .tile-row-5 {
+        margin-bottom: 2vh;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .tile-row-4 {
+        margin-bottom: 4vh;
     }
 }
 
@@ -407,7 +431,15 @@
     .tile-row-3 {
         margin-bottom: 4vh;
     }
-    .tile-row-3:last-of-type {
+    .tile-row-4 {
+        margin-bottom: 2vh;
+    }
+    .tile-row-5 {
+        margin-bottom: 1vh;
+    }
+    .tile-row-3:last-of-type,
+    .tile-row-4:last-of-type,
+    .tile-row-5:last-of-type {
         margin-bottom: 0;
     }
 }
@@ -415,5 +447,11 @@
 @media only screen and (max-width: 400px) {
     .tile-row-3 {
         margin-bottom: 2vh;
+    }
+    .tile-row-4 {
+        margin-bottom: 1vh;
+    }
+    .tile-row-5 {
+        margin-bottom: 0.5vh;
     }
 }
