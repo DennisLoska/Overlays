@@ -101,7 +101,8 @@ class Level {
     }
 
     setSettings() {
-        // [numPics, numOnes, time, doGenerate, imageSetNumber]
+        // [numPics, numOnes, time, doGenerate, imageSetNumber, colorSeed]
+        // save good seed values: 474, 193, 4, 229, 221, 324, 112, 131, 378
         this.levelSettings[0] = [3, 2, 25000, true, 0]
         this.levelSettings[1] = [3, 2, 25000, true, 0]
         this.levelSettings[2] = [3, 2, 20000, false, 0]

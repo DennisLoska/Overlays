@@ -128,19 +128,28 @@ class ImageGenerator {
                 mixedColors[i][j] = 0
             }
         }*/
+        let mixedColors = new Array(numPics, 3) // matrix der userwauswahl
+        //inserting dummy-values into wUser - zeros
+        for (let i = 0; i < numPics; i++) {
+            mixedColors[i] = []
+            for (let j = 0; j < 3; j++)
+                mixedColors[i][j] = 0
+        }
+
+        /*
         let mixedColors = new Array(numPics)
         for (let i = 0; i < mixedColors.length; i++) {
             mixedColors[i] = 0
-        }
+        }*/
 
         // multiply with inverse matrix[][]
-        for(let rgb = 0; rgb < 3; rgb++){
-            for(let i = 0; i < numPics; i++){
-                for(let j = 0; j < numPics; j++){
-                    //colorsMinusGray[numPics][rgb]
-                    //mixedColors[i] += Math.floor(colorsMinusGray[i][j] * matrix[i][j])
-
-                    mixedColors[i] += Math.floor(colorsMinusGray[i][rgb] * matrix[i][j])
+        for(let row = 0; row < numPics; row++){
+            for(let col = 0; col < numPics; col++){
+                //colorsMinusGray[numPics][rgb]
+                //mixedColors[numPics][rgb]
+                //mixedColors[i] += Math.floor(colorsMinusGray[i][j] * matrix[i][j])
+                for(let rgb = 0; rgb < 3; rgb++){
+                    mixedColors[row][rgb] += Math.floor(colorsMinusGray[row][rgb] * matrix[row][col])
                 }
             }
         }
@@ -149,11 +158,13 @@ class ImageGenerator {
 
         // + 128 and check if between 0 and 255
         for(let i = 0; i < numPics; i++){
-            mixedColors[i] += 128;
-            if(mixedColors[i] < 0 && mixedColors[i] > 255){
-                console.log("### TEST 1 ERROR: Color is not inside 0-255 zone.");
-                return false;
-            }  
+            for(let rgb = 0; rgb < 3; rgb++){
+                mixedColors[i][rgb] += 128
+                if(mixedColors[i][rgb] < 0 && mixedColors[i][rgb] > 255){
+                    console.log("### TEST 1 ERROR: Color is not inside 0-255 zone.");
+                    return false;
+                }  
+            }
         }
         //console.log("(colors - 128) * mInv + 128:")
         //console.log(mixedColors)
