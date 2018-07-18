@@ -255,8 +255,8 @@ class GameEngine {
 
         let backgroundImageSet = this.level.imageSet // image set number for the background 
 
-        $('#js-game-timer').html("LEVEL TIME: 0:" + (this.level.time / 1000) +'!')
-        $('#js-game-timer-menu').html("TIME 0:00")
+        $('#js-game-timer').html("LEVEL TIMER 00:" + (this.level.time / 1000))
+        $('#js-game-timer-menu').html("TIME 00:00")
         this.startTime = this.getTime()
     }
 

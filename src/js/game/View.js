@@ -33,17 +33,17 @@ function resetChange() {
 }
 
 function setScoreAndTime(game) {
-    $('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString())
-    $('#js-game-timer').html("LEVEL TIME: 0:" + (game.level.time / 1000))
-    $('#js-game-score-menu').html("SCORE " + game.levelScore.toString())
-    $('#js-game-timer-menu').html("TIME 0:" + (game.timeNeeded / 1000))
+    $('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
+    $('#js-game-timer').html("LEVEL TIMER 00:" + (game.level.time / 1000))
+    $('#js-game-score-menu').html("SCORE " + game.levelScore.toString().padStart(3, 0))
+    $('#js-game-timer-menu').html("TIME 00:" + (Math.floor((game.timeNeeded / 1000))))
 }
 
 function resetScoreAndTime(game) {
-    $('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString())
-    $('#js-game-timer').html("LEVEL TIME: 0:" + (game.level.time / 1000))
-    $('#js-game-score-menu').html("SCORE 0")
-    $('#js-game-timer-menu').html("TIME 0:00")
+    $('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
+    $('#js-game-timer').html("LEVEL TIME: 00:" + (game.level.time / 1000))
+    $('#js-game-score-menu').html("SCORE 000")
+    $('#js-game-timer-menu').html("TIME 00:00")
 }
 
 /*
@@ -80,11 +80,11 @@ function progress(timeleft, timetotal, timeBar) {
     let progressBarWidth = timeleft * timeBar.width() / timetotal;
     timeBar.children(0).animate({
         width: progressBarWidth
-    }, 500).html(Math.floor(timeleft / 60) + ":" + timeleft % 60);
+    }, 500).html();
     if (timeleft > 0) {
         timeOut = setTimeout(function () {
             progress(timeleft - 1, timetotal, timeBar);
-        }, 1000);
+        }, 10);
     }
 }
 
@@ -235,7 +235,7 @@ function createTimeTile() {
         'class': ' tile-square hide-shadow no-select'
     })
     tile.attr('id', 'js-game-timer')
-    tile.html('LEVEL TIME:')
+    tile.html('LEVEL TIMER')
     return tile
 }
 
