@@ -19,6 +19,20 @@ class GameEngine {
         this.loadImagesIntoLevel()
     }
 
+    initializeUserImages(){
+        // calculate all user images in the beginning with matrix filled with 0 
+        let matrixValuesRow = new Array(this.numPics)
+        for(let j = 0; j < this.numPics; j++){
+            matrixValuesRow[j] = 0
+        }
+
+        let currentUserImg = new Array()
+        for(let row = 0; row < this.numPics; row++){
+            currentUserImg = this.calculateUserImage(matrixValuesRow, row) // returned pixel array
+            this.drawUserImage(row, currentUserImg)
+        }
+    }
+
     updateOnClick(row, col) {
         if (this.clickCounter == 0)
             progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
@@ -119,7 +133,7 @@ class GameEngine {
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
-            if (this.levelNumber < 6) {
+            if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.targetPixels = images.targetPixels
@@ -139,7 +153,8 @@ class GameEngine {
             }
         } else {
             // read basis images
-            if (this.levelNumber % 2 == 0) {
+            //if (this.levelNumber % 2 == 0) {
+            if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.basisPixels = images.targetPixels
@@ -199,6 +214,7 @@ class GameEngine {
             }
         }
 
+        this.initializeUserImages()
         this.printResult()
     }
 
