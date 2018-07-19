@@ -46,34 +46,10 @@ function resetScoreAndTime(game) {
     $('#js-game-timer-menu').html("TIME 00:00")
 }
 
-/*
- * Generates the box after a level is completed. It is positioned fixed on the screen
- */
-/*
-function loadLvlCompleteBox(game) {
-    let box = '<div id="level-finished-wrapper"><div id="level-finished-box"><h3 id="js-finished-lvl">LEVEL COMPLETED!</h3><div id="star-wrapper"><span id="1-star" class="fa fa-star"></span><span id="2-star" class="fa fa-star"></span><span id="3-star" class="fa fa-star"></span></div><div id="finished-data-wrapper"><div id="js-finished-score">SCORE: </div><div id="js-finished-time">TIME:</div></div><button id="btn-next-lvl">NEXT LEVEL</button></div></div>'
-
-    $('#js-level-finished-box').html(box)
-    $('#js-finished-lvl').html('LEVEL ' + game.levelNumber + ' COMPLETED!')
-
-    for (let i = 1; i <= game.stars; i++) {
-        let star = '#' + i.toString() + '-star'
-        $(star).toggleClass('checked')
-    }
-    $('#js-finished-score').html('Score: ' + game.levelScore.toString())
-    $('#js-finished-time').html('Time: ' + Math.round((game.timeNeeded / 1000) * 10) / 10 + 's')
-}
-
-function toggleLvlCompleteBox() {
-    $('#level-finished-wrapper').toggleClass('hide-box')
-}
-*/
-
 function clearGUI(game) {
     $('#js-current-lvl').html((game.levelNumber + 1).toString())
     $('#time-bar').html('0:' + game.level.time / 1000).css('width', '100%')
     $('#btn-next-lvl').css('background-color', 'darkgrey')
-    //toggleLvlCompleteBox()
 }
 
 function progress(timeleft, timetotal, timeBar) {
@@ -84,7 +60,7 @@ function progress(timeleft, timetotal, timeBar) {
     if (timeleft > 0) {
         timeOut = setTimeout(function () {
             progress(timeleft - 1, timetotal, timeBar);
-        }, 10);
+        }, 1000);
     }
 }
 
@@ -278,7 +254,7 @@ function createValidationTile(i, col) {
     tile.addClass('js-validation')
     let invalid = 'img/invalid.png'
     //let valid = 'img/valid.png'
-    tile.attr("src", invalid);
+    tile.attr("src", invalid)
     return tile
 }
 
@@ -297,8 +273,8 @@ function addImageFrame() {
 
 function preventImageDragging() {
     $('img').on('dragstart', function (event) {
-        event.preventDefault();
-    });
+        event.preventDefault()
+    })
 }
 
 function handleGlassClicks() {
@@ -306,9 +282,7 @@ function handleGlassClicks() {
         $(this).children().toggleClass('js-is-flipped')
 
     })
-
     $('.js-card').parent().hover(function () {
         $(this).css('cursor', 'pointer')
     })
-
 }

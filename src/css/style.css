@@ -308,7 +308,7 @@ header,
 nav,
 header li,
 .dropdown-menu {
-  background-color: #76b900; }
+  background-color: #2996b7; }
 
 #nav-wrapper {
   padding: 0; }
@@ -322,12 +322,11 @@ div#navbarNavDropdown {
 
 a.nav-link {
   color: black !important;
-  margin-left: 0.5rem;
-  /*bad practice don't do this in production*/ }
+  margin-left: 0.5rem; }
 
 a.nav-link:hover {
-  background-color: forestgreen;
-  /*bad practice don't do this in production*/ }
+  background-color: #2996b7;
+  opacity: 0.5; }
 
 @media only screen and (max-width: 768px) {
   header #nav-ul {
@@ -773,7 +772,7 @@ a.nav-link:hover {
 #tut-game-container {
   height: 100vh;
   padding: 25px;
-  background-color: rgba(118, 185, 0, 0.4);
+  background-color: #2996b7;
   text-align: center;
   color: #efefef;
   height: 850px; }
@@ -842,7 +841,7 @@ footer {
   font-weight: 500;
   text-transform: uppercase;
   color: #fff;
-  background-color: #76b900;
+  background-color: #2996b7;
   border-radius: 3px;
   box-sizing: border-box;
   transition: all .25s ease-in;
@@ -881,11 +880,32 @@ a.menu-btn {
   font-size: 20px;
   font-weight: 500; }
 
+span#about-link {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: black;
+  font-size: 30px;
+  font-weight: 500;
+  z-index: 2;
+  text-align: center;
+  line-height: 30px; }
+  span#about-link a {
+    color: black; }
+  span#about-link a:hover {
+    opacity: .8;
+    text-decoration: none; }
+
+span#about-link:hover {
+  opacity: .8; }
+
 .hide-box {
   display: none; }
-
-div#menu-container div.container-fluid {
-  padding: 0; }
 
 #custom-menu-container {
   max-width: 1000px; }
@@ -926,7 +946,7 @@ div#menu-container div.container-fluid {
     margin: 0;
     padding: 0; }
     #game-menu-wrapper .menu-list .menu-item {
-      padding: 0px 5px; }
+      padding: 2.5px; }
       #game-menu-wrapper .menu-list .menu-item a {
         color: #fff; }
       #game-menu-wrapper .menu-list .menu-item a:hover {
@@ -946,8 +966,6 @@ div#menu-container div.container-fluid {
 @media only screen and (max-width: 1440px) {
   #game-menu-wrapper .menu-list {
     padding: 2px 0px 2px 0px; }
-    #game-menu-wrapper .menu-list .menu-item {
-      padding: 2.5px; }
     #game-menu-wrapper .menu-list .menu-item.menu-info {
       font-size: 30px;
       font-weight: 500; } }
@@ -959,7 +977,8 @@ div#menu-container div.container-fluid {
       padding: 0px; }
       #game-menu-wrapper .menu-list .menu-item a.menu-btn {
         width: 85%;
-        margin-bottom: 10px; }
+        margin-bottom: 5px;
+        margin-top: 5px; }
     #game-menu-wrapper .menu-list .stars .fa-star {
       font-size: 50px; } }
 

@@ -19,6 +19,9 @@
 
 <body>
     <main>
+        <span id="about-link">
+            <a href="about.html">?</a>
+        </span>
         <!--Game begin-->
         <div class="container-fluid" id="game-wrapper">
             <div class="row justify-content-center">
@@ -27,44 +30,46 @@
                         <div id="js-game-wrapper">
                             <!-- dynamically filled with JS -->
                         </div>
-                        <div class="container" id="menu-container">
+                        <div class="container-fluid">
                             <div class="container-fluid">
                                 <div class="row" id="time-bar-wrapper">
                                     <div class="" id="time-bar"></div>
                                 </div>
                             </div>
-                            <div class="row justify-content-center" id="game-menu-wrapper">
-                                <div class="menu-list align-self-center col-lg-4 col-md-12 col-sm-12">
-                                    <div class="row justify-content-center">
-                                        <div class="menu-info menu-item align-self-center no-select col-12 col-sm-6 col-md-6 col-lg-6">
-                                            LEVEL
-                                            <span class="no-select" id="js-current-lvl">1</span>
-                                        </div>
-                                        <div class="menu-info menu-item align-self-center col-12 col-sm-6 col-md-6 col-lg-6">
-                                            <span class="no-select" id="js-game-score-menu">SCORE 000</span>
-                                        </div>
+                            <div class="container" id="menu-container">
+                                <div class="row justify-content-center" id="game-menu-wrapper">
+                                    <div class="menu-list align-self-center col-lg-4 col-md-12 col-sm-12">
+                                        <div class="row justify-content-center">
+                                            <div class="menu-info menu-item align-self-center no-select col-12 col-sm-6 col-md-6 col-lg-6">
+                                                LEVEL
+                                                <span class="no-select" id="js-current-lvl">1</span>
+                                            </div>
+                                            <div class="menu-info menu-item align-self-center col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <span class="no-select" id="js-game-score-menu">SCORE 000</span>
+                                            </div>
 
-                                    </div>
-                                </div>
-                                <div class="menu-list align-self-center col-lg-4 col-md-12 col-sm-12">
-                                    <div class="row justify-content-center">
-                                        <div class="menu-info menu-item align-self-center col-12 col-sm-6 col-md-6 col-lg-6">
-                                            <span class="no-select" id="js-game-timer-menu">TIME 00:00</span>
-                                        </div>
-                                        <div class="stars menu-item align-self-center no-select col-12 col-sm-6 col-md-6 col-lg-6">
-                                            <span id="1-star" class="fa fa-star"></span>
-                                            <span id="2-star" class="fa fa-star"></span>
-                                            <span id="3-star" class="fa fa-star"></span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="menu-list align-self-center col-lg-4 col-md-12 col-sm-12">
-                                    <div class="row justify-content-center">
-                                        <div class="menu-item align-self-center col-12 col-sm-6 col-md-6 col-lg-6">
-                                            <a class="menu-btn no-select" href="index.html">RESTART</a>
+                                    <div class="menu-list align-self-center col-lg-4 col-md-12 col-sm-12">
+                                        <div class="row justify-content-center">
+                                            <div class="menu-info menu-item align-self-center col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <span class="no-select" id="js-game-timer-menu">TIME 00:00</span>
+                                            </div>
+                                            <div class="stars menu-item align-self-center no-select col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <span id="1-star" class="fa fa-star"></span>
+                                                <span id="2-star" class="fa fa-star"></span>
+                                                <span id="3-star" class="fa fa-star"></span>
+                                            </div>
                                         </div>
-                                        <div class="menu-item align-self-center col-12 col-sm-6 col-md-6 col-lg-6">
-                                            <a id="btn-next-lvl" class="menu-btn no-select" href="#">NEXT</a>
+                                    </div>
+                                    <div class="menu-list align-self-center col-lg-4 col-md-12 col-sm-12">
+                                        <div class="row justify-content-center">
+                                            <div class="menu-item align-self-center col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <a class="menu-btn no-select" href="index.html">RESTART</a>
+                                            </div>
+                                            <div class="menu-item align-self-center col-12 col-sm-6 col-md-6 col-lg-6">
+                                                <a id="btn-next-lvl" class="menu-btn no-select" href="#">NEXT</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
