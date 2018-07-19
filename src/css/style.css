@@ -10,8 +10,7 @@ html {
   line-height: 1.15;
   /* 1 */
   -webkit-text-size-adjust: 100%;
-  /* 2 */
-  cursor: url("../img/rainbow-cursor.png"), default; }
+  /* 2 */ }
 
 /* Sections
      ========================================================================== */
@@ -338,7 +337,7 @@ a.nav-link:hover {
   display: flex;
   align-items: center;
   height: 100vh;
-  background-color: rgba(118, 185, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   background-size: cover;
   text-align: center;
   color: #efefef; }
@@ -376,8 +375,7 @@ a.nav-link:hover {
       -ms-user-select: none;
       /* Internet Explorer/Edge */
       user-select: none;
-      /* Non-prefixed version, currently
-                                            supported by Chrome and Opera */ }
+      /* Non-prefixed version, currently supported by Chrome and Opera */ }
 
 .tile-square-wrapper {
   padding: 0;
@@ -597,6 +595,10 @@ a.nav-link:hover {
   #inner-game-container {
     padding: 30px;
     padding-top: 0; } }
+
+@media only screen and (min-width: 768px) {
+  #inner-game-container {
+    padding-bottom: 30px; } }
 
 /*changing tile-sizes depending on 3x3, 4x4 or 5x5 and different devices */
 @media only screen and (max-width: 360px) {
@@ -856,26 +858,18 @@ footer {
     max-width: 210px; } }
 
 #btn-next-lvl {
-  width: 150px;
-  height: 50px;
-  color: #fff;
   background-color: darkgrey;
-  border: 1px solid inherit;
-  box-sizing: border-box;
-  transition: all .25s ease-in;
-  -moz-transition: all .25s ease-in;
-  -webkit-transition: all .25s ease-in;
-  border-radius: 3px;
-  font-size: 20px;
-  font-weight: 500; }
+  border: 1px solid inherit; }
 
 #btn-next-lvl:hover,
 .menu-btn:hover {
   opacity: 0.8; }
 
 a.menu-btn {
+  display: inline-block;
   width: 150px;
   height: 50px;
+  line-height: 50px;
   color: #fff;
   background-color: #2996b7;
   border: 1px solid #2996b7;
@@ -887,50 +881,6 @@ a.menu-btn {
   font-size: 20px;
   font-weight: 500; }
 
-/*
-#js-level-finished-box {
-    width: 25vw;
-    min-width: 300px;
-    position: relative;
-    z-index: 2;
-    #level-finished-wrapper {
-        position: fixed;
-        top: 17vh;
-        -webkit-box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
-        -moz-box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
-        box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
-        #level-finished-box {
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-content: center;
-            align-items: center;
-            justify-content: space-between;
-            text-align: center;
-            width: 25vw;
-            min-width: 300px;
-            height: 500px;
-            padding: 50px;
-            border-radius: 5px;
-            #star-wrapper {
-                font-size: 70px;
-                .checked {
-                    color: gold;
-                }
-                .fa-star {
-                    padding: 10px;
-                }
-            }
-            #finished-data-wrapper {
-                text-align: left;
-                font-size: 24px;
-            }
-            #js-finished-score {}
-            #js-finished-time {}
-        }
-    }
-}
-*/
 .hide-box {
   display: none; }
 
@@ -966,89 +916,63 @@ div#menu-container div.container-fluid {
 
 #game-menu-wrapper {
   margin-top: 2.5px;
-  margin-bottom: 5px; }
-  #game-menu-wrapper #game-menu {
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 5px; }
-    #game-menu-wrapper #game-menu #game-menu-options {
-      display: flex;
-      flex-direction: row;
-      justify-content: center; }
-      #game-menu-wrapper #game-menu #game-menu-options ul {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        list-style-type: none;
-        align-items: center; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li {
-          white-space: nowrap;
-          display: inline;
-          padding: 0px 5px; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li a {
-            color: #fff;
-            padding: 5px; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li a:hover {
-            color: #fff;
-            text-decoration: none; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
-          font-size: 42px;
-          color: darkgrey; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li.stars .checked {
-            color: gold; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li.stars .fa-star {
-            padding: 10px; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
-          font-family: scoreboard;
-          font-size: 42px;
-          color: #000; }
-    @media only screen and (max-width: 1440px) {
-      #game-menu-wrapper #game-menu #game-menu-options ul {
-        padding: 20px 0px 20px 0px;
-        flex-direction: column; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li {
-          padding: 5px; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
-            min-width: 350px;
-            display: inline-block;
-            height: 40px; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
-          font-size: 24px;
-          font-weight: 500; } }
-    @media only screen and (max-width: 1024px) {
-      #game-menu-wrapper #game-menu #game-menu-options ul {
-        padding: 0; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li {
-          padding: 1px; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
-            min-width: 250px;
-            line-height: inherit; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
-          font-size: 42px; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li.stars .fa-star {
-            padding-top: 0px;
-            padding-bottom: 0px; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
-          font-size: 22px; } }
-    @media only screen and (max-width: 767px) {
-      #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
-        min-width: 250px;
-        line-height: inherit; }
-      #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
+  margin-bottom: 5px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 5px; }
+  #game-menu-wrapper .row {
+    margin-right: 0;
+    margin-left: 0; }
+  #game-menu-wrapper .menu-list {
+    margin: 0;
+    padding: 0; }
+    #game-menu-wrapper .menu-list .menu-item {
+      padding: 0px 5px; }
+      #game-menu-wrapper .menu-list .menu-item a {
+        color: #fff; }
+      #game-menu-wrapper .menu-list .menu-item a:hover {
+        color: #fff;
+        text-decoration: none; }
+    #game-menu-wrapper .menu-list .stars {
+      color: whitesmoke; }
+      #game-menu-wrapper .menu-list .stars .checked {
+        color: gold; }
+      #game-menu-wrapper .menu-list .stars .fa-star {
         font-size: 42px; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.stars .fa-star {
-          padding-top: 0px;
-          padding-bottom: 0px; } }
-    @media only screen and (max-width: 360px) {
-      #game-menu-wrapper #game-menu #game-menu-options ul li {
-        padding: 1px; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
-          padding: 0;
-          min-width: 200px;
-          height: 30px; }
-      #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
-        font-size: 32px; }
-      #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
-        font-size: 20px; } }
+    #game-menu-wrapper .menu-list .menu-item.menu-info {
+      font-family: scoreboard;
+      font-size: 36px;
+      color: #000; }
+
+@media only screen and (max-width: 1440px) {
+  #game-menu-wrapper .menu-list {
+    padding: 2px 0px 2px 0px; }
+    #game-menu-wrapper .menu-list .menu-item {
+      padding: 2.5px; }
+    #game-menu-wrapper .menu-list .menu-item.menu-info {
+      font-size: 30px;
+      font-weight: 500; } }
+
+@media only screen and (max-width: 1024px) {
+  #game-menu-wrapper .menu-list {
+    padding: 1.5px; }
+    #game-menu-wrapper .menu-list .menu-item {
+      padding: 0px; }
+      #game-menu-wrapper .menu-list .menu-item a.menu-btn {
+        width: 85%;
+        margin-bottom: 10px; }
+    #game-menu-wrapper .menu-list .stars .fa-star {
+      font-size: 50px; } }
+
+@media only screen and (max-width: 575px) {
+  #game-menu-wrapper .menu-list {
+    padding: 0; }
+    #game-menu-wrapper .menu-list .menu-item a.menu-btn {
+      width: 60%;
+      min-width: 100px; }
+    #game-menu-wrapper .menu-list .stars .fa-star {
+      font-size: 30px; }
+    #game-menu-wrapper .menu-list .menu-item.menu-info {
+      font-size: 20px; } }
 
 @font-face {
   font-family: scoreboard;
