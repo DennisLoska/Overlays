@@ -46,6 +46,13 @@ function resetScoreAndTime(game) {
     $('#js-game-timer-menu').html("TIME 00:00")
 }
 
+function showFailedMenu(game) {
+    let failed = $('#menu-container')
+    let content = 'Sorry, you did not make it. Please try again! SCORE: ' + game.levelScore
+    $(failed).find('#game-menu-wrapper').html(content)
+    $(failed).toggleClass('hide-box')
+}
+
 function clearGUI(game) {
     $('#js-current-lvl').html((game.levelNumber + 1).toString())
     $('#time-bar').html('0:' + game.level.time / 1000).css('width', '100%')
@@ -280,7 +287,6 @@ function preventImageDragging() {
 function handleGlassClicks() {
     $('.js-card').parent().click(function () {
         $(this).children().toggleClass('js-is-flipped')
-
     })
     $('.js-card').parent().hover(function () {
         $(this).css('cursor', 'pointer')

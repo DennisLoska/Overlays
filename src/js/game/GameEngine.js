@@ -19,15 +19,15 @@ class GameEngine {
         this.loadImagesIntoLevel()
     }
 
-    initializeUserImages(){
+    initializeUserImages() {
         // calculate all user images in the beginning with matrix filled with 0 
         let matrixValuesRow = new Array(this.numPics)
-        for(let j = 0; j < this.numPics; j++){
+        for (let j = 0; j < this.numPics; j++) {
             matrixValuesRow[j] = 0
         }
 
         let currentUserImg = new Array()
-        for(let row = 0; row < this.numPics; row++){
+        for (let row = 0; row < this.numPics; row++) {
             currentUserImg = this.calculateUserImage(matrixValuesRow, row) // returned pixel array
             this.drawUserImage(row, currentUserImg)
         }
@@ -74,6 +74,9 @@ class GameEngine {
             this.totalScore += this.levelScore
             console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
+            if (this.levelScore <= 0)
+                showFailedMenu(this)
+            else $('#menu-container').toggleClass('hide-box')
             $('#btn-next-lvl').css('background-color', '#4CAF50')
             $('#btn-change-lvl').css('background-color', 'lightgrey')
             stopTimer()
