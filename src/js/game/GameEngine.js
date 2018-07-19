@@ -276,11 +276,17 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate
 
-        let backgroundImageSet = this.level.imageSet // image set number for the background 
-
         $('#js-game-timer').html("LEVEL TIMER 00:" + (this.level.time / 1000))
         $('#js-game-timer-menu').html("TIME 00:00")
         this.startTime = this.getTime()
+
+        /* CALCULATION FOR NEW PROGRESS BAR */
+        let currentT = 0 // needs to be defined within the progress bar 
+        let optimum = this.level.clickOptimum
+        let t = this.level.time
+        let barSize = ((2 * optimum - this.clickCounter) / optimum) * 50 + 50 * ((2 * t - currentT) / t)
+        // barSize is 200 when game starts - visible progress if barSize < 100
+
         progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
     }
 
