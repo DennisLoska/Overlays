@@ -34,9 +34,13 @@ class GameEngine {
     }
 
     updateOnClick(row, col) {
+        // 0. Track clicks and update FuseBar 
+        /* timeBar fallback
         if (this.clickCounter == 0)
             progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
+        */
         this.clickCounter += 1
+        updateFuseBar(this)
 
         // 1. update the value in the user matrix wUser[][]
         if (this.wUser[row][col] == 1)
@@ -277,6 +281,7 @@ class GameEngine {
         $('#js-game-timer').html("LEVEL TIMER 00:" + (this.level.time / 1000))
         $('#js-game-timer-menu').html("TIME 00:00")
         this.startTime = this.getTime()
+        progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
     }
 
     getTime() {

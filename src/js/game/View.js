@@ -57,7 +57,7 @@ function showMenu() {
 
 function clearGUI(game) {
     $('#js-current-lvl').html((game.levelNumber + 1).toString())
-    $('#time-bar').html('0:' + game.level.time / 1000).css('width', '100%')
+    $('#time-bar').css('width', '100%')
     $('#btn-next-lvl').css('background-color', 'darkgrey')
 
     if (game.failed)
@@ -68,6 +68,10 @@ function clearGUI(game) {
 function changeButtonBackground() {
     $('#btn-next-lvl').css('background-color', '#4CAF50')
     $('#btn-change-lvl').css('background-color', 'lightgrey')
+}
+
+function updateFuseBar(game) {
+
 }
 
 function progress(timeleft, timetotal, timeBar) {
