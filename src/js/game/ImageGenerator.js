@@ -128,19 +128,28 @@ class ImageGenerator {
                 mixedColors[i][j] = 0
             }
         }*/
+        let mixedColors = new Array(numPics, 3) // matrix der userwauswahl
+        //inserting dummy-values into wUser - zeros
+        for (let i = 0; i < numPics; i++) {
+            mixedColors[i] = []
+            for (let j = 0; j < 3; j++)
+                mixedColors[i][j] = 0
+        }
+
+        /*
         let mixedColors = new Array(numPics)
         for (let i = 0; i < mixedColors.length; i++) {
             mixedColors[i] = 0
-        }
+        }*/
 
         // multiply with inverse matrix[][]
-        for(let rgb = 0; rgb < 3; rgb++){
-            for(let i = 0; i < numPics; i++){
-                for(let j = 0; j < numPics; j++){
-                    //colorsMinusGray[numPics][rgb]
-                    //mixedColors[i] += Math.floor(colorsMinusGray[i][j] * matrix[i][j])
-
-                    mixedColors[i] += Math.floor(colorsMinusGray[i][rgb] * matrix[i][j])
+        for(let row = 0; row < numPics; row++){
+            for(let col = 0; col < numPics; col++){
+                //colorsMinusGray[numPics][rgb]
+                //mixedColors[numPics][rgb]
+                //mixedColors[i] += Math.floor(colorsMinusGray[i][j] * matrix[i][j])
+                for(let rgb = 0; rgb < 3; rgb++){
+                    mixedColors[row][rgb] += Math.floor(colorsMinusGray[row][rgb] * matrix[row][col])
                 }
             }
         }
@@ -149,11 +158,13 @@ class ImageGenerator {
 
         // + 128 and check if between 0 and 255
         for(let i = 0; i < numPics; i++){
-            mixedColors[i] += 128;
-            if(mixedColors[i] < 0 && mixedColors[i] > 255){
-                console.log("### TEST 1 ERROR: Color is not inside 0-255 zone.");
-                return false;
-            }  
+            for(let rgb = 0; rgb < 3; rgb++){
+                mixedColors[i][rgb] += 128
+                if(mixedColors[i][rgb] < 0 && mixedColors[i][rgb] > 255){
+                    console.log("### TEST 1 ERROR: Color is not inside 0-255 zone.");
+                    return false;
+                }  
+            }
         }
         //console.log("(colors - 128) * mInv + 128:")
         //console.log(mixedColors)
@@ -213,10 +224,12 @@ class ImageGenerator {
         //let option = this.counter % 3+1 //static option
         if (option == 1) {
             // Rectangle
-            let xStart = Math.floor(Math.random() * this.width) 
-            let yStart = Math.floor(Math.random() * this.height)
-            let xEnd = xStart + Math.floor(Math.random() * this.width - xStart)
-            let yEnd = yStart + Math.floor(Math.random() * this.height - yStart)
+            console.log("Rectangle")
+            /*
+            let xStart = Math.floor(Math.random() * this.width*3 / 4) + this.width / 4
+            let yStart = Math.floor(Math.random() * this.height*3 / 4) + this.height / 4
+            let xEnd = xStart + Math.floor(Math.random() * this.width - xStart) + 20 // min width: 20
+            let yEnd = yStart + Math.floor(Math.random() * this.height - yStart) + 20
 
             let offset = Math.floor(Math.random() * 10) + 1 // this will get a number between 1 and 10;
             offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // this will add minus sign in 50% of cases
@@ -228,17 +241,44 @@ class ImageGenerator {
 
             //ctx.fillStyle = color
             ctx.fillStyle = seededColor
-            ctx.fillRect(xStart + offset, yStart + offset2, xEnd + offset2, yEnd + offset)
+            ctx.fillRect(xStart, yStart, xEnd, yEnd)
             //ctx.fillRect(20, 20, 80, 80) //static option
+            */
+
+
+            let xStart = this.width / 4
+            let yStart = this.height / 4
+
+            //let xPos = Math.floor(Math.random() * this.width / 2) + 1
+            //let yPos = Math.floor(Math.random() * this.height / 2) + 1
+
+            let xEnd = xStart + Math.floor(Math.random() * this.width / 2) + 1
+            let yEnd = yStart + Math.floor(Math.random() * this.height / 2) + 1
+ 
+            let offset = Math.floor(Math.random() * 10) + 1 // this will get a number between 1 and 10;
+            offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // this will add minus sign in 50% of cases
+ 
+            //ctx.fillStyle = color
+            ctx.fillStyle = seededColor
+            ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset)
+            //ctx.fillRect(xPos + offset, yPos + offset, xEnd + offset, yEnd + offset)
         }
         if (option == 2) {
             // Circle
+            console.log("Circle")
             let offset = Math.floor(Math.random() * 20) + 1
             offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // add minus sign in 50% of cases
-            let radius = Math.floor(Math.random() * this.width / 2) + 10 // width/2 > radius > 10 (min radius size)
+            let radius = Math.floor(Math.random() * this.width / 3) + 20 // width/3 > radius > 20 (min radius size)
 
-            let xPos = Math.floor(Math.random() * this.width)
-            let yPos = Math.floor(Math.random() * this.height)
+            let xPos = 0
+            let yPos = 0
+
+            while(xPos < this.width/4 || xPos > this.width*3/4){
+                xPos = Math.floor(Math.random() * this.width)
+            }
+            while(yPos < this.height/4 || yPos > this.height*3/4){
+                yPos = Math.floor(Math.random() * this.height)
+            }
 
             //ctx.fillStyle = color
             ctx.fillStyle = seededColor
@@ -252,40 +292,51 @@ class ImageGenerator {
         }
         if (option == 3) {
             // Filled triangle
-            let offset = Math.floor(Math.random() * 250)
+            console.log("Triangle")
+            let offset = Math.floor(Math.random() * 20) + 1
             offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
 
-            let offset2 = Math.floor(Math.random() * 250)
+            let offset2 = Math.floor(Math.random() * 20) + 1
             offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
 
-            let offset3 = Math.floor(Math.random() * 250)
-            offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+            let offset3 = Math.floor(Math.random() * 20) + 1
+            offset3 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
 
-            let offset4 = Math.floor(Math.random() * 250)
-            offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+            let offset4 = Math.floor(Math.random() * 20) + 1
+            offset4 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
 
             // random position to start
-            let xPos = Math.floor(Math.random() * this.width)
-            let yPos = Math.floor(Math.random() * this.height)
+            //let xPos = Math.floor(Math.random() * this.width*3/4) + this.width/4
+            //let yPos = Math.floor(Math.random() * this.height*3/4) + this.height/4
+
+            let xPos = 0
+            let yPos = 0
+
+            while(xPos < this.width/4 || xPos > this.width*3/4){
+                xPos = Math.floor(Math.random() * this.width)
+            }
+            while(yPos < this.height/4 || yPos > this.height*3/4){
+                yPos = Math.floor(Math.random() * this.height)
+            }
 
             //ctx.fillStyle = color
             ctx.fillStyle = seededColor
             ctx.beginPath()
-            //ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
-            //ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
-            //ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
+            ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
+            ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
+            ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
 
-            ctx.moveTo(xPos, yPos) // von 110, 110
-            ctx.lineTo(xPos + offset, yPos + offset2) // zu 110, 20
-            ctx.lineTo(xPos + offset3, yPos + offset4) // zu 20, 110
+            /*ctx.moveTo(xPos, yPos) // von 110, 110
+            ctx.lineTo(xPos + offset, yPos) // zu 110, 20
+            ctx.lineTo(xPos, yPos + offset2) // zu 20, 110*/
 
-            console.log("moveTo: (" + xPos + ", " + yPos + ")")
+            /*console.log("moveTo: (" + xPos + ", " + yPos + ")")
             console.log("lineTo: (" + xPos + offset + ", " + yPos + offset2 + ")")
-            console.log("lineTo: (" + xPos + offset3 + ", " + yPos + offset4 + ")")
+            console.log("lineTo: (" + xPos + offset3 + ", " + yPos + offset4 + ")")*/
 
-            //ctx.moveTo(110, 110) // von 110, 110 //static option
-            //ctx.lineTo(110, 20) // zu 110, 20 //static option
-            //ctx.lineTo(20, 110) // zu 20, 110 //static option
+            /*ctx.moveTo(110, 110) // von 110, 110 //static option
+            ctx.lineTo(110, 20) // zu 110, 20 //static option
+            ctx.lineTo(20, 110) // zu 20, 110 //static option*/
 
             ctx.fill()
             ctx.closePath()

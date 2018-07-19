@@ -19,10 +19,28 @@ class GameEngine {
         this.loadImagesIntoLevel()
     }
 
+    initializeUserImages() {
+        // calculate all user images in the beginning with matrix filled with 0 
+        let matrixValuesRow = new Array(this.numPics)
+        for (let j = 0; j < this.numPics; j++) {
+            matrixValuesRow[j] = 0
+        }
+
+        let currentUserImg = new Array()
+        for (let row = 0; row < this.numPics; row++) {
+            currentUserImg = this.calculateUserImage(matrixValuesRow, row) // returned pixel array
+            this.drawUserImage(row, currentUserImg)
+        }
+    }
+
     updateOnClick(row, col) {
+        // 0. Track clicks and update FuseBar 
+        /* timeBar fallback
         if (this.clickCounter == 0)
             progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
+        */
         this.clickCounter += 1
+        updateFuseBar(this)
 
         // 1. update the value in the user matrix wUser[][]
         if (this.wUser[row][col] == 1)
@@ -60,38 +78,41 @@ class GameEngine {
             this.totalScore += this.levelScore
             console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
-            $('#btn-next-lvl').css('background-color', '#4CAF50')
-            $('#btn-change-lvl').css('background-color', 'lightgrey')
+            if (this.levelScore <= 0) {
+                this.failed = true
+                showFailedMenu()
+            } else {
+                this.failed = false
+                showMenu()
+            }
+            changeButtonBackground()
             stopTimer()
             setStars(this)
             setScoreAndTime(this)
-            //loadLvlCompleteBox(this)
             this.nextLevelClicked()
         }
     }
-
-    changeClicked() {
-        $('#btn-change-lvl').click(function () {
-            //toggleLvlCompleteBox()
-            let correctCombs = this.getAmountOfCorrectCombinations()
-            if (correctCombs != this.numPics) {
-                stopTimer()
-                this.loadLevel()
-                loadGameGUI(this)
-                clickedTile(this)
-                resetStars(this)
-                resetChange()
-                resetScoreAndTime(this)
-                this.clearArrays()
-                this.loadImagesIntoLevel()
-                clearGUI(this)
-            }
-        }.bind(this))
-    }
-
+    /*
+        changeClicked() {
+            $('#btn-change-lvl').click(function () {
+                let correctCombs = this.getAmountOfCorrectCombinations()
+                if (correctCombs != this.numPics) {
+                    stopTimer()
+                    this.loadLevel()
+                    loadGameGUI(this)
+                    clickedTile(this)
+                    resetStars(this)
+                    resetChange()
+                    resetScoreAndTime(this)
+                    this.clearArrays()
+                    this.loadImagesIntoLevel()
+                    clearGUI(this)
+                }
+            }.bind(this))
+        }
+    */
     nextLevelClicked() {
         $('#btn-next-lvl').click(function () {
-            //toggleLvlCompleteBox()
             let correctCombs = this.getAmountOfCorrectCombinations()
             if (correctCombs == this.numPics) {
                 this.loadLevel()
@@ -119,7 +140,7 @@ class GameEngine {
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
-            if (this.levelNumber < 6) {
+            if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.targetPixels = images.targetPixels
@@ -139,7 +160,8 @@ class GameEngine {
             }
         } else {
             // read basis images
-            if (this.levelNumber % 2 == 0) {
+            //if (this.levelNumber % 2 == 0) {
+            if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.basisPixels = images.targetPixels
@@ -199,6 +221,7 @@ class GameEngine {
             }
         }
 
+        this.initializeUserImages()
         this.printResult()
     }
 
@@ -253,9 +276,12 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate
 
-        $('#js-game-timer').html("LEVEL TIME: 0:" + (this.level.time / 1000) +'!')
-        $('#js-game-timer-menu').html("TIME 0:00")
+        let backgroundImageSet = this.level.imageSet // image set number for the background 
+
+        $('#js-game-timer').html("LEVEL TIMER 00:" + (this.level.time / 1000))
+        $('#js-game-timer-menu').html("TIME 00:00")
         this.startTime = this.getTime()
+        progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
     }
 
     getTime() {

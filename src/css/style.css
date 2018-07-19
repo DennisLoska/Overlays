@@ -10,8 +10,7 @@ html {
   line-height: 1.15;
   /* 1 */
   -webkit-text-size-adjust: 100%;
-  /* 2 */
-  cursor: url("../img/rainbow-cursor.png"), default; }
+  /* 2 */ }
 
 /* Sections
      ========================================================================== */
@@ -309,7 +308,7 @@ header,
 nav,
 header li,
 .dropdown-menu {
-  background-color: #76b900; }
+  background-color: #2996b7; }
 
 #nav-wrapper {
   padding: 0; }
@@ -323,12 +322,11 @@ div#navbarNavDropdown {
 
 a.nav-link {
   color: black !important;
-  margin-left: 0.5rem;
-  /*bad practice don't do this in production*/ }
+  margin-left: 0.5rem; }
 
 a.nav-link:hover {
-  background-color: forestgreen;
-  /*bad practice don't do this in production*/ }
+  background-color: #2996b7;
+  opacity: 0.5; }
 
 @media only screen and (max-width: 768px) {
   header #nav-ul {
@@ -338,7 +336,7 @@ a.nav-link:hover {
   display: flex;
   align-items: center;
   height: 100vh;
-  background-color: rgba(118, 185, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   background-size: cover;
   text-align: center;
   color: #efefef; }
@@ -376,8 +374,7 @@ a.nav-link:hover {
       -ms-user-select: none;
       /* Internet Explorer/Edge */
       user-select: none;
-      /* Non-prefixed version, currently
-                                            supported by Chrome and Opera */ }
+      /* Non-prefixed version, currently supported by Chrome and Opera */ }
 
 .tile-square-wrapper {
   padding: 0;
@@ -444,14 +441,14 @@ a.nav-link:hover {
     transform-origin: 40% 25%; }
   .tile-square-wrapper .light-rays {
     background: white;
-    -webkit-filter: blur(3px);
-    -moz-filter: blur(3px);
-    -o-filter: blur(3px);
-    -ms-filter: blur(3px);
-    filter: blur(3px);
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
     border-radius: 5px;
     margin-top: 10px;
-    width: 3px;
+    width: 2px;
     max-height: 950px;
     height: 42vw;
     opacity: .8;
@@ -597,6 +594,10 @@ a.nav-link:hover {
   #inner-game-container {
     padding: 30px;
     padding-top: 0; } }
+
+@media only screen and (min-width: 768px) {
+  #inner-game-container {
+    padding-bottom: 30px; } }
 
 /*changing tile-sizes depending on 3x3, 4x4 or 5x5 and different devices */
 @media only screen and (max-width: 360px) {
@@ -771,7 +772,7 @@ a.nav-link:hover {
 #tut-game-container {
   height: 100vh;
   padding: 25px;
-  background-color: rgba(118, 185, 0, 0.4);
+  background-color: #2996b7;
   text-align: center;
   color: #efefef;
   height: 850px; }
@@ -840,7 +841,7 @@ footer {
   font-weight: 500;
   text-transform: uppercase;
   color: #fff;
-  background-color: #76b900;
+  background-color: #2996b7;
   border-radius: 3px;
   box-sizing: border-box;
   transition: all .25s ease-in;
@@ -856,26 +857,18 @@ footer {
     max-width: 210px; } }
 
 #btn-next-lvl {
-  width: 150px;
-  height: 50px;
-  color: #fff;
   background-color: darkgrey;
-  border: 1px solid inherit;
-  box-sizing: border-box;
-  transition: all .25s ease-in;
-  -moz-transition: all .25s ease-in;
-  -webkit-transition: all .25s ease-in;
-  border-radius: 3px;
-  font-size: 20px;
-  font-weight: 500; }
+  border: 1px solid inherit; }
 
 #btn-next-lvl:hover,
 .menu-btn:hover {
   opacity: 0.8; }
 
 a.menu-btn {
+  display: inline-block;
   width: 150px;
   height: 50px;
+  line-height: 50px;
   color: #fff;
   background-color: #2996b7;
   border: 1px solid #2996b7;
@@ -887,61 +880,39 @@ a.menu-btn {
   font-size: 20px;
   font-weight: 500; }
 
-/*
-#js-level-finished-box {
-    width: 25vw;
-    min-width: 300px;
-    position: relative;
-    z-index: 2;
-    #level-finished-wrapper {
-        position: fixed;
-        top: 17vh;
-        -webkit-box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
-        -moz-box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
-        box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
-        #level-finished-box {
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-content: center;
-            align-items: center;
-            justify-content: space-between;
-            text-align: center;
-            width: 25vw;
-            min-width: 300px;
-            height: 500px;
-            padding: 50px;
-            border-radius: 5px;
-            #star-wrapper {
-                font-size: 70px;
-                .checked {
-                    color: gold;
-                }
-                .fa-star {
-                    padding: 10px;
-                }
-            }
-            #finished-data-wrapper {
-                text-align: left;
-                font-size: 24px;
-            }
-            #js-finished-score {}
-            #js-finished-time {}
-        }
-    }
-}
-*/
+span#about-link {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: black;
+  font-size: 30px;
+  font-weight: 500;
+  z-index: 2;
+  text-align: center;
+  line-height: 30px; }
+  span#about-link a {
+    color: black; }
+  span#about-link a:hover {
+    opacity: .8;
+    text-decoration: none; }
+
+span#about-link:hover {
+  opacity: .8; }
+
 .hide-box {
   display: none; }
-
-div#menu-container div.container-fluid {
-  padding: 0; }
 
 #custom-menu-container {
   max-width: 1000px; }
 
 #time-bar-wrapper,
-#game-menu-wrapper {
+#game-menu-wrapper,
+#fail-game-menu-wrapper {
   position: relative;
   z-index: 1; }
 
@@ -950,105 +921,98 @@ div#menu-container div.container-fluid {
   margin-top: 10px;
   border-radius: 5px;
   border: 3px solid white;
-  background: linear-gradient(to right, #d15151, #397a05); }
+  background-color: rgba(255, 255, 255, 0.4); }
   #time-bar-wrapper #time-bar {
     width: 100%;
     line-height: 45px;
     font-size: 24px;
     text-align: right;
     display: block;
-    background-color: #2996b7;
+    background: linear-gradient(to right, #d15151, #397a05);
     box-sizing: border-box; }
 
 @media only screen and (max-width: 1440px) {
   #time-bar-wrapper {
     margin-top: 0; } }
 
-#game-menu-wrapper {
+#game-menu-wrapper,
+#fail-game-menu-wrapper {
   margin-top: 2.5px;
-  margin-bottom: 5px; }
-  #game-menu-wrapper #game-menu {
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 5px; }
-    #game-menu-wrapper #game-menu #game-menu-options {
-      display: flex;
-      flex-direction: row;
-      justify-content: center; }
-      #game-menu-wrapper #game-menu #game-menu-options ul {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        list-style-type: none;
-        align-items: center; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li {
-          white-space: nowrap;
-          display: inline;
-          padding: 0px 5px; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li a {
-            color: #fff;
-            padding: 5px; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li a:hover {
-            color: #fff;
-            text-decoration: none; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
-          font-size: 42px;
-          color: darkgrey; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li.stars .checked {
-            color: gold; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li.stars .fa-star {
-            padding: 10px; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
-          font-family: scoreboard;
-          font-size: 42px;
-          color: #000; }
-    @media only screen and (max-width: 1440px) {
-      #game-menu-wrapper #game-menu #game-menu-options ul {
-        padding: 20px 0px 20px 0px;
-        flex-direction: column; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li {
-          padding: 5px; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
-            min-width: 350px;
-            display: inline-block;
-            height: 40px; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
-          font-size: 24px;
-          font-weight: 500; } }
-    @media only screen and (max-width: 1024px) {
-      #game-menu-wrapper #game-menu #game-menu-options ul {
-        padding: 0; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li {
-          padding: 1px; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
-            min-width: 250px;
-            line-height: inherit; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
-          font-size: 42px; }
-          #game-menu-wrapper #game-menu #game-menu-options ul li.stars .fa-star {
-            padding-top: 0px;
-            padding-bottom: 0px; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
-          font-size: 22px; } }
-    @media only screen and (max-width: 767px) {
-      #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
-        min-width: 250px;
-        line-height: inherit; }
-      #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
+  margin-bottom: 5px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 5px; }
+  #game-menu-wrapper .row,
+  #fail-game-menu-wrapper .row {
+    margin-right: 0;
+    margin-left: 0; }
+  #game-menu-wrapper .menu-list,
+  #fail-game-menu-wrapper .menu-list {
+    margin: 0;
+    padding: 0; }
+    #game-menu-wrapper .menu-list .menu-item,
+    #fail-game-menu-wrapper .menu-list .menu-item {
+      padding: 2.5px; }
+      #game-menu-wrapper .menu-list .menu-item a,
+      #fail-game-menu-wrapper .menu-list .menu-item a {
+        color: #fff; }
+      #game-menu-wrapper .menu-list .menu-item a:hover,
+      #fail-game-menu-wrapper .menu-list .menu-item a:hover {
+        color: #fff;
+        text-decoration: none; }
+    #game-menu-wrapper .menu-list .stars,
+    #fail-game-menu-wrapper .menu-list .stars {
+      color: whitesmoke; }
+      #game-menu-wrapper .menu-list .stars .checked,
+      #fail-game-menu-wrapper .menu-list .stars .checked {
+        color: gold; }
+      #game-menu-wrapper .menu-list .stars .fa-star,
+      #fail-game-menu-wrapper .menu-list .stars .fa-star {
         font-size: 42px; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li.stars .fa-star {
-          padding-top: 0px;
-          padding-bottom: 0px; } }
-    @media only screen and (max-width: 360px) {
-      #game-menu-wrapper #game-menu #game-menu-options ul li {
-        padding: 1px; }
-        #game-menu-wrapper #game-menu #game-menu-options ul li a.menu-btn {
-          padding: 0;
-          min-width: 200px;
-          height: 30px; }
-      #game-menu-wrapper #game-menu #game-menu-options ul li.stars {
-        font-size: 32px; }
-      #game-menu-wrapper #game-menu #game-menu-options ul li.li-info {
-        font-size: 20px; } }
+    #game-menu-wrapper .menu-list .menu-item.menu-info,
+    #fail-game-menu-wrapper .menu-list .menu-item.menu-info {
+      font-family: scoreboard;
+      font-size: 36px;
+      color: #000; }
+
+@media only screen and (max-width: 1440px) {
+  #game-menu-wrapper .menu-list,
+  #fail-game-menu-wrapper .menu-list {
+    padding: 2px 0px 2px 0px; }
+    #game-menu-wrapper .menu-list .menu-item.menu-info,
+    #fail-game-menu-wrapper .menu-list .menu-item.menu-info {
+      font-size: 30px;
+      font-weight: 500; } }
+
+@media only screen and (max-width: 1024px) {
+  #game-menu-wrapper .menu-list,
+  #fail-game-menu-wrapper .menu-list {
+    padding: 1.5px; }
+    #game-menu-wrapper .menu-list .menu-item,
+    #fail-game-menu-wrapper .menu-list .menu-item {
+      padding: 0px; }
+      #game-menu-wrapper .menu-list .menu-item a.menu-btn,
+      #fail-game-menu-wrapper .menu-list .menu-item a.menu-btn {
+        width: 85%;
+        margin-bottom: 5px;
+        margin-top: 5px; }
+    #game-menu-wrapper .menu-list .stars .fa-star,
+    #fail-game-menu-wrapper .menu-list .stars .fa-star {
+      font-size: 50px; } }
+
+@media only screen and (max-width: 575px) {
+  #game-menu-wrapper .menu-list,
+  #fail-game-menu-wrapper .menu-list {
+    padding: 0; }
+    #game-menu-wrapper .menu-list .menu-item a.menu-btn,
+    #fail-game-menu-wrapper .menu-list .menu-item a.menu-btn {
+      width: 60%;
+      min-width: 100px; }
+    #game-menu-wrapper .menu-list .stars .fa-star,
+    #fail-game-menu-wrapper .menu-list .stars .fa-star {
+      font-size: 30px; }
+    #game-menu-wrapper .menu-list .menu-item.menu-info,
+    #fail-game-menu-wrapper .menu-list .menu-item.menu-info {
+      font-size: 20px; } }
 
 @font-face {
   font-family: scoreboard;

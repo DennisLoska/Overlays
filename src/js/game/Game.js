@@ -8,7 +8,7 @@ class Game {
     loadSettings() {
         this.calculator = new GameEngine(this.levelNumber)
         clickedTile(this.calculator)
-        this.calculator.changeClicked()
+        //this.calculator.changeClicked()
     }
 
     loadGUI() {

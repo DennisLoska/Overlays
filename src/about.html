@@ -56,7 +56,10 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" target="_blank" href="https://getbootstrap.com">Bootstrap</a>
+                                <a class="dropdown-item" target="_blank" href="https://jquery.com/">jQuery</a>
                                 <a class="dropdown-item" target="_blank" href="https://www.nodejs.org/">Node.js</a>
+                                <a class="dropdown-item" target="_blank" href="https://gruntjs.com/">Grunt</a>
+                                <a class="dropdown-item" target="_blank" href="https://babeljs.io/">Babel</a>
                                 <a class="dropdown-item" target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">Canvas-API</a>
                             </div>
                         </li>
@@ -91,20 +94,23 @@
                         <h2 id="tutorial-headline" class="col-md-12">Tutorial</h2>
                         <section class="offset-md-3 col-md-6 article-text">
                             <h2 class="sub-headline">Was ist Overlays?</h2>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, quam similique iure eum
-                                ipsum expedita repudiandae labore sint adipisci consequatur rerum ab, ut recusandae velit
-                                consequuntur iste. At, quos! Eaque. Repellat alias dolore numquam dolor rerum doloremque
-                                obcaecati consequatur quod voluptatem, nulla magnam distinctio deserunt beatae. Porro eos
-                                sequi nobis accusamus. Distinctio fugiat sit reprehenderit ea, enim voluptas fugit cumque.
-                                Velit, sunt veniam quo ut in adipisci</p>
+                            <p>Overlays ist ein browserbasiertes Puzzlespiel zum Trainieren der Interpretation von Farben und
+                                Strukturen in Bildern, das sich vor allem an Puzzle-Freunde und Casual-Gamer richtet. Hierbei
+                                werden dem Nutzer spielerisch die Prinzipien der Farbmischung beigebracht, indem er die richtige
+                                Kombination überlagerter Bilder auswählen muss, um ein vorgegebenes Zielbild zu erstellen.
+                            </p>
+                            <p>Mit zunehmenden Schwierigkeitsgrad werden mehrere Farben und Formen gleichzeitig überlagert und
+                                fordern den Nutzer, die bisher erlernten Fähigkeiten anzuwenden. Anhand der benötigten Versuche
+                                zum Zusammensetzen des Bildes und der Zeit wird eine Punktzahl errechnet. Die Bilder, die
+                                für die Überlagerung verwendet werden, sind sowohl dynamisch generierte Bilder als auch fotorealistische
+                                Aufnahmen. </p>
                         </section>
                         <section class="offset-md-3 col-md-6 article-text">
                             <h2 class="sub-headline">Wie funktioniert's?</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus porro iusto at, harum nulla,
-                                non voluptates, quae illum ratione sed sapiente exercitationem deleniti. Odit beatae porro
-                                similique autem, rerum molestiae?Dolor harum quidem magni, odio cum ducimus laboriosam provident
-                                blanditiis, eveniet ea consequuntur eos labore mollitia iure nesciunt doloribus commodi omnis
-                                veniam quasi ullam, illo saepe quibusdam rem? Cum, ut.</p>
+                            <p>Durch Berühren bzw. Anklicken der Gläser leitet man die Lichtstrahlen um. Die richtige Kombination
+                                aus den Bildern bzw. Lichtstrahlen ergibt das richtige Ergebnisbild. Sollte man sich verklickt
+                                haben oder lag falsch, kann man das entsprechende Glas wieder anklicken bzw. berühren, um
+                                den gewünschten Strahl in den Ursprungszustand zurückzuversetzen.</p>
                         </section>
                     </article>
                 </div>
@@ -218,7 +224,7 @@
                                                 </span>
                                             </li>
                                             <li>&#9632;
-                                                <span class="li-color">Rechts steht das Ergebnisbild - entspricht es dem Anfaangsbild, gibt es Punkte</span>
+                                                <span class="li-color">Rechts steht das Ergebnisbild - entspricht es dem Anfaangsbild gibt es Punkte</span>
                                             </li>
                                             <li>&#9632;
                                                 <span class="li-color">Fehler werden beim Zielbild deutlich und es gibt Punktabzüge</span>
@@ -237,20 +243,25 @@
                         <h2 id="information-headline" class="col-md-12">Informationen</h2>
                         <section class="offset-md-3 col-md-6 col-sm-12 article-text">
                             <h2 class="sub-headline">Level und Highscore</h2>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, quam similique iure eum
-                                ipsum expedita repudiandae labore sint adipisci consequatur rerum ab, ut recusandae velit
-                                consequuntur iste. At, quos! Eaque. Repellat alias dolore numquam dolor rerum doloremque
-                                obcaecati consequatur quod voluptatem, nulla magnam distinctio deserunt beatae. Porro eos
-                                sequi nobis accusamus. Distinctio fugiat sit reprehenderit ea, enim voluptas fugit cumque.
-                                Velit, sunt veniam quo ut in adipisci</p>
+                            <p>Der Score wird durch eine Formel berechnet, welche die Anzahl der gebrauchten Versuche und benötigten
+                                Zeit berücksichtigt. Hierbei gilt:
+                                <br>
+                                <br> Je schneller und fehlerfreier man spielt, desto höher ist auch der Score.
+                            </p>
                         </section>
                         <section class="offset-md-3 col-md-6 col-sm-12 article-text">
                             <h2 class="sub-headline">Verwendete Tech&shy;nologien</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus porro iusto at, harum nulla,
-                                non voluptates, quae illum ratione sed sapiente exercitationem deleniti. Odit beatae porro
-                                similique autem, rerum molestiae?Dolor harum quidem magni, odio cum ducimus laboriosam provident
-                                blanditiis, eveniet ea consequuntur eos labore mollitia iure nesciunt doloribus commodi omnis
-                                veniam quasi ullam, illo saepe quibusdam rem? Cum, ut.</p>
+                            <p>Für das Frontend haben wir Bootstrap, jQuery und die Canvas-API verwendet. Das gesamte Spiel
+                                wird via jQuery dynamisch erstellt, je anch dem wie viele Reihen im aktuellen Level vorliegen.
+                                Mit Hilfe von Bootstrap ist das Spiel responsive gestaltet und auch auf mobilen Geräten spielbar.
+                                Die Canvas-API wird verwendet, um die Bilder der einzelnen Level zu laden und die berechneten
+                                Ergebnis und Basisbilder auszugeben. Zudem werden mit Hilfe der Canvas-API einige Bilder
+                                der Level zufällig generiert!</p>
+                            <p>
+                                Im Backend wird ein Node.js Server verwendet, welcher allerdings nur dafür benutzt wird, die Spielseite und diese Seite bei
+                                entsprechendem Request zu senden. Davon abgesehen wird noch Grunt als Taskrunner verwendet,
+                                welcher Aufgaben wie Minifizierung, Bildkompression, Uglifying usw. vornimmt.
+                            </p>
                         </section>
                     </article>
                 </div>

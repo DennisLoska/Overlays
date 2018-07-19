@@ -1,56 +1,33 @@
-/*
-#js-level-finished-box {
-    width: 25vw;
-    min-width: 300px;
-    position: relative;
+span#about-link {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: black;
+    font-size: 30px;
+    font-weight: 500;
     z-index: 2;
-    #level-finished-wrapper {
-        position: fixed;
-        top: 17vh;
-        -webkit-box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
-        -moz-box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
-        box-shadow: 0px 0px 1px 5000px rgba(0, 0, 0, 0.8);
-        #level-finished-box {
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-content: center;
-            align-items: center;
-            justify-content: space-between;
-            text-align: center;
-            width: 25vw;
-            min-width: 300px;
-            height: 500px;
-            padding: 50px;
-            border-radius: 5px;
-            #star-wrapper {
-                font-size: 70px;
-                .checked {
-                    color: gold;
-                }
-                .fa-star {
-                    padding: 10px;
-                }
-            }
-            #finished-data-wrapper {
-                text-align: left;
-                font-size: 24px;
-            }
-            #js-finished-score {}
-            #js-finished-time {}
-        }
+    text-align: center;
+    line-height: 30px;
+    a {
+        color: black;
+    }
+    a:hover {
+        opacity: .8;
+        text-decoration: none;
     }
 }
-*/
+
+span#about-link:hover {
+    opacity: .8;
+}
 
 .hide-box {
     display: none;
-}
-
-div#menu-container {
-    div.container-fluid {
-        padding: 0;
-    }
 }
 
 #custom-menu-container {
@@ -58,7 +35,8 @@ div#menu-container {
 }
 
 #time-bar-wrapper,
-#game-menu-wrapper {
+#game-menu-wrapper,
+#fail-game-menu-wrapper {
     position: relative;
     z-index: 1;
 }
@@ -68,14 +46,14 @@ div#menu-container {
     margin-top: 10px;
     border-radius: 5px;
     border: 3px solid white;
-    background: linear-gradient(to right, $red, $time-bar);
+    background-color: rgba(255, 255, 255, 0.4);
     #time-bar {
         width: 100%;
         line-height: 45px;
         font-size: 24px;
         text-align: right;
         display: block;
-        background-color: $menu-blue;
+        background: linear-gradient(to right, $red, $time-bar);
         box-sizing: border-box;
     }
 }
@@ -86,133 +64,99 @@ div#menu-container {
     }
 }
 
-#game-menu-wrapper {
+#game-menu-wrapper,
+#fail-game-menu-wrapper {
     margin-top: 2.5px;
     margin-bottom: 5px;
-    #game-menu {
-        background-color: rgba(255, 255, 255, 0.6);
-        border-radius: 5px;
-        #game-menu-options {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            ul {
-                margin: 0;
-                padding: 0;
-                display: flex;
-                list-style-type: none;
-                align-items: center;
-                li {
-                    white-space: nowrap;
-                    display: inline;
-                    padding: 0px 5px;
-                    a {
-                        color: #fff;
-                        padding: 5px;
-                    }
-                    a:hover {
-                        color: #fff;
-                        text-decoration: none;
-                    }
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 5px;
+    .row {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .menu-list {
+        margin: 0;
+        padding: 0;
+        .menu-item {
+            padding: 2.5px;
+            a {
+                color: #fff;
+            }
+            a:hover {
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+        .stars {
+            color: whitesmoke;
+            .checked {
+                color: gold;
+            }
+            .fa-star {
+                font-size: 42px;
+            }
+        }
+        .menu-item.menu-info {
+            font-family: scoreboard;
+            font-size: 36px;
+            color: #000; //background-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+}
+
+@media only screen and (max-width: 1440px) {
+    #game-menu-wrapper,
+    #fail-game-menu-wrapper {
+        .menu-list {
+            padding: 2px 0px 2px 0px;
+            .menu-item.menu-info {
+                font-size: 30px;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    #game-menu-wrapper,
+    #fail-game-menu-wrapper {
+        .menu-list {
+            padding: 1.5px;
+            .menu-item {
+                padding: 0px;
+                a.menu-btn {
+                    width: 85%;
+                    margin-bottom: 5px;
+                    margin-top: 5px;
                 }
-                li.stars {
-                    font-size: 42px;
-                    color: darkgrey;
-                    .checked {
-                        color: gold;
-                    }
-                    .fa-star {
-                        padding: 10px;
-                    }
-                }
-                li.li-info {
-                    font-family: scoreboard;
-                    font-size: 42px;
-                    color: #000; //background-color: rgba(255, 255, 255, 0.3);
+            }
+            .stars {
+                .fa-star {
+                    font-size: 50px;
                 }
             }
         }
-        @media only screen and (max-width: 1440px) {
-            #game-menu-options {
-                ul {
-                    padding: 20px 0px 20px 0px;
-                    flex-direction: column;
-                    li {
-                        padding: 5px;
-                        a.menu-btn {
-                            min-width: 350px;
-                            display: inline-block;
-                            height: 40px;
-                        }
-                    }
-                    li.li-info {
-                        font-size: 24px;
-                        font-weight: 500;
-                    }
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    #game-menu-wrapper,
+    #fail-game-menu-wrapper {
+        .menu-list {
+            padding: 0;
+            .menu-item {
+                a.menu-btn {
+                    width: 60%;
+                    min-width: 100px;
                 }
             }
-        }
-        @media only screen and (max-width: 1024px) {
-            #game-menu-options {
-                ul {
-                    padding: 0;
-                    li {
-                        padding: 1px;
-                        a.menu-btn {
-                            min-width: 250px;
-                            line-height: inherit;
-                        }
-                    }
-                    li.stars {
-                        font-size: 42px;
-                        .fa-star {
-                            padding-top: 0px;
-                            padding-bottom: 0px;
-                        }
-                    }
-                    li.li-info {
-                        font-size: 22px;
-                    }
+            .stars {
+                .fa-star {
+                    font-size: 30px;
                 }
             }
-        }
-        @media only screen and (max-width: 767px) {
-            #game-menu-options {
-                ul {
-                    li {
-                        a.menu-btn {
-                            min-width: 250px;
-                            line-height: inherit;
-                        }
-                    }
-                    li.stars {
-                        font-size: 42px;
-                        .fa-star {
-                            padding-top: 0px;
-                            padding-bottom: 0px;
-                        }
-                    }
-                }
-            }
-        }
-        @media only screen and (max-width: 360px) {
-            #game-menu-options {
-                ul {
-                    li {
-                        padding: 1px;
-                        a.menu-btn {
-                            padding: 0;
-                            min-width: 200px;
-                            height: 30px;
-                        }
-                    }
-                    li.stars {
-                        font-size: 32px;
-                    }
-                    li.li-info {
-                        font-size: 20px;
-                    }
-                }
+            .menu-item.menu-info {
+                font-size: 20px;
             }
         }
     }
