@@ -8,7 +8,6 @@ class Level {
         this.clickOpt = undefined
         this.clickMax = undefined
         this.generateState = undefined
-        this.imageSetNumber = undefined // photo set for background 
         this.amountOfLvls = 21
         this.levelSettings = new Array(this.amountOfLvls)
 
@@ -77,14 +76,6 @@ class Level {
         return state
     }
 
-    set imageSet(set) {
-        this.imageSetNumber = set
-    }
-
-    get imageSet() {
-        return this.imageSetNumber
-    }
-
     calculateClicksForScore() {
         let maximum
         let optimum
@@ -101,21 +92,21 @@ class Level {
     }
 
     setSettings() {
-        // [numPics, numOnes, time, doGenerate, imageSetNumber, colorSeed]
+        // [numPics, numOnes, time, doGenerate, colorSeed]
         // save good seed values: 474, 193, 4, 229, 221, 324, 112, 131, 378
-        this.levelSettings[0] = [3, 2, 25000, false, 0]
-        this.levelSettings[1] = [4, 2, 25000, false, 0]
-        this.levelSettings[2] = [4, 3, 20000, false, 0]
-        this.levelSettings[3] = [5, 3, 20000, false, 1]
-        this.levelSettings[4] = [5, 3, 25000, false, 1]
+        this.levelSettings[0] = [3, 2, false]
+        this.levelSettings[1] = [4, 2, false]
+        this.levelSettings[2] = [4, 3, false]
+        this.levelSettings[3] = [5, 3, false]
+        this.levelSettings[4] = [5, 3, false]
 
-        this.levelSettings[5] = [3, 2, 25000, true, 1] // grau
-        this.levelSettings[6] = [3, 2, 25000, true, 2] // grau und leer 
-        this.levelSettings[7] = [3, 2, 25000, true, 2] // bunt und leer
-        this.levelSettings[8] = [4, 2, 30000, true, 2] // bunt
-        this.levelSettings[9] = [4, 3, 30000, true, 3] // bunt und leer
-        this.levelSettings[10] = [4, 3, 30000, false, 3]
-        this.levelSettings[11] = [5, 3, 30000, true, 3]
+        this.levelSettings[5] = [3, 2, true] // grau
+        this.levelSettings[6] = [3, 2, true] // grau und leer 
+        this.levelSettings[7] = [3, 2, true] // bunt und leer
+        this.levelSettings[8] = [4, 2, true] // bunt
+        this.levelSettings[9] = [4, 3, true] // bunt und leer
+        this.levelSettings[10] = [4, 3, false]
+        this.levelSettings[11] = [5, 3, true]
 
         // zwischendurch auch mal realsitische Bilder, die in die jeweilige Phase reinpassen 
 
@@ -124,38 +115,34 @@ class Level {
 
         //this.levelSettings[10] = [3, 2, 30000, false, 3]
         //this.levelSettings[11] = [3, 2, 30000, true, 3]
-        this.levelSettings[12] = [4, 2, 35000, false, 4]
-        this.levelSettings[13] = [4, 2, 35000, true, 4]
-        this.levelSettings[14] = [4, 2, 35000, false, 4]
-        this.levelSettings[15] = [4, 3, 35000, false, 5]
-        this.levelSettings[16] = [4, 3, 35000, true, 5]
-        this.levelSettings[17] = [5, 2, 35000, false, 5]
-        this.levelSettings[18] = [5, 2, 40000, true, 6]
-        this.levelSettings[19] = [5, 3, 40000, false, 6]
-        this.levelSettings[20] = [5, 4, 40000, false, 6]
+        this.levelSettings[12] = [4, 2, false]
+        this.levelSettings[13] = [4, 2, true]
+        this.levelSettings[14] = [4, 2, false]
+        this.levelSettings[15] = [4, 3, false]
+        this.levelSettings[16] = [4, 3, true]
+        this.levelSettings[17] = [5, 2, false]
+        this.levelSettings[18] = [5, 2, true]
+        this.levelSettings[19] = [5, 3, false]
+        this.levelSettings[20] = [5, 4, false]
 
         console.log("Level:", this.lvl)
         this.numPics = this.levelSettings[this.lvl][0]
         this.numOne = this.levelSettings[this.lvl][1]
-        this.lvlTime = this.levelSettings[this.lvl][2]
-        this.generateState = this.levelSettings[this.lvl][3]
-        this.imageSetNumber = this.levelSettings[this.lvl][4]
+        this.generateState = this.levelSettings[this.lvl][2]
 
-        let k = 5000
-        // k = 5s 
+        let k = 5000 // constant k = 5s 
         let gen = 1 
         if(this.generateState == false){
             gen = 0
         }
-        let timeForLevel = k * this.numPics * (1 + gen)
+        this.lvlTime = k * this.numPics * (1 + gen)
 
-        this.lvlTime = timeForLevel
         this.calculateClicksForScore()
     }
 
     printSettings() {
-        console.log("######################\nLevel index: " + (this.lvl) + "\nNum Pics: " + this.levelSettings[this.lvl][0] +
-            "\nNum Ones: " + this.levelSettings[this.lvl][1] + "\nTime: " + this.lvlTime + "\nMax amount of clicks: " + this.clickMax +
+        console.log("######################\nLevel index: " + (this.lvl) + "\nNum Pics: " + this.numPics +
+            "\nNum Ones: " + this.numOne + "\nTime: " + this.lvlTime + "\nMax amount of clicks: " + this.clickMax +
             "\nTotal amount of Levels: " + this.amountOfLvls + "\n######################")
     }
 }
