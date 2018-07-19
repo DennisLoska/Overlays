@@ -911,7 +911,8 @@ span#about-link:hover {
   max-width: 1000px; }
 
 #time-bar-wrapper,
-#game-menu-wrapper {
+#game-menu-wrapper,
+#fail-game-menu-wrapper {
   position: relative;
   z-index: 1; }
 
@@ -934,63 +935,83 @@ span#about-link:hover {
   #time-bar-wrapper {
     margin-top: 0; } }
 
-#game-menu-wrapper {
+#game-menu-wrapper,
+#fail-game-menu-wrapper {
   margin-top: 2.5px;
   margin-bottom: 5px;
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 5px; }
-  #game-menu-wrapper .row {
+  #game-menu-wrapper .row,
+  #fail-game-menu-wrapper .row {
     margin-right: 0;
     margin-left: 0; }
-  #game-menu-wrapper .menu-list {
+  #game-menu-wrapper .menu-list,
+  #fail-game-menu-wrapper .menu-list {
     margin: 0;
     padding: 0; }
-    #game-menu-wrapper .menu-list .menu-item {
+    #game-menu-wrapper .menu-list .menu-item,
+    #fail-game-menu-wrapper .menu-list .menu-item {
       padding: 2.5px; }
-      #game-menu-wrapper .menu-list .menu-item a {
+      #game-menu-wrapper .menu-list .menu-item a,
+      #fail-game-menu-wrapper .menu-list .menu-item a {
         color: #fff; }
-      #game-menu-wrapper .menu-list .menu-item a:hover {
+      #game-menu-wrapper .menu-list .menu-item a:hover,
+      #fail-game-menu-wrapper .menu-list .menu-item a:hover {
         color: #fff;
         text-decoration: none; }
-    #game-menu-wrapper .menu-list .stars {
+    #game-menu-wrapper .menu-list .stars,
+    #fail-game-menu-wrapper .menu-list .stars {
       color: whitesmoke; }
-      #game-menu-wrapper .menu-list .stars .checked {
+      #game-menu-wrapper .menu-list .stars .checked,
+      #fail-game-menu-wrapper .menu-list .stars .checked {
         color: gold; }
-      #game-menu-wrapper .menu-list .stars .fa-star {
+      #game-menu-wrapper .menu-list .stars .fa-star,
+      #fail-game-menu-wrapper .menu-list .stars .fa-star {
         font-size: 42px; }
-    #game-menu-wrapper .menu-list .menu-item.menu-info {
+    #game-menu-wrapper .menu-list .menu-item.menu-info,
+    #fail-game-menu-wrapper .menu-list .menu-item.menu-info {
       font-family: scoreboard;
       font-size: 36px;
       color: #000; }
 
 @media only screen and (max-width: 1440px) {
-  #game-menu-wrapper .menu-list {
+  #game-menu-wrapper .menu-list,
+  #fail-game-menu-wrapper .menu-list {
     padding: 2px 0px 2px 0px; }
-    #game-menu-wrapper .menu-list .menu-item.menu-info {
+    #game-menu-wrapper .menu-list .menu-item.menu-info,
+    #fail-game-menu-wrapper .menu-list .menu-item.menu-info {
       font-size: 30px;
       font-weight: 500; } }
 
 @media only screen and (max-width: 1024px) {
-  #game-menu-wrapper .menu-list {
+  #game-menu-wrapper .menu-list,
+  #fail-game-menu-wrapper .menu-list {
     padding: 1.5px; }
-    #game-menu-wrapper .menu-list .menu-item {
+    #game-menu-wrapper .menu-list .menu-item,
+    #fail-game-menu-wrapper .menu-list .menu-item {
       padding: 0px; }
-      #game-menu-wrapper .menu-list .menu-item a.menu-btn {
+      #game-menu-wrapper .menu-list .menu-item a.menu-btn,
+      #fail-game-menu-wrapper .menu-list .menu-item a.menu-btn {
         width: 85%;
         margin-bottom: 5px;
         margin-top: 5px; }
-    #game-menu-wrapper .menu-list .stars .fa-star {
+    #game-menu-wrapper .menu-list .stars .fa-star,
+    #fail-game-menu-wrapper .menu-list .stars .fa-star {
       font-size: 50px; } }
 
 @media only screen and (max-width: 575px) {
-  #game-menu-wrapper .menu-list {
+  #game-menu-wrapper .menu-list,
+  #fail-game-menu-wrapper .menu-list {
     padding: 0; }
-    #game-menu-wrapper .menu-list .menu-item a.menu-btn {
+    #game-menu-wrapper .menu-list .menu-item a.menu-btn,
+    #fail-game-menu-wrapper .menu-list .menu-item a.menu-btn {
       width: 60%;
       min-width: 100px; }
-    #game-menu-wrapper .menu-list .stars .fa-star {
+    #game-menu-wrapper .menu-list .stars .fa-star,
+    #fail-game-menu-wrapper .menu-list .stars .fa-star {
       font-size: 30px; }
-    #game-menu-wrapper .menu-list .menu-item.menu-info {
+    #game-menu-wrapper .menu-list .menu-item.menu-info,
+    #fail-game-menu-wrapper .menu-list .menu-item.menu-info {
       font-size: 20px; } }
 
 @font-face {

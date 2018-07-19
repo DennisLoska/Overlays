@@ -35,7 +35,8 @@ span#about-link:hover {
 }
 
 #time-bar-wrapper,
-#game-menu-wrapper {
+#game-menu-wrapper,
+#fail-game-menu-wrapper {
     position: relative;
     z-index: 1;
 }
@@ -63,7 +64,8 @@ span#about-link:hover {
     }
 }
 
-#game-menu-wrapper {
+#game-menu-wrapper,
+#fail-game-menu-wrapper {
     margin-top: 2.5px;
     margin-bottom: 5px;
     background-color: rgba(255, 255, 255, 0.6);
@@ -103,7 +105,8 @@ span#about-link:hover {
 }
 
 @media only screen and (max-width: 1440px) {
-    #game-menu-wrapper {
+    #game-menu-wrapper,
+    #fail-game-menu-wrapper {
         .menu-list {
             padding: 2px 0px 2px 0px;
             .menu-item.menu-info {
@@ -115,7 +118,8 @@ span#about-link:hover {
 }
 
 @media only screen and (max-width: 1024px) {
-    #game-menu-wrapper {
+    #game-menu-wrapper,
+    #fail-game-menu-wrapper {
         .menu-list {
             padding: 1.5px;
             .menu-item {
@@ -136,7 +140,8 @@ span#about-link:hover {
 }
 
 @media only screen and (max-width: 575px) {
-    #game-menu-wrapper {
+    #game-menu-wrapper,
+    #fail-game-menu-wrapper {
         .menu-list {
             padding: 0;
             .menu-item {

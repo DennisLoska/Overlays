@@ -47,16 +47,27 @@ function resetScoreAndTime(game) {
 }
 
 function showFailedMenu(game) {
-    let failed = $('#menu-container')
-    let content = 'Sorry, you did not make it. Please try again! SCORE: ' + game.levelScore
-    $(failed).find('#game-menu-wrapper').html(content)
+    let failed = $('#fail-menu-container')
     $(failed).toggleClass('hide-box')
+}
+
+function showMenu() {
+    $('#menu-container').toggleClass('hide-box')
 }
 
 function clearGUI(game) {
     $('#js-current-lvl').html((game.levelNumber + 1).toString())
     $('#time-bar').html('0:' + game.level.time / 1000).css('width', '100%')
     $('#btn-next-lvl').css('background-color', 'darkgrey')
+
+    if (game.failed)
+        $('#fail-menu-container').toggleClass('hide-box')
+    else $('#menu-container').toggleClass('hide-box')
+}
+
+function changeButtonBackground() {
+    $('#btn-next-lvl').css('background-color', '#4CAF50')
+    $('#btn-change-lvl').css('background-color', 'lightgrey')
 }
 
 function progress(timeleft, timetotal, timeBar) {

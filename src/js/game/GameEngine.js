@@ -74,41 +74,41 @@ class GameEngine {
             this.totalScore += this.levelScore
             console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
-            if (this.levelScore <= 0)
-                showFailedMenu(this)
-            else $('#menu-container').toggleClass('hide-box')
-            $('#btn-next-lvl').css('background-color', '#4CAF50')
-            $('#btn-change-lvl').css('background-color', 'lightgrey')
+            if (this.levelScore <= 0) {
+                this.failed = true
+                showFailedMenu()
+            } else {
+                this.failed = false
+                showMenu()
+            }
+            changeButtonBackground()
             stopTimer()
             setStars(this)
             setScoreAndTime(this)
-            //loadLvlCompleteBox(this)
             this.nextLevelClicked()
         }
     }
-
-    changeClicked() {
-        $('#btn-change-lvl').click(function () {
-            //toggleLvlCompleteBox()
-            let correctCombs = this.getAmountOfCorrectCombinations()
-            if (correctCombs != this.numPics) {
-                stopTimer()
-                this.loadLevel()
-                loadGameGUI(this)
-                clickedTile(this)
-                resetStars(this)
-                resetChange()
-                resetScoreAndTime(this)
-                this.clearArrays()
-                this.loadImagesIntoLevel()
-                clearGUI(this)
-            }
-        }.bind(this))
-    }
-
+    /*
+        changeClicked() {
+            $('#btn-change-lvl').click(function () {
+                let correctCombs = this.getAmountOfCorrectCombinations()
+                if (correctCombs != this.numPics) {
+                    stopTimer()
+                    this.loadLevel()
+                    loadGameGUI(this)
+                    clickedTile(this)
+                    resetStars(this)
+                    resetChange()
+                    resetScoreAndTime(this)
+                    this.clearArrays()
+                    this.loadImagesIntoLevel()
+                    clearGUI(this)
+                }
+            }.bind(this))
+        }
+    */
     nextLevelClicked() {
         $('#btn-next-lvl').click(function () {
-            //toggleLvlCompleteBox()
             let correctCombs = this.getAmountOfCorrectCombinations()
             if (correctCombs == this.numPics) {
                 this.loadLevel()
