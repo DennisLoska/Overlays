@@ -78,11 +78,11 @@ function progress(timeleft, timetotal, timeBar) {
     let progressBarWidth = timeleft * timeBar.width() / timetotal;
     timeBar.children(0).animate({
         width: progressBarWidth
-    }, 500).html();
+    }, 0.02).html();
     if (timeleft > 0) {
         timeOut = setTimeout(function () {
-            progress(timeleft - 1, timetotal, timeBar);
-        }, 1000);
+            progress(timeleft - 0.02, timetotal, timeBar);
+        }, 20);
     }
 }
 
