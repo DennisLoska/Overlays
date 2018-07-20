@@ -143,8 +143,8 @@ class Level {
 
         let k = 5000
         // k = 5s 
-        let gen = 1 
-        if(this.generateState == false){
+        let gen = 1
+        if (this.generateState == false) {
             gen = 0
         }
         let timeForLevel = k * this.numPics * (1 + gen)

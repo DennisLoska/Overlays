@@ -115,6 +115,7 @@ class GameEngine {
         $('#btn-next-lvl').click(function () {
             let correctCombs = this.getAmountOfCorrectCombinations()
             if (correctCombs == this.numPics) {
+                counter = 0
                 this.loadLevel()
                 loadGameGUI(this)
                 clickedTile(this)
@@ -286,8 +287,7 @@ class GameEngine {
         let t = this.level.time
         let barSize = ((2 * optimum - this.clickCounter) / optimum) * 50 + 50 * ((2 * t - currentT) / t)
         // barSize is 200 when game starts - visible progress if barSize < 100
-
-        progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
+        progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'), this.level.clickMaximum, 0)
     }
 
     getTime() {
