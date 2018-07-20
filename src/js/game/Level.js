@@ -130,16 +130,9 @@ class Level {
         this.numOne = this.levelSettings[this.lvl][1]
         this.generateState = this.levelSettings[this.lvl][2]
 
-<<<<<<< HEAD
         let k = 5000 // constant k = 5s 
         let gen = 1 
         if(this.generateState == false){
-=======
-        let k = 5000
-        // k = 5s 
-        let gen = 1
-        if (this.generateState == false) {
->>>>>>> 776deacd2a27732fafcef45883ffac2702ced299
             gen = 0
         }
         this.lvlTime = k * this.numPics * (1 + gen)
