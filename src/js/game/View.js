@@ -83,6 +83,7 @@ function progress(timeleft, timetotal, timeBar, clickMax, clickCount) {
     }, 0.02).html()
     if (clickCount == counter - 1)
         clickCount++
+    //TODO replace all these statements with the equation
         if (clickCount > clickMax)
             timeleft -= 0.02
     if (clickCount > clickMax + 1)
