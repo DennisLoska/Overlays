@@ -1,4 +1,5 @@
 let timeOut
+let counter = 0
 
 function clickedTile(game) {
     let ray
@@ -11,6 +12,7 @@ function clickedTile(game) {
             ray.insertAfter($(this).children(0))
         $(this).children(0).next().toggleClass('show-rays')
         game.updateOnClick(row, col)
+        counter++
     })
 }
 
@@ -71,18 +73,31 @@ function changeButtonBackground() {
 }
 
 function updateFuseBar(game) {
-
+    //replaces progress() 
 }
 
-function progress(timeleft, timetotal, timeBar) {
-    let progressBarWidth = timeleft * timeBar.width() / timetotal;
+function progress(timeleft, timetotal, timeBar, clickMax, clickCount) {
+    let progressBarWidth = timeleft * timeBar.width() / timetotal
     timeBar.children(0).animate({
         width: progressBarWidth
-    }, 500).html();
+    }, 0.02).html()
+    if (clickCount == counter - 1)
+        clickCount++
+    //TODO replace all these statements with the equation
+        if (clickCount > clickMax)
+            timeleft -= 0.02
+    if (clickCount > clickMax + 1)
+        timeleft -= 0.03
+    if (clickCount > clickMax + 2)
+        timeleft -= 0.04
+    if (clickCount > clickMax + 3)
+        timeleft -= 0.05
+    if (timeleft < 0)
+        timeleft = 0.02
     if (timeleft > 0) {
         timeOut = setTimeout(function () {
-            progress(timeleft - 1, timetotal, timeBar);
-        }, 1000);
+            progress(timeleft - 0.02, timetotal, timeBar, clickMax, clickCount)
+        }, 20)
     }
 }
 
