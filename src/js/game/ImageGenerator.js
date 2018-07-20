@@ -70,6 +70,16 @@ class ImageGenerator {
             tested = this.test(this.seededColors, matrix, numImgs);
         }
         console.log("--- TEST SUCCESSFULLY COMPLETED ---");
+
+
+
+        this.colorsForImages = new Array(numImgs)
+        // initialize - fill with dummy values / zeros
+        for (let i = 0; i < this.colorsForImages.length; i++) {
+            this.colorsForImages[i] = 0
+        }
+        let grayscale = false
+        this.colorsForImages = this.getTestedColors(numImgs, grayscale)
     }
 
     test(colors, matrix, numPics){
@@ -215,7 +225,9 @@ class ImageGenerator {
         return this.rndImagePixels
     }
 
-    addShapes(ctx, index) {
+    addShapes(ctx, index, empty) {
+        // empty = boolean if one picture should be empty
+
         // add random shapes in random colors to the image
         //let color = this.randomColor
         let seededColor = this.seededColors[index] //index = welches image, von Images.js loop
@@ -350,6 +362,27 @@ class ImageGenerator {
         while (c == "#FFFFFF" || c == "#000000")
             c = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
         return c
+    }
+
+    getTestedColors(amountOfPictures, grayscale){
+        // amount of pictures = amount of colors needed
+        // grayscale = all black and white images
+
+        let setOfColors = new Array()
+        
+        for (let i = 0; i < amountOfPictures; i++) {
+            let index = Math.floor((Math.random() * setOfColors.length)) // random index of color set
+            let color = setOfColors[i]
+
+            this.colorsForImages[i] = color
+            console.log("colorsForImages[" + i + "] = " + color)
+        }
+
+        if(grayscale == true){
+
+        }
+
+        return this.colorsForImages
     }
 
     randomSeed() {

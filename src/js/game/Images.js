@@ -111,7 +111,7 @@ class Images {
                 ctx.putImageData(imgData, 0, 0)
 
                 // put random shape of random color on picture
-                generator.addShapes(ctx, i) // i = index of image
+                generator.addShapes(ctx, i, false) // i = index of image
                 let imgDataWithShapes = ctx.getImageData(0, 0, canvas.width, canvas.height)
                 targetImgData.push(imgDataWithShapes.data)
             }

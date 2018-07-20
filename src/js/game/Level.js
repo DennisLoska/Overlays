@@ -12,7 +12,7 @@ class Level {
         this.levelSettings = new Array(this.amountOfLvls)
 
         for (let i = 0; i < this.amountOfLevels; i++) {
-            this.levelSettings[i] = new Array(3)
+            this.levelSettings[i] = new Array()
         }
         this.setSettings()
         this.printSettings()
@@ -92,21 +92,21 @@ class Level {
     }
 
     setSettings() {
-        // [numPics, numOnes, time, doGenerate, colorSeed]
+        // [numPics, numOnes, doGenerate, gray, empty]
         // save good seed values: 474, 193, 4, 229, 221, 324, 112, 131, 378
-        this.levelSettings[0] = [3, 2, false]
-        this.levelSettings[1] = [4, 2, false]
-        this.levelSettings[2] = [4, 3, false]
-        this.levelSettings[3] = [5, 3, false]
-        this.levelSettings[4] = [5, 3, false]
+        this.levelSettings[0] = [3, 2, false, false, false]
+        this.levelSettings[1] = [4, 2, false, false, false]
+        this.levelSettings[2] = [4, 3, false, false, false]
+        this.levelSettings[3] = [5, 3, false, false, false]
+        this.levelSettings[4] = [5, 3, false, false, false]
 
-        this.levelSettings[5] = [3, 2, true] // grau
-        this.levelSettings[6] = [3, 2, true] // grau und leer 
-        this.levelSettings[7] = [3, 2, true] // bunt und leer
-        this.levelSettings[8] = [4, 2, true] // bunt
-        this.levelSettings[9] = [4, 3, true] // bunt und leer
-        this.levelSettings[10] = [4, 3, false]
-        this.levelSettings[11] = [5, 3, true]
+        this.levelSettings[5] = [3, 2, true, false, false] // grau
+        this.levelSettings[6] = [3, 2, true, false, false] // grau und leer 
+        this.levelSettings[7] = [3, 2, true, false, false] // bunt und leer
+        this.levelSettings[8] = [4, 2, true, false, false] // bunt
+        this.levelSettings[9] = [4, 3, true, false, false] // bunt und leer
+        this.levelSettings[10] = [4, 3, false, false, false]
+        this.levelSettings[11] = [5, 3, true, false, false]
 
         // zwischendurch auch mal realsitische Bilder, die in die jeweilige Phase reinpassen 
 
@@ -115,15 +115,15 @@ class Level {
 
         //this.levelSettings[10] = [3, 2, 30000, false, 3]
         //this.levelSettings[11] = [3, 2, 30000, true, 3]
-        this.levelSettings[12] = [4, 2, false]
-        this.levelSettings[13] = [4, 2, true]
-        this.levelSettings[14] = [4, 2, false]
-        this.levelSettings[15] = [4, 3, false]
-        this.levelSettings[16] = [4, 3, true]
-        this.levelSettings[17] = [5, 2, false]
-        this.levelSettings[18] = [5, 2, true]
-        this.levelSettings[19] = [5, 3, false]
-        this.levelSettings[20] = [5, 4, false]
+        this.levelSettings[12] = [4, 2, false, false, false]
+        this.levelSettings[13] = [4, 2, true, false, false]
+        this.levelSettings[14] = [4, 2, false, false, false]
+        this.levelSettings[15] = [4, 3, false, false, false]
+        this.levelSettings[16] = [4, 3, true, false, false]
+        this.levelSettings[17] = [5, 2, false, false, false]
+        this.levelSettings[18] = [5, 2, true, false, false]
+        this.levelSettings[19] = [5, 3, false, false, false]
+        this.levelSettings[20] = [5, 4, false, false, false]
 
         console.log("Level:", this.lvl)
         this.numPics = this.levelSettings[this.lvl][0]
@@ -136,6 +136,9 @@ class Level {
             gen = 0
         }
         this.lvlTime = k * this.numPics * (1 + gen)
+
+        this.grayScale = this.levelSettings[this.lvl][3]
+        this.empty = this.levelSettings[this.lvl][4]
 
         this.calculateClicksForScore()
     }
