@@ -451,11 +451,81 @@ class ImageGenerator {
                 let color = "#" + v + v + v;
                 this.colorsForImages[i] = color.toString()
             }
+
+
+            /*
+            // test min distance to 128 
+            let tested = false
+            let distanceMin = 30000 // minimum square distance to 128
+            let imagesWithCorrectDistance = 0
+            
+            while(!tested){
+                for(let i = 0; i < amountOfPictures; i++){
+                    // generate random gray values
+                    let v = (Math.random()*(256)|0).toString(16);//bitwise OR. Gives value in the range 0-255 which is then converted to base 16 (hex).
+                    let color = "#" + v + v + v;
+                    this.colorsForImages[i] = color.toString()
+                }
+
+                let rgbColors = this.hexToRGB(this.colorsForImages, amountOfPictures)
+                console.log(rgbColors)
+
+                for (let i = 0; i < amountOfPictures; i++) {
+                    let differenceR = 128 - rgbColors[i][0] // 128 - r
+                    let differenceG = 128 - rgbColors[i][1] // 128 - g
+                    let differenceB = 128 - rgbColors[i][2] // 128 - b
+                    let distance = Math.pow(differenceR, 2) + Math.pow(differenceG, 2) + Math.pow(differenceB, 2)
+    
+                    if(distance < distanceMin){
+                        tested = false
+                        console.log("Gray too close to 128.")
+                    } else{
+                        imagesWithCorrectDistance += 1
+                        if(imagesWithCorrectDistance == amountOfPictures){
+                            return this.colorsForImages 
+                        }
+                    }
+                }
+            }*/
         } 
 
         console.log("Colors: " + this.colorsForImages)
 
         return this.colorsForImages
+    }
+
+
+    hexToRGB(colors, numPics){
+        // declare and initialize arrays
+        let seededRGB = new Array(numPics, 3) // RGB values
+        // fill with 0 values
+        for (let i = 0; i < numPics; i++) {
+            seededRGB[i] = []
+            for (let j = 0; j < 3; j++){
+                    seededRGB[i][j] = 0
+                }
+        }
+
+        // colors[] stores hex colors – convert back to rgb and store in seededRGB[]
+        for(let i = 0; i < numPics; i++){
+                let r, g, b
+                let c;
+                let hex = colors[i]
+                if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+                    c= hex.substring(1).split('');
+                    if(c.length== 3){
+                        c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+                    }
+                    c= '0x'+c.join('');
+                    r = (c>>16)&255
+                    g = (c>>8)&255
+                    b = c&255
+                    seededRGB[i][0] = r
+                    seededRGB[i][1] = g
+                    seededRGB[i][2] = b
+                }
+        }
+        return seededRGB
     }
 
     randomSeed() {

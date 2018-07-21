@@ -128,11 +128,6 @@ class Level {
 
         // zwischendurch auch mal realsitische Bilder, die in die jeweilige Phase reinpassen 
 
-
-        // GameEngine settings: if levelNumber < 10 -> generated images
-
-        //this.levelSettings[10] = [3, 2, 30000, false, 3]
-        //this.levelSettings[11] = [3, 2, 30000, true, 3]
         this.levelSettings[12] = [3, 2, false, false, false, true]
         this.levelSettings[13] = [3, 2, true, false, false, true]
         this.levelSettings[14] = [4, 2, false, false, false, true]
