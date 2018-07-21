@@ -85,7 +85,7 @@ class Images {
         console.log("Generated images used.")
         this.images = new Array(this.numImages)
 
-        let seed = Math.floor(Math.random() * 501) // generiert random Zahl zwischen 0 und 500 
+        let seed = Math.floor(Math.random() * 1001) // generiert random Zahl zwischen 0 und 500 
         // save good seed values: 474, 193, 4, 229, 221, 324, 112, 131, 378
         let generator = new ImageGenerator(seed, this.numImages, this.mInv)
 
@@ -127,6 +127,8 @@ class Images {
                 // generator.addShapes(ctx, i, false) // i = index of image
                 // i = index of image, false = not empty
                 if(empty == true && i == indexOfEmptyImage){
+                    // Zeile kann man auch ganz weglassen, falls in addShapes sonst nichts anderes mehr passiert
+                    // empty kann man als Parameter in Methode dann ganz weglassen
                     generator.addShapes(ctx, i, true) // don't draw shape
                 } else{
                     generator.addShapes(ctx, i, false) // draw shape

@@ -139,9 +139,12 @@ class GameEngine {
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
         images.emptyState = this.level.emptyState
 
+        let useFolderImage = this.level.folderImageUse
+
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
-            if (this.levelNumber < 10) {
+            if(!useFolderImage){
+            //if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.targetPixels = images.targetPixels
@@ -162,7 +165,8 @@ class GameEngine {
         } else {
             // read basis images
             //if (this.levelNumber % 2 == 0) {
-            if (this.levelNumber < 10) {
+            if(!useFolderImage){
+            //if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.basisPixels = images.targetPixels
