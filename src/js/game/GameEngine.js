@@ -134,7 +134,7 @@ class GameEngine {
         this.findCombinations() // find combinations here to check colors with mInv
         console.log("Inverse Matrix: " + this.mInv)
 
-        let images = new Images(this.mInv)
+        let images = new Images(this.mInv, this.level.grayState)
         images.numImage = this.numPics
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
         images.emptyState = this.level.emptyState

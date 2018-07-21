@@ -115,16 +115,16 @@ class Level {
         this.levelSettings[0] = [3, 2, false, false, false, false]
         this.levelSettings[1] = [4, 2, false, false, false, false]
         this.levelSettings[2] = [4, 3, false, false, false, false]
-        this.levelSettings[3] = [5, 3, false, false, false, false]
+        this.levelSettings[3] = [5, 2, false, false, false, false]
         this.levelSettings[4] = [5, 3, false, false, false, false]
 
-        this.levelSettings[5] = [3, 2, true, false, false, false] // grau
-        this.levelSettings[6] = [3, 2, true, false, false, false] // grau und leer 
-        this.levelSettings[7] = [3, 2, true, false, false, false] // bunt und leer
+        this.levelSettings[5] = [3, 2, true, true, false, false] // grau
+        this.levelSettings[6] = [3, 2, true, true, true, false] // grau und leer 
+        this.levelSettings[7] = [3, 2, true, false, true, false] // bunt und leer
         this.levelSettings[8] = [4, 2, true, false, false, false] // bunt
-        this.levelSettings[9] = [4, 3, true, false, false, false] // bunt und leer
+        this.levelSettings[9] = [4, 2, true, false, true, false] // bunt und leer
         this.levelSettings[10] = [4, 3, false, false, false, false]
-        this.levelSettings[11] = [5, 3, true, false, false, false]
+        this.levelSettings[11] = [4, 3, true, false, false, false]
 
         // zwischendurch auch mal realsitische Bilder, die in die jeweilige Phase reinpassen 
 
@@ -133,15 +133,15 @@ class Level {
 
         //this.levelSettings[10] = [3, 2, 30000, false, 3]
         //this.levelSettings[11] = [3, 2, 30000, true, 3]
-        this.levelSettings[12] = [4, 2, false, false, false, false]
-        this.levelSettings[13] = [4, 2, true, false, false, false]
-        this.levelSettings[14] = [4, 2, false, false, false, false]
-        this.levelSettings[15] = [4, 3, false, false, false, false]
-        this.levelSettings[16] = [4, 3, true, false, false, false]
-        this.levelSettings[17] = [5, 2, false, false, false, false]
-        this.levelSettings[18] = [5, 2, true, false, false, false]
-        this.levelSettings[19] = [5, 3, false, false, false, false]
-        this.levelSettings[20] = [5, 4, false, false, false, false]
+        this.levelSettings[12] = [3, 2, false, false, false, true]
+        this.levelSettings[13] = [3, 2, true, false, false, true]
+        this.levelSettings[14] = [4, 2, false, false, false, true]
+        this.levelSettings[15] = [4, 2, false, false, false, true]
+        this.levelSettings[16] = [4, 3, true, false, false, true]
+        this.levelSettings[17] = [4, 3, false, false, false, true]
+        this.levelSettings[18] = [5, 3, true, false, false, true]
+        this.levelSettings[19] = [5, 3, false, false, false, true]
+        this.levelSettings[20] = [5, 4, false, false, false, true]
 
         console.log("Level:", this.lvl)
         this.numPics = this.levelSettings[this.lvl][0]
