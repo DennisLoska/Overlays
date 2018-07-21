@@ -76,6 +76,14 @@ class Level {
         return state
     }
 
+    get emptyState() {
+        return this.empty
+    }
+
+    get grayState() {
+        return this.grayScale
+    }
+
     calculateClicksForScore() {
         let maximum
         let optimum

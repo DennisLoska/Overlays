@@ -137,6 +137,7 @@ class GameEngine {
         let images = new Images(this.mInv)
         images.numImage = this.numPics
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
+        images.emptyState = this.level.emptyState
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
