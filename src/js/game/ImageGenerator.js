@@ -399,6 +399,12 @@ class ImageGenerator {
                     ["#23bbeb", "#1b02f6", "#f0a219"],
                     ["#fb4bd3", "#fac80a", "#0bc6e2"],
                     ["#08dc4c", "#6f0816", "#aa15f0"],
+                    ["#fa1119", "#fbe33d", "#350209"],
+                    ["#fb04ef", "#cafac4", "#d96d07"],
+                    ["#f232f9", "#3805c8", "#1df4ae"],
+                    ["#5ff4f3", "#29d70e", "#8b06cb"],
+                    ["#ce005d", "#050c6a", "#f8da62"],
+                    ["#1689e3", "#e5ec8d", "#fd69fb"],
                     //["", "", ""],
             ]
         } else if(amountOfPictures == 4){
@@ -413,6 +419,13 @@ class ImageGenerator {
                     ["#1917a9", "#be2229", "#37c30f", "#3fede4"],
                     ["#1f0156", "#ef7903", "#08dfde", "#f848d4"],
                     ["#f93247", "#1a73ea", "#f3ef7d", "#19f41b"],
+                    ["#4206ed", "#81013c", "#fdcfb2", "#21f286"],
+                    ["#d970fc", "#f71208", "#260a48", "#03e2c3"],
+                    ["#17d5f2", "#97fb25", "#131fd1", "#d32feb"],
+                    ["#1d0c9c", "#f208ba", "#c0fc68", "#2ef2fd"],
+                    ["#14ab1c", "#b62519", "#84f3e9", "#fa73f0"],
+                    ["#1f0156", "#ef7903", "#08dfde", "#f848d4"],
+                    ["#14f700", "#d81c3c", "#59e1e3", "#fdbe5e"],
                     //["", "", "", ""],
             ]
         } else if(amountOfPictures == 5){
@@ -420,6 +433,10 @@ class ImageGenerator {
             setOfColors = [
                     ["#e7dad8", "#672811", "#2fb5f7", "#f416d6", "#faec1d"],
                     ["#fba3c6", "#5a16fe", "#5fe2fb", "#e3d409", "#c71341"],
+                    ["#150aa6", "#02c7d8", "#de2bcb", "#e3e3f7", "#f15028"],
+                    ["#3df913", "#ecf86f", "#70e7f5", "#4f0812", "#2413cd"],
+                    ["#1f4ded", "#d7780d", "#f8d1ea", "#ed13b9", "#53f3e8"],
+                    ["#c72ada", "#14adec", "#d8ef6c", "#0fe838", "#ce041a"],
                     //["", "", "", "", ""],
             ]
         }
@@ -435,6 +452,8 @@ class ImageGenerator {
                 this.colorsForImages[i] = color.toString()
             }
         } 
+
+        console.log("Colors: " + this.colorsForImages)
 
         return this.colorsForImages
     }
