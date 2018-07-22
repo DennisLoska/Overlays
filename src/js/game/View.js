@@ -116,10 +116,26 @@ function stopTimer() {
  * 
  */
 function setBackgroundImg() {
-    let images = [
+    /*let images = [
         'back_1.png', 'back_2.jpg',
         'back_3.jpg', 'back_4.jpg', 'back_5.jpg',
         'back_6.jpg', 'back_7.jpg'
+    ]
+    let i = Math.floor(Math.random() * images.length) + 0
+    let url = 'img/background/' + images[i]
+    $('#game-container').css('background-image', 'url(' + url + ')')*/
+
+    let images = [
+        'background-1.jpg', 'background-2.jpg',
+        'background-3.jpg', 'background-4.jpg', 'background-5.jpg',
+        'background-6.jpg', 'background-7.jpg',
+        'background-8.jpg', 'background-9.jpg',
+        'background-10.jpg', 'background-11.jpg', 'background-12.jpg',
+        'background-13.jpg', 'background-14.jpg',
+        'background-15.jpg', 'background-16.jpg',
+        'background-17.jpg', 'background-18.jpg', 'background-19.jpg',
+        'background-20.jpg', 'background-21.jpg',
+        'background-22.jpg'
     ]
     let i = Math.floor(Math.random() * images.length) + 0
     let url = 'img/background/' + images[i]
