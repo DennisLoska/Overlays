@@ -1,6 +1,6 @@
 class ImageGenerator {
 
-    constructor(seed, numImgs, matrix) {
+    constructor(seed, numImgs, matrix, gray) {
         this.width = 150
         this.height = 150
         //The * 4 at the end represent RGBA which we need to be compatible with canvas.
@@ -70,6 +70,15 @@ class ImageGenerator {
             tested = this.test(this.seededColors, matrix, numImgs);
         }
         console.log("--- TEST SUCCESSFULLY COMPLETED ---");
+
+
+
+        this.colorsForImages = new Array(numImgs)
+        // initialize - fill with dummy values / zeros
+        for (let i = 0; i < this.colorsForImages.length; i++) {
+            this.colorsForImages[i] = 0
+        }
+        this.colorsForImages = this.getTestedColors(numImgs, gray)
     }
 
     test(colors, matrix, numPics){
@@ -215,10 +224,20 @@ class ImageGenerator {
         return this.rndImagePixels
     }
 
-    addShapes(ctx, index) {
+    addShapes(ctx, index, empty) {
+        // empty = boolean if one picture should be empty
+
         // add random shapes in random colors to the image
         //let color = this.randomColor
-        let seededColor = this.seededColors[index] //index = welches image, von Images.js loop
+
+        //let seededColor = this.seededColors[index] //index = welches image, von Images.js loop
+        // OLD SEEDED COLOR CALCULATION
+
+        let seededColor = this.colorsForImages[index]
+        //console.log("### let seededColor = " + seededColor)
+
+        if(!empty){ 
+        // if empty - don't draw anything
 
         let option = Math.floor(Math.random() * 3) + 1
         //let option = this.counter % 3+1 //static option
@@ -341,6 +360,9 @@ class ImageGenerator {
             ctx.fill()
             ctx.closePath()
         }
+
+        } // close of if(!empty)
+
         //this.counter++ //static option
     }
 
@@ -350,6 +372,160 @@ class ImageGenerator {
         while (c == "#FFFFFF" || c == "#000000")
             c = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
         return c
+    }
+
+    getTestedColors(amountOfPictures, grayscale){
+        // amount of pictures = amount of colors needed
+        // grayscale = all black and white images
+
+        let setOfColors = new Array(amountOfPictures) // array of colors
+
+        if(amountOfPictures == 3){
+             // getestete 3er Kombinationen der Farben, numPics = 3
+            setOfColors = [
+                    ["#4a00e9", "#de1a06", "#2bf488"],
+                    ["#1ae1f8", "#94fd01", "#881bf9"],
+                    ["#36fdf5", "#24cb0b", "#fa05c3"],
+                    ["#89300a", "#4ed908", "#b10bbf"],
+                    ["#0fdded", "#5633f5", "#8efa2d"],
+                    ["#0e00ec", "#d4db30", "#156c13"],
+                    ["#d809e9", "#e4d910", "#10aace"],
+                    ["#753afc", "#03d3a1", "#872c08"],
+                    ["#af33f5", "#e7ea5c", "#33c7f4"],
+                    ["#fba8e8", "#18bdda", "#6a05dc"],
+                    ["#fde947", "#f00916", "#1b2dc9"],
+                    ["#04f8c8", "#160ae2", "#c01112"],
+                    ["#0d05a3", "#c818dd", "#f1f516"],
+                    ["#23bbeb", "#1b02f6", "#f0a219"],
+                    ["#fb4bd3", "#fac80a", "#0bc6e2"],
+                    ["#08dc4c", "#6f0816", "#aa15f0"],
+                    ["#fa1119", "#fbe33d", "#350209"],
+                    ["#fb04ef", "#cafac4", "#d96d07"],
+                    ["#f232f9", "#3805c8", "#1df4ae"],
+                    ["#5ff4f3", "#29d70e", "#8b06cb"],
+                    ["#ce005d", "#050c6a", "#f8da62"],
+                    ["#1689e3", "#e5ec8d", "#fd69fb"],
+                    //["", "", ""],
+            ]
+        } else if(amountOfPictures == 4){
+            // getestete 4er Kombinationen der Farben, numPics = 4
+            setOfColors = [
+                    ["#062dd1", "#16f1d6", "#e706a7", "#d6f18b"],
+                    ["#1fa6f4", "#004861", "#14f326", "#f1cfb9"],
+                    ["#6c1317", "#e7df60", "#06cedc", "#08d830"],
+                    ["#04a41c", "#2031ee", "#0cfdbe", "#f4c32c"],
+                    ["#46c905", "#eb6206", "#131599", "#f727c9"],
+                    ["#2ae8d5", "#e9840f", "#1638c3", "#cf5bfb"],
+                    ["#1917a9", "#be2229", "#37c30f", "#3fede4"],
+                    ["#1f0156", "#ef7903", "#08dfde", "#f848d4"],
+                    ["#f93247", "#1a73ea", "#f3ef7d", "#19f41b"],
+                    ["#4206ed", "#81013c", "#fdcfb2", "#21f286"],
+                    ["#d970fc", "#f71208", "#260a48", "#03e2c3"],
+                    ["#17d5f2", "#97fb25", "#131fd1", "#d32feb"],
+                    ["#1d0c9c", "#f208ba", "#c0fc68", "#2ef2fd"],
+                    ["#14ab1c", "#b62519", "#84f3e9", "#fa73f0"],
+                    ["#1f0156", "#ef7903", "#08dfde", "#f848d4"],
+                    ["#14f700", "#d81c3c", "#59e1e3", "#fdbe5e"],
+                    //["", "", "", ""],
+            ]
+        } else if(amountOfPictures == 5){
+                // getestete 5er Kombinationen der Farben, numPics = 5
+            setOfColors = [
+                    ["#e7dad8", "#672811", "#2fb5f7", "#f416d6", "#faec1d"],
+                    ["#fba3c6", "#5a16fe", "#5fe2fb", "#e3d409", "#c71341"],
+                    ["#150aa6", "#02c7d8", "#de2bcb", "#e3e3f7", "#f15028"],
+                    ["#3df913", "#ecf86f", "#70e7f5", "#4f0812", "#2413cd"],
+                    ["#1f4ded", "#d7780d", "#f8d1ea", "#ed13b9", "#53f3e8"],
+                    ["#c72ada", "#14adec", "#d8ef6c", "#0fe838", "#ce041a"],
+                    //["", "", "", "", ""],
+            ]
+        }
+    
+        let index = Math.floor((Math.random() * setOfColors.length)) // zufälliges set 
+        this.colorsForImages = setOfColors[index]
+        
+        if(grayscale == true){
+            for(let i = 0; i < amountOfPictures; i++){
+                // generate random gray values
+                let v = (Math.random()*(256)|0).toString(16);//bitwise OR. Gives value in the range 0-255 which is then converted to base 16 (hex).
+                let color = "#" + v + v + v;
+                this.colorsForImages[i] = color.toString()
+            }
+
+
+            /*
+            // test min distance to 128 
+            let tested = false
+            let distanceMin = 30000 // minimum square distance to 128
+            let imagesWithCorrectDistance = 0
+            
+            while(!tested){
+                for(let i = 0; i < amountOfPictures; i++){
+                    // generate random gray values
+                    let v = (Math.random()*(256)|0).toString(16);//bitwise OR. Gives value in the range 0-255 which is then converted to base 16 (hex).
+                    let color = "#" + v + v + v;
+                    this.colorsForImages[i] = color.toString()
+                }
+
+                let rgbColors = this.hexToRGB(this.colorsForImages, amountOfPictures)
+                console.log(rgbColors)
+
+                for (let i = 0; i < amountOfPictures; i++) {
+                    let differenceR = 128 - rgbColors[i][0] // 128 - r
+                    let differenceG = 128 - rgbColors[i][1] // 128 - g
+                    let differenceB = 128 - rgbColors[i][2] // 128 - b
+                    let distance = Math.pow(differenceR, 2) + Math.pow(differenceG, 2) + Math.pow(differenceB, 2)
+    
+                    if(distance < distanceMin){
+                        tested = false
+                        console.log("Gray too close to 128.")
+                    } else{
+                        imagesWithCorrectDistance += 1
+                        if(imagesWithCorrectDistance == amountOfPictures){
+                            return this.colorsForImages 
+                        }
+                    }
+                }
+            }*/
+        } 
+
+        console.log("Colors: " + this.colorsForImages)
+
+        return this.colorsForImages
+    }
+
+
+    hexToRGB(colors, numPics){
+        // declare and initialize arrays
+        let seededRGB = new Array(numPics, 3) // RGB values
+        // fill with 0 values
+        for (let i = 0; i < numPics; i++) {
+            seededRGB[i] = []
+            for (let j = 0; j < 3; j++){
+                    seededRGB[i][j] = 0
+                }
+        }
+
+        // colors[] stores hex colors – convert back to rgb and store in seededRGB[]
+        for(let i = 0; i < numPics; i++){
+                let r, g, b
+                let c;
+                let hex = colors[i]
+                if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+                    c= hex.substring(1).split('');
+                    if(c.length== 3){
+                        c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+                    }
+                    c= '0x'+c.join('');
+                    r = (c>>16)&255
+                    g = (c>>8)&255
+                    b = c&255
+                    seededRGB[i][0] = r
+                    seededRGB[i][1] = g
+                    seededRGB[i][2] = b
+                }
+        }
+        return seededRGB
     }
 
     randomSeed() {
