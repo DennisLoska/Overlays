@@ -327,7 +327,7 @@ function addVerticalRays(numPics) {
 }
 
 function addImageFrame() {
-    let frame = '<img class="frame-overlay no-select" src="img/bilderrahmen.png" alt="Bilderrahmen">'
+    let frame = '<img class="frame-overlay no-select" src="img/frame-4.png" alt="Bilderrahmen">'
     $(frame).insertAfter('.tile-square')
 }
 
