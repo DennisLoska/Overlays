@@ -8,7 +8,7 @@ class Level {
         this.clickOpt = undefined
         this.clickMax = undefined
         this.generateState = undefined
-        this.amountOfLvls = 21
+        this.amountOfLvls = 22
         this.levelSettings = new Array(this.amountOfLvls)
 
         for (let i = 0; i < this.amountOfLevels; i++) {
@@ -137,6 +137,7 @@ class Level {
         this.levelSettings[18] = [5, 3, true, false, false, true]
         this.levelSettings[19] = [5, 3, false, false, false, true]
         this.levelSettings[20] = [5, 4, false, false, false, true]
+        this.levelSettings[21] = [5, 4, false, false, false, true]
 
         console.log("Level:", this.lvl)
         this.numPics = this.levelSettings[this.lvl][0]
