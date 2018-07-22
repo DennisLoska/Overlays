@@ -2,21 +2,18 @@ let timeOut
 let counter = 0
 
 function clickedTile(game) {
-    debugger
-    if (!game.solved) {
-        let ray
-        $('.js-card').parent().click(function () {
-            let row = $(this).children(0).attr('data-row')
-            let col = $(this).children(0).attr('data-col')
-            ray = $('<div class="light-rays horizontal-rays hor-light-ray-' + col + '"></div>')
-            ray.addClass('js-hor-light-ray-' + col + '-' + game.numPics)
-            if (!($(this).children(0).next().length))
-                ray.insertAfter($(this).children(0))
-            $(this).children(0).next().toggleClass('show-rays')
-            game.updateOnClick(row, col)
-            counter++
-        })
-    }
+    let ray
+    $('.js-card').parent().click(function () {
+        let row = $(this).children(0).attr('data-row')
+        let col = $(this).children(0).attr('data-col')
+        ray = $('<div class="light-rays horizontal-rays hor-light-ray-' + col + '"></div>')
+        ray.addClass('js-hor-light-ray-' + col + '-' + game.numPics)
+        if (!($(this).children(0).next().length))
+            ray.insertAfter($(this).children(0))
+        $(this).children(0).next().toggleClass('show-rays')
+        game.updateOnClick(row, col)
+        counter++
+    })
 }
 
 function unbindTile() {
