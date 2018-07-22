@@ -77,8 +77,7 @@ span#about-link:hover {
     #fuse-image {
         padding-top: 7px;
         height: 100%;
-        width: auto;
-        flex: 1 0;
+        width: auto; //flex: 1 0;
         min-width: 0;
     }
 }

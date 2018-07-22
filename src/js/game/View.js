@@ -83,12 +83,30 @@ function changeButtonBackground() {
     $('#btn-change-lvl').css('background-color', 'lightgrey')
 }
 
-function updateFuseBar() {
-    //replaces progress() 
+function updateFuseBar(optimum, timeLeft, time, fuse, clickCount) {
+    let fuseSize = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * time - timeLeft) / time)
+    let progressBarWidth = timeLeft * fuse.width() / time
+    console.log(fuseSize);
+
+    if (fuseSize <= 150) {
+        fuse.animate({
+            width: progressBarWidth,
+            'right': '5px'
+        }, 0.02).html()
+    }
+    if (timeLeft > time)
+        timeLeft = time - 0.02
+    if (timeLeft < time) {
+        timeOut = setTimeout(function () {
+            updateFuseBar(optimum, timeLeft + 0.02, time, fuse, clickCount)
+        }, 20)
+    }
 }
 
-function progress(timeleft, timetotal, timeBar, clickMax, clickCount) {
-    let progressBarWidth = timeleft * timeBar.width() / timetotal
+//TimeBar Fallback
+/*
+function progress(timeLeft, timeTotal, timeBar, clickMax, clickCount) {
+    let progressBarWidth = timeLeft * timeBar.width() / timeTotal
     timeBar.children(0).animate({
         width: progressBarWidth
     }, 0.02).html()
@@ -96,21 +114,22 @@ function progress(timeleft, timetotal, timeBar, clickMax, clickCount) {
         clickCount++
         //TODO replace all these statements with the equation
         if (clickCount > clickMax)
-            timeleft -= 0.02
+            timeLeft -= 0.02
     if (clickCount > clickMax + 1)
-        timeleft -= 0.03
+        timeLeft -= 0.03
     if (clickCount > clickMax + 2)
-        timeleft -= 0.04
+        timeLeft -= 0.04
     if (clickCount > clickMax + 3)
-        timeleft -= 0.05
-    if (timeleft < 0)
-        timeleft = 0.02
-    if (timeleft > 0) {
+        timeLeft -= 0.05
+    if (timeLeft < 0)
+        timeLeft = 0.02
+    if (timeLeft > 0) {
         timeOut = setTimeout(function () {
-            progress(timeleft - 0.02, timetotal, timeBar, clickMax, clickCount)
+            progress(timeLeft - 0.02, timeTotal, timeBar, clickMax, clickCount)
         }, 20)
     }
 }
+*/
 
 function stopTimer() {
     clearTimeout(timeOut)

@@ -92,25 +92,7 @@ class GameEngine {
             this.nextLevelClicked()
         }
     }
-    /*
-        changeClicked() {
-            $('#btn-change-lvl').click(function () {
-                let correctCombs = this.getAmountOfCorrectCombinations()
-                if (correctCombs != this.numPics) {
-                    stopTimer()
-                    this.loadLevel()
-                    loadGameGUI(this)
-                    clickedTile(this)
-                    resetStars(this)
-                    resetChange()
-                    resetScoreAndTime(this)
-                    this.clearArrays()
-                    this.loadImagesIntoLevel()
-                    clearGUI(this)
-                }
-            }.bind(this))
-        }
-    */
+
     nextLevelClicked() {
         $('#btn-next-lvl').click(function () {
             let correctCombs = this.getAmountOfCorrectCombinations()
@@ -131,7 +113,6 @@ class GameEngine {
 
     loadImagesIntoLevel() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
-
         this.findCombinations() // find combinations here to check colors with mInv
         console.log("Inverse Matrix: " + this.mInv)
 
@@ -289,13 +270,14 @@ class GameEngine {
         this.startTime = this.getTime()
 
         /* CALCULATION FOR NEW PROGRESS BAR */
-        let currentT = 0 // needs to be defined within the progress bar 
+        let currentT = 0 // needs to be updated within the progress bar 
         let optimum = this.level.clickOptimum
-        let t = this.level.time
-        let barSize = ((2 * optimum - this.clickCounter) / optimum) * 50 + 50 * ((2 * t - currentT) / t)
+        let t = this.level.time / 1000
+        //let barSize = ((2 * optimum - this.clickCounter) / optimum) * 50 + 50 * ((2 * t - currentT) / t)
+
         // barSize is 200 when game starts - visible progress if barSize < 100
         //progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'), this.level.clickMaximum, 0)
-        updateFuseBar() // replace progress with this
+        updateFuseBar(optimum, currentT, t, $('#fuse-image'), 0) // replace progress with this
     }
 
     getTime() {
