@@ -8,6 +8,7 @@ class Level {
         this.clickOpt = undefined
         this.clickMax = undefined
         this.generateState = undefined
+        this.similarShapes = undefined
         this.amountOfLvls = 22
         this.levelSettings = new Array(this.amountOfLvls)
 
@@ -84,6 +85,10 @@ class Level {
         return this.grayScale
     }
 
+    get shapesPosition(){
+        return this.similarShapes
+    }
+
     get folderImageUse() {
         return this.folderImage
     }
@@ -104,7 +109,7 @@ class Level {
     }
 
     setSettings() {
-        // [numPics, numOnes, doGenerate, gray, empty, folderImage]
+        // [numPics, numOnes, doGenerate, gray, empty, similarShapes, folderImage]
         /* numPics = anzahl bilder
            numOnes = anzahl bilder der notwendigen kombination
            doGenerate = basis / target image auswahl
@@ -112,32 +117,32 @@ class Level {
            empty = ein bild soll leer sein 
            folderImage = benutze bild aus ordner anstatt vom generator */
 
-        this.levelSettings[0] = [3, 2, false, false, false, false]
-        this.levelSettings[1] = [4, 2, false, false, false, false]
-        this.levelSettings[2] = [4, 3, false, false, false, false]
-        this.levelSettings[3] = [5, 2, false, false, false, false]
-        this.levelSettings[4] = [5, 3, false, false, false, false]
+        this.levelSettings[0] = [3, 2, false, false, false, false, false]
+        this.levelSettings[1] = [4, 2, false, false, false, false, false]
+        this.levelSettings[2] = [4, 3, false, false, false, false, false]
+        this.levelSettings[3] = [5, 2, false, false, false, false, false]
+        this.levelSettings[4] = [5, 3, false, false, false, false, false]
 
-        this.levelSettings[5] = [3, 2, true, true, false, false] // grau
-        this.levelSettings[6] = [3, 2, true, true, true, false] // grau und leer 
-        this.levelSettings[7] = [3, 2, true, false, true, false] // bunt und leer
-        this.levelSettings[8] = [4, 2, true, false, false, false] // bunt
-        this.levelSettings[9] = [4, 2, true, false, true, false] // bunt und leer
-        this.levelSettings[10] = [4, 3, false, false, false, false]
-        this.levelSettings[11] = [4, 3, true, false, false, false]
+        this.levelSettings[5] = [3, 2, true, true, false, false, false] // grau
+        this.levelSettings[6] = [3, 2, true, true, true, false, false] // grau und leer 
+        this.levelSettings[7] = [3, 2, true, false, true, false, false] // bunt und leer
+        this.levelSettings[8] = [4, 2, true, false, false, false, false] // bunt
+        this.levelSettings[9] = [4, 2, true, false, true, false, false] // bunt und leer
+        this.levelSettings[10] = [4, 3, false, false, false, false, false]
+        this.levelSettings[11] = [4, 3, true, false, false, false, false]
 
         // zwischendurch auch mal realsitische Bilder, die in die jeweilige Phase reinpassen 
 
-        this.levelSettings[12] = [3, 2, false, false, false, true]
-        this.levelSettings[13] = [3, 2, true, false, false, true]
-        this.levelSettings[14] = [4, 2, false, false, false, true]
-        this.levelSettings[15] = [4, 2, false, false, false, true]
-        this.levelSettings[16] = [4, 3, true, false, false, true]
-        this.levelSettings[17] = [4, 3, false, false, false, true]
-        this.levelSettings[18] = [5, 3, true, false, false, true]
-        this.levelSettings[19] = [5, 3, false, false, false, true]
-        this.levelSettings[20] = [5, 4, false, false, false, true]
-        this.levelSettings[21] = [5, 4, false, false, false, true]
+        this.levelSettings[12] = [3, 2, false, false, false, false, true]
+        this.levelSettings[13] = [3, 2, true, false, false, false, true]
+        this.levelSettings[14] = [4, 2, false, false, false, false, true]
+        this.levelSettings[15] = [4, 2, false, false, false, false, true]
+        this.levelSettings[16] = [4, 3, true, false, false, false, true]
+        this.levelSettings[17] = [4, 3, false, false, false, false, true]
+        this.levelSettings[18] = [5, 3, true, false, false, false, true]
+        this.levelSettings[19] = [5, 3, false, false, false, false, true]
+        this.levelSettings[20] = [5, 4, false, false, false, false, true]
+        this.levelSettings[21] = [5, 4, false, false, false, false, true]
 
         console.log("Level:", this.lvl)
         this.numPics = this.levelSettings[this.lvl][0]
@@ -153,7 +158,8 @@ class Level {
 
         this.grayScale = this.levelSettings[this.lvl][3]
         this.empty = this.levelSettings[this.lvl][4]
-        this.folderImage = this.levelSettings[this.lvl][5]
+        this.similarShapes = this.levelSettings[this.lvl][5]
+        this.folderImage = this.levelSettings[this.lvl][6]
 
         this.calculateClicksForScore()
     }

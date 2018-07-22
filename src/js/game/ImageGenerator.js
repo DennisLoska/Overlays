@@ -224,16 +224,15 @@ class ImageGenerator {
         return this.rndImagePixels
     }
 
-    addShapes(ctx, index, empty) {
-        // empty = boolean if one picture should be empty
-
+    addShapes(ctx, index, empty, similar) {
         // add random shapes in random colors to the image
-        //let color = this.randomColor
+        // empty = boolean if one picture should be empty
+        // similar = boolean if shapes should be in similar positions
 
-        //let seededColor = this.seededColors[index] //index = welches image, von Images.js loop
+        // let color = this.seededColors[index] //index = welches image, von Images.js loop
         // OLD SEEDED COLOR CALCULATION
 
-        let seededColor = this.colorsForImages[index]
+        let color = this.colorsForImages[index]
         //console.log("### let seededColor = " + seededColor)
 
         if(!empty){ 
@@ -243,122 +242,107 @@ class ImageGenerator {
         //let option = this.counter % 3+1 //static option
         if (option == 1) {
             // Rectangle
-            console.log("Rectangle")
-            /*
-            let xStart = Math.floor(Math.random() * this.width*3 / 4) + this.width / 4
-            let yStart = Math.floor(Math.random() * this.height*3 / 4) + this.height / 4
-            let xEnd = xStart + Math.floor(Math.random() * this.width - xStart) + 20 // min width: 20
-            let yEnd = yStart + Math.floor(Math.random() * this.height - yStart) + 20
+            if(similar){
+                // leicht versetzte Startpositionen 
+                let xStart = this.width / 4 + Math.floor(Math.random() * 10)
+                let yStart = this.height / 4 + Math.floor(Math.random() * 10)
 
-            let offset = Math.floor(Math.random() * 10) + 1 // this will get a number between 1 and 10;
-            offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // this will add minus sign in 50% of cases
+                // leicht versetzte Endpositionen 
+                let xEnd = xStart + this.width / 4 + Math.floor(Math.random() * 10)
+                let yEnd = yStart + this.height / 4 + Math.floor(Math.random() * 10)
+    
+                ctx.fillStyle = color
+                ctx.fillRect(xStart, yStart, xEnd, yEnd)
+            } else{
+                let xStart = this.width / 4
+                let yStart = this.height / 4
 
-            let offset2 = Math.floor(Math.random() * 10) + 1 // this will get a number between 1 and 10;
-            offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // this will add minus sign in 50% of cases
+                let xEnd = xStart + Math.floor(Math.random() * this.width / 2) + 1
+                let yEnd = yStart + Math.floor(Math.random() * this.height / 2) + 1
 
-            // two offsets so that the shapes do not look too similar 
-
-            //ctx.fillStyle = color
-            ctx.fillStyle = seededColor
-            ctx.fillRect(xStart, yStart, xEnd, yEnd)
-            //ctx.fillRect(20, 20, 80, 80) //static option
-            */
-
-
-            let xStart = this.width / 4
-            let yStart = this.height / 4
-
-            //let xPos = Math.floor(Math.random() * this.width / 2) + 1
-            //let yPos = Math.floor(Math.random() * this.height / 2) + 1
-
-            let xEnd = xStart + Math.floor(Math.random() * this.width / 2) + 1
-            let yEnd = yStart + Math.floor(Math.random() * this.height / 2) + 1
+                // add random offset to all positions 
+                let offsets = new Array(4)
+                for(let i = 0; i < offsets.length; i++){
+                    let offset = Math.floor(Math.random() * 21) // this will get a number between 0 and 20;
+                    offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // this will add minus sign in 50% of cases
+                    offsets[i] = offset
+                }
  
-            let offset = Math.floor(Math.random() * 10) + 1 // this will get a number between 1 and 10;
-            offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // this will add minus sign in 50% of cases
- 
-            //ctx.fillStyle = color
-            ctx.fillStyle = seededColor
-            ctx.fillRect(xStart + offset, yStart + offset, xEnd + offset, yEnd + offset)
-            //ctx.fillRect(xPos + offset, yPos + offset, xEnd + offset, yEnd + offset)
+                ctx.fillStyle = color
+                ctx.fillRect(xStart + offsets[0], yStart + offsets[1], xEnd + offsets[2], yEnd + offsets[3])
+            }
         }
         if (option == 2) {
             // Circle
-            console.log("Circle")
-            let offset = Math.floor(Math.random() * 20) + 1
-            offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1 // add minus sign in 50% of cases
-            let radius = Math.floor(Math.random() * this.width / 3) + 20 // width/3 > radius > 20 (min radius size)
-
-            let xPos = 0
-            let yPos = 0
-
-            while(xPos < this.width/4 || xPos > this.width*3/4){
-                xPos = Math.floor(Math.random() * this.width)
+            if(similar){
+                // add offset to positions 
+                let offset = Math.floor(Math.random() * 10) + 1
+                let radius = this.width / 4 
+                
+                ctx.fillStyle = color
+                ctx.beginPath()
+                ctx.arc(this.width / 2 + offset, this.height / 2 + offset, radius + offset, 0, 2 * Math.PI)
+                ctx.fill()
+                ctx.closePath()
+            } else{
+                let radius = Math.floor(Math.random() * this.width / 3) + 20 // width/3 > radius > 20 (min radius size)
+                let xPos = 0
+                let yPos = 0
+    
+                // get x and y positions between 1/4 and 3/4 of width and height
+                while(xPos < this.width/4 || xPos > this.width*3/4){
+                    xPos = Math.floor(Math.random() * this.width)
+                }
+                while(yPos < this.height/4 || yPos > this.height*3/4){
+                    yPos = Math.floor(Math.random() * this.height)
+                }
+    
+                ctx.fillStyle = color
+                ctx.beginPath()
+                ctx.arc(xPos, yPos, radius, 0, 2 * Math.PI)
+                ctx.fill()
+                ctx.closePath()
             }
-            while(yPos < this.height/4 || yPos > this.height*3/4){
-                yPos = Math.floor(Math.random() * this.height)
-            }
-
-            //ctx.fillStyle = color
-            ctx.fillStyle = seededColor
-            ctx.beginPath()
-            //ctx.arc(this.width / 2 + offset, this.height / 2 + offset, radius, 0, 2 * Math.PI)
-            ctx.arc(xPos, yPos, radius, 0, 2 * Math.PI)
-            //ctx.arc(this.width / 2, this.height / 2, 40, 0, 2 * Math.PI) //static option
-
-            ctx.fill()
-            ctx.closePath()
         }
         if (option == 3) {
-            // Filled triangle
-            console.log("Triangle")
-            let offset = Math.floor(Math.random() * 20) + 1
-            offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+            // Triangle
+            if(similar){
+                // add offset to static positions
+                let offset = Math.floor(Math.random() * 20) + 1
+                let offset2 = Math.floor(Math.random() * 20) + 1
+    
+                ctx.fillStyle = color
+                ctx.beginPath()
+                ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
+                ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
+                ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
+                ctx.fill()
+                ctx.closePath()
+            } else{
+                let offset = Math.floor(Math.random() * this.width/4) + 50
+                offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+                let offset2 = Math.floor(Math.random() * this.width/4) + 10
+                offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+    
+                // random position to start
+                let xPos = 0
+                let yPos = 0
+                // get x and y positions between 1/3 and 2/3 of width and height
+                while(xPos < this.width/3 || xPos > this.width*2/3){
+                    xPos = Math.floor(Math.random() * this.width)
+                }
+                while(yPos < this.height/3 || yPos > this.height*2/3){
+                    yPos = Math.floor(Math.random() * this.height)
+                }
 
-            let offset2 = Math.floor(Math.random() * 20) + 1
-            offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
-
-            let offset3 = Math.floor(Math.random() * 20) + 1
-            offset3 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
-
-            let offset4 = Math.floor(Math.random() * 20) + 1
-            offset4 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
-
-            // random position to start
-            //let xPos = Math.floor(Math.random() * this.width*3/4) + this.width/4
-            //let yPos = Math.floor(Math.random() * this.height*3/4) + this.height/4
-
-            let xPos = 0
-            let yPos = 0
-
-            while(xPos < this.width/4 || xPos > this.width*3/4){
-                xPos = Math.floor(Math.random() * this.width)
+                ctx.fillStyle = color
+                ctx.beginPath()
+                ctx.moveTo(xPos, yPos)
+                ctx.lineTo(xPos + offset2, yPos + offset)
+                ctx.lineTo(yPos + offset, xPos)
+                ctx.fill()
+                ctx.closePath()      
             }
-            while(yPos < this.height/4 || yPos > this.height*3/4){
-                yPos = Math.floor(Math.random() * this.height)
-            }
-
-            //ctx.fillStyle = color
-            ctx.fillStyle = seededColor
-            ctx.beginPath()
-            ctx.moveTo(110 + offset, 110 + offset2) // von 110, 110
-            ctx.lineTo(110 + offset, 20 + offset) // zu 110, 20
-            ctx.lineTo(20 + offset2, 110 + offset) // zu 20, 110
-
-            /*ctx.moveTo(xPos, yPos) // von 110, 110
-            ctx.lineTo(xPos + offset, yPos) // zu 110, 20
-            ctx.lineTo(xPos, yPos + offset2) // zu 20, 110*/
-
-            /*console.log("moveTo: (" + xPos + ", " + yPos + ")")
-            console.log("lineTo: (" + xPos + offset + ", " + yPos + offset2 + ")")
-            console.log("lineTo: (" + xPos + offset3 + ", " + yPos + offset4 + ")")*/
-
-            /*ctx.moveTo(110, 110) // von 110, 110 //static option
-            ctx.lineTo(110, 20) // zu 110, 20 //static option
-            ctx.lineTo(20, 110) // zu 20, 110 //static option*/
-
-            ctx.fill()
-            ctx.closePath()
         }
 
         } // close of if(!empty)

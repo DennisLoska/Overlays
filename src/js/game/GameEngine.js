@@ -120,6 +120,7 @@ class GameEngine {
         images.numImage = this.numPics
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
         images.emptyState = this.level.emptyState
+        images.similarPositions = this.level.shapesPosition
 
         let useFolderImage = this.level.folderImageUse
 

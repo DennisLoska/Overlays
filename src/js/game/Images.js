@@ -24,6 +24,7 @@ class Images {
         this.targetImgData = new Array()
         this.vertical = undefined // position of target images, where to draw
         this.empty = undefined
+        this.similarShapes = undefined
 
         this.mInv = matrix
         this.gray = grayscale
@@ -42,6 +43,10 @@ class Images {
 
     set emptyState(state){
         this.empty = state
+    }
+
+    set similarPositions(state){
+        this.similarShapes = state
     }
 
     // Original JS event loop
@@ -130,9 +135,9 @@ class Images {
                 if(empty == true && i == indexOfEmptyImage){
                     // Zeile kann man auch ganz weglassen, falls in addShapes sonst nichts anderes mehr passiert
                     // empty kann man als Parameter in Methode dann ganz weglassen
-                    generator.addShapes(ctx, i, true) // don't draw shape
+                    generator.addShapes(ctx, i, true, this.similarShapes) // true = don't draw shape
                 } else{
-                    generator.addShapes(ctx, i, false) // draw shape
+                    generator.addShapes(ctx, i, false, this.similarShapes) // false = draw shape
                 }
 
 

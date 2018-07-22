@@ -86,7 +86,7 @@ function changeButtonBackground() {
 function updateFuseBar(optimum, timeLeft, time, fuse, clickCount) {
     let fuseSize = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * time - timeLeft) / time)
     let progressBarWidth = timeLeft * fuse.width() / time
-    console.log(fuseSize);
+    //console.log(fuseSize);
 
     if (fuseSize <= 150) {
         fuse.animate({
