@@ -71,6 +71,7 @@ class GameEngine {
         let correctCombs = this.getAmountOfCorrectCombinations()
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
+            unbindTile()
             console.log("Level completed with " + this.clickCounter + " clicks!")
             this.levelScore = this.returnScore(this.clickCounter)
             console.log("Score for this level: " + this.levelScore.toString())

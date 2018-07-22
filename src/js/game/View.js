@@ -2,18 +2,25 @@ let timeOut
 let counter = 0
 
 function clickedTile(game) {
-    let ray
-    $('.js-card').parent().click(function () {
-        let row = $(this).children(0).attr('data-row')
-        let col = $(this).children(0).attr('data-col')
-        ray = $('<div class="light-rays horizontal-rays hor-light-ray-' + col + '"></div>')
-        ray.addClass('js-hor-light-ray-' + col + '-' + game.numPics)
-        if (!($(this).children(0).next().length))
-            ray.insertAfter($(this).children(0))
-        $(this).children(0).next().toggleClass('show-rays')
-        game.updateOnClick(row, col)
-        counter++
-    })
+    debugger
+    if (!game.solved) {
+        let ray
+        $('.js-card').parent().click(function () {
+            let row = $(this).children(0).attr('data-row')
+            let col = $(this).children(0).attr('data-col')
+            ray = $('<div class="light-rays horizontal-rays hor-light-ray-' + col + '"></div>')
+            ray.addClass('js-hor-light-ray-' + col + '-' + game.numPics)
+            if (!($(this).children(0).next().length))
+                ray.insertAfter($(this).children(0))
+            $(this).children(0).next().toggleClass('show-rays')
+            game.updateOnClick(row, col)
+            counter++
+        })
+    }
+}
+
+function unbindTile() {
+    $('.js-card').parent().prop('onclick', null).off('click')
 }
 
 function setStars(game) {
@@ -83,7 +90,7 @@ function progress(timeleft, timetotal, timeBar, clickMax, clickCount) {
     }, 0.02).html()
     if (clickCount == counter - 1)
         clickCount++
-    //TODO replace all these statements with the equation
+        //TODO replace all these statements with the equation
         if (clickCount > clickMax)
             timeleft -= 0.02
     if (clickCount > clickMax + 1)
