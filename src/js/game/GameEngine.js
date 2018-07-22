@@ -282,7 +282,9 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate
 
-        $('#js-game-timer').html("LEVEL TIMER 00:" + (this.level.time / 1000))
+        //$('#js-game-timer').html("LEVEL TIMER 00:" + (this.level.time / 1000))
+        if (this.levelNumber > 1)
+            $('#js-game-timer').html(this.totalScore.toString().padStart(5, 0))
         $('#js-game-timer-menu').html("TIME 00:00")
         this.startTime = this.getTime()
 

@@ -39,15 +39,19 @@ function resetChange() {
 }
 
 function setScoreAndTime(game) {
-    $('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
-    $('#js-game-timer').html("LEVEL TIMER 00:" + (game.level.time / 1000))
+    //$('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
+    $('#js-game-score').html("TOTAL SCORE")
+    $('#js-game-timer').html(game.totalScore.toString().padStart(5, 0))
+    //$('#js-game-timer').html("LEVEL TIMER 00:" + (game.level.time / 1000))
     $('#js-game-score-menu').html("SCORE " + game.levelScore.toString().padStart(3, 0))
     $('#js-game-timer-menu').html("TIME 00:" + (Math.floor((game.timeNeeded / 1000))))
 }
 
 function resetScoreAndTime(game) {
-    $('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
-    $('#js-game-timer').html("LEVEL TIME: 00:" + (game.level.time / 1000))
+    //$('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
+    $('#js-game-score').html("TOTAL SCORE ")
+    $('#js-game-timer').html(game.totalScore.toString().padStart(5, 0))
+    //$('#js-game-timer').html("LEVEL TIME: 00:" + (game.level.time / 1000))
     $('#js-game-score-menu').html("SCORE 000")
     $('#js-game-timer-menu').html("TIME 00:00")
 }
@@ -271,7 +275,7 @@ function createTimeTile() {
         'class': ' tile-square hide-shadow no-select'
     })
     tile.attr('id', 'js-game-timer')
-    tile.html('LEVEL TIMER')
+    tile.html('00000')
     return tile
 }
 
@@ -280,7 +284,7 @@ function createScoreTile() {
         'class': ' tile-square hide-shadow no-select'
     })
     tile.attr('id', 'js-game-score')
-    tile.html('TOTAL SCORE 00000')
+    tile.html('TOTAL SCORE')
     return tile
 }
 

@@ -9,6 +9,8 @@
     padding: 0;
     #js-game-score,
     #js-game-timer {
+        display: flex;
+        align-items: center;
         font-family: scoreboard;
         text-align: center;
         font-size: 3.2vw;
@@ -322,8 +324,6 @@
     }
 }
 
-@media only screen and (min-width: 575px) {}
-
 /*changing tile-sizes depending on 3x3, 4x4 or 5x5 and different devices */
 
 @media only screen and (max-width: 360px) {
@@ -487,5 +487,12 @@
     }
     .tile-row-5 {
         margin-bottom: 0.5vh;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #game-container #js-game-timer,
+    #game-container #js-game-score {
+        font-size: 5vw;
     }
 }

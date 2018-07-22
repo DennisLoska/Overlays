@@ -343,6 +343,8 @@ a.nav-link:hover {
   padding: 0; }
   #game-container #js-game-score,
   #game-container #js-game-timer {
+    display: flex;
+    align-items: center;
     font-family: scoreboard;
     text-align: center;
     font-size: 3.2vw;
@@ -716,6 +718,11 @@ a.nav-link:hover {
   .tile-row-5 {
     margin-bottom: 0.5vh; } }
 
+@media only screen and (max-width: 768px) {
+  #game-container #js-game-timer,
+  #game-container #js-game-score {
+    font-size: 5vw; } }
+
 #lp-row {
   height: 97.5vh;
   text-align: center;
@@ -1040,7 +1047,14 @@ span#about-link:hover {
   #tnt-bar-wrapper #fuse-image {
     padding-top: 5px;
     height: 50%;
-    width: auto; } }
+    width: auto; }
+  span#about-link {
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    line-height: 23px; } }
 
 @font-face {
   font-family: scoreboard;
