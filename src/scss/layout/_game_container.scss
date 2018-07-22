@@ -6,6 +6,7 @@
     background-size: cover;
     text-align: center;
     color: #efefef;
+    padding: 0;
     #js-game-score,
     #js-game-timer {
         font-family: scoreboard;
@@ -46,6 +47,9 @@
             user-select: none;
             /* Non-prefixed version, currently supported by Chrome and Opera */
         }
+    }
+    #tnt-and-menu-container {
+        padding: 0;
     }
 }
 
@@ -312,17 +316,13 @@
 }
 
 @media only screen and (min-width: 1025px) {
-    #inner-game-container {
+    #js-game-wrapper {
         padding: 30px;
         padding-top: 0;
     }
 }
 
-@media only screen and (min-width: 575px) {
-    #inner-game-container {
-        padding-bottom: 30px;
-    }
-}
+@media only screen and (min-width: 575px) {}
 
 /*changing tile-sizes depending on 3x3, 4x4 or 5x5 and different devices */
 

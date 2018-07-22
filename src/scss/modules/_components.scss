@@ -61,14 +61,18 @@ span#about-link:hover {
 
 #tnt-bar-wrapper {
     display: flex;
+    overflow: hidden;
     align-items: center;
+    margin-bottom: 10px;
     height: 50px;
     img.tnt-images {
         display: block;
+        position: relative;
     }
     #tnt-image {
         height: 100%;
         width: auto;
+        z-index: 1;
     }
     #fuse-image {
         padding-top: 7px;

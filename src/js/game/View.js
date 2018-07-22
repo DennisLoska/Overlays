@@ -55,10 +55,12 @@ function resetScoreAndTime(game) {
 function showFailedMenu(game) {
     let failed = $('#fail-menu-container')
     $(failed).toggleClass('hide-box')
+    $('#tnt-container').toggleClass('hide-box')
 }
 
 function showMenu() {
     $('#menu-container').toggleClass('hide-box')
+    $('#tnt-container').toggleClass('hide-box')
 }
 
 function clearGUI(game) {
@@ -69,6 +71,7 @@ function clearGUI(game) {
     if (game.failed)
         $('#fail-menu-container').toggleClass('hide-box')
     else $('#menu-container').toggleClass('hide-box')
+    $('#tnt-container').toggleClass('hide-box')
 }
 
 function changeButtonBackground() {

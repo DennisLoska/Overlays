@@ -339,7 +339,8 @@ a.nav-link:hover {
   background-color: rgba(0, 0, 0, 0.4);
   background-size: cover;
   text-align: center;
-  color: #efefef; }
+  color: #efefef;
+  padding: 0; }
   #game-container #js-game-score,
   #game-container #js-game-timer {
     font-family: scoreboard;
@@ -375,6 +376,8 @@ a.nav-link:hover {
       /* Internet Explorer/Edge */
       user-select: none;
       /* Non-prefixed version, currently supported by Chrome and Opera */ }
+  #game-container #tnt-and-menu-container {
+    padding: 0; }
 
 .tile-square-wrapper {
   padding: 0;
@@ -591,13 +594,9 @@ a.nav-link:hover {
     justify-content: center; } }
 
 @media only screen and (min-width: 1025px) {
-  #inner-game-container {
+  #js-game-wrapper {
     padding: 30px;
     padding-top: 0; } }
-
-@media only screen and (min-width: 575px) {
-  #inner-game-container {
-    padding-bottom: 30px; } }
 
 /*changing tile-sizes depending on 3x3, 4x4 or 5x5 and different devices */
 @media only screen and (max-width: 360px) {
@@ -934,13 +933,17 @@ span#about-link:hover {
 
 #tnt-bar-wrapper {
   display: flex;
+  overflow: hidden;
   align-items: center;
+  margin-bottom: 10px;
   height: 50px; }
   #tnt-bar-wrapper img.tnt-images {
-    display: block; }
+    display: block;
+    position: relative; }
   #tnt-bar-wrapper #tnt-image {
     height: 100%;
-    width: auto; }
+    width: auto;
+    z-index: 1; }
   #tnt-bar-wrapper #fuse-image {
     padding-top: 7px;
     height: 100%;
