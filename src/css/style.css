@@ -595,7 +595,7 @@ a.nav-link:hover {
     padding: 30px;
     padding-top: 0; } }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 575px) {
   #inner-game-container {
     padding-bottom: 30px; } }
 
@@ -911,6 +911,7 @@ span#about-link:hover {
   max-width: 1000px; }
 
 #time-bar-wrapper,
+#tnt-bar-wrapper,
 #game-menu-wrapper,
 #fail-game-menu-wrapper {
   position: relative;
@@ -931,8 +932,25 @@ span#about-link:hover {
     background: linear-gradient(to right, #d15151, #397a05);
     box-sizing: border-box; }
 
+#tnt-bar-wrapper {
+  display: flex;
+  align-items: center;
+  height: 50px; }
+  #tnt-bar-wrapper img.tnt-images {
+    display: block; }
+  #tnt-bar-wrapper #tnt-image {
+    height: 100%;
+    width: auto; }
+  #tnt-bar-wrapper #fuse-image {
+    padding-top: 7px;
+    height: 100%;
+    width: auto;
+    flex: 1 0;
+    min-width: 0; }
+
 @media only screen and (max-width: 1440px) {
-  #time-bar-wrapper {
+  #time-bar-wrapper,
+  #tnt-bar-wrapper {
     margin-top: 0; } }
 
 #game-menu-wrapper,
@@ -1012,7 +1030,14 @@ span#about-link:hover {
       font-size: 30px; }
     #game-menu-wrapper .menu-list .menu-item.menu-info,
     #fail-game-menu-wrapper .menu-list .menu-item.menu-info {
-      font-size: 20px; } }
+      font-size: 20px; }
+  #tnt-bar-wrapper #tnt-image {
+    height: 50%;
+    width: auto; }
+  #tnt-bar-wrapper #fuse-image {
+    padding-top: 5px;
+    height: 50%;
+    width: auto; } }
 
 @font-face {
   font-family: scoreboard;

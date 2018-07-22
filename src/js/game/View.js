@@ -76,7 +76,7 @@ function changeButtonBackground() {
     $('#btn-change-lvl').css('background-color', 'lightgrey')
 }
 
-function updateFuseBar(game) {
+function updateFuseBar() {
     //replaces progress() 
 }
 

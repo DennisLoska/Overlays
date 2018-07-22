@@ -35,6 +35,7 @@ span#about-link:hover {
 }
 
 #time-bar-wrapper,
+#tnt-bar-wrapper,
 #game-menu-wrapper,
 #fail-game-menu-wrapper {
     position: relative;
@@ -58,8 +59,29 @@ span#about-link:hover {
     }
 }
 
+#tnt-bar-wrapper {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    img.tnt-images {
+        display: block;
+    }
+    #tnt-image {
+        height: 100%;
+        width: auto;
+    }
+    #fuse-image {
+        padding-top: 7px;
+        height: 100%;
+        width: auto;
+        flex: 1 0;
+        min-width: 0;
+    }
+}
+
 @media only screen and (max-width: 1440px) {
-    #time-bar-wrapper {
+    #time-bar-wrapper,
+    #tnt-bar-wrapper {
         margin-top: 0;
     }
 }
@@ -158,6 +180,17 @@ span#about-link:hover {
             .menu-item.menu-info {
                 font-size: 20px;
             }
+        }
+    }
+    #tnt-bar-wrapper {
+        #tnt-image {
+            height: 50%;
+            width: auto;
+        }
+        #fuse-image {
+            padding-top: 5px;
+            height: 50%;
+            width: auto;
         }
     }
 }

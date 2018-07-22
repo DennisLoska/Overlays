@@ -144,8 +144,8 @@ class GameEngine {
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
-            if(!useFolderImage){
-            //if (this.levelNumber < 10) {
+            if (!useFolderImage) {
+                //if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.targetPixels = images.targetPixels
@@ -166,8 +166,8 @@ class GameEngine {
         } else {
             // read basis images
             //if (this.levelNumber % 2 == 0) {
-            if(!useFolderImage){
-            //if (this.levelNumber < 10) {
+            if (!useFolderImage) {
+                //if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.basisPixels = images.targetPixels
@@ -292,7 +292,7 @@ class GameEngine {
         let t = this.level.time
         let barSize = ((2 * optimum - this.clickCounter) / optimum) * 50 + 50 * ((2 * t - currentT) / t)
         // barSize is 200 when game starts - visible progress if barSize < 100
-        progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'), this.level.clickMaximum, 0)
+        //progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'), this.level.clickMaximum, 0)
         updateFuseBar() // replace progress with this
     }
 

@@ -112,7 +112,7 @@ class Level {
            empty = ein bild soll leer sein 
            folderImage = benutze bild aus ordner anstatt vom generator */
 
-        this.levelSettings[0] = [3, 2, false, false, false, false]
+        this.levelSettings[0] = [5, 2, false, false, false, false]
         this.levelSettings[1] = [4, 2, false, false, false, false]
         this.levelSettings[2] = [4, 3, false, false, false, false]
         this.levelSettings[3] = [5, 2, false, false, false, false]
@@ -144,8 +144,8 @@ class Level {
         this.generateState = this.levelSettings[this.lvl][2]
 
         let k = 5000 // constant k = 5s 
-        let gen = 1 
-        if(this.generateState == false){
+        let gen = 1
+        if (this.generateState == false) {
             gen = 0
         }
         this.lvlTime = k * this.numPics * (1 + gen)
