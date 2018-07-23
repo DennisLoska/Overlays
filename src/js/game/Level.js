@@ -156,6 +156,7 @@ class Level {
             gen = 0
         }
         this.lvlTime = k * this.numPics * (1 + gen)
+        //this.lvlTime = k * Math.log(this.numPics)/Math.log(2) * (1 + gen)
 
         this.grayScale = this.levelSettings[this.lvl][3]
         this.empty = this.levelSettings[this.lvl][4]
