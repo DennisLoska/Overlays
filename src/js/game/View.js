@@ -44,22 +44,22 @@ function setScoreAndTime(game) {
     $('#js-game-timer').html(game.totalScore.toString().padStart(5, 0))
     //$('#js-game-timer').html("LEVEL TIMER 00:" + (game.level.time / 1000))
     $('#js-game-score-menu').html("SCORE " + game.levelScore.toString().padStart(3, 0))
-    
-    let seconds =  Math.floor(game.timeNeeded / 1000)
+
+    let seconds = Math.floor(game.timeNeeded / 1000)
     console.log("Seconds: " + seconds)
     let minutes = 0
-    for(let i = 0; i < seconds; i++){
-        if(i != 0 && (i % 60 == 0)){
+    for (let i = 0; i < seconds; i++) {
+        if (i != 0 && (i % 60 == 0)) {
             minutes++
             seconds -= 60
         }
     }
     let preMinutes = "0" // add zero before minutes
-    if(minutes > 9){
+    if (minutes > 9) {
         preMinutes = ""
     }
     let preSeconds = "0" // add zero before seconds
-    if(seconds > 9){
+    if (seconds > 9) {
         preSeconds = ""
     }
     let time = preMinutes + minutes.toString() + ":" + preSeconds + seconds.toString()
@@ -102,18 +102,21 @@ function changeButtonBackground() {
     $('#btn-change-lvl').css('background-color', 'lightgrey')
 }
 
-function updateFuseBar(optimum, timeLeft, time, fuse, clickCount) {
-    if (clickCount == counter - 1)
+function updateFuseBar(optimum, timeLeft, time, fuse, clickMax, clickCount) {
+    if (clickCount == counter - 1) {
         clickCount++
-        let fuseSize = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * time - timeLeft) / time)
+    }
+    if (clickCount >= clickMax)
+        clickCount = clickMax
+    let fuseSize = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * time - timeLeft) / time)
     //Xs' = Xs - 200-p/200 * 100%
-    let progressBarWidth = 0.5 - (200 - fuseSize) / 200 * 100
+    let progressBarWidth = 0 - (200 - fuseSize) / 200 * 100 * 80
     console.log("progress", progressBarWidth)
     console.log(fuseSize)
 
     fuse.animate({
         //width: progressBarWidth,
-        'left': progressBarWidth + '%'
+        'left': progressBarWidth + 'px'
     }, 0.02).html()
 
     if (fuseSize <= 0) {
@@ -124,7 +127,7 @@ function updateFuseBar(optimum, timeLeft, time, fuse, clickCount) {
             timeLeft = time - 0.02
         if (timeLeft < time) {
             timeOut = setTimeout(function () {
-                updateFuseBar(optimum, timeLeft + 0.02, time, fuse, clickCount)
+                updateFuseBar(optimum, timeLeft + 0.02, time, fuse, clickMax, clickCount)
             }, 20)
         }
     }

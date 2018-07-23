@@ -273,12 +273,13 @@ class GameEngine {
         /* CALCULATION FOR NEW PROGRESS BAR */
         let currentT = 0 // needs to be updated within the progress bar 
         let optimum = this.level.clickOptimum
+        let clickMax = this.level.clickMaximum
         let t = this.level.time / 1000
         //let barSize = ((2 * optimum - this.clickCounter) / optimum) * 50 + 50 * ((2 * t - currentT) / t)
 
         // barSize is 200 when game starts - visible progress if barSize < 100
         //progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'), this.level.clickMaximum, 0)
-        updateFuseBar(optimum, currentT, t, $('#fuse-image'), 0) // replace progress with this
+        updateFuseBar(optimum, currentT, t, $('#fuse-image'), clickMax, 0) // replace progress with this
     }
 
     getTime() {
