@@ -109,13 +109,13 @@ function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
 
     let points = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * timeMax - timeOver) / timeMax)
     //Xs' = Xs - 200-p/200 * 100%
-    let progressBarPosition = - (200 - points) / 200  * 2000
+    let progressBarPosition = - (200 - points) / 200  * 80 * 0.7
     console.log("progress", progressBarPosition)
     console.log("points", points)
 
     fuse.animate({
         //width: progressBarPosition,
-        'left': progressBarPosition + 'px'
+        'left': progressBarPosition + '%'
     }, 0.02).html()
 
     if (points < 0) {

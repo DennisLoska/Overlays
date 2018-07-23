@@ -150,7 +150,7 @@ class Level {
         this.numOne = this.levelSettings[this.lvl][1]
         this.generateState = this.levelSettings[this.lvl][2]
 
-        let k = 5000 // constant k = 5s 
+        let k = 500 // constant k = 5s 
         let gen = 1 
         if(this.generateState == false){
             gen = 0

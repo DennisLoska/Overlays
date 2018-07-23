@@ -951,11 +951,12 @@ span#about-link:hover {
     position: relative; }
   #tnt-bar-wrapper #tnt-image {
     height: auto;
-    width: auto;
+    width: 30%;
     z-index: 1; }
   #tnt-bar-wrapper #fuse-image {
     padding-top: 12px;
-    height: 100%;
+    height: auto;
+    width: 70%;
     margin-left: -10px; }
 
 @media only screen and (max-width: 1440px) {

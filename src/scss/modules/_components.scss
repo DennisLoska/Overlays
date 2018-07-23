@@ -73,12 +73,13 @@ span#about-link:hover {
     }
     #tnt-image {
         height: auto;
-        width: auto;
+        width: 30%;
         z-index: 1;
     }
     #fuse-image {
         padding-top: 12px;
-        height: 100%; //width: 48%;//auto //flex: 1 0;
+        height: auto; //width: 48%;//auto //flex: 1 0;
+        width: 70%;
         margin-left: -10px;
     }
 }
