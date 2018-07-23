@@ -943,19 +943,20 @@ span#about-link:hover {
   overflow: hidden;
   align-items: center;
   margin-bottom: 10px;
-  height: 50px; }
+  height: 127px;
+  margin-left: -15px;
+  margin-right: -15px; }
   #tnt-bar-wrapper img.tnt-images {
     display: block;
     position: relative; }
   #tnt-bar-wrapper #tnt-image {
-    height: 100%;
+    height: auto;
     width: auto;
     z-index: 1; }
   #tnt-bar-wrapper #fuse-image {
-    padding-top: 7px;
+    padding-top: 12px;
     height: 100%;
-    width: 48%;
-    min-width: 0; }
+    width: 2000px; }
 
 @media only screen and (max-width: 1440px) {
   #time-bar-wrapper,
@@ -1026,6 +1027,11 @@ span#about-link:hover {
     #fail-game-menu-wrapper .menu-list .stars .fa-star {
       font-size: 50px; } }
 
+@media only screen and (max-width: 850px) {
+  #tnt-bar-wrapper #tnt-image {
+    height: 30%;
+    width: auto; } }
+
 @media only screen and (max-width: 575px) {
   #game-menu-wrapper .menu-list,
   #fail-game-menu-wrapper .menu-list {
@@ -1041,12 +1047,11 @@ span#about-link:hover {
     #fail-game-menu-wrapper .menu-list .menu-item.menu-info {
       font-size: 20px; }
   #tnt-bar-wrapper #tnt-image {
-    height: 50%;
+    height: 20%;
     width: auto; }
   #tnt-bar-wrapper #fuse-image {
     padding-top: 5px;
-    height: 50%;
-    width: auto; }
+    height: 50%; }
   span#about-link {
     top: 5px;
     right: 5px;

@@ -84,16 +84,19 @@ function changeButtonBackground() {
 }
 
 function updateFuseBar(optimum, timeLeft, time, fuse, clickCount) {
-    let fuseSize = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * time - timeLeft) / time)
-    let progressBarWidth = timeLeft * fuse.width() / time
-    //console.log(fuseSize);
+    if (clickCount == counter - 1)
+        clickCount++
+        let fuseSize = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * time - timeLeft) / time)
+    //Xs' = Xs - 200-p/200 * 100%
+    let progressBarWidth = 0.5 - (200 - fuseSize) / 200 * 100
+    console.log("progress", progressBarWidth)
+    console.log(fuseSize)
 
-    if (fuseSize < 100) {
-        fuse.animate({
-            width: progressBarWidth,
-            'right': '5px'
-        }, 0.02).html()
-    }
+    fuse.animate({
+        //width: progressBarWidth,
+        'left': progressBarWidth + '%'
+    }, 0.02).html()
+
     if (timeLeft > time)
         timeLeft = time - 0.02
     if (timeLeft < time) {
