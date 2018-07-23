@@ -150,13 +150,14 @@ class Level {
         this.numOne = this.levelSettings[this.lvl][1]
         this.generateState = this.levelSettings[this.lvl][2]
 
-        let k = 500 // constant k = 5s 
+        let k = 5000 / 2 // constant k = 5s 
         let gen = 1 
         if(this.generateState == false){
             gen = 0
         }
-        this.lvlTime = k * this.numPics * (1 + gen)
-        //this.lvlTime = k * Math.log(this.numPics)/Math.log(2) * (1 + gen)
+        //this.lvlTime = k * this.numPics * (1 + gen)
+        this.lvlTime = k * Math.log(this.numPics)/Math.log(2) * (1 + gen)
+        console.log("level time: " + this.lvlTime)
 
         this.grayScale = this.levelSettings[this.lvl][3]
         this.empty = this.levelSettings[this.lvl][4]

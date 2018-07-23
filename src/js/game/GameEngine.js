@@ -279,6 +279,7 @@ class GameEngine {
 
         // barSize is 200 when game starts - visible progress if barSize < 100
         //progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'), this.level.clickMaximum, 0)
+        stopTimer()
         updateFuseBar(optimum, currentT, t, $('#fuse-image'), clickMax, 0) // replace progress with this
     }
 
