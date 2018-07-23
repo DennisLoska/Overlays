@@ -954,7 +954,7 @@ span#about-link:hover {
     width: 30%;
     z-index: 1; }
   #tnt-bar-wrapper #fuse-image {
-    padding-top: 12px;
+    padding-top: 1%;
     height: auto;
     width: 70%;
     margin-left: -10px; }
@@ -1028,11 +1028,6 @@ span#about-link:hover {
     #fail-game-menu-wrapper .menu-list .stars .fa-star {
       font-size: 50px; } }
 
-@media only screen and (max-width: 850px) {
-  #tnt-bar-wrapper #tnt-image {
-    height: 30%;
-    width: auto; } }
-
 @media only screen and (max-width: 575px) {
   #game-menu-wrapper .menu-list,
   #fail-game-menu-wrapper .menu-list {
@@ -1047,12 +1042,6 @@ span#about-link:hover {
     #game-menu-wrapper .menu-list .menu-item.menu-info,
     #fail-game-menu-wrapper .menu-list .menu-item.menu-info {
       font-size: 20px; }
-  #tnt-bar-wrapper #tnt-image {
-    height: 20%;
-    width: auto; }
-  #tnt-bar-wrapper #fuse-image {
-    padding-top: 5px;
-    height: 50%; }
   span#about-link {
     top: 5px;
     right: 5px;
