@@ -229,7 +229,7 @@ class ImageGenerator {
         // empty = boolean if one picture should be empty
         // similar = boolean if shapes should be in similar positions
 
-        // let color = this.seededColors[index] //index = welches image, von Images.js loop
+        //let color = this.seededColors[index] //index = welches image, von Images.js loop
         // OLD SEEDED COLOR CALCULATION
 
         let color = this.colorsForImages[index]
@@ -366,7 +366,16 @@ class ImageGenerator {
 
         if(amountOfPictures == 3){
              // getestete 3er Kombinationen der Farben, numPics = 3
-            setOfColors = [
+            if(grayscale == true){
+                setOfColors = [
+                    ["#d8d8d8", "#e8e8e8", "#484848"],
+                    ["#e4e4e4", "#2c2c2c", "#3f3f3f"],
+                    ["#191919", "#ababab", "#3f3f3f"],
+                    ["#dfdfdf", "#565656", "#393939"],
+                    ["#515151", "#bcbcbc", "#f0f0f0"],
+                ]
+            } else {
+                setOfColors = [
                     ["#4a00e9", "#de1a06", "#2bf488"],
                     ["#1ae1f8", "#94fd01", "#881bf9"],
                     ["#36fdf5", "#24cb0b", "#fa05c3"],
@@ -391,9 +400,17 @@ class ImageGenerator {
                     ["#1689e3", "#e5ec8d", "#fd69fb"],
                     //["", "", ""],
             ]
+            }
         } else if(amountOfPictures == 4){
             // getestete 4er Kombinationen der Farben, numPics = 4
-            setOfColors = [
+            if(grayscale == true){
+                setOfColors = [
+                    ["#292929", "#606060", "#656565", "#a6a6a6"],
+                    ["#d4d4d4", "#232323", "#5f5f5f", "#555555"],
+                    ["#ddd", "#474747", "#5e5e5e", "#676767"],
+                ]
+            } else {
+                setOfColors = [
                     ["#062dd1", "#16f1d6", "#e706a7", "#d6f18b"],
                     ["#1fa6f4", "#004861", "#14f326", "#f1cfb9"],
                     ["#6c1317", "#e7df60", "#06cedc", "#08d830"],
@@ -411,10 +428,18 @@ class ImageGenerator {
                     ["#1f0156", "#ef7903", "#08dfde", "#f848d4"],
                     ["#14f700", "#d81c3c", "#59e1e3", "#fdbe5e"],
                     //["", "", "", ""],
-            ]
+                ]
+            }
         } else if(amountOfPictures == 5){
-                // getestete 5er Kombinationen der Farben, numPics = 5
-            setOfColors = [
+            // getestete 5er Kombinationen der Farben, numPics = 5
+            if(grayscale == true){
+                setOfColors = [
+                    ["#111111", "#a2a2a2", "#e8e8e8", "#949494", "#3c3c3c"],
+                    ["#d9d9d9", "#dbdbdb", "#fafafa", "#383838", "#616161"],
+                    ["#b4b4b4", "#2c2c2c", "#c6c6c6", "#9e9e9e", "#424242"],
+                ]
+            } else{
+                setOfColors = [
                     ["#e7dad8", "#672811", "#2fb5f7", "#f416d6", "#faec1d"],
                     ["#fba3c6", "#5a16fe", "#5fe2fb", "#e3d409", "#c71341"],
                     ["#150aa6", "#02c7d8", "#de2bcb", "#e3e3f7", "#f15028"],
@@ -422,56 +447,12 @@ class ImageGenerator {
                     ["#1f4ded", "#d7780d", "#f8d1ea", "#ed13b9", "#53f3e8"],
                     ["#c72ada", "#14adec", "#d8ef6c", "#0fe838", "#ce041a"],
                     //["", "", "", "", ""],
-            ]
+                ]
+            }
         }
     
         let index = Math.floor((Math.random() * setOfColors.length)) // zufälliges set 
         this.colorsForImages = setOfColors[index]
-        
-        if(grayscale == true){
-            for(let i = 0; i < amountOfPictures; i++){
-                // generate random gray values
-                let v = (Math.random()*(256)|0).toString(16);//bitwise OR. Gives value in the range 0-255 which is then converted to base 16 (hex).
-                let color = "#" + v + v + v;
-                this.colorsForImages[i] = color.toString()
-            }
-
-
-            /*
-            // test min distance to 128 
-            let tested = false
-            let distanceMin = 30000 // minimum square distance to 128
-            let imagesWithCorrectDistance = 0
-            
-            while(!tested){
-                for(let i = 0; i < amountOfPictures; i++){
-                    // generate random gray values
-                    let v = (Math.random()*(256)|0).toString(16);//bitwise OR. Gives value in the range 0-255 which is then converted to base 16 (hex).
-                    let color = "#" + v + v + v;
-                    this.colorsForImages[i] = color.toString()
-                }
-
-                let rgbColors = this.hexToRGB(this.colorsForImages, amountOfPictures)
-                console.log(rgbColors)
-
-                for (let i = 0; i < amountOfPictures; i++) {
-                    let differenceR = 128 - rgbColors[i][0] // 128 - r
-                    let differenceG = 128 - rgbColors[i][1] // 128 - g
-                    let differenceB = 128 - rgbColors[i][2] // 128 - b
-                    let distance = Math.pow(differenceR, 2) + Math.pow(differenceG, 2) + Math.pow(differenceB, 2)
-    
-                    if(distance < distanceMin){
-                        tested = false
-                        console.log("Gray too close to 128.")
-                    } else{
-                        imagesWithCorrectDistance += 1
-                        if(imagesWithCorrectDistance == amountOfPictures){
-                            return this.colorsForImages 
-                        }
-                    }
-                }
-            }*/
-        } 
 
         console.log("Colors: " + this.colorsForImages)
 
