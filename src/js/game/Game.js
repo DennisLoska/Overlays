@@ -11,7 +11,7 @@ class Game {
     }
 
     loadGUI() {
-        loadGameGUI(this.calculator)
+        loadGameGUI(this.calculator, this.levelNumber)
     }
 
     get engine() {

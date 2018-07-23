@@ -99,7 +99,7 @@ class GameEngine {
             if (correctCombs == this.numPics) {
                 counter = 0
                 this.loadLevel()
-                loadGameGUI(this)
+                loadGameGUI(this, this.levelNumber)
                 clickedTile(this)
                 resetStars(this)
                 resetChange()
@@ -628,6 +628,10 @@ class GameEngine {
     printResult() {
         console.log("Lösung:", this.m)
         console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern (Inverse):", this.mInv)
+    }
+
+    get levelNo(){
+        return this.levelNumber
     }
 
 }

@@ -173,7 +173,7 @@ function stopTimer() {
  * implement new features on a weekly basis without the time to do things properly :(
  * 
  */
-function setBackgroundImg() {
+function setBackgroundImg(game, levelNum) {
     /*let images = [
         'back_1.png', 'back_2.jpg',
         'back_3.jpg', 'back_4.jpg', 'back_5.jpg',
@@ -195,8 +195,9 @@ function setBackgroundImg() {
         'background-20.jpg', 'background-21.jpg',
         'background-22.jpg'
     ]
-    let i = Math.floor(Math.random() * images.length) + 0
-    let url = 'img/background/' + images[i]
+    //let index = Math.floor(Math.random() * images.length) + 0
+    let index = levelNum
+    let url = 'img/background/' + images[index]
     $('#game-container').css('background-image', 'url(' + url + ')')
 }
 
@@ -209,8 +210,8 @@ function setBackgroundImg() {
  * number all cols and rows. These numbers are neccessary, since they will be used in the GameEngine
  * to determine, which exact tile was clicked.
  */
-function loadGameGUI(game) {
-    setBackgroundImg()
+function loadGameGUI(game, levelNo) {
+    setBackgroundImg(game, levelNo)
     //toggleLvlCompleteBox()
     let numPics = defineNumPics(game)
     let area = clearGame()
