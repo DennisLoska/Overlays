@@ -44,12 +44,14 @@ function setScoreAndTime(game) {
     $('#js-game-timer').html(game.totalScore.toString().padStart(5, 0))
     //$('#js-game-timer').html("LEVEL TIMER 00:" + (game.level.time / 1000))
     $('#js-game-score-menu').html("SCORE " + game.levelScore.toString().padStart(3, 0))
+    
     let seconds =  Math.floor(game.timeNeeded / 1000)
     console.log("Seconds: " + seconds)
     let minutes = 0
     for(let i = 0; i < seconds; i++){
         if(i != 0 && (i % 60 == 0)){
             minutes++
+            seconds -= 60
         }
     }
     let preMinutes = "0" // add zero before minutes
