@@ -56,7 +56,7 @@ function resetScoreAndTime(game) {
     $('#js-game-timer-menu').html("TIME 00:00")
 }
 
-function showFailedMenu(game) {
+function showFailedMenu() {
     let failed = $('#fail-menu-container')
     $(failed).toggleClass('hide-box')
     $('#tnt-container').toggleClass('hide-box')
@@ -97,12 +97,17 @@ function updateFuseBar(optimum, timeLeft, time, fuse, clickCount) {
         'left': progressBarWidth + '%'
     }, 0.02).html()
 
-    if (timeLeft > time)
-        timeLeft = time - 0.02
-    if (timeLeft < time) {
-        timeOut = setTimeout(function () {
-            updateFuseBar(optimum, timeLeft + 0.02, time, fuse, clickCount)
-        }, 20)
+    if (fuseSize <= 0) {
+        showFailedMenu()
+        stopTimer()
+    } else {
+        if (timeLeft > time)
+            timeLeft = time - 0.02
+        if (timeLeft < time) {
+            timeOut = setTimeout(function () {
+                updateFuseBar(optimum, timeLeft + 0.02, time, fuse, clickCount)
+            }, 20)
+        }
     }
 }
 
