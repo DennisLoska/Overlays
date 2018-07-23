@@ -88,7 +88,7 @@ function updateFuseBar(optimum, timeLeft, time, fuse, clickCount) {
     let progressBarWidth = timeLeft * fuse.width() / time
     //console.log(fuseSize);
 
-    if (fuseSize <= 150) {
+    if (fuseSize < 100) {
         fuse.animate({
             width: progressBarWidth,
             'right': '5px'

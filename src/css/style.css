@@ -954,7 +954,7 @@ span#about-link:hover {
   #tnt-bar-wrapper #fuse-image {
     padding-top: 7px;
     height: 100%;
-    width: auto;
+    width: 48%;
     min-width: 0; }
 
 @media only screen and (max-width: 1440px) {
