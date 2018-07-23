@@ -102,32 +102,32 @@ function changeButtonBackground() {
     $('#btn-change-lvl').css('background-color', 'lightgrey')
 }
 
-function updateFuseBar(optimum, timeLeft, time, fuse, clickMax, clickCount) {
+function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
     if (clickCount == counter - 1) {
         clickCount++
     }
     if (clickCount >= clickMax)
         clickCount = clickMax
-    let fuseSize = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * time - timeLeft) / time)
+    let points = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * timeMax - timeOver) / timeMax)
     //Xs' = Xs - 200-p/200 * 100%
-    let progressBarWidth = 0 - (200 - fuseSize) / 200 * 100 * 80
-    console.log("progress", progressBarWidth)
-    console.log(fuseSize)
+    let progressBarPosition = 0 - (200 - points) / 200 * 100 * 80
+    console.log("progress", progressBarPosition)
+    console.log(points)
 
     fuse.animate({
-        //width: progressBarWidth,
-        'left': progressBarWidth + 'px'
+        //width: progressBarPosition,
+        'left': progressBarPosition + 'px'
     }, 0.02).html()
 
-    if (fuseSize <= 0) {
+    if (points <= 0) {
         showFailedMenu()
         stopTimer()
     } else {
-        if (timeLeft > time)
-            timeLeft = time - 0.02
-        if (timeLeft < time) {
+        if (timeOver > timeMax)
+            timeOver = timeMax - 0.02
+        if (timeOver < timeMax) {
             timeOut = setTimeout(function () {
-                updateFuseBar(optimum, timeLeft + 0.02, time, fuse, clickMax, clickCount)
+                updateFuseBar(optimum, timeOver + 0.02, timeMax, fuse, clickMax, clickCount)
             }, 20)
         }
     }
@@ -136,9 +136,9 @@ function updateFuseBar(optimum, timeLeft, time, fuse, clickMax, clickCount) {
 //TimeBar Fallback
 /*
 function progress(timeLeft, timeTotal, timeBar, clickMax, clickCount) {
-    let progressBarWidth = timeLeft * timeBar.width() / timeTotal
+    let progressBarPosition = timeLeft * timeBar.width() / timeTotal
     timeBar.children(0).animate({
-        width: progressBarWidth
+        width: progressBarPosition
     }, 0.02).html()
     if (clickCount == counter - 1)
         clickCount++
