@@ -454,7 +454,6 @@ a.nav-link:hover {
     border-radius: 5px;
     margin-top: 10px;
     width: 2px;
-    max-height: 950px;
     height: 42vw;
     opacity: .8;
     margin-right: auto;
@@ -472,8 +471,7 @@ a.nav-link:hover {
     z-index: 0;
     margin-top: -60%;
     display: none;
-    height: 20vw;
-    max-height: 750px; }
+    height: 20vw; }
   .tile-square-wrapper .show-rays {
     display: block; }
   .tile-square-wrapper #light-ray-0,
@@ -523,13 +521,13 @@ a.nav-link:hover {
   .tile-square-wrapper .js-hor-light-ray-2-3 {
     height: 125%; }
   .tile-square-wrapper .js-hor-light-ray-0-4 {
-    height: 450%; }
+    height: 60vw; }
   .tile-square-wrapper .js-hor-light-ray-1-4 {
-    height: 350%; }
+    height: 45vw; }
   .tile-square-wrapper .js-hor-light-ray-2-4 {
-    height: 250%; }
+    height: 30vw; }
   .tile-square-wrapper .js-hor-light-ray-3-4 {
-    height: 125%; }
+    height: 15vw; }
   .tile-square-wrapper .js-hor-light-ray-0-5 {
     height: 550%; }
   .tile-square-wrapper .js-hor-light-ray-1-5 {
@@ -582,7 +580,11 @@ a.nav-link:hover {
   @media only screen and (max-width: 1024px) {
     .tile-square-wrapper #js-game-score,
     .tile-square-wrapper #js-game-timer {
-      font-size: 2vw; } }
+      font-size: 2vw; }
+    .tile-square-wrapper .light-rays {
+      max-height: 950px; }
+    .tile-square-wrapper .horizontal-rays {
+      max-height: 750px; } }
 
 .tile-validation-wrapper {
   display: flex;

@@ -131,7 +131,6 @@
         border-radius: 5px;
         margin-top: 10px;
         width: 2px;
-        max-height: 950px;
         height: 42vw;
         opacity: .8;
         margin-right: auto;
@@ -151,7 +150,6 @@
         margin-top: -60%;
         display: none;
         height: 20vw;
-        max-height: 750px;
     }
     .show-rays {
         display: block;
@@ -218,16 +216,16 @@
         height: 125%;
     }
     .js-hor-light-ray-0-4 {
-        height: 450%;
+        height: 60vw;
     }
     .js-hor-light-ray-1-4 {
-        height: 350%;
+        height: 45vw;
     }
     .js-hor-light-ray-2-4 {
-        height: 250%;
+        height: 30vw;
     }
     .js-hor-light-ray-3-4 {
-        height: 125%;
+        height: 15vw;
     }
     .js-hor-light-ray-0-5 {
         height: 550%;
@@ -298,6 +296,12 @@
         #js-game-score,
         #js-game-timer {
             font-size: 2vw;
+        }
+        .light-rays {
+            max-height: 950px;
+        }
+        .horizontal-rays {
+            max-height: 750px;
         }
     }
 }
