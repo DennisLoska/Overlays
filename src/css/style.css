@@ -541,9 +541,9 @@ a.nav-link:hover {
   .tile-square-wrapper .js-hor-light-ray-4-5 {
     height: 125%; }
   .tile-square-wrapper .js-vert-light-ray-3 {
-    height: 450%; }
+    height: 510%; }
   .tile-square-wrapper .js-vert-light-ray-4 {
-    height: 550%; }
+    height: 520%; }
   .tile-square-wrapper .js-vert-light-ray-5 {
     height: 650%; }
   @media only screen and (max-width: 768px) {
@@ -597,8 +597,7 @@ a.nav-link:hover {
 
 @media only screen and (min-width: 1025px) {
   #js-game-wrapper {
-    padding: 30px;
-    padding-top: 0; } }
+    padding: 0px 30px; } }
 
 /*changing tile-sizes depending on 3x3, 4x4 or 5x5 and different devices */
 @media only screen and (max-width: 360px) {
@@ -692,11 +691,23 @@ a.nav-link:hover {
     margin-bottom: 2vh; }
   #game-container #js-game-timer,
   #game-container #js-game-score {
-    font-size: 2.5vw; } }
+    font-size: 2.5vw; }
+  .tile-square-wrapper .js-vert-light-ray-3 {
+    height: 510%; }
+  .tile-square-wrapper .js-vert-light-ray-4 {
+    height: 630%; }
+  .tile-square-wrapper .js-vert-light-ray-5 {
+    height: 650%; } }
 
 @media only screen and (max-width: 1024px) {
   .tile-row-4 {
-    margin-bottom: 4vh; } }
+    margin-bottom: 4vh; }
+  .tile-square-wrapper .js-vert-light-ray-3 {
+    height: 510%; }
+  .tile-square-wrapper .js-vert-light-ray-4 {
+    height: 600%; }
+  .tile-square-wrapper .js-vert-light-ray-5 {
+    height: 650%; } }
 
 @media only screen and (max-width: 1023px) {
   .tile-row-3 {
@@ -710,18 +721,38 @@ a.nav-link:hover {
   .tile-row-5:last-of-type {
     margin-bottom: 0; } }
 
+@media only screen and (max-width: 768px) {
+  #game-container #js-game-timer,
+  #game-container #js-game-score {
+    font-size: 5vw; }
+  .tile-square-wrapper .js-vert-light-ray-3 {
+    height: 510%; }
+  .tile-square-wrapper .js-vert-light-ray-4 {
+    height: 670%; }
+  .tile-square-wrapper .js-vert-light-ray-5 {
+    height: 650%; } }
+
 @media only screen and (max-width: 400px) {
   .tile-row-3 {
     margin-bottom: 2vh; }
   .tile-row-4 {
     margin-bottom: 1vh; }
   .tile-row-5 {
-    margin-bottom: 0.5vh; } }
+    margin-bottom: 0.5vh; }
+  .tile-square-wrapper .js-vert-light-ray-3 {
+    height: 510%; }
+  .tile-square-wrapper .js-vert-light-ray-4 {
+    height: 700%; }
+  .tile-square-wrapper .js-vert-light-ray-5 {
+    height: 650%; } }
 
-@media only screen and (max-width: 768px) {
-  #game-container #js-game-timer,
-  #game-container #js-game-score {
-    font-size: 5vw; } }
+@media only screen and (max-width: 575px) {
+  .tile-square-wrapper .js-vert-light-ray-3 {
+    height: 510%; }
+  .tile-square-wrapper .js-vert-light-ray-4 {
+    height: 800%; }
+  .tile-square-wrapper .js-vert-light-ray-5 {
+    height: 650%; } }
 
 #lp-row {
   height: 97.5vh;
