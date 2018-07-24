@@ -85,7 +85,7 @@ class Level {
         return this.grayScale
     }
 
-    get shapesPosition() {
+    get shapesPosition(){
         return this.similarShapes
     }
 
@@ -118,7 +118,7 @@ class Level {
            similarShapes = formen werden an ähnlichen positionen gemalt
            folderImage = benutze bild aus ordner anstatt vom generator */
 
-        this.levelSettings[0] = [4, 2, false, false, false, false, false]
+        this.levelSettings[0] = [3, 2, false, false, false, false, false]
         this.levelSettings[1] = [4, 2, false, false, false, true, false]
         this.levelSettings[2] = [4, 3, false, false, false, false, false]
         this.levelSettings[3] = [5, 2, false, false, false, false, false]
@@ -150,13 +150,13 @@ class Level {
         this.numOne = this.levelSettings[this.lvl][1]
         this.generateState = this.levelSettings[this.lvl][2]
 
-        let k = 50000000 / 2 // constant k = 5s 
-        let gen = 1
-        if (this.generateState == false) {
+        let k = 5000 / 2 // constant k = 5s 
+        let gen = 1 
+        if(this.generateState == false){
             gen = 0
         }
         //this.lvlTime = k * this.numPics * (1 + gen)
-        this.lvlTime = k * Math.log(this.numPics) / Math.log(2) * (1 + gen)
+        this.lvlTime = k * Math.log(this.numPics)/Math.log(2) * (1 + gen)
         console.log("level time: " + this.lvlTime)
 
         this.grayScale = this.levelSettings[this.lvl][3]
