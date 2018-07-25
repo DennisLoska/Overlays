@@ -89,7 +89,6 @@ class ImageGenerator {
  
                 ctx.fillStyle = color
                 ctx.fillRect(xStart + offsets[0], yStart + offsets[1], xEnd + offsets[2], yEnd + offsets[3])
-                //ctx.fillRect(20, 50, 105, 75)
             }
         }
         if (option == 2) {
@@ -120,7 +119,6 @@ class ImageGenerator {
                 ctx.fillStyle = color
                 ctx.beginPath()
                 ctx.arc(xPos, yPos, radius, 0, 2 * Math.PI)
-                //ctx.arc(80, 65, 42, 0, 2 * Math.PI)
                 ctx.fill()
                 ctx.closePath()
             }
@@ -161,9 +159,6 @@ class ImageGenerator {
                 ctx.moveTo(xPos, yPos)
                 ctx.lineTo(xPos + offset2, yPos + offset)
                 ctx.lineTo(yPos + offset, xPos)
-                //ctx.moveTo(110, 120)
-                //ctx.lineTo(105, 20)
-                //ctx.lineTo(20, 110)
                 ctx.fill()
                 ctx.closePath()      
             }
