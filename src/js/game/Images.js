@@ -1,7 +1,6 @@
 class Images {
 
-    // TODO: take out matrix as parameter for constructor when take out seed and tests!!
-    constructor(matrix, grayscale) {
+    constructor(grayscale) {
         this.imageNames = [
             "A2.jpg", "B2.jpg", "C2.jpg", "D2.jpg", "E2.jpg", // 0
             "A3.jpg", "B3.jpg", "C3.jpg", "D3.jpg", "E3.jpg", // 1
@@ -26,7 +25,6 @@ class Images {
         this.empty = undefined
         this.similarShapes = undefined
 
-        this.mInv = matrix
         this.gray = grayscale
     }
 
@@ -91,9 +89,7 @@ class Images {
         console.log("Generated images used.")
         this.images = new Array(this.numImages)
 
-        let seed = Math.floor(Math.random() * 1001) // generiert random Zahl zwischen 0 und 500 
-        // save good seed values: 474, 193, 4, 229, 221, 324, 112, 131, 378
-        let generator = new ImageGenerator(seed, this.numImages, this.mInv, this.gray)
+        let generator = new ImageGenerator(this.numImages, this.gray)
 
         // if level setting contains empty = true -> draw one image without shape
         let empty = this.empty // get from Level

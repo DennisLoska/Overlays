@@ -113,10 +113,10 @@ class GameEngine {
 
     loadImagesIntoLevel() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
-        this.findCombinations() // find combinations here to check colors with mInv
-        console.log("Inverse Matrix: " + this.mInv)
+        //this.findCombinations() // find combinations here to check colors with mInv
+        //console.log("Inverse Matrix: " + this.mInv)
 
-        let images = new Images(this.mInv, this.level.grayState)
+        let images = new Images(this.level.grayState)
         images.numImage = this.numPics
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
         images.emptyState = this.level.emptyState
@@ -172,7 +172,7 @@ class GameEngine {
 
     calculateImages() {
         if (this.doGenerate == true) { // generate basis from input images
-            //this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
+            this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
 
             this.basisPixels = new Array(this.numPics, undefined) // pixels of basis images [numPics][pixel]
             this.basisPixels3 = new Array(this.numPics, undefined) // use for user calculation later

@@ -106,11 +106,15 @@ function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
     if (clickCount == counter - 1) {
         clickCount++
     }
+    //console.log("timeover: " + timeOver)
     let points = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * timeMax - timeOver) / timeMax)
-    //Xs' = Xs - 200-p/200 * 70%
+    //Xs' = Xs - 200-p/200 * 100%
     let progressBarPosition = -(200 - points) / 200 * 81 * 0.7
+    //console.log("progress", progressBarPosition)
+    //console.log("points", points)
 
     fuse.animate({
+        //width: progressBarPosition,
         'left': progressBarPosition + '%'
     }, 0.02).html()
 
@@ -119,6 +123,9 @@ function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
         showFailedMenu()
         stopTimer()
     } else {
+        //if (timeOver > timeMax)
+        //    timeOver = timeMax - 0.02
+        //if (timeOver < timeMax) 
         timeOut = setTimeout(function () {
             updateFuseBar(optimum, timeOver + 0.02, timeMax, fuse, clickMax, clickCount)
         }, 20)
