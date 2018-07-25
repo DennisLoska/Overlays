@@ -1,4 +1,5 @@
 let timeOut
+let counter = 0
 
 function clickedTile(game) {
     let ray
@@ -11,7 +12,12 @@ function clickedTile(game) {
             ray.insertAfter($(this).children(0))
         $(this).children(0).next().toggleClass('show-rays')
         game.updateOnClick(row, col)
+        counter++
     })
+}
+
+function unbindTile() {
+    $('.js-card').parent().prop('onclick', null).off('click')
 }
 
 function setStars(game) {
@@ -33,26 +39,51 @@ function resetChange() {
 }
 
 function setScoreAndTime(game) {
-    $('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
-    $('#js-game-timer').html("LEVEL TIMER 00:" + (game.level.time / 1000))
+    //$('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
+    $('#js-game-score').html("TOTAL SCORE")
+    $('#js-game-timer').html(game.totalScore.toString().padStart(5, 0))
+    //$('#js-game-timer').html("LEVEL TIMER 00:" + (game.level.time / 1000))
     $('#js-game-score-menu').html("SCORE " + game.levelScore.toString().padStart(3, 0))
-    $('#js-game-timer-menu').html("TIME 00:" + (Math.floor((game.timeNeeded / 1000))))
+
+    let seconds = Math.floor(game.timeNeeded / 1000)
+    console.log("Seconds: " + seconds)
+    let minutes = 0
+    for (let i = 0; i < seconds; i++) {
+        if (i != 0 && (i % 60 == 0)) {
+            minutes++
+            seconds -= 60
+        }
+    }
+    let preMinutes = "0" // add zero before minutes
+    if (minutes > 9) {
+        preMinutes = ""
+    }
+    let preSeconds = "0" // add zero before seconds
+    if (seconds > 9) {
+        preSeconds = ""
+    }
+    let time = preMinutes + minutes.toString() + ":" + preSeconds + seconds.toString()
+    $('#js-game-timer-menu').html("TIME " + time)
 }
 
 function resetScoreAndTime(game) {
-    $('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
-    $('#js-game-timer').html("LEVEL TIME: 00:" + (game.level.time / 1000))
+    //$('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
+    $('#js-game-score').html("TOTAL SCORE ")
+    $('#js-game-timer').html(game.totalScore.toString().padStart(5, 0))
+    //$('#js-game-timer').html("LEVEL TIME: 00:" + (game.level.time / 1000))
     $('#js-game-score-menu').html("SCORE 000")
     $('#js-game-timer-menu').html("TIME 00:00")
 }
 
-function showFailedMenu(game) {
+function showFailedMenu() {
     let failed = $('#fail-menu-container')
     $(failed).toggleClass('hide-box')
+    $('#tnt-container').toggleClass('hide-box')
 }
 
 function showMenu() {
     $('#menu-container').toggleClass('hide-box')
+    $('#tnt-container').toggleClass('hide-box')
 }
 
 function clearGUI(game) {
@@ -63,6 +94,7 @@ function clearGUI(game) {
     if (game.failed)
         $('#fail-menu-container').toggleClass('hide-box')
     else $('#menu-container').toggleClass('hide-box')
+    $('#tnt-container').toggleClass('hide-box')
 }
 
 function changeButtonBackground() {
@@ -70,21 +102,56 @@ function changeButtonBackground() {
     $('#btn-change-lvl').css('background-color', 'lightgrey')
 }
 
-function updateFuseBar(game) {
+function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
+    if (clickCount == counter - 1) {
+        clickCount++
+    }
+    let points = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * timeMax - timeOver) / timeMax)
+    //Xs' = Xs - 200-p/200 * 70%
+    let progressBarPosition = -(200 - points) / 200 * 81 * 0.7
 
-}
+    fuse.animate({
+        'left': progressBarPosition + '%'
+    }, 0.02).html()
 
-function progress(timeleft, timetotal, timeBar) {
-    let progressBarWidth = timeleft * timeBar.width() / timetotal;
-    timeBar.children(0).animate({
-        width: progressBarWidth
-    }, 500).html();
-    if (timeleft > 0) {
+    if (points < 0) {
+        unbindTile()
+        showFailedMenu()
+        stopTimer()
+    } else {
         timeOut = setTimeout(function () {
-            progress(timeleft - 1, timetotal, timeBar);
-        }, 1000);
+            updateFuseBar(optimum, timeOver + 0.02, timeMax, fuse, clickMax, clickCount)
+        }, 20)
     }
 }
+
+//TimeBar Fallback
+/*
+function progress(timeLeft, timeTotal, timeBar, clickMax, clickCount) {
+    let progressBarPosition = timeLeft * timeBar.width() / timeTotal
+    timeBar.children(0).animate({
+        width: progressBarPosition
+    }, 0.02).html()
+    if (clickCount == counter - 1)
+        clickCount++
+        //TODO replace all these statements with the equation
+        if (clickCount > clickMax)
+            timeLeft -= 0.02
+    if (clickCount > clickMax + 1)
+        timeLeft -= 0.03
+    if (clickCount > clickMax + 2)
+        timeLeft -= 0.04
+    if (clickCount > clickMax + 3)
+        timeLeft -= 0.05
+    if (timeLeft < 0)
+        timeLeft = 0.02
+    if (timeLeft > 0) {
+        timeOut = setTimeout(function () {
+            progress(timeLeft - 0.02, timeTotal, timeBar, clickMax, clickCount)
+        }, 20)
+    }
+}
+*/
 
 function stopTimer() {
     clearTimeout(timeOut)
@@ -96,14 +163,31 @@ function stopTimer() {
  * implement new features on a weekly basis without the time to do things properly :(
  * 
  */
-function setBackgroundImg() {
-    let images = [
+function setBackgroundImg(game, levelNum) {
+    /*let images = [
         'back_1.png', 'back_2.jpg',
         'back_3.jpg', 'back_4.jpg', 'back_5.jpg',
         'back_6.jpg', 'back_7.jpg'
     ]
     let i = Math.floor(Math.random() * images.length) + 0
     let url = 'img/background/' + images[i]
+    $('#game-container').css('background-image', 'url(' + url + ')')*/
+
+    let images = [
+        'background-1.jpg', 'background-2.jpg',
+        'background-3.jpg', 'background-4.jpg', 'background-5.jpg',
+        'background-6.jpg', 'background-7.jpg',
+        'background-8.jpg', 'background-9.jpg',
+        'background-10.jpg', 'background-11.jpg', 'background-12.jpg',
+        'background-13.jpg', 'background-14.jpg',
+        'background-15.jpg', 'background-16.jpg',
+        'background-17.jpg', 'background-18.jpg', 'background-19.jpg',
+        'background-20.jpg', 'background-21.jpg',
+        'background-22.jpg'
+    ]
+    //let index = Math.floor(Math.random() * images.length) + 0
+    let index = levelNum
+    let url = 'img/background/' + images[index]
     $('#game-container').css('background-image', 'url(' + url + ')')
 }
 
@@ -116,8 +200,8 @@ function setBackgroundImg() {
  * number all cols and rows. These numbers are neccessary, since they will be used in the GameEngine
  * to determine, which exact tile was clicked.
  */
-function loadGameGUI(game) {
-    setBackgroundImg()
+function loadGameGUI(game, levelNo) {
+    setBackgroundImg(game, levelNo)
     //toggleLvlCompleteBox()
     let numPics = defineNumPics(game)
     let area = clearGame()
@@ -233,7 +317,7 @@ function createTimeTile() {
         'class': ' tile-square hide-shadow no-select'
     })
     tile.attr('id', 'js-game-timer')
-    tile.html('LEVEL TIMER')
+    tile.html('00000')
     return tile
 }
 
@@ -242,7 +326,7 @@ function createScoreTile() {
         'class': ' tile-square hide-shadow no-select'
     })
     tile.attr('id', 'js-game-score')
-    tile.html('TOTAL SCORE 00000')
+    tile.html('TOTAL SCORE')
     return tile
 }
 
@@ -289,7 +373,7 @@ function addVerticalRays(numPics) {
 }
 
 function addImageFrame() {
-    let frame = '<img class="frame-overlay no-select" src="img/bilderrahmen.png" alt="Bilderrahmen">'
+    let frame = '<img class="frame-overlay no-select" src="img/frame-5.png" alt="Bilderrahmen">'
     $(frame).insertAfter('.tile-square')
 }
 

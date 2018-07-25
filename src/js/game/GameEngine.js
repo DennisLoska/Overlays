@@ -34,13 +34,12 @@ class GameEngine {
     }
 
     updateOnClick(row, col) {
-        // 0. Track clicks and update FuseBar 
+        // 0. Track clicks
         /* timeBar fallback
         if (this.clickCounter == 0)
             progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
         */
         this.clickCounter += 1
-        updateFuseBar(this)
 
         // 1. update the value in the user matrix wUser[][]
         if (this.wUser[row][col] == 1)
@@ -72,6 +71,7 @@ class GameEngine {
         let correctCombs = this.getAmountOfCorrectCombinations()
         console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
+            unbindTile()
             console.log("Level completed with " + this.clickCounter + " clicks!")
             this.levelScore = this.returnScore(this.clickCounter)
             console.log("Score for this level: " + this.levelScore.toString())
@@ -92,31 +92,14 @@ class GameEngine {
             this.nextLevelClicked()
         }
     }
-    /*
-        changeClicked() {
-            $('#btn-change-lvl').click(function () {
-                let correctCombs = this.getAmountOfCorrectCombinations()
-                if (correctCombs != this.numPics) {
-                    stopTimer()
-                    this.loadLevel()
-                    loadGameGUI(this)
-                    clickedTile(this)
-                    resetStars(this)
-                    resetChange()
-                    resetScoreAndTime(this)
-                    this.clearArrays()
-                    this.loadImagesIntoLevel()
-                    clearGUI(this)
-                }
-            }.bind(this))
-        }
-    */
+
     nextLevelClicked() {
         $('#btn-next-lvl').click(function () {
             let correctCombs = this.getAmountOfCorrectCombinations()
             if (correctCombs == this.numPics) {
+                counter = 0
                 this.loadLevel()
-                loadGameGUI(this)
+                loadGameGUI(this, this.levelNumber)
                 clickedTile(this)
                 resetStars(this)
                 resetChange()
@@ -130,17 +113,21 @@ class GameEngine {
 
     loadImagesIntoLevel() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
-
         this.findCombinations() // find combinations here to check colors with mInv
         console.log("Inverse Matrix: " + this.mInv)
 
-        let images = new Images(this.mInv)
+        let images = new Images(this.mInv, this.level.grayState)
         images.numImage = this.numPics
         images.position = this.doGenerate // set position of target images (tell Images class where to draw)
+        images.emptyState = this.level.emptyState
+        images.similarPositions = this.level.shapesPosition
+
+        let useFolderImage = this.level.folderImageUse
 
         // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
-            if (this.levelNumber < 10) {
+            if (!useFolderImage) {
+                //if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.targetPixels = images.targetPixels
@@ -161,7 +148,8 @@ class GameEngine {
         } else {
             // read basis images
             //if (this.levelNumber % 2 == 0) {
-            if (this.levelNumber < 10) {
+            if (!useFolderImage) {
+                //if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.basisPixels = images.targetPixels
@@ -276,12 +264,23 @@ class GameEngine {
         // false: verwende die Bilder als Basisbilder und erzeuge Kombinatioen
         this.doGenerate = this.level.doGenerate
 
-        let backgroundImageSet = this.level.imageSet // image set number for the background 
-
-        $('#js-game-timer').html("LEVEL TIMER 00:" + (this.level.time / 1000))
+        //$('#js-game-timer').html("LEVEL TIMER 00:" + (this.level.time / 1000))
+        if (this.levelNumber > 1)
+            $('#js-game-timer').html(this.totalScore.toString().padStart(5, 0))
         $('#js-game-timer-menu').html("TIME 00:00")
         this.startTime = this.getTime()
-        progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
+
+        /* CALCULATION FOR NEW PROGRESS BAR */
+        let currentT = 0 // needs to be updated within the progress bar 
+        let optimum = this.level.clickOptimum
+        let clickMax = this.level.clickMaximum
+        let t = this.level.time / 1000
+        //let barSize = ((2 * optimum - this.clickCounter) / optimum) * 50 + 50 * ((2 * t - currentT) / t)
+
+        // barSize is 200 when game starts - visible progress if barSize < 100
+        //progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'), this.level.clickMaximum, 0)
+        stopTimer()
+        updateFuseBar(optimum, currentT, t, $('#fuse-image'), clickMax, 0) // replace progress with this
     }
 
     getTime() {
@@ -629,6 +628,10 @@ class GameEngine {
     printResult() {
         console.log("Lösung:", this.m)
         console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern (Inverse):", this.mInv)
+    }
+
+    get levelNo(){
+        return this.levelNumber
     }
 
 }
