@@ -46,7 +46,7 @@ function setScoreAndTime(game) {
     $('#js-game-score-menu').html("SCORE " + game.levelScore.toString().padStart(3, 0))
 
     let seconds = Math.floor(game.timeNeeded / 1000)
-    console.log("Seconds: " + seconds)
+    //console.log("Seconds: " + seconds)
     let minutes = 0
     for (let i = 0; i < seconds; i++) {
         if (i != 0 && (i % 60 == 0)) {

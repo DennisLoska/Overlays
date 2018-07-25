@@ -69,14 +69,14 @@ class GameEngine {
 
         // 5. check if all rows are finished / have the correct combinations => next level
         let correctCombs = this.getAmountOfCorrectCombinations()
-        console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
+        //console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
             unbindTile()
-            console.log("Level completed with " + this.clickCounter + " clicks!")
+            //console.log("Level completed with " + this.clickCounter + " clicks!")
             this.levelScore = this.returnScore(this.clickCounter)
-            console.log("Score for this level: " + this.levelScore.toString())
+            //console.log("Score for this level: " + this.levelScore.toString())
             this.totalScore += this.levelScore
-            console.log("Score: " + this.totalScore.toString())
+            //console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
             if (this.levelScore <= 0) {
                 this.failed = true
@@ -137,11 +137,11 @@ class GameEngine {
             } else {
                 // folder images 
                 images.folderImages(function (targetPixels) {
-                    console.log("Image in callback:", images)
+                    //console.log("Image in callback:", images)
                     this.targetPixels = targetPixels
                     this.width = images.images[0].width
                     this.height = images.images[0].height
-                    console.log("Targetpixels in callback:", images.targetPixels)
+                    //console.log("Targetpixels in callback:", images.targetPixels)
                     this.calculateImages()
                 }.bind(this)) // Bilder aus pics Ordner
             }
@@ -159,11 +159,11 @@ class GameEngine {
             } else {
                 // folder images 
                 images.folderImages(function (basisPixels) {
-                    console.log("Image in callback:", images)
+                    //console.log("Image in callback:", images)
                     this.basisPixels = basisPixels
                     this.width = images.images[0].width
                     this.height = images.images[0].height
-                    console.log("Basispixels in callback:", images.basisPixels)
+                    //console.log("Basispixels in callback:", images.basisPixels)
                     this.calculateImages()
                 }.bind(this)) // Bilder aus pics Ordner
             }
@@ -227,7 +227,7 @@ class GameEngine {
             imgData.data.set(calculatedImgData)
             ctx.putImageData(imgData, 0, 0)
         } catch (err) {
-            console.log("Could not draw images into canvas.", err.message)
+            //console.log("Could not draw images into canvas.", err.message)
         }
     }
 
@@ -243,13 +243,13 @@ class GameEngine {
             imgData.data.set(imgPixels)
             ctx.putImageData(imgData, 0, 0)
         } catch (err) {
-            console.log("Could not draw user image into canvas.", err.message)
+            //console.log("Could not draw user image into canvas.", err.message)
         }
     }
 
     calculateUserImage(wUserRow, index) {
         // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users - muss für jede Reihe einzelnd aufgerufen werden 
-        console.log("calculateUserImage()")
+        //console.log("calculateUserImage()")
         let pixelsBlended = this.blendPixelsOfUser(this.basisPixels3, wUserRow)
         this.userImagesPixels[index] = pixelsBlended
         return pixelsBlended
@@ -329,19 +329,19 @@ class GameEngine {
         let time = this.level.time // gesamt gegebene Zeit des Levels
         this.endTime = this.getTime()
         this.timeNeeded = this.endTime - this.startTime
-        console.log("Time needed: " + this.timeNeeded + " milliseconds or " + (this.timeNeeded / 1000) + " seconds.")
+        //console.log("Time needed: " + this.timeNeeded + " milliseconds or " + (this.timeNeeded / 1000) + " seconds.")
 
         let optimum = this.level.clickOptimum
         
         let points = ((2 * optimum - clicks) / optimum) * 50 + 50 * ((2 * time - this.timeNeeded) / time)
-        console.log("Points before cut: " + points)
+        //console.log("Points before cut: " + points)
         if(points > 100){
             points = 100
         } 
         if(points < 0){
             points = 0
         }
-        console.log("Points after cut: " + points)
+        //console.log("Points after cut: " + points)
 
         // Vergabe von Sternen
         let stars = 0
@@ -355,7 +355,7 @@ class GameEngine {
             stars = 0
         }
         this.stars = stars
-        console.log("Sterne für dieses Level: " + stars.toString())
+        //console.log("Sterne für dieses Level: " + stars.toString())
 
         return Math.floor(points)
     }
@@ -379,7 +379,7 @@ class GameEngine {
             while (matrix_invert(this.m) == undefined)
             success = true
             this.mInv = matrix_invert(this.m)
-            console.log("Inverted Matrix:", this.mInv)
+            //console.log("Inverted Matrix:", this.mInv)
             for (let i = 0; i < this.mInv.length; i++) {
                 for (let j = 0; j < this.mInv[i].length; j++) {
                     let val = this.mInv[i][j]
@@ -433,7 +433,7 @@ class GameEngine {
         // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
-        console.log("blendTargetAndBasisImagesPixels()")
+        //console.log("blendTargetAndBasisImagesPixels()")
         let pixels = new Array(pixelsIn[0].length)
         for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
             let r = 0
@@ -596,8 +596,8 @@ class GameEngine {
     }
 
     printResult() {
-        console.log("Lösung:", this.m)
-        console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern (Inverse):", this.mInv)
+        //console.log("Lösung:", this.m)
+        //console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern (Inverse):", this.mInv)
     }
 
     get levelNo(){

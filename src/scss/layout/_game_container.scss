@@ -7,6 +7,9 @@
     text-align: center;
     color: #efefef;
     padding: 0;
+    #js-game-wrapper {
+        overflow: hidden;
+    }
     #js-game-score,
     #js-game-timer {
         display: flex;
