@@ -16,7 +16,7 @@ class Level {
             this.levelSettings[i] = new Array()
         }
         this.setSettings()
-        this.printSettings()
+        //this.printSettings()
     }
 
     set level(level) {
@@ -73,7 +73,7 @@ class Level {
 
     get doGenerate() {
         let state = this.generateState
-        console.log("doGenerate: " + state)
+        //console.log("doGenerate: " + state)
         return state
     }
 
@@ -138,7 +138,7 @@ class Level {
         this.levelSettings[20] = [5, 4, false, false, false, false, true]
         this.levelSettings[21] = [5, 4, false, false, false, false, true]
 
-        console.log("Level:", this.lvl)
+        //console.log("Level:", this.lvl)
         this.numPics = this.levelSettings[this.lvl][0]
         this.numOne = this.levelSettings[this.lvl][1]
         this.generateState = this.levelSettings[this.lvl][2]
@@ -150,7 +150,7 @@ class Level {
         }
         //this.lvlTime = k * this.numPics * (1 + gen)
         this.lvlTime = k * Math.log(this.numPics)/Math.log(2) * (1 + gen)
-        console.log("level time: " + this.lvlTime)
+        //console.log("level time: " + this.lvlTime)
 
         this.grayScale = this.levelSettings[this.lvl][3]
         this.empty = this.levelSettings[this.lvl][4]

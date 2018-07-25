@@ -312,10 +312,10 @@ class ImageGenerator {
         }
     
         let index = Math.floor((Math.random() * setOfColors.length)) // zufälliges set 
-        console.log("Color set index: " + index)
+        //console.log("Color set index: " + index)
         this.colorsForImages = setOfColors[index]
 
-        console.log("Colors: " + this.colorsForImages)
+        //console.log("Colors: " + this.colorsForImages)
 
         return this.colorsForImages
     }

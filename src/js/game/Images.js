@@ -68,7 +68,7 @@ class Images {
                     this.images[i].height = canvas.height
                     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                     this.targetImgData[i] = imgData.data
-                    console.log("TargetImgData in Images-Loop:", this.targetImgData)
+                    //console.log("TargetImgData in Images-Loop:", this.targetImgData)
                     loadCounter++
                     if (loadCounter == this.numImages) {
                         debugger
@@ -80,22 +80,22 @@ class Images {
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
             }
         } catch (err) {
-            console.log("Could not load image from folder.", err.message)
+            //console.log("Could not load image from folder.", err.message)
         }
     }
 
     get generatedImages() {
         // instanziiere ImageGenerator und rufe randomImage() auf 
-        console.log("Generated images used.")
+        //console.log("Generated images used.")
         this.images = new Array(this.numImages)
 
         let generator = new ImageGenerator(this.numImages, this.gray)
 
         // if level setting contains empty = true -> draw one image without shape
         let empty = this.empty // get from Level
-        console.log("Empty: " + empty)
+        //console.log("Empty: " + empty)
         let indexOfEmptyImage = Math.floor((Math.random() * this.numImages))
-        console.log("Index for empty image: " + indexOfEmptyImage)
+        //console.log("Index for empty image: " + indexOfEmptyImage)
         // random index for empty image so that it's not always in the same position / picture
 
         try {
@@ -142,7 +142,7 @@ class Images {
             }
             this.targetImgData = targetImgData
         } catch (err) {
-            console.log("Could not load image from generator.", err.message)
+            //console.log("Could not load image from generator.", err.message)
         }
         this.width = this.images[0].width
         this.height = this.images[0].height
@@ -151,7 +151,7 @@ class Images {
 
     get targetPixels() {
         let targetPixels = this.targetImgData
-        console.log("Debug Targetpixels:", targetPixels)
+        //console.log("Debug Targetpixels:", targetPixels)
         return targetPixels
     }
 }
