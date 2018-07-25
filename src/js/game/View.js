@@ -170,7 +170,7 @@ function stopTimer() {
  * implement new features on a weekly basis without the time to do things properly :(
  * 
  */
-function setBackgroundImg(game, levelNum) {
+function setBackgroundImg(levelNum) {
     /*let images = [
         'back_1.png', 'back_2.jpg',
         'back_3.jpg', 'back_4.jpg', 'back_5.jpg',
@@ -208,7 +208,7 @@ function setBackgroundImg(game, levelNum) {
  * to determine, which exact tile was clicked.
  */
 function loadGameGUI(game, levelNo) {
-    setBackgroundImg(game, levelNo)
+    setBackgroundImg(levelNo)
     //toggleLvlCompleteBox()
     let numPics = defineNumPics(game)
     let area = clearGame()
