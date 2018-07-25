@@ -529,15 +529,15 @@ a.nav-link:hover {
   .tile-square-wrapper .js-hor-light-ray-3-4 {
     height: 15vw; }
   .tile-square-wrapper .js-hor-light-ray-0-5 {
-    height: 550%; }
+    height: 65vw; }
   .tile-square-wrapper .js-hor-light-ray-1-5 {
-    height: 450%; }
+    height: 53vw; }
   .tile-square-wrapper .js-hor-light-ray-2-5 {
-    height: 350%; }
+    height: 40vw; }
   .tile-square-wrapper .js-hor-light-ray-3-5 {
-    height: 250%; }
+    height: 25vw; }
   .tile-square-wrapper .js-hor-light-ray-4-5 {
-    height: 125%; }
+    height: 12vw; }
   .tile-square-wrapper .js-vert-light-ray-3 {
     height: 510%; }
   .tile-square-wrapper .js-vert-light-ray-4 {
@@ -713,7 +713,7 @@ a.nav-link:hover {
   .tile-square-wrapper .js-vert-light-ray-4 {
     height: 630%; }
   .tile-square-wrapper .js-vert-light-ray-5 {
-    height: 650%; } }
+    height: 720%; } }
 
 @media only screen and (max-width: 1024px) {
   .tile-row-4 {
@@ -723,7 +723,7 @@ a.nav-link:hover {
   .tile-square-wrapper .js-vert-light-ray-4 {
     height: 600%; }
   .tile-square-wrapper .js-vert-light-ray-5 {
-    height: 650%; } }
+    height: 690%; } }
 
 @media only screen and (max-width: 1023px) {
   .tile-row-3 {
@@ -746,7 +746,7 @@ a.nav-link:hover {
   .tile-square-wrapper .js-vert-light-ray-4 {
     height: 670%; }
   .tile-square-wrapper .js-vert-light-ray-5 {
-    height: 650%; } }
+    height: 790%; } }
 
 @media only screen and (max-width: 575px) {
   .tile-square-wrapper .js-vert-light-ray-3 {
@@ -754,7 +754,7 @@ a.nav-link:hover {
   .tile-square-wrapper .js-vert-light-ray-4 {
     height: 800%; }
   .tile-square-wrapper .js-vert-light-ray-5 {
-    height: 650%; } }
+    height: 830%; } }
 
 @media only screen and (max-width: 400px) {
   .tile-row-3 {
@@ -768,7 +768,7 @@ a.nav-link:hover {
   .tile-square-wrapper .js-vert-light-ray-4 {
     height: 700%; }
   .tile-square-wrapper .js-vert-light-ray-5 {
-    height: 650%; } }
+    height: 820%; } }
 
 #lp-row {
   height: 97.5vh;
