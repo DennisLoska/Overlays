@@ -207,13 +207,13 @@
     }
     /* individual length of horizontal rays per col and game-type (3,4 or 5 tiles per row) tiles --> numPics */
     .js-hor-light-ray-0-3 {
-        height: 350%;
+        height: 55vw;
     }
     .js-hor-light-ray-1-3 {
-        height: 250%;
+        height: 35vw;
     }
     .js-hor-light-ray-2-3 {
-        height: 125%;
+        height: 20vw;
     }
     .js-hor-light-ray-0-4 {
         height: 60vw;
@@ -228,19 +228,19 @@
         height: 15vw;
     }
     .js-hor-light-ray-0-5 {
-        height: 550%;
+        height: 65vw;
     }
     .js-hor-light-ray-1-5 {
-        height: 450%;
+        height: 53vw;
     }
     .js-hor-light-ray-2-5 {
-        height: 350%;
+        height: 40vw;
     }
     .js-hor-light-ray-3-5 {
-        height: 250%;
+        height: 25vw;
     }
     .js-hor-light-ray-4-5 {
-        height: 125%;
+        height: 12vw;
     }
     /* individual length of vertical rays per col and amount of tiles --> numPics */
     .js-vert-light-ray-3 {
@@ -422,6 +422,15 @@
     #game-container #js-game-score {
         font-size: 3vw;
     }
+    .tile-square-wrapper .js-vert-light-ray-3 {
+        height: 610%;
+    }
+    .tile-square-wrapper .js-vert-light-ray-4 {
+        height: 560%;
+    }
+    .tile-square-wrapper .js-vert-light-ray-5 {
+        height: 650%;
+    }
 }
 
 /* row-margins for 3x3, 4x4 and 5x5 */
@@ -442,6 +451,17 @@
     }
 }
 
+@media only screen and (min-width: 1500px) {
+    .tile-square-wrapper .js-vert-light-ray-3 {
+        height: 510%;
+    }
+    .tile-square-wrapper .js-vert-light-ray-4 {
+        height: 520%;
+    }
+    .tile-square-wrapper .js-vert-light-ray-5 {
+        height: 650%;
+    }
+}
 @media only screen and (min-width: 2000px) {
     .tile-row-3 {
         margin-bottom: 8vh;
@@ -457,13 +477,13 @@
         font-size: 2.5vw;
     }
     .tile-square-wrapper .js-vert-light-ray-3 {
-        height: 510%;
+        height: 620%;
     }
     .tile-square-wrapper .js-vert-light-ray-4 {
         height: 630%;
     }
     .tile-square-wrapper .js-vert-light-ray-5 {
-        height: 650%;
+        height: 720%;
     }
 }
 
@@ -472,13 +492,13 @@
         margin-bottom: 4vh;
     }
     .tile-square-wrapper .js-vert-light-ray-3 {
-        height: 510%;
+        height: 550%;
     }
     .tile-square-wrapper .js-vert-light-ray-4 {
         height: 600%;
     }
     .tile-square-wrapper .js-vert-light-ray-5 {
-        height: 650%;
+        height: 690%;
     }
 }
 
@@ -505,13 +525,25 @@
         font-size: 5vw;
     }
     .tile-square-wrapper .js-vert-light-ray-3 {
-        height: 510%;
+        height: 600%;
     }
     .tile-square-wrapper .js-vert-light-ray-4 {
         height: 670%;
     }
     .tile-square-wrapper .js-vert-light-ray-5 {
+        height: 790%;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .tile-square-wrapper .js-vert-light-ray-3 {
         height: 650%;
+    }
+    .tile-square-wrapper .js-vert-light-ray-4 {
+        height: 800%;
+    }
+    .tile-square-wrapper .js-vert-light-ray-5 {
+        height: 830%;
     }
 }
 
@@ -526,24 +558,12 @@
         margin-bottom: 0.5vh;
     }
     .tile-square-wrapper .js-vert-light-ray-3 {
-        height: 510%;
+        height: 640%;
     }
     .tile-square-wrapper .js-vert-light-ray-4 {
         height: 700%;
     }
     .tile-square-wrapper .js-vert-light-ray-5 {
-        height: 650%;
-    }
-}
-
-@media only screen and (max-width: 575px) {
-    .tile-square-wrapper .js-vert-light-ray-3 {
-        height: 510%;
-    }
-    .tile-square-wrapper .js-vert-light-ray-4 {
-        height: 800%;
-    }
-    .tile-square-wrapper .js-vert-light-ray-5 {
-        height: 650%;
+        height: 820%;
     }
 }
