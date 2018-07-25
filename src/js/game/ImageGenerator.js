@@ -139,9 +139,9 @@ class ImageGenerator {
                 ctx.closePath()
             } else {
                 let offset = Math.floor(Math.random() * this.width/4) + 50 // min offset of 50
-                //offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
-                let offset2 = Math.floor(Math.random() * this.width/4) + 50
-                //offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+                offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
+                let offset2 = Math.floor(Math.random() * this.width/4) + 20
+                offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
     
                 // random position to start
                 let xPos = 0
@@ -158,7 +158,7 @@ class ImageGenerator {
                 ctx.beginPath()
                 ctx.moveTo(xPos, yPos)
                 ctx.lineTo(xPos + offset2, yPos + offset)
-                ctx.lineTo(yPos + offset2, xPos)
+                ctx.lineTo(yPos + offset, xPos)
                 ctx.fill()
                 ctx.closePath()      
             }
