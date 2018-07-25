@@ -118,7 +118,7 @@ class Level {
            similarShapes = formen werden an ähnlichen positionen gemalt
            folderImage = benutze bild aus ordner anstatt vom generator */
 
-        this.levelSettings[0] = [5, 2, false, false, false, false, false]
+        this.levelSettings[0] = [3, 2, false, false, false, false, false]
         this.levelSettings[1] = [4, 2, false, false, false, true, false]
         this.levelSettings[2] = [4, 3, false, false, false, false, false]
         this.levelSettings[3] = [5, 2, false, false, false, false, false]
@@ -150,7 +150,7 @@ class Level {
         this.numOne = this.levelSettings[this.lvl][1]
         this.generateState = this.levelSettings[this.lvl][2]
 
-        let k = 500000 / 2 // constant k = 5s 
+        let k = 5000 / 2 // constant k = 5s 
         let gen = 1 
         if(this.generateState == false){
             gen = 0
