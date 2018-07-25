@@ -94,15 +94,8 @@ class Level {
     }
 
     calculateClicksForScore() {
-        let maximum
-        let optimum
-
-        //maximum = (parseInt(Math.pow(2, this.numPictures)) - this.numOne) * this.numPictures
-        optimum = this.numPictures * this.numOne
-        maximum = 2 * optimum // alternativ: * this.numOne anstatt * 2
-
-        console.log("Optimum clicks: " + optimum)
-        console.log("Maximum clicks: " + maximum)
+        let optimum = this.numPictures * this.numOne
+        let maximum = 2 * optimum
 
         this.clickMax = maximum
         this.clickOpt = optimum
@@ -118,18 +111,18 @@ class Level {
            similarShapes = formen werden an ähnlichen positionen gemalt
            folderImage = benutze bild aus ordner anstatt vom generator */
 
-        this.levelSettings[0] = [3, 2, true, false, false, false, false]
+        this.levelSettings[0] = [3, 2, false, false, false, false, false]
         this.levelSettings[1] = [4, 2, false, false, false, true, false]
         this.levelSettings[2] = [4, 3, false, false, false, false, false]
-        this.levelSettings[3] = [5, 2, false, false, false, false, false]
-        this.levelSettings[4] = [5, 3, false, false, false, false, false]
+        this.levelSettings[3] = [5, 3, false, false, false, false, false]
+        this.levelSettings[4] = [5, 3, false, false, true, false, false]
 
-        this.levelSettings[5] = [3, 2, true, true, false, false, false] // grau
+        this.levelSettings[5] = [3, 2, true, true, false, true, false] // grau
         this.levelSettings[6] = [3, 2, true, true, true, false, false] // grau und leer 
         this.levelSettings[7] = [3, 2, true, false, true, false, false] // bunt und leer
         this.levelSettings[8] = [4, 2, true, false, false, false, false] // bunt
         this.levelSettings[9] = [4, 2, true, false, true, false, false] // bunt und leer
-        this.levelSettings[10] = [4, 3, false, false, false, false, false]
+        this.levelSettings[10] = [4, 3, false, false, false, true, false]
         this.levelSettings[11] = [4, 3, true, false, false, false, false]
 
         // zwischendurch auch mal realsitische Bilder, die in die jeweilige Phase reinpassen 
