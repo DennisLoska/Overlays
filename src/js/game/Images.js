@@ -61,7 +61,6 @@ class Images {
     folderImages(callback) {
         this.images = new Array(this.numImages)
         try {
-            //let targetImgData = new Array()
             let loadCounter = 0
             for (let i = 0; i < this.numImages; i++) {
                 this.images[i] = new Image()
@@ -78,7 +77,6 @@ class Images {
                     this.images[i].height = canvas.height
                     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                     this.targetImgData[i] = imgData.data
-                    //console.log("TargetImgData in Images-Loop:", this.targetImgData)
                     loadCounter++
                     if (loadCounter == this.numImages) {
                         debugger
@@ -96,16 +94,13 @@ class Images {
 
     get generatedImages() {
         // instanziiere ImageGenerator und rufe randomImage() auf 
-        //console.log("Generated images used.")
         this.images = new Array(this.numImages)
 
         let generator = new ImageGenerator(this.numImages, this.gray)
 
         // if level setting contains empty = true -> draw one image without shape
         let empty = this.empty // get from Level
-        //console.log("Empty: " + empty)
         let indexOfEmptyImage = Math.floor((Math.random() * this.numImages))
-        //console.log("Index for empty image: " + indexOfEmptyImage)
         // random index for empty image so that it's not always in the same position / picture
 
         try {
@@ -141,7 +136,7 @@ class Images {
                 if(empty == true && i == indexOfEmptyImage){
                     // Zeile kann man auch ganz weglassen, falls in addShapes sonst nichts anderes mehr passiert
                     // empty kann man als Parameter in Methode dann ganz weglassen
-                    generator.addShapes(ctx, i, true, this.similarShapes) // true = don't draw shape
+                    //generator.addShapes(ctx, i, true, this.similarShapes) // true = don't draw shape
                 } else{
                     generator.addShapes(ctx, i, false, this.similarShapes) // false = draw shape
                 }
