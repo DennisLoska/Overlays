@@ -2,6 +2,7 @@ class GameEngine {
     constructor(levelNumber) {
         this.levelNumber = levelNumber
         this.loadLevel()
+
         this.wUser = new Array(this.numPics, this.numPics) // matrix der userwauswahl
         //inserting dummy-values into wUser - zeros
         for (let i = 0; i < this.numPics; i++) {
@@ -9,6 +10,7 @@ class GameEngine {
             for (let j = 0; j < this.numPics; j++)
                 this.wUser[i][j] = 0
         }
+
         this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
         this.correctUserCombinations = new Array(this.numPics) // 1 wenn richtige kombination, 0 wenn falsch
         this.maxWeight = 1 // 0.51, 0.71.. 2.01
@@ -19,26 +21,8 @@ class GameEngine {
         this.loadImagesIntoLevel()
     }
 
-    initializeUserImages() {
-        // calculate all user images in the beginning with matrix filled with 0 
-        let matrixValuesRow = new Array(this.numPics)
-        for (let j = 0; j < this.numPics; j++) {
-            matrixValuesRow[j] = 0
-        }
-
-        let currentUserImg = new Array()
-        for (let row = 0; row < this.numPics; row++) {
-            currentUserImg = this.calculateUserImage(matrixValuesRow, row) // returned pixel array
-            this.drawUserImage(row, currentUserImg)
-        }
-    }
-
     updateOnClick(row, col) {
         // 0. Track clicks
-        /* timeBar fallback
-        if (this.clickCounter == 0)
-            progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'))
-        */
         this.clickCounter += 1
 
         // 1. update the value in the user matrix wUser[][]
@@ -52,7 +36,7 @@ class GameEngine {
 
         // 3. berechne das aktuelle Zielbild, ausgehend von der Userauswahl und zeichne es
         let currentUserImg = new Array()
-        currentUserImg = this.calculateUserImage(wUserRow, row) // returned pixel array
+        currentUserImg = this.calculateUserImage(wUserRow, row) // returns pixel array
         this.drawUserImage(row, currentUserImg)
 
         // 4. check if the row is now completed; the right result in this row
@@ -69,14 +53,12 @@ class GameEngine {
 
         // 5. check if all rows are finished / have the correct combinations => next level
         let correctCombs = this.getAmountOfCorrectCombinations()
-        //console.log("Total amount of correct combinations: " + correctCombs.toString() + " of " + this.numPics)
         if (correctCombs == this.numPics) {
             unbindTile()
-            //console.log("Level completed with " + this.clickCounter + " clicks!")
-            //this.levelScore = this.returnScore(this.clickCounter)
             this.endTime = this.getTime()
             this.timeNeeded = this.endTime - this.startTime
-            
+
+            // return score 
             this.levelScore = getPoints()
             if(this.levelScore < 0){
                 this.levelScore = 0
@@ -84,9 +66,9 @@ class GameEngine {
             if(this.levelScore > 100){
                 this.levelScore = 100
             }
-            //console.log("Score for this level: " + this.levelScore.toString())
             this.totalScore += this.levelScore
 
+            // return stars 
             let stars = 0
             if (points >= 100 * 2 / 3) {
                 stars = 3
@@ -99,8 +81,8 @@ class GameEngine {
             }
             this.stars = stars
 
-            //console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
+            
             if (this.levelScore <= 0) {
                 this.failed = true
                 showFailedMenu()
@@ -137,8 +119,6 @@ class GameEngine {
 
     loadImagesIntoLevel() {
         // lade die grundlegenden Bilder (aus dem pics Ordner oder mit dem generator)
-        //this.findCombinations() // find combinations here to check colors with mInv
-        //console.log("Inverse Matrix: " + this.mInv)
 
         let images = new Images(this.level.grayState)
         images.numImage = this.numPics
@@ -146,13 +126,11 @@ class GameEngine {
         images.emptyState = this.level.emptyState
         images.similarPositions = this.level.shapesPosition
 
-        let useFolderImage = this.level.folderImageUse
+        let useFolderImage = this.level.folderImageUse // defines use of folder images or generated images
 
-        // für die ersten 3 Level generierte Bilder nehmen, danach wieder die Images aus dem Ordner 
         if (this.doGenerate == true) {
             if (!useFolderImage) {
-                //if (this.levelNumber < 10) {
-                // generated images 
+                // generated images
                 images.generatedImages
                 this.targetPixels = images.targetPixels
                 this.width = images.images[0].width
@@ -161,19 +139,15 @@ class GameEngine {
             } else {
                 // folder images 
                 images.folderImages(function (targetPixels) {
-                    //console.log("Image in callback:", images)
                     this.targetPixels = targetPixels
                     this.width = images.images[0].width
                     this.height = images.images[0].height
-                    //console.log("Targetpixels in callback:", images.targetPixels)
                     this.calculateImages()
                 }.bind(this)) // Bilder aus pics Ordner
             }
         } else {
             // read basis images
-            //if (this.levelNumber % 2 == 0) {
             if (!useFolderImage) {
-                //if (this.levelNumber < 10) {
                 // generated images 
                 images.generatedImages
                 this.basisPixels = images.targetPixels
@@ -183,11 +157,9 @@ class GameEngine {
             } else {
                 // folder images 
                 images.folderImages(function (basisPixels) {
-                    //console.log("Image in callback:", images)
                     this.basisPixels = basisPixels
                     this.width = images.images[0].width
                     this.height = images.images[0].height
-                    //console.log("Basispixels in callback:", images.basisPixels)
                     this.calculateImages()
                 }.bind(this)) // Bilder aus pics Ordner
             }
@@ -196,7 +168,7 @@ class GameEngine {
 
     calculateImages() {
         if (this.doGenerate == true) { // generate basis from input images
-            this.findCombinations() // finde eine Konfiguration m mit Zeilensummen von mInv > 0
+            this.findCombinations() // finde eine Konfiguration Matrix m mit Zeilensummen von mInv > 0
 
             this.basisPixels = new Array(this.numPics, undefined) // pixels of basis images [numPics][pixel]
             this.basisPixels3 = new Array(this.numPics, undefined) // use for user calculation later
@@ -218,7 +190,7 @@ class GameEngine {
                     this.mInv[i][j] = 0
             }
             for (let i = 0; i < this.numPics; i++) {
-                this.mInv[i][i] = 1 //1./numOnes;
+                this.mInv[i][i] = 1
             }
 
             for (let i = 0; i < this.numPics; i++) {
@@ -233,8 +205,7 @@ class GameEngine {
             }
         }
 
-        this.initializeUserImages()
-        this.printResult()
+        //this.printResult()
     }
 
     drawImagesInCanvas(calculatedImgData, index) {
@@ -273,7 +244,6 @@ class GameEngine {
 
     calculateUserImage(wUserRow, index) {
         // berechnet das Ergebnisbild basierend auf der Matrixauswahl des Users - muss für jede Reihe einzelnd aufgerufen werden 
-        //console.log("calculateUserImage()")
         let pixelsBlended = this.blendPixelsOfUser(this.basisPixels3, wUserRow)
         this.userImagesPixels[index] = pixelsBlended
         return pixelsBlended
@@ -294,15 +264,14 @@ class GameEngine {
         $('#js-game-timer-menu').html("TIME 00:00")
         this.startTime = this.getTime()
 
-        /* CALCULATION FOR NEW PROGRESS BAR */
-        let currentT = 0 // needs to be updated within the progress bar 
+        let currentT = 0 // updated within the progress bar
         let optimum = this.level.clickOptimum
         let clickMax = this.level.clickMaximum
-        let t = this.level.time / 1000
-        //let barSize = ((2 * optimum - this.clickCounter) / optimum) * 50 + 50 * ((2 * t - currentT) / t)
+        let t = this.level.time / 1000 // millisecs
 
-        // barSize is 200 when game starts - visible progress if barSize < 100
-        //progress(this.level.time / 1000, this.level.time / 1000, $('#time-bar-wrapper'), this.level.clickMaximum, 0)
+        // let barSize = ((2 * optimum - this.clickCounter) / optimum) * 50 + 50 * ((2 * t - currentT) / t)
+        // barSize / points = 200 when game starts
+
         stopTimer()
         updateFuseBar(optimum, currentT, t, $('#fuse-image'), clickMax, 0) // replace progress with this
     }
@@ -319,9 +288,8 @@ class GameEngine {
         let minutes = m + h * 60
         let seconds = s + minutes * 60
         let milliseconds = ms + seconds * 1000
-
+       
         t = milliseconds
-
         return t
     }
 
@@ -347,42 +315,6 @@ class GameEngine {
             this.correctUserCombinations[i] = 0
         }
         this.clickCounter = 0 // resets clickCounter
-    }
-
-    returnScore(clicks) {
-        let time = this.level.time // gesamt gegebene Zeit des Levels
-        this.endTime = this.getTime()
-        this.timeNeeded = this.endTime - this.startTime
-        //console.log("Time needed: " + this.timeNeeded + " milliseconds or " + (this.timeNeeded / 1000) + " seconds.")
-
-        let optimum = this.level.clickOptimum
-        console.log("Clicks: " + clicks)
-        
-        let points = ((2 * optimum - clicks) / optimum) * 50 + 50 * ((2 * time - this.timeNeeded) / time)
-        console.log("Points before cut: " + points)
-        if(points > 100){
-            points = 100
-        } 
-        if(points < 0){
-            points = 0
-        }
-        console.log("Points after cut: " + points)
-
-        // Vergabe von Sternen
-        let stars = 0
-        if (points >= 100 * 2 / 3) {
-            stars = 3
-        } else if (points < 100 * 2 / 3 && points >= 100 * 1 / 3) {
-            stars = 2
-        } else if (points < 100 * 1 / 3) {
-            stars = 1
-        } else if (points == 0) {
-            stars = 0
-        }
-        this.stars = stars
-        //console.log("Sterne für dieses Level: " + stars.toString())
-
-        return Math.floor(points)
     }
 
     comparePictures(index, wUserRow) {
@@ -457,8 +389,6 @@ class GameEngine {
     blendTargetAndBasisImagesPixels(pixelsIn, w) {
         // w[i] sind gewichte - nehme ich das Bild (ja oder nein?)
         // fi damit verschiebt man die Werte zum Zerolevel (-128)
-        // fi damit verschiebt man die Werte zum Zerolevel (-128)
-        //console.log("blendTargetAndBasisImagesPixels()")
         let pixels = new Array(pixelsIn[0].length)
         for (let i = 0; i < pixels.length; i += 4) { // i läuft gegen width * height * 4, also i+=4
             let r = 0
@@ -480,6 +410,7 @@ class GameEngine {
             g = Math.min(Math.max(0, this.fi(g)), 255)
             b = Math.min(Math.max(0, this.fi(b)), 255)
             a = 255
+
             pixels[i + 0] = Math.floor(r)
             pixels[i + 1] = Math.floor(g)
             pixels[i + 2] = Math.floor(b)
@@ -626,12 +557,8 @@ class GameEngine {
     }
 
     printResult() {
-        //console.log("Lösung:", this.m)
-        //console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern (Inverse):", this.mInv)
-    }
-
-    get levelNo(){
-        return this.levelNumber
+        console.log("Lösung:", this.m)
+        console.log("Zusammensetzung der Basisbilder aus den Eingangsbildern (Inverse):", this.mInv)
     }
 
 }

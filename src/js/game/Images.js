@@ -26,7 +26,6 @@ class Images {
         this.imageSet = Math.floor(Math.random() * 13)
 
         this.images = []
-        this.imageData = []
         this.numImages = undefined
         this.width = undefined
         this.height = undefined
@@ -93,7 +92,7 @@ class Images {
     }
 
     get generatedImages() {
-        // instanziiere ImageGenerator und rufe randomImage() auf 
+        // instanziiere ImageGenerator und rufe randomImagePixels() auf 
         this.images = new Array(this.numImages)
 
         let generator = new ImageGenerator(this.numImages, this.gray)
@@ -131,16 +130,11 @@ class Images {
                 ctx.putImageData(imgData, 0, 0)
 
                 // put random shape of random color on picture
-                // generator.addShapes(ctx, i, false) // i = index of image
-                // i = index of image, false = not empty
                 if(empty == true && i == indexOfEmptyImage){
-                    // Zeile kann man auch ganz weglassen, falls in addShapes sonst nichts anderes mehr passiert
-                    // empty kann man als Parameter in Methode dann ganz weglassen
-                    //generator.addShapes(ctx, i, true, this.similarShapes) // true = don't draw shape
+                    //console.log("Do not draw shapes for image position " + i)
                 } else{
-                    generator.addShapes(ctx, i, false, this.similarShapes) // false = draw shape
+                    generator.addShapes(ctx, i, this.similarShapes) // false = draw shape
                 }
-
 
                 let imgDataWithShapes = ctx.getImageData(0, 0, canvas.width, canvas.height)
                 targetImgData.push(imgDataWithShapes.data)
@@ -151,12 +145,10 @@ class Images {
         }
         this.width = this.images[0].width
         this.height = this.images[0].height
-        return this.images
     }
 
     get targetPixels() {
         let targetPixels = this.targetImgData
-        //console.log("Debug Targetpixels:", targetPixels)
         return targetPixels
     }
 }

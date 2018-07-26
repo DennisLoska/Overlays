@@ -5,29 +5,17 @@ class ImageGenerator {
         this.height = 150
         //The * 4 at the end represent RGBA which we need to be compatible with canvas.
         this.rndImagePixels = new Uint8ClampedArray(this.width * this.height * 4)
-        let grayBackground = true
 
-        // generate color between 0 and 255
-        let randomR = Math.floor((Math.random() * 256))
-        let randomG = Math.floor((Math.random() * 256))
-        let randomB = Math.floor((Math.random() * 256))
         let graylevel = 128 // gray level for background
 
-        // fill background
+        // fill background with graylevel
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 let pos = (y * this.width + x) * 4 // position in buffer based on x and y
-                if (grayBackground == true) {
-                    this.rndImagePixels[pos + 0] = graylevel // R
-                    this.rndImagePixels[pos + 1] = graylevel // G
-                    this.rndImagePixels[pos + 2] = graylevel // B
-                    this.rndImagePixels[pos + 3] = 255 // A
-                } else {
-                    this.rndImagePixels[pos + 0] = randomR // R
-                    this.rndImagePixels[pos + 1] = randomG // G
-                    this.rndImagePixels[pos + 2] = randomB // B
-                    this.rndImagePixels[pos + 3] = 255 // A 
-                }
+                this.rndImagePixels[pos + 0] = graylevel // R
+                this.rndImagePixels[pos + 1] = graylevel // G
+                this.rndImagePixels[pos + 2] = graylevel // B
+                this.rndImagePixels[pos + 3] = 255 // A
             }
         }
 
@@ -48,14 +36,10 @@ class ImageGenerator {
         return this.rndImagePixels
     }
 
-    addShapes(ctx, index, empty, similar) {
+    addShapes(ctx, index, similar) {
         // add random shapes in random colors to the image
-        // empty = boolean if one picture should be empty
         // similar = boolean if shapes should be in similar positions
         let color = this.colorsForImages[index]
-
-        if(!empty){ 
-        // if empty - don't draw anything
 
         let option = Math.floor(Math.random() * 3) + 1
         //let option = this.counter % 3+1 //static option
@@ -140,7 +124,7 @@ class ImageGenerator {
             } else {
                 let offset = Math.floor(Math.random() * this.width/4) + 50 // min offset of 50
                 offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
-                let offset2 = Math.floor(Math.random() * this.width/4) + 20
+                let offset2 = Math.floor(Math.random() * this.width/4) + 20 // min offset of 20
                 offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
     
                 // random position to start
@@ -163,8 +147,6 @@ class ImageGenerator {
                 ctx.closePath()      
             }
         }
-
-        } // close of if(!empty)
 
         //this.counter++ //static option
     }
