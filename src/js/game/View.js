@@ -1,5 +1,6 @@
 let timeOut
 let counter = 0
+let points
 
 function clickedTile(game) {
     let ray
@@ -107,7 +108,7 @@ function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
         clickCount++
     }
     //console.log("timeover: " + timeOver)
-    let points = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * timeMax - timeOver) / timeMax)
+    points = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * timeMax - timeOver) / timeMax)
     //Xs' = Xs - 200-p/200 * 100%
     let progressBarPosition = -(200 - points) / 200 * 81 * 0.7
     //console.log("progress", progressBarPosition)
@@ -130,6 +131,10 @@ function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
             updateFuseBar(optimum, timeOver + 0.02, timeMax, fuse, clickMax, clickCount)
         }, 20)
     }
+}
+
+function getPoints(){
+    return Math.floor(points)
 }
 
 //TimeBar Fallback

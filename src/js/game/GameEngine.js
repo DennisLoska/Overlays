@@ -73,9 +73,29 @@ class GameEngine {
         if (correctCombs == this.numPics) {
             unbindTile()
             //console.log("Level completed with " + this.clickCounter + " clicks!")
-            this.levelScore = this.returnScore(this.clickCounter)
+            //this.levelScore = this.returnScore(this.clickCounter)
+            this.levelScore = getPoints()
+            if(this.levelScore < 0){
+                this.levelScore = 0
+            }
+            if(this.levelScore > 100){
+                this.levelScore = 100
+            }
             //console.log("Score for this level: " + this.levelScore.toString())
             this.totalScore += this.levelScore
+
+            let stars = 0
+            if (points >= 100 * 2 / 3) {
+                stars = 3
+            } else if (points < 100 * 2 / 3 && points >= 100 * 1 / 3) {
+                stars = 2
+            } else if (points < 100 * 1 / 3) {
+                stars = 1
+            } else if (points == 0) {
+                stars = 0
+            }
+            this.stars = stars
+
             //console.log("Score: " + this.totalScore.toString())
             this.levelNumber += 1
             if (this.levelScore <= 0) {
@@ -85,6 +105,7 @@ class GameEngine {
                 this.failed = false
                 showMenu()
             }
+
             changeButtonBackground()
             stopTimer()
             setStars(this)
@@ -332,16 +353,17 @@ class GameEngine {
         //console.log("Time needed: " + this.timeNeeded + " milliseconds or " + (this.timeNeeded / 1000) + " seconds.")
 
         let optimum = this.level.clickOptimum
+        console.log("Clicks: " + clicks)
         
         let points = ((2 * optimum - clicks) / optimum) * 50 + 50 * ((2 * time - this.timeNeeded) / time)
-        //console.log("Points before cut: " + points)
+        console.log("Points before cut: " + points)
         if(points > 100){
             points = 100
         } 
         if(points < 0){
             points = 0
         }
-        //console.log("Points after cut: " + points)
+        console.log("Points after cut: " + points)
 
         // Vergabe von Sternen
         let stars = 0
