@@ -341,8 +341,6 @@ a.nav-link:hover {
   text-align: center;
   color: #efefef;
   padding: 0; }
-  #game-container #js-game-wrapper {
-    overflow: hidden; }
   #game-container #js-game-score,
   #game-container #js-game-timer {
     display: flex;
