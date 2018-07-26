@@ -68,10 +68,8 @@ function setScoreAndTime(game) {
 }
 
 function resetScoreAndTime(game) {
-    //$('#js-game-score').html("TOTAL SCORE " + game.totalScore.toString().padStart(5, 0))
     $('#js-game-score').html("TOTAL SCORE ")
     $('#js-game-timer').html(game.totalScore.toString().padStart(5, 0))
-    //$('#js-game-timer').html("LEVEL TIME: 00:" + (game.level.time / 1000))
     $('#js-game-score-menu').html("SCORE 000")
     $('#js-game-timer-menu').html("TIME 00:00")
 }
@@ -107,12 +105,10 @@ function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
     if (clickCount == counter - 1) {
         clickCount++
     }
-    //console.log("timeover: " + timeOver)
+
     points = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * timeMax - timeOver) / timeMax)
     //Xs' = Xs - 200-p/200 * 100%
     let progressBarPosition = -(200 - points) / 200 * 81 * 0.7
-    //console.log("progress", progressBarPosition)
-    //console.log("points", points)
 
     fuse.animate({
         //width: progressBarPosition,
@@ -138,12 +134,6 @@ function stopTimer() {
     clearTimeout(timeOut)
 }
 
-/*
- * Yeah you might wonder why this server-side code is on the frontend - well
- * I am sorry we didn't had the time to start learning Node.js since we had to
- * implement new features on a weekly basis without the time to do things properly :(
- * 
- */
 function setBackgroundImg(levelNum) {
     let images = [
         'background-1.jpg', 'background-2.jpg',
@@ -163,15 +153,6 @@ function setBackgroundImg(levelNum) {
     $('#game-container').css('background-image', 'url(' + url + ')')
 }
 
-/*
- * Hey there, I am so sorry that you have to deal with this mess of code.
- * If, who ever you might be are in this miserable situation that you have to
- * add new features to this GUI then I would suggest you do everthing in/from scratch.
- * 
- * This function dynamically creates the HTML for a N * N game field and uses the iterators to
- * number all cols and rows. These numbers are neccessary, since they will be used in the GameEngine
- * to determine, which exact tile was clicked.
- */
 function loadGameGUI(game, levelNo) {
     setBackgroundImg(levelNo)
     //toggleLvlCompleteBox()

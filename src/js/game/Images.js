@@ -26,7 +26,6 @@ class Images {
         this.imageSet = Math.floor(Math.random() * 13)
 
         this.images = []
-        this.imageData = []
         this.numImages = undefined
         this.width = undefined
         this.height = undefined
@@ -93,7 +92,7 @@ class Images {
     }
 
     get generatedImages() {
-        // instanziiere ImageGenerator und rufe randomImage() auf 
+        // instanziiere ImageGenerator und rufe randomImagePixels() auf 
         this.images = new Array(this.numImages)
 
         let generator = new ImageGenerator(this.numImages, this.gray)
@@ -137,7 +136,6 @@ class Images {
                     generator.addShapes(ctx, i, this.similarShapes) // false = draw shape
                 }
 
-
                 let imgDataWithShapes = ctx.getImageData(0, 0, canvas.width, canvas.height)
                 targetImgData.push(imgDataWithShapes.data)
             }
@@ -147,12 +145,10 @@ class Images {
         }
         this.width = this.images[0].width
         this.height = this.images[0].height
-        return this.images
     }
 
     get targetPixels() {
         let targetPixels = this.targetImgData
-        //console.log("Debug Targetpixels:", targetPixels)
         return targetPixels
     }
 }
