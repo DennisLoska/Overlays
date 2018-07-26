@@ -8,7 +8,7 @@
     color: #efefef;
     padding: 0;
     #js-game-wrapper {
-        overflow: hidden;
+        //overflow: hidden; //firefox only
     }
     #js-game-score,
     #js-game-timer {
