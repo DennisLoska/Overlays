@@ -111,7 +111,7 @@ class Level {
            similarShapes = formen werden an ähnlichen positionen gemalt
            folderImage = benutze bild aus ordner anstatt vom generator */
 
-        this.levelSettings[0] = [5, 2, true, false, false, false, true]
+        this.levelSettings[0] = [4, 2, true, false, false, false, true]
         this.levelSettings[1] = [4, 2, false, false, false, false, false]
         this.levelSettings[2] = [5, 3, false, false, false, false, false]
 
@@ -128,15 +128,15 @@ class Level {
         this.levelSettings[11] = [4, 2, true, false, false, false, true]
         this.levelSettings[12] = [5, 3, false, false, false, false, true]
 
-        this.levelSettings[13] = [3, 2, true, false, false, false, true]
+        this.levelSettings[13] = [4, 2, true, false, false, false, true]
         this.levelSettings[14] = [4, 2, false, false, false, false, true]
         this.levelSettings[15] = [4, 2, true, false, false, false, true]
         this.levelSettings[16] = [4, 3, false, false, false, false, true]
-        this.levelSettings[17] = [4, 3, false, false, false, false, true]
-        this.levelSettings[18] = [5, 3, true, false, false, false, true]
-        this.levelSettings[19] = [5, 3, false, false, false, false, true]
+        this.levelSettings[17] = [4, 3, true, false, false, false, true]
+        this.levelSettings[18] = [5, 3, false, false, false, false, true]
+        this.levelSettings[19] = [5, 3, true, false, false, false, true]
         this.levelSettings[20] = [5, 4, false, false, false, false, true]
-        this.levelSettings[21] = [5, 4, false, false, false, false, true]
+        this.levelSettings[21] = [5, 4, true, false, false, false, true]
 
         //console.log("Level:", this.lvl)
         this.numPics = this.levelSettings[this.lvl][0]
