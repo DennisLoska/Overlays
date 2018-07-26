@@ -74,6 +74,9 @@ class GameEngine {
             unbindTile()
             //console.log("Level completed with " + this.clickCounter + " clicks!")
             //this.levelScore = this.returnScore(this.clickCounter)
+            this.endTime = this.getTime()
+            this.timeNeeded = this.endTime - this.startTime
+            
             this.levelScore = getPoints()
             if(this.levelScore < 0){
                 this.levelScore = 0

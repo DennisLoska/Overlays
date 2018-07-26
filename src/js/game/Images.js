@@ -2,6 +2,7 @@ class Images {
 
     constructor(grayscale) {
         this.imageNames = [
+            "architecture1.jpg", "architecture2.jpg", "architecture3.jpg", "architecture4.jpg", "architecture5.jpg",
             "eyecandy1.jpg", "eyecandy2.jpg", "eyecandy3.jpg", "eyecandy4.jpg", "eyecandy5.jpg",
             "sport1.jpg", "sport2.jpg", "sport3.jpg", "sport4.jpg", "sport5.jpg",
             "fruit1.jpg", "fruit2.jpg", "fruit3.jpg", "fruit4.jpg", "fruit5.jpg",
