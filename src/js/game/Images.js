@@ -2,26 +2,28 @@ class Images {
 
     constructor(grayscale) {
         this.imageNames = [
+            "light1.jpg", "light2.jpg", "light3.jpg", "light4.jpg", "light5.jpg",
+            "typography1.jpg", "typography2.jpg", "typography3.jpg", "typography4.jpg", "typography5.jpg",
+            "summer1.jpg", "summer2.jpg", "summer3.jpg", "summer4.jpg", "summer5.jpg",
             "cactus1.jpg", "cactus2.jpg", "cactus3.jpg", "cactus4.jpg", "cactus5.jpg",
-            "flower1.jpg", "flower2.jpg", "flower3.jpg", "flower4.jpg", "flower5.jpg",
             "veggie1.jpg", "veggie2.jpg", "veggie3.jpg", "veggie4.jpg", "veggie5.jpg",
             "architecture1.jpg", "architecture2.jpg", "architecture3.jpg", "architecture4.jpg", "architecture5.jpg",
             "eyecandy1.jpg", "eyecandy2.jpg", "eyecandy3.jpg", "eyecandy4.jpg", "eyecandy5.jpg",
             "sport1.jpg", "sport2.jpg", "sport3.jpg", "sport4.jpg", "sport5.jpg",
             "fruit1.jpg", "fruit2.jpg", "fruit3.jpg", "fruit4.jpg", "fruit5.jpg",
-            "A2.jpg", "B2.jpg", "C2.jpg", "D2.jpg", "E2.jpg", // 0
-            "A3.jpg", "B3.jpg", "C3.jpg", "D3.jpg", "E3.jpg", // 1
-            "A3w.jpg", "B3w.jpg", "C3w.jpg", "D3w.jpg", "E3w.jpg", // 2
-            "A3c.jpg", "B3c.jpg", "C3c.jpg", "D3c.jpg", "E3c.jpg", // 3
-            "A.jpg", "B.jpg", "C.jpg", "D.jpg", "E.jpg", // 4
-            "F1.jpg", "F2.jpg", "F3.jpg", "F4.jpg", "F5.jpg", // 5
-            "G1.jpg", "G2.jpg", "G3.jpg", "G4.jpg", "G5.jpg", // 6
-            "A3c.jpg", "B2.jpg", "C.jpg", "F4.jpg", "F.jpg", // 7
-            "face1.png", "face2.png", "face3.png", "face4.png", "face5.png", // 8
-            "W1.jpg", "W2.jpg", "W3.jpg", "W4.jpg", "W5.jpg", // 9
-            "F1.jpg", "F2.jpg", "F3.jpg", "F4.jpg", "F5.jpg" // 10
+            "A3.jpg", "B3.jpg", "C3.jpg", "D3.jpg", "E3.jpg",
+            "A3c.jpg", "B3c.jpg", "C3c.jpg", "D3c.jpg", "E3c.jpg", 
+            "F1.jpg", "F2.jpg", "F3.jpg", "F4.jpg", "F5.jpg",
+            "G1.jpg", "G2.jpg", "G3.jpg", "G4.jpg", "G5.jpg",
         ]
-        this.imageSet = 0//Math.floor(Math.random() * 14) + 0
+        //"A.jpg", "B.jpg", "C.jpg", "D.jpg", "E.jpg",
+        //"A2.jpg", "B2.jpg", "C2.jpg", "D2.jpg", "E2.jpg",
+        //"A3w.jpg", "B3w.jpg", "C3w.jpg", "D3w.jpg", "E3w.jpg",
+        //"A3c.jpg", "B2.jpg", "C.jpg", "F4.jpg", "F.jpg",
+        //"face1.png", "face2.png", "face3.png", "face4.png", "face5.png",
+        //"W1.jpg", "W2.jpg", "W3.jpg", "W4.jpg", "W5.jpg",
+
+        this.imageSet = Math.floor(Math.random() * 13)
 
         this.images = []
         this.imageData = []
