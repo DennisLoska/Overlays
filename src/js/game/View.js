@@ -46,7 +46,7 @@ function setScoreAndTime(game) {
     $('#js-game-score-menu').html("SCORE " + game.levelScore.toString().padStart(3, 0))
 
     let seconds = Math.floor(game.timeNeeded / 1000)
-    console.log("Seconds: " + seconds)
+    //console.log("Seconds: " + seconds)
     let minutes = 0
     for (let i = 0; i < seconds; i++) {
         if (i != 0 && (i % 60 == 0)) {
@@ -106,19 +106,26 @@ function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
     if (clickCount == counter - 1) {
         clickCount++
     }
+    //console.log("timeover: " + timeOver)
     let points = ((2 * optimum - clickCount) / optimum) * 50 + 50 * ((2 * timeMax - timeOver) / timeMax)
-    //Xs' = Xs - 200-p/200 * 70%
+    //Xs' = Xs - 200-p/200 * 100%
     let progressBarPosition = -(200 - points) / 200 * 81 * 0.7
+    //console.log("progress", progressBarPosition)
+    //console.log("points", points)
 
     fuse.animate({
+        //width: progressBarPosition,
         'left': progressBarPosition + '%'
     }, 0.02).html()
 
-    if (points < 0) {
+    if (points < 0 && progressBarPosition <= -56.73) {
         unbindTile()
         showFailedMenu()
         stopTimer()
     } else {
+        //if (timeOver > timeMax)
+        //    timeOver = timeMax - 0.02
+        //if (timeOver < timeMax) 
         timeOut = setTimeout(function () {
             updateFuseBar(optimum, timeOver + 0.02, timeMax, fuse, clickMax, clickCount)
         }, 20)
@@ -163,7 +170,7 @@ function stopTimer() {
  * implement new features on a weekly basis without the time to do things properly :(
  * 
  */
-function setBackgroundImg(game, levelNum) {
+function setBackgroundImg(levelNum) {
     /*let images = [
         'back_1.png', 'back_2.jpg',
         'back_3.jpg', 'back_4.jpg', 'back_5.jpg',
@@ -201,7 +208,7 @@ function setBackgroundImg(game, levelNum) {
  * to determine, which exact tile was clicked.
  */
 function loadGameGUI(game, levelNo) {
-    setBackgroundImg(game, levelNo)
+    setBackgroundImg(levelNo)
     //toggleLvlCompleteBox()
     let numPics = defineNumPics(game)
     let area = clearGame()

@@ -1,8 +1,11 @@
 class Images {
 
-    // TODO: take out matrix as parameter for constructor when take out seed and tests!!
-    constructor(matrix, grayscale) {
+    constructor(grayscale) {
         this.imageNames = [
+            "eyecandy1.jpg", "eyecandy2.jpg", "eyecandy3.jpg", "eyecandy4.jpg", "eyecandy5.jpg",
+            "sport1.jpg", "sport2.jpg", "sport3.jpg", "sport4.jpg", "sport5.jpg",
+            "fruit1.jpg", "fruit2.jpg", "fruit3.jpg", "fruit4.jpg", "fruit5.jpg",
+            "drink1.jpg", "drink2.jpg", "drink3.jpg", "drink4.jpg", "drink5.jpg",
             "A2.jpg", "B2.jpg", "C2.jpg", "D2.jpg", "E2.jpg", // 0
             "A3.jpg", "B3.jpg", "C3.jpg", "D3.jpg", "E3.jpg", // 1
             "A3w.jpg", "B3w.jpg", "C3w.jpg", "D3w.jpg", "E3w.jpg", // 2
@@ -15,7 +18,8 @@ class Images {
             "W1.jpg", "W2.jpg", "W3.jpg", "W4.jpg", "W5.jpg", // 9
             "F1.jpg", "F2.jpg", "F3.jpg", "F4.jpg", "F5.jpg" // 10
         ]
-        this.imageSet = Math.floor(Math.random() * 11) + 0
+        this.imageSet = Math.floor(Math.random() * 14) + 0
+
         this.images = []
         this.imageData = []
         this.numImages = undefined
@@ -26,7 +30,6 @@ class Images {
         this.empty = undefined
         this.similarShapes = undefined
 
-        this.mInv = matrix
         this.gray = grayscale
     }
 
@@ -70,7 +73,7 @@ class Images {
                     this.images[i].height = canvas.height
                     let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
                     this.targetImgData[i] = imgData.data
-                    console.log("TargetImgData in Images-Loop:", this.targetImgData)
+                    //console.log("TargetImgData in Images-Loop:", this.targetImgData)
                     loadCounter++
                     if (loadCounter == this.numImages) {
                         debugger
@@ -82,24 +85,22 @@ class Images {
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
             }
         } catch (err) {
-            console.log("Could not load image from folder.", err.message)
+            //console.log("Could not load image from folder.", err.message)
         }
     }
 
     get generatedImages() {
         // instanziiere ImageGenerator und rufe randomImage() auf 
-        console.log("Generated images used.")
+        //console.log("Generated images used.")
         this.images = new Array(this.numImages)
 
-        let seed = Math.floor(Math.random() * 1001) // generiert random Zahl zwischen 0 und 500 
-        // save good seed values: 474, 193, 4, 229, 221, 324, 112, 131, 378
-        let generator = new ImageGenerator(seed, this.numImages, this.mInv, this.gray)
+        let generator = new ImageGenerator(this.numImages, this.gray)
 
         // if level setting contains empty = true -> draw one image without shape
         let empty = this.empty // get from Level
-        console.log("Empty: " + empty)
+        //console.log("Empty: " + empty)
         let indexOfEmptyImage = Math.floor((Math.random() * this.numImages))
-        console.log("Index for empty image: " + indexOfEmptyImage)
+        //console.log("Index for empty image: " + indexOfEmptyImage)
         // random index for empty image so that it's not always in the same position / picture
 
         try {
@@ -146,7 +147,7 @@ class Images {
             }
             this.targetImgData = targetImgData
         } catch (err) {
-            console.log("Could not load image from generator.", err.message)
+            //console.log("Could not load image from generator.", err.message)
         }
         this.width = this.images[0].width
         this.height = this.images[0].height
@@ -155,7 +156,7 @@ class Images {
 
     get targetPixels() {
         let targetPixels = this.targetImgData
-        console.log("Debug Targetpixels:", targetPixels)
+        //console.log("Debug Targetpixels:", targetPixels)
         return targetPixels
     }
 }

@@ -16,7 +16,7 @@ class Level {
             this.levelSettings[i] = new Array()
         }
         this.setSettings()
-        this.printSettings()
+        //this.printSettings()
     }
 
     set level(level) {
@@ -73,7 +73,7 @@ class Level {
 
     get doGenerate() {
         let state = this.generateState
-        console.log("doGenerate: " + state)
+        //console.log("doGenerate: " + state)
         return state
     }
 
@@ -94,15 +94,8 @@ class Level {
     }
 
     calculateClicksForScore() {
-        let maximum
-        let optimum
-
-        //maximum = (parseInt(Math.pow(2, this.numPictures)) - this.numOne) * this.numPictures
-        optimum = this.numPictures * this.numOne
-        maximum = 2 * optimum // alternativ: * this.numOne anstatt * 2
-
-        console.log("Optimum clicks: " + optimum)
-        console.log("Maximum clicks: " + maximum)
+        let optimum = this.numPictures * this.numOne
+        let maximum = 2 * optimum
 
         this.clickMax = maximum
         this.clickOpt = optimum
@@ -119,33 +112,33 @@ class Level {
            folderImage = benutze bild aus ordner anstatt vom generator */
 
         this.levelSettings[0] = [3, 2, false, false, false, false, false]
-        this.levelSettings[1] = [4, 2, false, false, false, true, false]
-        this.levelSettings[2] = [4, 3, false, false, false, false, false]
-        this.levelSettings[3] = [5, 2, false, false, false, false, false]
-        this.levelSettings[4] = [5, 3, false, false, false, false, false]
+        this.levelSettings[1] = [4, 3, false, false, false, false, false]
+        this.levelSettings[2] = [5, 3, false, false, false, false, false]
 
-        this.levelSettings[5] = [3, 2, true, true, false, false, false] // grau
-        this.levelSettings[6] = [3, 2, true, true, true, false, false] // grau und leer 
-        this.levelSettings[7] = [3, 2, true, false, true, false, false] // bunt und leer
-        this.levelSettings[8] = [4, 2, true, false, false, false, false] // bunt
+        this.levelSettings[3] = [3, 2, false, false, false, false, true]
+        this.levelSettings[4] = [4, 2, false, false, false, false, true]
+
+        this.levelSettings[5] = [3, 2, true, true, false, true, false] // grau
+        this.levelSettings[6] = [4, 2, true, true, true, false, false] // grau und leer 
+        this.levelSettings[7] = [4, 2, true, false, true, true, false] // bunt und leer
+        this.levelSettings[8] = [4, 3, true, false, false, false, false] // bunt
         this.levelSettings[9] = [4, 2, true, false, true, false, false] // bunt und leer
-        this.levelSettings[10] = [4, 3, false, false, false, false, false]
-        this.levelSettings[11] = [4, 3, true, false, false, false, false]
 
-        // zwischendurch auch mal realsitische Bilder, die in die jeweilige Phase reinpassen 
+        this.levelSettings[10] = [3, 2, true, false, false, true, true]
+        this.levelSettings[11] = [4, 2, true, false, false, false, true]
+        this.levelSettings[12] = [5, 3, false, false, false, false, true]
 
-        this.levelSettings[12] = [3, 2, false, false, false, false, true]
         this.levelSettings[13] = [3, 2, true, false, false, false, true]
         this.levelSettings[14] = [4, 2, false, false, false, false, true]
-        this.levelSettings[15] = [4, 2, false, false, false, false, true]
-        this.levelSettings[16] = [4, 3, true, false, false, false, true]
+        this.levelSettings[15] = [4, 2, true, false, false, false, true]
+        this.levelSettings[16] = [4, 3, false, false, false, false, true]
         this.levelSettings[17] = [4, 3, false, false, false, false, true]
         this.levelSettings[18] = [5, 3, true, false, false, false, true]
         this.levelSettings[19] = [5, 3, false, false, false, false, true]
         this.levelSettings[20] = [5, 4, false, false, false, false, true]
         this.levelSettings[21] = [5, 4, false, false, false, false, true]
 
-        console.log("Level:", this.lvl)
+        //console.log("Level:", this.lvl)
         this.numPics = this.levelSettings[this.lvl][0]
         this.numOne = this.levelSettings[this.lvl][1]
         this.generateState = this.levelSettings[this.lvl][2]
@@ -157,7 +150,7 @@ class Level {
         }
         //this.lvlTime = k * this.numPics * (1 + gen)
         this.lvlTime = k * Math.log(this.numPics)/Math.log(2) * (1 + gen)
-        console.log("level time: " + this.lvlTime)
+        //console.log("level time: " + this.lvlTime)
 
         this.grayScale = this.levelSettings[this.lvl][3]
         this.empty = this.levelSettings[this.lvl][4]
