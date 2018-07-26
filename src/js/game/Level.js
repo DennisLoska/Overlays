@@ -114,13 +114,14 @@ class Level {
         this.levelSettings[0] = [3, 2, false, false, false, false, false]
         this.levelSettings[1] = [4, 2, false, false, false, true, false]
         this.levelSettings[2] = [4, 3, false, false, false, false, false]
+        //this.levelSettings[3] = [5, 2, false, false, false, true, false]
         this.levelSettings[3] = [5, 3, false, false, false, false, false]
-        this.levelSettings[4] = [5, 3, false, false, true, false, false]
+        this.levelSettings[4] = [5, 3, false, false, false, false, false]
 
         this.levelSettings[5] = [3, 2, true, true, false, true, false] // grau
-        this.levelSettings[6] = [3, 2, true, true, true, false, false] // grau und leer 
-        this.levelSettings[7] = [3, 2, true, false, true, false, false] // bunt und leer
-        this.levelSettings[8] = [4, 2, true, false, false, false, false] // bunt
+        this.levelSettings[6] = [4, 2, true, true, true, false, false] // grau und leer 
+        this.levelSettings[7] = [4, 2, true, false, true, true, false] // bunt und leer
+        this.levelSettings[8] = [4, 3, true, false, false, false, false] // bunt
         this.levelSettings[9] = [4, 2, true, false, true, false, false] // bunt und leer
         this.levelSettings[10] = [4, 3, false, false, false, true, false]
         this.levelSettings[11] = [4, 3, true, false, false, false, false]
