@@ -123,16 +123,15 @@ class Level {
         this.levelSettings[7] = [4, 2, true, false, true, true, false] // bunt und leer
         this.levelSettings[8] = [4, 3, true, false, false, false, false] // bunt
         this.levelSettings[9] = [4, 2, true, false, true, false, false] // bunt und leer
-        this.levelSettings[10] = [4, 3, false, false, false, true, false]
-        this.levelSettings[11] = [4, 3, true, false, false, false, false]
 
-        // zwischendurch auch mal realsitische Bilder, die in die jeweilige Phase reinpassen 
+        this.levelSettings[10] = [3, 2, true, false, false, true, true]
+        this.levelSettings[11] = [4, 2, true, false, false, false, true]
+        this.levelSettings[12] = [5, 3, false, false, false, false, true]
 
-        this.levelSettings[12] = [3, 2, false, false, false, false, true]
         this.levelSettings[13] = [3, 2, true, false, false, false, true]
         this.levelSettings[14] = [4, 2, false, false, false, false, true]
-        this.levelSettings[15] = [4, 2, false, false, false, false, true]
-        this.levelSettings[16] = [4, 3, true, false, false, false, true]
+        this.levelSettings[15] = [4, 2, true, false, false, false, true]
+        this.levelSettings[16] = [4, 3, false, false, false, false, true]
         this.levelSettings[17] = [4, 3, false, false, false, false, true]
         this.levelSettings[18] = [5, 3, true, false, false, false, true]
         this.levelSettings[19] = [5, 3, false, false, false, false, true]
