@@ -131,14 +131,10 @@ class Images {
                 ctx.putImageData(imgData, 0, 0)
 
                 // put random shape of random color on picture
-                // generator.addShapes(ctx, i, false) // i = index of image
-                // i = index of image, false = not empty
                 if(empty == true && i == indexOfEmptyImage){
-                    // Zeile kann man auch ganz weglassen, falls in addShapes sonst nichts anderes mehr passiert
-                    // empty kann man als Parameter in Methode dann ganz weglassen
-                    //generator.addShapes(ctx, i, true, this.similarShapes) // true = don't draw shape
+                    //console.log("Do not draw shapes for image position " + i)
                 } else{
-                    generator.addShapes(ctx, i, false, this.similarShapes) // false = draw shape
+                    generator.addShapes(ctx, i, this.similarShapes) // false = draw shape
                 }
 
 

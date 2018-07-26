@@ -48,14 +48,10 @@ class ImageGenerator {
         return this.rndImagePixels
     }
 
-    addShapes(ctx, index, empty, similar) {
+    addShapes(ctx, index, similar) {
         // add random shapes in random colors to the image
-        // empty = boolean if one picture should be empty
         // similar = boolean if shapes should be in similar positions
         let color = this.colorsForImages[index]
-
-        if(!empty){ 
-        // if empty - don't draw anything
 
         let option = Math.floor(Math.random() * 3) + 1
         //let option = this.counter % 3+1 //static option
@@ -140,7 +136,7 @@ class ImageGenerator {
             } else {
                 let offset = Math.floor(Math.random() * this.width/4) + 50 // min offset of 50
                 offset *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
-                let offset2 = Math.floor(Math.random() * this.width/4) + 20
+                let offset2 = Math.floor(Math.random() * this.width/4) + 20 // min offset of 20
                 offset2 *= Math.floor(Math.random() * 2) == 1 ? 1 : -1
     
                 // random position to start
@@ -163,8 +159,6 @@ class ImageGenerator {
                 ctx.closePath()      
             }
         }
-
-        } // close of if(!empty)
 
         //this.counter++ //static option
     }
