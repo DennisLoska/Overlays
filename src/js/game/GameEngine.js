@@ -74,6 +74,9 @@ class GameEngine {
             unbindTile()
             //console.log("Level completed with " + this.clickCounter + " clicks!")
             //this.levelScore = this.returnScore(this.clickCounter)
+            this.endTime = this.getTime()
+            this.timeNeeded = this.endTime - this.startTime
+            
             this.levelScore = getPoints()
             if(this.levelScore < 0){
                 this.levelScore = 0
@@ -544,9 +547,14 @@ class GameEngine {
             g = this.fi(g)
             b = this.fi(b)
             //a = this.fi(a)
-            r = (r - min) * 255 / (max - min)
+            /*r = (r - min) * 255 / (max - min)
             g = (g - min) * 255 / (max - min)
-            b = (b - min) * 255 / (max - min)
+            b = (b - min) * 255 / (max - min)*/
+            
+            r = Math.min(Math.max(0, r), 255)
+            g = Math.min(Math.max(0, g), 255)
+            b = Math.min(Math.max(0, b), 255)
+
             //a = (a - min) * 255 / (max - min)
             pixels[i + 0] = Math.floor(r)
             pixels[i + 1] = Math.floor(g)

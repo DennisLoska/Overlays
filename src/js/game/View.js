@@ -124,9 +124,6 @@ function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
         showFailedMenu()
         stopTimer()
     } else {
-        //if (timeOver > timeMax)
-        //    timeOver = timeMax - 0.02
-        //if (timeOver < timeMax) 
         timeOut = setTimeout(function () {
             updateFuseBar(optimum, timeOver + 0.02, timeMax, fuse, clickMax, clickCount)
         }, 20)
@@ -136,34 +133,6 @@ function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
 function getPoints(){
     return Math.floor(points)
 }
-
-//TimeBar Fallback
-/*
-function progress(timeLeft, timeTotal, timeBar, clickMax, clickCount) {
-    let progressBarPosition = timeLeft * timeBar.width() / timeTotal
-    timeBar.children(0).animate({
-        width: progressBarPosition
-    }, 0.02).html()
-    if (clickCount == counter - 1)
-        clickCount++
-        //TODO replace all these statements with the equation
-        if (clickCount > clickMax)
-            timeLeft -= 0.02
-    if (clickCount > clickMax + 1)
-        timeLeft -= 0.03
-    if (clickCount > clickMax + 2)
-        timeLeft -= 0.04
-    if (clickCount > clickMax + 3)
-        timeLeft -= 0.05
-    if (timeLeft < 0)
-        timeLeft = 0.02
-    if (timeLeft > 0) {
-        timeOut = setTimeout(function () {
-            progress(timeLeft - 0.02, timeTotal, timeBar, clickMax, clickCount)
-        }, 20)
-    }
-}
-*/
 
 function stopTimer() {
     clearTimeout(timeOut)
@@ -176,15 +145,6 @@ function stopTimer() {
  * 
  */
 function setBackgroundImg(levelNum) {
-    /*let images = [
-        'back_1.png', 'back_2.jpg',
-        'back_3.jpg', 'back_4.jpg', 'back_5.jpg',
-        'back_6.jpg', 'back_7.jpg'
-    ]
-    let i = Math.floor(Math.random() * images.length) + 0
-    let url = 'img/background/' + images[i]
-    $('#game-container').css('background-image', 'url(' + url + ')')*/
-
     let images = [
         'background-1.jpg', 'background-2.jpg',
         'background-3.jpg', 'background-4.jpg', 'background-5.jpg',

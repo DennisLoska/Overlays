@@ -7,9 +7,6 @@
     text-align: center;
     color: #efefef;
     padding: 0;
-    #js-game-wrapper {
-        //overflow: hidden; //firefox only
-    }
     #js-game-score,
     #js-game-timer {
         display: flex;
@@ -473,7 +470,7 @@
         margin-bottom: 3vh;
     }
     .tile-row-5 {
-        margin-bottom: 2vh;
+        margin-bottom: 0vh;
     }
     #game-container #js-game-timer,
     #game-container #js-game-score {
@@ -486,7 +483,7 @@
         height: 630%;
     }
     .tile-square-wrapper .js-vert-light-ray-5 {
-        height: 720%;
+        height: 640%;
     }
 }
 
