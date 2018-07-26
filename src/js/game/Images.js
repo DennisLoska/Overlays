@@ -2,6 +2,10 @@ class Images {
 
     constructor(grayscale) {
         this.imageNames = [
+            "eyecandy1.jpg", "eyecandy2.jpg", "eyecandy3.jpg", "eyecandy4.jpg", "eyecandy5.jpg",
+            "sport1.jpg", "sport2.jpg", "sport3.jpg", "sport4.jpg", "sport5.jpg",
+            "fruit1.jpg", "fruit2.jpg", "fruit3.jpg", "fruit4.jpg", "fruit5.jpg",
+            "drink1.jpg", "drink2.jpg", "drink3.jpg", "drink4.jpg", "drink5.jpg",
             "A2.jpg", "B2.jpg", "C2.jpg", "D2.jpg", "E2.jpg", // 0
             "A3.jpg", "B3.jpg", "C3.jpg", "D3.jpg", "E3.jpg", // 1
             "A3w.jpg", "B3w.jpg", "C3w.jpg", "D3w.jpg", "E3w.jpg", // 2
@@ -14,7 +18,8 @@ class Images {
             "W1.jpg", "W2.jpg", "W3.jpg", "W4.jpg", "W5.jpg", // 9
             "F1.jpg", "F2.jpg", "F3.jpg", "F4.jpg", "F5.jpg" // 10
         ]
-        this.imageSet = Math.floor(Math.random() * 11) + 0
+        this.imageSet = Math.floor(Math.random() * 14) + 0
+
         this.images = []
         this.imageData = []
         this.numImages = undefined

@@ -112,11 +112,11 @@ class Level {
            folderImage = benutze bild aus ordner anstatt vom generator */
 
         this.levelSettings[0] = [3, 2, false, false, false, false, false]
-        this.levelSettings[1] = [4, 2, false, false, false, true, false]
-        this.levelSettings[2] = [4, 3, false, false, false, false, false]
-        //this.levelSettings[3] = [5, 2, false, false, false, true, false]
-        this.levelSettings[3] = [5, 3, false, false, false, false, false]
-        this.levelSettings[4] = [5, 3, false, false, false, false, false]
+        this.levelSettings[1] = [4, 3, false, false, false, false, false]
+        this.levelSettings[2] = [5, 3, false, false, false, false, false]
+
+        this.levelSettings[3] = [3, 2, false, false, false, false, true]
+        this.levelSettings[4] = [4, 2, false, false, false, false, true]
 
         this.levelSettings[5] = [3, 2, true, true, false, true, false] // grau
         this.levelSettings[6] = [4, 2, true, true, true, false, false] // grau und leer 
