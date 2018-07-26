@@ -118,7 +118,7 @@ function updateFuseBar(optimum, timeOver, timeMax, fuse, clickMax, clickCount) {
         'left': progressBarPosition + '%'
     }, 0.02).html()
 
-    if (points < 0) {
+    if (points < 0 && progressBarPosition <= -56.73) {
         unbindTile()
         showFailedMenu()
         stopTimer()
