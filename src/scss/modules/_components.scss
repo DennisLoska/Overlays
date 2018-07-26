@@ -77,8 +77,7 @@ span#about-link:hover {
         z-index: 1;
     }
     #fuse-image {
-        padding-top: 1%;
-        height: auto; //width: 48%;//auto //flex: 1 0;
+        height: auto;
         width: 70%;
         margin-left: -10px;
     }
@@ -130,6 +129,13 @@ span#about-link:hover {
         }
     }
 }
+
+@media only screen and (min-width: 1921px) {
+    #tnt-bar-wrapper {
+        height: 190px;
+    }
+}
+
 
 @media only screen and (max-width: 1440px) {
     #game-menu-wrapper,
