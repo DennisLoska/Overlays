@@ -142,7 +142,7 @@ class Level {
         this.generateState = this.levelSettings[this.lvl][2]
 
         let k = 5000 / 2 // constant k = 5s 
-        let gen = 2 
+        let gen = 2.5
         if(this.generateState == false){
             gen = 1
         }
