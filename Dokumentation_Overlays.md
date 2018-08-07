@@ -1,14 +1,15 @@
 # Overlays
 
+_Autoren: Luisa Kurth, Dennis Loska, 06.08.2018_
+
 www.overlays.dennisloska.com
 
 ## Gruppe
 
-Betreuer: 
-Prof. Dr. Kai-Uwe Barthel 
+Betreuer:<br> Prof. Dr. Kai-Uwe Barthel 
 
-Mitglieder:
-Dennis Loska
+Mitglieder:<br>
+Dennis Loska<br>
 Luisa Kurth
 
 ## Aufgabenstellung
@@ -109,7 +110,6 @@ grunt build
 - Speicherung der getesteten und gut geeigneten Farben in Arrays, aus denen später zufällige Sets ausgewählt werden (Seed und Tests wurden danach rausgenommen)
 - Optimierung der ImageGenerator Klasse durch flexible Anpassung an das jeweilige Level: Pro Level kann festgelegt werden, ob die generierten Bilder in Graustufen oder Farben gemalt werden sollen, ob sie eine ähnliche Position haben sollen und ob es ein "leeres" Feld geben soll, in dem keine Form und keine Farbe gemalt wird (einstellbar in der Level.js Klasse)
 - Nutzung von fotorealistischen Bildern (Image.js Klasse) und selbst generierten Bildern (ImageGenerator.js Klasse) in Abhängigkeit des jeweiligen Levels (ebenfalls in Level.js)
-- 
 
 ## Verwendete Technologien
 
@@ -140,13 +140,21 @@ View.js (keine Klasse an sich, sondern Sammlung von GUI-Funktionen)
 
 ## Funktion des Spiels 
 
-Das Spiel zeigt dem User in jedem Level die zu überlagernden Basisbilder (oben, horizontal) und die zu erreichenden Zielbilder (ganz rechts, vertikal) an. Von jedem Basisbild geht ein Lichtstrahl aus, der vertikal nach unten leuchtet, solange man ihn nicht umleitet. In der Mitte befindet sich eine Matrix auf Glassteinen, die ihre Position verändern, wenn man sie anklickt und dadurch den vertikalen Lichtstrahl nach rechts im 90 Grad Winkel umleiten. Wenn ein Lichtstrahl umgeleitet wird, dann bewirkt das, dass das Basisbild, das den Strahl aussendet, rechts in der vertikalen Spalte neben den Zielbildern angezeigt wird. Wählt man mehrere Bilder in einer Reihe aus – also: werden mehrere Glassteine in einer Reihe gekippt und leiten die Strahlen um – dann werden diese Bilder nach den Regeln der additiven Farbmischung überlagert. Diese Bilder werden als User-Images bezeichnet (eins pro Zeile). Wenn ein User-Image in einer Zeile gleich dem Zielbild der selben Zeile ist, dann wurde eine korrekte Kombination gefunden und die Lampe auf der rechten Seite wird grün. Wenn alle Lampen grün leuchten, der Nutzer also alle Bilder richtig zu den vorgegebenen Zielbildern kombiniert hat, dann ist das Level geschafft. Es wird ein Score ausgegeben, der sich aus der benötigten Zeit (50%) und der benötigten Anzahl an Klicks (50%) errechnet, sowie eine Anzeige von 0-3 Sternen für das Level (die sich aus dem Score ergeben). 
+Das Spiel zeigt dem User in jedem Level die zu überlagernden Basisbilder (oben, horizontal) und die zu erreichenden Zielbilder (ganz rechts, vertikal) an. Von jedem Basisbild geht ein Lichtstrahl aus, der vertikal nach unten leuchtet, solange man ihn nicht umleitet. In der Mitte befindet sich eine Matrix auf Glassteinen, die ihre Position verändern, wenn man sie anklickt und dadurch den vertikalen Lichtstrahl nach rechts im 90 Grad Winkel umleiten.
+
+Wenn ein Lichtstrahl umgeleitet wird, dann bewirkt das, dass das Basisbild, das den Strahl aussendet, rechts in der vertikalen Spalte neben den Zielbildern angezeigt wird. Wählt man mehrere Bilder in einer Reihe aus – also: werden mehrere Glassteine in einer Reihe gekippt und leiten die Strahlen um – dann werden diese Bilder nach den Regeln der additiven Farbmischung überlagert. Diese Bilder werden als User-Images bezeichnet (eins pro Zeile).
+
+Wenn ein User-Image in einer Zeile gleich dem Zielbild der selben Zeile ist, dann wurde eine korrekte Kombination gefunden und die Lampe auf der rechten Seite wird grün. Wenn alle Lampen grün leuchten, der Nutzer also alle Bilder richtig zu den vorgegebenen Zielbildern kombiniert hat, dann ist das Level geschafft. Es wird ein Score ausgegeben, der sich aus der benötigten Zeit (50%) und der benötigten Anzahl an Klicks (50%) errechnet, sowie eine Anzeige von 0-3 Sternen für das Level (die sich aus dem Score ergeben). 
+
 Die Glassteine können beliebig oft angeklickt werden und die Reihenfolge der Auswahl der Basisbilder zur Überlagerung ist nicht wichtig / ausschlaggebend für das entstehende Bild. Ist die Zündschnur (= die dynamische Anzeige der zu verbleibenden Zeit / verbleibenden Klicks) unten im Bild abgelaufen, bevor der Nutzer alle Zeilen richtig kombiniert hat, ist das Level verloren. Diese verkürzt sich durch abgelaufene Zeit und mit jedem Klick auf einen Glasstein. 
 
 ## Erweiterungsmöglichkeiten 
 
-- weitere Anpassungen und Optimierungen des Designs und zusätzliche Animationen (z.B. Explosion des Dynamits nach Ablaufen der Zeit, Rahmen um Bilder auch von Level zu Level verändern)
+- weitere Anpassungen und Optimierungen des Designs und zusätzliche Animationen (z.B. Explosion des Dynamits nach Ablaufen der Zeit, Rahmen um Bilder auch von Level zu Level verändern). Hierfür wurde bereits eine JS-Datei mit dem Namen _animations.js_ im Ordner _js/utils_ angelegt
 - Anbindung an API zur Verwendung eigener / anderer Bilder (Instagram, Flickr etc.)
 - Anbindung einer Datenbank zur Speicherung des Punktestands (Score und Name des Users)
 - Möglichkeit einzelne Level zu wiederholen und nicht immer von vorne anfangen zu müssen
 - Level "freischalten" mit Punkten oder Sternen 
+- weitere ImageSets erstellen oder heraussuchen
+- Einstellungen und gewisse Variablen in eine Konfigurationsdatei auslagern (z.B. die Konfiguration der einzelnen Level)
+- ggf. Code refactoren
