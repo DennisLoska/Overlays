@@ -23,6 +23,82 @@ Gesamtes Sommersemester 2018 (April bis Juli).
 
 Das Spiel wurde auf Grundlage eines von Prof. Dr. Barthel geschriebenen Java Programms entwickelt. Dieses Programm beinhaltete die Matrixmultiplikationen zur Überlagerung der jeweiligen Basisbilder zu einem Zielbild, mitsamt der Generierung einer zufälligen binären Matrix (mit der Dimension von "numPics"x"numPics" und "numOnes" vielen 1 pro Zeile) und der dazugehörigen Inversen. 
 
+## Installation & Konfiguration
+
+### Lokale Entwicklungsumgebung
+
+Zunächst muss Node.js installiert werden. Es sollte hierfür die neuste _LTS_ Variante ab version **8.11.1** installiert werden (https://nodejs.org/en/). Nachdem Node installiert wurde sollte man in den _Projektordner_ Overlays gehen:
+
+```
+cd ./Overlays
+```
+
+Als nächstes muss in den _develop_ Branch gewechselt werden:
+
+```
+git checkout develop
+```
+
+Anschließend müssen die Dependencies, also abhängige Node-Module, welche benötigt werden installiert bzw. runtergeladen werden:
+
+```
+npm install
+```
+
+Nachdem die Dependencies erfolgreich installiert wurden, sollte man den lokalen Server starten können:
+
+```
+node index.js
+```
+
+Es sollte folgende Meldung im Terminal erscheinen:
+
+```
+Node app is running at localhost:5001
+```
+
+Wenn neue Features implementiert wurden, empfiehlt es sich pro Feature einen Commit zu machen und Änderungen erst zu pushen, wenn diese auch vollständig sind bzw. funktionieren. Dies wird mit folgendem Befehl realisiert:
+
+```
+git push origin develop
+```
+
+### Grunt - Taskrunner
+
+Wenn das Repository geklont wurde, können wie oben beschrieben die Dependencies, wozu auch Grunt gehört, installiert werden.
+
+```
+npm install
+```
+
+Nachdem dies erfolgt ist, kann die Grunt CLI installiert werden, um die Grunt-Befehle ausführen zu können. Damit die Bildkompressions-Task funktioniert, müssen zudem noch mit _--save dev_ zwei spezielle Dependencies für die imagemin Task installiert werden. Das alles kann mit den folgenden befehlen realisiert werden:
+
+```
+npm install -g grunt-cli
+npm install --save-dev grunt-contrib-imagemin
+npm install --save-dev imagemin-mozjpeg
+npm install grunt 
+```
+
+Falls als OS **Linux** verwendet wird, muss noch libpng16 installiert werden, wenn es im besagten OS nicht bereits schon installiert wurde, damit die Bildkompression funktioniert:
+
+```
+sudo apt-get install libpng16-16 //if you don't have it
+sudo ldconfig
+```
+
+Jetzt kann getestet werden, ob Grunt erfolgreich installiert wurde, indem der Befehl **grunt** in ./Overlays ausgeführt wird.
+
+```
+grunt
+```
+
+Um das komplette Projekt einschließlich von komprimierten Bildern zu bauen muss folgende Task ausgeführt werden:
+
+```
+grunt build
+```
+
 ## Umsetzung des Projektes
 
 - Implementierung einer binären User-Matrix wUser, die bei jedem Klick aktualisiert wird und die vom User ausgewählten Basisbilder überlagert
@@ -37,6 +113,12 @@ Das Spiel wurde auf Grundlage eines von Prof. Dr. Barthel geschriebenen Java Pro
 
 ## Verwendete Technologien
 
+- Node.js
+- Bootstrap
+- SASS
+- jQuery
+- Canvas-API
+- Grunt
 
 ## Klassen
 
@@ -52,7 +134,7 @@ InverseMatrix.js
 
 Level.js
 
-View.js
+View.js (keine Klasse an sich, sondern Sammlung von GUI-Funktionen)
 
 ## Klassendiagramm
 
