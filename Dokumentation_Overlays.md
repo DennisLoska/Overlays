@@ -120,18 +120,6 @@ grunt build
 - Implementierung eines Seed Farb-Generators mit 3 Tests zur Auswahl von "optimalen" Farben zur Farbüberlagerung (testet Farben auf Abstand zueinander, testet Farben auf Abstand zu 128 / grau, testet Farben auf Grenzbereich nach der Überlagerung)
 - Speicherung der getesteten und gut geeigneten Farben in Arrays, aus denen später zufällige Sets ausgewählt werden (Seed und Tests wurden danach rausgenommen)
 - Optimierung der ImageGenerator Klasse durch flexible Anpassung an das jeweilige Level: Pro Level kann festgelegt werden, ob die generierten Bilder in Graustufen oder Farben gemalt werden sollen, ob sie eine ähnliche Position haben sollen und ob es ein "leeres" Feld geben soll, in dem keine Form und keine Farbe gemalt wird (einstellbar in der Level.js Klasse)
-<<<<<<< HEAD
-- Nutzung von fotorealistischen Bildern (Image.js Klasse) und selbst generierten Bildern (ImageGenerator.js Klasse) in Abhängigkeit des jeweiligen Levels (ebenfalls in Level.js)
-
-## Verwendete Technologien
-
-- Node.js
-- Bootstrap
-- SASS
-- jQuery
-- Canvas-API
-- Grunt
-=======
 - Entwurf einer Strategie, die einen steigenden Schwierigkeitsgrad ermöglicht (erst farbig generierte Bilder, dann Graustufenbilder, dann fotorealistische Bilder und mit zunehmendem Schwierigkeitsgrad doGenerate auf true setzen)
 - Nutzung von fotorealistischen Bildern (Image.js Klasse) und selbst generierten Bildern (ImageGenerator.js Klasse) in Abhängigkeit des jeweiligen Levels (ebenfalls in Level.js festgelegt)
 - Implementierung eines FailedMenu oder Menu, falls ein Level [nicht] geschafft wurde, dass es ermöglicht, in das nächste Level überzugehen, wober die levelNumber erhöht wird und die neuen Parameter für das jeweilige Level aus der Level Klasse geladen werden
@@ -148,7 +136,6 @@ grunt build
 - Erstellung einer zusätzlichen Infoseite, die Links zum Tech-Stack und den Credits beinhaltet, sowie eine kurze Erklärung des Spiels 
 - Raussuchen und testen passender schöner Bilder zur Überlagerung (falls keine generierten Bilder von ImageGenerator genommen werden, sondern Bilder aus dem Ordner geladen werden sollen), dessen Farben sich eignen und nicht den Grenzwert (0-255) überschreiten 
 - Bilder komprimieren, um die Ladezeit zu verkürzen 
->>>>>>> 3fd910f22631f80d2a5944ee46d59fd165f273b3
 
 ## Klassen
 
