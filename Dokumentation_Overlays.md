@@ -9,7 +9,7 @@ www.overlays.dennisloska.com
 Betreuer:<br> Prof. Dr. Kai-Uwe Barthel 
 
 Mitglieder:<br>
-Dennis Loska<br>
+Dennis Loska,<br>
 Luisa Kurth
 
 ## Aufgabenstellung
@@ -23,6 +23,15 @@ Gesamtes Sommersemester 2018 (April bis Juli).
 ## Zur Verfügung gestelltes Material
 
 Das Spiel wurde auf Grundlage eines von Prof. Dr. Barthel geschriebenen Java Programms entwickelt. Dieses Programm beinhaltete die Matrixmultiplikationen zur Überlagerung der jeweiligen Basisbilder zu einem Zielbild, mitsamt der Generierung einer zufälligen binären Matrix (mit der Dimension von "numPics"x"numPics" und "numOnes" vielen 1 pro Zeile) und der dazugehörigen Inversen. 
+
+## Verwendete Technologien
+
+- Node.js
+- Bootstrap
+- SASS
+- jQuery
+- Canvas-API
+- Grunt
 
 ## Installation & Konfiguration
 
@@ -102,6 +111,8 @@ grunt build
 
 ## Umsetzung des Projektes
 
+- Java Programm komplett in JavaScript umschreiben
+- Aufsetzen eines Servers
 - Implementierung einer binären User-Matrix wUser, die bei jedem Klick aktualisiert wird und die vom User ausgewählten Basisbilder überlagert
 - Implementierung eines Scores (50% Zeit und 50% Klickanzahl), einer Zeitangabe und eines Klickzählers
 - Implementierung einer Validierung der Userauswahl (vergleiche User-Matrix mit Lösungsmatrix)
@@ -109,6 +120,7 @@ grunt build
 - Implementierung eines Seed Farb-Generators mit 3 Tests zur Auswahl von "optimalen" Farben zur Farbüberlagerung (testet Farben auf Abstand zueinander, testet Farben auf Abstand zu 128 / grau, testet Farben auf Grenzbereich nach der Überlagerung)
 - Speicherung der getesteten und gut geeigneten Farben in Arrays, aus denen später zufällige Sets ausgewählt werden (Seed und Tests wurden danach rausgenommen)
 - Optimierung der ImageGenerator Klasse durch flexible Anpassung an das jeweilige Level: Pro Level kann festgelegt werden, ob die generierten Bilder in Graustufen oder Farben gemalt werden sollen, ob sie eine ähnliche Position haben sollen und ob es ein "leeres" Feld geben soll, in dem keine Form und keine Farbe gemalt wird (einstellbar in der Level.js Klasse)
+<<<<<<< HEAD
 - Nutzung von fotorealistischen Bildern (Image.js Klasse) und selbst generierten Bildern (ImageGenerator.js Klasse) in Abhängigkeit des jeweiligen Levels (ebenfalls in Level.js)
 
 ## Verwendete Technologien
@@ -119,22 +131,69 @@ grunt build
 - jQuery
 - Canvas-API
 - Grunt
+=======
+- Entwurf einer Strategie, die einen steigenden Schwierigkeitsgrad ermöglicht (erst farbig generierte Bilder, dann Graustufenbilder, dann fotorealistische Bilder und mit zunehmendem Schwierigkeitsgrad doGenerate auf true setzen)
+- Nutzung von fotorealistischen Bildern (Image.js Klasse) und selbst generierten Bildern (ImageGenerator.js Klasse) in Abhängigkeit des jeweiligen Levels (ebenfalls in Level.js festgelegt)
+- Implementierung eines FailedMenu oder Menu, falls ein Level [nicht] geschafft wurde, dass es ermöglicht, in das nächste Level überzugehen, wober die levelNumber erhöht wird und die neuen Parameter für das jeweilige Level aus der Level Klasse geladen werden
+- Implementierung einer updateOnClick() Methode in der GameEngine Klasse, die bei jedem Klick auf einen Glasstein aufgerufen wird (erneuert Matrix wUser, berechnet das aktuelle "Zielbild" der Users ausgehend von den angeklickten Basisbildern, prüft ob eine Zeile richtig kombiniert ist, prüft ob alle Zeilen richtig kombiniert sind, aktualisiert das Validierungssymbol der Lampe, zeigt je nach Anzahl richtiger Kombinationen die Punktzahl und das successful / failed Menu an)
+- Entwurf eines eigenen Designs (Entscheidung zwischen 2D und 3D)
+- Sammlung an sinnvollen Hintergrundbildern (die möglichst einen logischen "Themenbereich" bezogenen Verlauf haben und in einer bestimmten Reihenfolge angeordnet sind) und Rahmen für die einzelnen Bilder anlegen
+- Matrixfelder in GUI durch Glassteine ersetzt
+- Glassteine auf Klick des Users in einem bestimmten Winkel rotieren lassen 
+- Lichtstrahlen aus den einzelnen Basisbildern vertikal scheinen lassen (responsive angepasst)
+- Lichtstrahlen umleiten, falls ein Glasstein gekippt wird oder wieder in die Ausgangsposition zurückversetzt wird (responsive angepasst)
+- Erstellung eines Menus zur Anzeige der Punktzahl und der Zeit, je nachdem ob das Level geschafft wurde oder nicht
+- Implementierung einer Dynamit Zeitanzeige, mit sich dynamisch verschiebender Zündschnur, die sich durch Zeit und Klicks bewegt
+- Berechnung und Anzeige eines gesamten Scores ("total score")
+- Erstellung einer zusätzlichen Infoseite, die Links zum Tech-Stack und den Credits beinhaltet, sowie eine kurze Erklärung des Spiels 
+- Raussuchen und testen passender schöner Bilder zur Überlagerung (falls keine generierten Bilder von ImageGenerator genommen werden, sondern Bilder aus dem Ordner geladen werden sollen), dessen Farben sich eignen und nicht den Grenzwert (0-255) überschreiten 
+- Bilder komprimieren, um die Ladezeit zu verkürzen 
+>>>>>>> 3fd910f22631f80d2a5944ee46d59fd165f273b3
 
 ## Klassen
 
-Game.js
+### Game.js
+- startet Spiel bei Level 0
+- erstellt Instanz von GameEngine Klasse
+- ruft loadGameGUI() Methode auf 
 
-GameEngine.js
+### GameEngine.js
+- verwaltet die Berechnung der Bildüberlagerung (Basis- und Target images)
+- verwaltet Lösungsmatrix und User-Matrix (und somit auch die Überlagerung der des Users ausgewählten Basisbilder)
+- erstellt Instanz von Level Klasse durch die loadLevel() Methode und holt benötigte Parameter
+- erstellt Instanz von Images Klasse um die benötigten Bilder zu laden
+- aktualisiert und validiert die Userauswahl nach jedem Klick mit der updateOnClick() Methode und prüft, ob das Level fertiggestellt wurde
+- zeigt die Überlagerung der dynamischen Userauswahl mit drawUserImage() an, nachdem sie mit calculateUserImage() berechnet wurde
+- stoppt Zeit und berechnet den Score / die Sterne des Users 
+- ruft in Abhängigkeit der Punktezahl des Users nach Beenden des Levels showFailedMenu() oder showMenu() auf
 
-ImageGenerator.js
+### ImageGenerator.js
+- generiert eigene Bilder mithilfe der Canvas API und dem Uint8ClampedArray (wichtig: hier werden RGBA in aufeinanderfolgenden Indexen gespeichert, also: [0] = r, [1] = g, [2] = b, [3] = a, [4] = r, ... etc.)
+- Hintergrund wird mit einem graylevel 128 gefüllt
+- verschiedene Formen (an ähnlichen oder unterschiedlichen Positionen) können mit verschiedenen Farben durch die addShapes() Methode gemalt werden
+- die zur Verfügung stehenden Farben für die gemalten Formen befinden sich in einem colorsForImages Array und werden durch die getTestedColors() Methode geladen, welche alle möglichen getesteten Farbkombinationen enthält und ein random Set in Farben oder in Graustufen zurückgibt
 
-Images.js
+### Images.js
+- Fall 1: lädt Bilder aus Ordnern und übergibt sie GameEngine.js zur Überlagerung
+- Fall 2: erstellt Instanz von ImageGenerator Klasse um zufällig generierte Bilder zur Überlagerung zu übergeben
+- im 2. Fall wird bei der Speicherung des Arrays der zu übergebenden Bilder entschieden, ob die Bilder ein "empty" Bild haben soll und ob die Formen an ähnlichen oder verschiedenen Positionen gemalt werden sollen (kann in Level.js pro Level festgelegt werden), außerdem wird vermittelt, ob es sich um ein Graustufen oder um ein farbiges Bild handeln soll
 
-InverseMatrix.js
+### InverseMatrix.js
 
-Level.js
 
-View.js (keine Klasse an sich, sondern Sammlung von GUI-Funktionen)
+### Level.js
+- legt Vielzahl an Parametern für ein bestimmtes Level an, die sich alle flexibel ändern lassen: [numPics, numOnes, doGenerate, gray, empty, similarShapes, folderImage]
+- numPics gibt die Anzahl der (Basis- und Target-) Bilder und somit die Dimension der Matrix an (numPics x numPics)
+- numOnes gibt die Anzahl der Bilder an, die man für eine richtige Kombination auswählen muss (also die Anzahl an 1en pro Zeile in der Lösungsmatrix)
+- doGenerate (boolean) bestimmt, ob die geladenen Bilder als Basis oder Target images verwendet werden sollen 
+- gray (boolean) gibt an, ob die generierte Bilder in Graustufen erscheinen sollen oder in Farbe
+- empty (boolean) gibt an, ob ein Bild leer sein soll (heißt: in einem der generierten Bilder ist nicht als grau zu sehen)
+- similarShapes (boolean) legt fest, ob Formen der generierten Bilder an sehr ähnlichen Positionen gemalt werden sollen oder zufällig verschieden
+- folderImage (boolean) legt fest, ob in dem Level generierte Bilder verwendet werden sollen (ImageGenerator.js) oder statische Bilder aus dem Ordner geladen werden sollen
+- die Methode calculateClicksForScore() berechnet das Optimum und das Maximum an Klicks für das jeweilige Level 
+
+### View.js 
+(keine Klasse an sich, sondern Sammlung von GUI-Funktionen)
 
 ## Klassendiagramm
 
