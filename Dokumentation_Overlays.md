@@ -110,6 +110,7 @@ grunt build
 
 ## Umsetzung des Projektes
 
+- Java Programm komplett in JavaScript umschreiben
 - Implementierung einer binären User-Matrix wUser, die bei jedem Klick aktualisiert wird und die vom User ausgewählten Basisbilder überlagert
 - Implementierung eines Scores (50% Zeit und 50% Klickanzahl), einer Zeitangabe und eines Klickzählers
 - Implementierung einer Validierung der Userauswahl (vergleiche User-Matrix mit Lösungsmatrix)
@@ -117,8 +118,21 @@ grunt build
 - Implementierung eines Seed Farb-Generators mit 3 Tests zur Auswahl von "optimalen" Farben zur Farbüberlagerung (testet Farben auf Abstand zueinander, testet Farben auf Abstand zu 128 / grau, testet Farben auf Grenzbereich nach der Überlagerung)
 - Speicherung der getesteten und gut geeigneten Farben in Arrays, aus denen später zufällige Sets ausgewählt werden (Seed und Tests wurden danach rausgenommen)
 - Optimierung der ImageGenerator Klasse durch flexible Anpassung an das jeweilige Level: Pro Level kann festgelegt werden, ob die generierten Bilder in Graustufen oder Farben gemalt werden sollen, ob sie eine ähnliche Position haben sollen und ob es ein "leeres" Feld geben soll, in dem keine Form und keine Farbe gemalt wird (einstellbar in der Level.js Klasse)
+- Entwurf einer Strategie, die einen steigenden Schwierigkeitsgrad ermöglicht (erst farbig generierte Bilder, dann Graustufenbilder, dann fotorealistische Bilder und mit zunehmendem Schwierigkeitsgrad doGenerate auf true setzen)
 - Nutzung von fotorealistischen Bildern (Image.js Klasse) und selbst generierten Bildern (ImageGenerator.js Klasse) in Abhängigkeit des jeweiligen Levels (ebenfalls in Level.js)
-- 
+- Implementierung eines FailedMenu oder Menu, falls ein Level [nicht] geschafft wurde, dass es ermöglicht, in das nächste Level überzugehen, wober die levelNumber erhöht wird und die neuen Parameter für das jeweilige Level aus der Level Klasse geladen werden
+- Implementierung einer updateOnClick() Methode in der GameEngine Klasse, die bei jedem Klick auf einen Glasstein aufgerufen wird (erneuert Matrix wUser, berechnet das aktuelle "Zielbild" der Users ausgehend von den angeklickten Basisbildern, prüft ob eine Zeile richtig kombiniert ist, prüft ob alle Zeilen richtig kombiniert sind, aktualisiert das Validierungssymbol der Lampe, zeigt je nach Anzahl richtiger Kombinationen die Punktzahl und das successful / failed Menu an)
+- Entwurf eines eigenen Designs (Entscheidung zwischen 2D und 3D)
+- Sammlung an sinnvollen Hintergrundbildern (die möglichst einen logischen "Themenbereich" bezogenen Verlauf haben und in einer bestimmten Reihenfolge angeordnet sind) und Rahmen für die einzelnen Bilder anlegen
+- Matrixfelder in GUI durch Glassteine ersetzt
+- Glassteine auf Klick des Users in einem bestimmten Winkel rotieren lassen 
+- Lichtstrahlen aus den einzelnen Bildern vertikal scheinen lassen (responsive angepasst)
+- Lichtstrahlen umleiten, falls ein Glasstein gekippt wird oder wieder in die Ausgangsposition zurückversetzt wird (responsive angepasst)
+- Erstellung eines Menus zur Anzeige der Punktzahl und der Zeit, je nachdem ob das Level geschafft wurde oder nicht
+- Implementierung einer Dynamit Zeitanzeige, mit sich dynamisch verschiebender Zündschnur, die sich durch Zeit und Klicks bewegt
+- Berechnung und Anzeige eines gesamten Scores ("total score")
+- Erstellung einer zusätzlichen Infoseite, die Links zum Tech-Stack und den Credits beinhaltet, sowie eine kurze Erklärung des Spiels 
+- Raussuchen und testen passender schöner Bilder zur Überlagerung (falls keine generierten Bilder von ImageGenerator genommen werden, sondern Bilder aus dem Ordner geladen werden sollen), dessen Farben sich eignen und nicht den Grenzwert (0-255) überschreiten 
 
 ## Klassen
 
