@@ -201,6 +201,16 @@ Wenn ein User-Image in einer Zeile gleich dem Zielbild der selben Zeile ist, dan
 
 Die Glassteine können beliebig oft angeklickt werden und die Reihenfolge der Auswahl der Basisbilder zur Überlagerung ist nicht wichtig / ausschlaggebend für das entstehende Bild. Ist die Zündschnur (= die dynamische Anzeige der zu verbleibenden Zeit / verbleibenden Klicks) unten im Bild abgelaufen, bevor der Nutzer alle Zeilen richtig kombiniert hat, ist das Level verloren. Diese verkürzt sich durch abgelaufene Zeit und mit jedem Klick auf einen Glasstein. 
 
+## Spielmodi
+
+### doGenerate = false
+
+![doGenerate = false](matrix_generateFalse.png)
+
+### doGenerate = true 
+
+![doGenerate = true](matrix_generateTrue.png)
+
 ## Erweiterungsmöglichkeiten 
 
 - weitere Anpassungen und Optimierungen des Designs und zusätzliche Animationen (z.B. Explosion des Dynamits nach Ablaufen der Zeit, Rahmen um Bilder auch von Level zu Level verändern). Hierfür wurde bereits eine JS-Datei mit dem Namen _animations.js_ im Ordner _js/utils_ angelegt
