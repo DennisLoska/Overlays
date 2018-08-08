@@ -1,3 +1,6 @@
+/*
+ * Autoren: Dennis Loska, Luisa Kurth
+ */
 class Game {
     /*
      * Loads the main function of View.js, when the game-object is being created

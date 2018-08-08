@@ -1,4 +1,8 @@
 /*
+ * Autoren: Dennis Loska, Luisa Kurth
+ */
+
+/*
  * global variables, which we try to keep at a minimum
  * timeOut is needed for the updateFuseBar function
  * counter also is needed for updateFuseBar and tracks the amount of clicks using clickedTile function

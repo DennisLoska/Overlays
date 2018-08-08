@@ -166,7 +166,7 @@ grunt build
 - im 2. Fall wird bei der Speicherung des Arrays der zu übergebenden Bilder entschieden, ob die Bilder ein "empty" Bild haben soll und ob die Formen an ähnlichen oder verschiedenen Positionen gemalt werden sollen (kann in Level.js pro Level festgelegt werden), außerdem wird vermittelt, ob es sich um ein Graustufen oder um ein farbiges Bild handeln soll
 
 ### InverseMatrix.js
-
+- berechnet die Inverse einer Matrix 
 
 ### Level.js
 - legt Vielzahl an Parametern für ein bestimmtes Level an, die sich alle flexibel ändern lassen: [numPics, numOnes, doGenerate, gray, empty, similarShapes, folderImage]
@@ -180,7 +180,10 @@ grunt build
 - die Methode calculateClicksForScore() berechnet das Optimum und das Maximum an Klicks für das jeweilige Level 
 
 ### View.js 
-(keine Klasse an sich, sondern Sammlung von GUI-Funktionen)
+- keine Klasse an sich, sondern Sammlung von GUI-Funktionen
+- lädt das gesamte Gerüst des Spiels
+- zeigt den Score und die Zeit an
+- updateFuseBar() Methode stellt das Dynamit mit der Zündschnur dar und animiert die Bewegung / Verschiebung 
 
 ## Klassendiagramm
 
@@ -203,4 +206,3 @@ Die Glassteine können beliebig oft angeklickt werden und die Reihenfolge der Au
 - Level "freischalten" mit Punkten oder Sternen 
 - weitere ImageSets erstellen oder heraussuchen
 - Einstellungen und gewisse Variablen in eine Konfigurationsdatei auslagern (z.B. die Konfiguration der einzelnen Level)
-- ggf. Code refactoren

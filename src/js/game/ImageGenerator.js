@@ -1,9 +1,13 @@
+/*
+ * Autoren: Dennis Loska, Luisa Kurth
+ */
+
 class ImageGenerator {
 
     constructor(numImgs, gray) {
         this.width = 150
         this.height = 150
-        //The * 4 at the end represent RGBA which we need to be compatible with canvas.
+        // The * 4 at the end represent RGBA which we need to be compatible with canvas.
         this.rndImagePixels = new Uint8ClampedArray(this.width * this.height * 4)
 
         let graylevel = 128 // gray level for background
@@ -20,20 +24,13 @@ class ImageGenerator {
         }
 
         this.colorsForImages = new Array(numImgs)
-        // initialize - fill with dummy values / zeros
+        // colorsForImages stores the color set that is randomly picked from the available tested sets
+
         for (let i = 0; i < this.colorsForImages.length; i++) {
+            // initialize - fill with dummy values / zeros
             this.colorsForImages[i] = 0
         }
         this.colorsForImages = this.getTestedColors(numImgs, gray)
-    }
-
-    set randomImagePixels(array) {
-        this.rndImagePixels = array
-    }
-
-    get randomImagePixels() {
-        // retrun the pixel array for a random image, use this array in Images() class
-        return this.rndImagePixels
     }
 
     addShapes(ctx, index, similar) {
@@ -42,7 +39,7 @@ class ImageGenerator {
         let color = this.colorsForImages[index]
 
         let option = Math.floor(Math.random() * 3) + 1
-        //let option = this.counter % 3+1 //static option
+
         if (option == 1) {
             // Rectangle
             if(similar){
@@ -147,19 +144,19 @@ class ImageGenerator {
                 ctx.closePath()      
             }
         }
-
-        //this.counter++ //static option
     }
 
-    get randomColor() {
-        let c = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
-        // no black or white:
-        while (c == "#FFFFFF" || c == "#000000")
-            c = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
-        return c
+    set randomImagePixels(array) {
+        this.rndImagePixels = array
+    }
+
+    get randomImagePixels() {
+        // retrun the pixel array for a random image, use this array in Images() class
+        return this.rndImagePixels
     }
 
     getTestedColors(amountOfPictures, grayscale){
+        // all colors have been tested with a seed generator 
         // amount of pictures = amount of colors needed (size of array)
         // grayscale = all black and white images
 
@@ -289,10 +286,7 @@ class ImageGenerator {
         }
     
         let index = Math.floor((Math.random() * setOfColors.length)) // zufälliges set 
-        //console.log("Color set index: " + index)
         this.colorsForImages = setOfColors[index]
-
-        //console.log("Colors: " + this.colorsForImages)
 
         return this.colorsForImages
     }

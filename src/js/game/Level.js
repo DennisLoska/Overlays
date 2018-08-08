@@ -1,3 +1,7 @@
+/*
+ * Autoren: Dennis Loska, Luisa Kurth
+ */
+
 class Level {
 
     constructor(level) {
@@ -136,7 +140,6 @@ class Level {
 
     get doGenerate() {
         let state = this.generateState
-        //console.log("doGenerate: " + state)
         return state
     }
 
