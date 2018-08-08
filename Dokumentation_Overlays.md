@@ -187,6 +187,10 @@ grunt build
 
 ## Klassendiagramm
 
+Anmerkung: Das Diagramm ist nicht komplett vollständig, sondern zeigt nur die wichtigsten Methoden auf und gibt einen Überblick darüber, wie die Klassen miteinander verbunden sind. 
+
+![Diagram](diagram.png)
+
 ## Funktion des Spiels 
 
 Das Spiel zeigt dem User in jedem Level die zu überlagernden Basisbilder (oben, horizontal) und die zu erreichenden Zielbilder (ganz rechts, vertikal) an. Von jedem Basisbild geht ein Lichtstrahl aus, der vertikal nach unten leuchtet, solange man ihn nicht umleitet. In der Mitte befindet sich eine Matrix auf Glassteinen, die ihre Position verändern, wenn man sie anklickt und dadurch den vertikalen Lichtstrahl nach rechts im 90 Grad Winkel umleiten.
