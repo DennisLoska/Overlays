@@ -1,3 +1,7 @@
+/*
+ * Autoren: Dennis Loska, Luisa Kurth
+ */
+
 class GameEngine {
     constructor(levelNumber) {
         this.levelNumber = levelNumber
@@ -100,6 +104,7 @@ class GameEngine {
     }
 
     nextLevelClicked() {
+        // next level button clicked
         $('#btn-next-lvl').click(function () {
             let correctCombs = this.getAmountOfCorrectCombinations()
             if (correctCombs == this.numPics) {
@@ -226,8 +231,9 @@ class GameEngine {
         }
     }
 
-    drawUserImage(row, imgPixels) { // welche Reihe und wie sieht das Bild aktuell aus
-        // dieses Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
+    drawUserImage(row, imgPixels) {
+        // row = welche Reihe; imgPixels = wie sieht das Bild aktuell aus
+        // das Bild verändert sich mit jedem Klick auf die Matrix, heißt es wird immer neu angezeigt
         let pos = parseInt(row) // für index.html ID
         try {
             let canvas = document.getElementById("js-user-image-" + pos.toString())
@@ -269,14 +275,12 @@ class GameEngine {
         let clickMax = this.level.clickMaximum
         let t = this.level.time / 1000 // millisecs
 
-        // let barSize = ((2 * optimum - this.clickCounter) / optimum) * 50 + 50 * ((2 * t - currentT) / t)
-        // barSize / points = 200 when game starts
-
         stopTimer()
         updateFuseBar(optimum, currentT, t, $('#fuse-image'), clickMax, 0) // replace progress with this
     }
 
     getTime() {
+        // returns time
         let t = 0
 
         let timer = new Date()
@@ -294,6 +298,7 @@ class GameEngine {
     }
 
     clearArrays() {
+        // clear all arrays after finishing level 
         this.wUser = new Array(this.numPics, this.numPics)
         this.userImagesPixels = new Array(this.numPics, this.width * this.height * 4) // kombinierte pixel der userauswahl = Zielbild
         this.correctUserCombinations = new Array(this.numPics)
@@ -534,6 +539,7 @@ class GameEngine {
     }
 
     getAmountOfCorrectCombinations() {
+        // returns amount of correct user combinations 
         let correctCombinations = 0
         for (let i = 0; i < this.correctUserCombinations.length; i++) {
             if (this.correctUserCombinations[i] > 0)
@@ -543,6 +549,7 @@ class GameEngine {
     }
 
     setCorrectCombination(index, value) {
+        // set 1 or 0 for right / wrong combination by the user 
         if (value == true)
             this.correctUserCombinations[index] = 1
         else this.correctUserCombinations[index] = 0

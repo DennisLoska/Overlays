@@ -1,4 +1,15 @@
+/*
+ * Autoren: Dennis Loska, Luisa Kurth
+ */
+
 class Game {
+    /*
+     * Loads the main function of View.js, when the game-object is being created
+     * and loads the level-settings afterwards using this.levelNumber.
+     * After that this.calculator is passed to clickedTile(), which itself is a onclick
+     * event-listener. 
+     * 
+    */
     constructor() {
         this.levelNumber = 0
         this.loadGUI()

@@ -1,6 +1,11 @@
+/*
+ * Autoren: Dennis Loska, Luisa Kurth
+ */
+
 class Images {
 
     constructor(grayscale) {
+        // pictures from the folder
         this.imageNames = [
             "light1.jpg", "light2.jpg", "light3.jpg", "light4.jpg", "light5.jpg",
             "typography1.jpg", "typography2.jpg", "typography3.jpg", "typography4.jpg", "typography5.jpg",
@@ -23,7 +28,7 @@ class Images {
         //"face1.png", "face2.png", "face3.png", "face4.png", "face5.png",
         //"W1.jpg", "W2.jpg", "W3.jpg", "W4.jpg", "W5.jpg",
 
-        this.imageSet = Math.floor(Math.random() * 13)
+        this.imageSet = Math.floor(Math.random() * 13) // 13 = imageNames.length / 5 (weil immer 5er sets)
 
         this.images = []
         this.numImages = undefined
@@ -31,10 +36,9 @@ class Images {
         this.height = undefined
         this.targetImgData = new Array()
         this.vertical = undefined // position of target images, where to draw
-        this.empty = undefined
-        this.similarShapes = undefined
-
-        this.gray = grayscale
+        this.empty = undefined // one empty image or not 
+        this.similarShapes = undefined // images with similar position of shapes or not 
+        this.gray = grayscale // images in grayscale or color
     }
 
     set numImage(num) {
@@ -87,14 +91,13 @@ class Images {
                 this.images[i].src = "/img/image_sets/" + this.imageNames[i + this.imageSet * 5]
             }
         } catch (err) {
-            //console.log("Could not load image from folder.", err.message)
+            console.log("Could not load image from folder.", err.message)
         }
     }
 
     get generatedImages() {
         // instanziiere ImageGenerator und rufe randomImagePixels() auf 
         this.images = new Array(this.numImages)
-
         let generator = new ImageGenerator(this.numImages, this.gray)
 
         // if level setting contains empty = true -> draw one image without shape
@@ -105,7 +108,6 @@ class Images {
         try {
             let targetImgData = new Array()
             for (let i = 0; i < this.numImages; i++) {
-                //let generator = new ImageGenerator()
                 this.images[i] = new Image()
                 let canvas
 
@@ -141,7 +143,7 @@ class Images {
             }
             this.targetImgData = targetImgData
         } catch (err) {
-            //console.log("Could not load image from generator.", err.message)
+            console.log("Could not load image from generator.", err.message)
         }
         this.width = this.images[0].width
         this.height = this.images[0].height
