@@ -6,10 +6,13 @@ www.overlays.dennisloska.com
 
 ## Gruppe
 
-Betreuer:<br> Prof. Dr. Kai-Uwe Barthel 
+Betreuer:
 
-Mitglieder:<br>
-Dennis Loska,<br>
+Prof. Dr. Kai-Uwe Barthel 
+
+Mitglieder:
+
+Dennis Loska,
 Luisa Kurth
 
 ## Aufgabenstellung

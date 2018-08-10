@@ -19,7 +19,10 @@
         "grunt-contrib-uglify": "~3.3.0",
         "grunt-contrib-watch": "^1.0.0",
         "grunt-sass": "^2.0.0",
-        "load-grunt-tasks": "^3.5.2"
+        "html-pdf": "^2.2.0",
+        "load-grunt-tasks": "^3.5.2",
+        "markdown-pdf": "^9.0.0",
+        "phantom": "^6.0.3"
     },
     "engines": {
         "node": "4.0.0"
