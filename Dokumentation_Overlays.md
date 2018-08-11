@@ -1,17 +1,14 @@
-# Overlays
+# **Overlays**
 
-_Autoren: Luisa Kurth, Dennis Loska, 06.08.2018_
+_Autoren: Luisa Kurth, Dennis Loska, 11.08.2018_
 
 www.overlays.dennisloska.com
 
 ## Gruppe
 
-Betreuer:
-
-Prof. Dr. Kai-Uwe Barthel 
+Betreuer: Prof. Dr. Kai-Uwe Barthel 
 
 Mitglieder:
-
 Dennis Loska,
 Luisa Kurth
 
@@ -40,7 +37,7 @@ Das Spiel wurde auf Grundlage eines von Prof. Dr. Barthel geschriebenen Java Pro
 
 ### Lokale Entwicklungsumgebung
 
-Zunächst muss Node.js installiert werden. Es sollte hierfür die neuste _LTS_ Variante ab version **8.11.1** installiert werden (https://nodejs.org/en/). Nachdem Node installiert wurde sollte man in den _Projektordner_ Overlays gehen:
+Zunächst muss Node.js installiert werden. Es sollte hierfür die neuste _LTS_ Variante ab version **8.11.1** installiert werden (https://nodejs.org/en/). Nachdem Node installiert wurde geht man in den _Projektordner_ Overlays:
 
 ```
 cd ./Overlays
