@@ -1,0 +1,15 @@
+version: "3"
+services:
+  overlays:
+    container_name: overlays
+    image: "node:10-buster-slim"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/home/node/app
+    restart: unless-stopped
+    ports:
+      - "85:5000/tcp"
+    command: "node index.js"
